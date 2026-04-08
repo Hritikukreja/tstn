@@ -1,0 +1,42 @@
+<div class="homepage-hero-section">
+  <div class="hero-wrapper">
+    {% if section.settings.video_file.sources[1].url %}
+      <video autoplay muted loop playsinline class="hero-video">
+        <source src="{{ section.settings.video_file.sources[1].url }}" type="video/mp4">
+      </video>
+    {% endif %}
+    <div class="hero-content">
+      <div class="page-width">
+        <h2 class="main-heading hero-heading">
+          {{ section.settings.first_heading }}
+        </h2>
+        <p class="content hero-text">
+          {{ section.settings.paragraph }}
+        </p>
+        <div class="button-wrapper">
+        {% if section.settings.button_text != blank %}
+          <a href="{{ section.settings.button_link }}" class="button button--primary">
+            {{ section.settings.button_text }}
+          </a>
+        {% endif %}</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Home video",
+  "tag": "section",
+  "settings": [
+    { "type": "video", "id": "video_file", "label": "MP4 Video File" },
+    { "type": "text", "id": "first_heading", "label": "Heading" },
+    { "type": "text", "id": "paragraph", "label": "Description" },
+    { "type": "url", "id": "button_link", "label": "Button Link" },
+    { "type": "text", "id": "button_text", "label": "Button Text" }
+  ],
+  "presets": [
+    { "name": "Home video" }
+  ]
+}
+{% endschema %}

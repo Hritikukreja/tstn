@@ -1,0 +1,123 @@
+{% if product.metafields.custom.product_faq_content.value %}
+<div class="faq-with-image-section">
+    <div class="page-width">
+        <div class="row">
+            {% if product.metafields.custom.product_faq_content.value %}
+            <div class="section-heading-cont mb-lg-4">
+                {% if section.settings.title != blank %}
+                   <h2 class="main-heading w-100" style="color: {{ section.settings.title_color }}" >{{ section.settings.title }}</h2>
+                {% endif %}
+            </div>
+           {% endif %}
+        </div>
+        <div class="faq-wrapper">
+            <div class="faq-product-img">
+                <div class="img-faq">
+                    {% if product.metafields.custom.product_faq_image %}
+                      <img
+                          srcset="
+                          {%- if product.metafields.custom.product_faq_image.width >= 165 -%}{{ product.metafields.custom.product_faq_image | image_url: width: 165 }} 165w,{%- endif -%}
+                          {%- if product.metafields.custom.product_faq_image.width >= 360 -%}{{ product.metafields.custom.product_faq_image | image_url: width: 360 }} 360w,{%- endif -%}
+                          {%- if product.metafields.custom.product_faq_image.width >= 533 -%}{{ product.metafields.custom.product_faq_image | image_url: width: 533 }} 533w,{%- endif -%}
+                          {%- if product.metafields.custom.product_faq_image.width >= 720 -%}{{ product.metafields.custom.product_faq_image | image_url: width: 720 }} 720w,{%- endif -%}
+                          {%- if product.metafields.custom.product_faq_image.width >= 940 -%}{{ product.metafields.custom.product_faq_image | image_url: width: 940 }} 940w,{%- endif -%}
+                          {%- if product.metafields.custom.product_faq_image.width >= 1066 -%}{{ product.metafields.custom.product_faq_image | image_url: width: 1066 }} 1066w,{%- endif -%}
+                          {{ product.metafields.custom.product_faq_image | image_url }} {{ product.metafields.custom.product_faq_image.width }}w
+                          "
+                          src="{{ product.metafields.custom.product_faq_image | image_url: width: 533 }}"
+                          alt="{{ product.metafields.custom.product_faq_image.alt | default: "Img" }}"
+                          class="img-fluid w-100"
+                          loading="lazy"
+                          width="{{ product.metafields.custom.product_faq_image.width }}"
+                          height="{{ product.metafields.custom.product_faq_image.height }}"
+                      >
+                   {% endif %}
+                </div>
+            </div>
+            {% comment %} <div class="col-lg-7 col-md-7 faq-content-wrap-main">
+                <div class="faq-content-wrap">
+                    {% if product.metafields.custom.product_faq_content.value %}
+                      <div class="product-meta-faq">
+                          {{ product.metafields.custom.product_faq_content.value }}
+                      </div>
+                    {% endif %}
+                </div>
+            </div> {% endcomment %}
+            <div class="col-lg-7 col-md-7 faq-content-wrap-main">
+                <div class="faq-content-wrap">
+                    {% if product.metafields.custom.product_faq_content.value %}
+                    <div class="product-meta-faq">
+                        {{ product.metafields.custom.product_faq_content.value }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Hide all answers initially
+  document.querySelectorAll(".product-meta-faq h5 + *").forEach(answer => {
+    answer.style.display = "none";
+  });
+
+  // Remove any active class initially
+  document.querySelectorAll(".product-meta-faq h5").forEach(h5 => {
+    h5.classList.remove("active");
+
+    // Add arrow icon if not present
+    if (!h5.querySelector(".faq-icon")) {
+      const iconSpan = document.createElement("span");
+      iconSpan.classList.add("faq-icon");
+      h5.appendChild(iconSpan);
+    }
+
+    // Add click event
+    h5.addEventListener("click", function () {
+      const answer = this.nextElementSibling;
+
+      if (this.classList.contains("active")) {
+        // If clicked already active, close it
+        this.classList.remove("active");
+        answer.style.display = "none";
+      } else {
+        // Close all others
+        document.querySelectorAll(".product-meta-faq h5").forEach((q) => {
+          q.classList.remove("active");
+          if (q.nextElementSibling) q.nextElementSibling.style.display = "none";
+        });
+
+        // Open clicked
+        this.classList.add("active");
+        answer.style.display = "block";
+      }
+    });
+  });
+});
+</script>
+
+{% schema %}
+  {
+    "name": "Product FAQ",
+    "settings": [
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Heading",
+          "default": "Add Title"
+        },
+
+        {
+            "type": "header",
+            "content": "Section Spacing"
+        }
+    ],
+    "presets": [
+      {
+        "name": "Product FAQ"
+      }
+    ]
+  }
+{% endschema %}

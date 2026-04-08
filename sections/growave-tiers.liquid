@@ -1,0 +1,1115 @@
+{% if customer %}
+  {% assign vip_tier = customer.metafields["app--144550"]["growave_vip_tier"] %}
+  
+  {% if vip_tier != blank %}
+    
+    <div class="vip_tier_new_updated">
+       {{ vip_tier }}
+    </div>
+  {% endif %}
+{% endif %}
+
+
+
+{% comment %} 
+/************ Main Widget ************/ {% endcomment %}
+<div class="visibility_hidden">
+  <span
+    class="gw-rd-customer-points-balance-inline-widget-placeholder"
+    data-gw-enable-points-name="true"
+    style="display: block"
+></span>
+  </div>
+<div class="growave_tiers_wrapper {% unless customer %} non_customer_class {% endunless %}">
+  <div class="gtw_image_wrapper">
+    {% if section.settings.feat_image != block %}
+      <img src="{{ section.settings.feat_image | img_url:'master' }}">
+    {% endif %}
+  </div>
+  <div class="gtw_content_wrapper">
+    <div class="dashboard-wrapper">
+      <div class="screen-container">
+        <div class="gtw_welcome_wrapper">
+          <div class="main_wrapper_new">
+            <img src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/image_1_1_76d32aab-2b4e-4c68-a411-5a2a219321bf.png?v=1770384836">
+            <p>WELCOME TO TSTN CLUB</p>
+          </div>
+          <div class="customer_name_email">
+            {% if customer %}
+              {% if customer.first_name or customer.last_name %}
+                <h1>
+                  {{ customer.first_name }}
+                  {{ customer.last_name }}
+                </h1>
+              {% elsif customer.email %}
+                {{ customer.email }}
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+        <div class="main-content_new">
+          <div class="bottom-bar">
+            <div class="bottom-bar-inner">
+              <div class="bottom-bar-content">
+                <div class="icons-row">
+                  <div class="icon-box">
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Frame_259.png?v=1770378961"
+                      alt="base-image-icon"
+                      class="icon-img"
+                    >
+                  </div>
+                  <div class="icon-box">
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726226.png?v=1770370711"
+                      alt="scout-image-icon"
+                      class="icon-img"
+                    >
+                  </div>
+                  <div class="icon-box">
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726227.png?v=1770370813"
+                      alt="lead-image-icon"
+                      class="icon-img"
+                    >
+                  </div>
+                </div>
+                <div class="meter-row">
+                  <div class="meter-container">
+                    <div id="meterFill" class="meter-fill" style="width: 0%;"></div>
+                    <div class="meter-segment"></div>
+                    <div class="meter-segment"></div>
+                    <div class="meter-segment"></div>
+                    <div class="meter-segment"></div>
+                    <div class="meter-segment"></div>
+                    <div class="meter-segment"></div>
+                    <div class="meter-segment"></div>
+                    <div class="meter-segment"></div>
+                    <div class="meter-segment"></div>
+                    <div class="meter-segment"></div>
+                    <div class="meter-segment"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="meter-info-wrapper">
+            <div class="cluster-container">
+              <img
+                src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Frame_200_2_3d5c4b39-500f-4fc5-8413-13e8b9961403.png?v=1770378141"
+                alt="image"
+                class="cluster-img"
+              >
+              <div class="cluster-overlay">
+                <span id="modeText">Comfort</span>
+                <span id="gearText">P</span>
+                <span id="tempText">28° C</span>
+                <span id="timeText">00:00</span>
+                <span id="engineText">22c</span>
+                <div class="air-bag-box">
+                  <span class="air-bag-text">Air</span>
+                  <span class="air-bag-text">Bag</span>
+                </div>
+                <div class="battery-box">
+                  <svg class="flash-svg" viewBox="0 0 512 512" fill="white">
+                    <path
+                        d="M315.27 33L96 304h128l-31.51 173.23a2.36 2.36 0 002.33 2.77h0a2.36 2.36 0 001.89-.95L416 208H288l31.66-173.25a2.45 2.45 0 00-2.44-2.75h0a2.42 2.42 0 00-1.95 1z">
+                    </path>
+                  </svg>
+                  <div class="battery-inner">
+                    <img
+                      src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726226_1.png?v=1770370899"
+                      alt="battery"
+                      class="battery-img"
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="gauges-wrapper">
+            <div class="gauge-left">
+              <div class="clock-outer clock-outer-small">
+                <div class="clock-middle">
+                  <div class="clock-inner">
+                    <div class="gauge-content gauge-rotated">
+                      <svg
+                        id="leftGauge"
+                        viewBox="0 0 200 200"
+                        class="gauge-svg"
+                        xmlns="http://www.w3.org/2000/svg"
+                      ></svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Center Gauge -->
+            <div class="gauge-center">
+              <div class="left_icons_wrapper custom_icons_wrapper">
+                {{- 'left-icon.svg' | inline_asset_content -}}
+              </div>
+              <div class="right_icons_wrapper custom_icons_wrapper">
+                {{- 'right-icon.svg' | inline_asset_content -}}
+              </div>
+              <div class="clock-outer">
+                <div class="clock-middle">
+                  <div class="clock-inner">
+                    <div class="gauge-content">
+                      <svg
+                        id="centerGauge"
+                        viewBox="0 0 200 200"
+                        class="gauge-svg"
+                        xmlns="http://www.w3.org/2000/svg"
+                      ></svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="gauge-right">
+              <div class="clock-outer clock-outer-small">
+                <div class="clock-middle">
+                  <div class="clock-inner">
+                    <div class="gauge-content">
+                      <img
+                        id="tier_diagram"
+                        src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_1_a6b1bf9c-5113-4864-b2aa-53fb77a68341.png?v=1770810715"
+                        class="scout-img"
+                        alt="img"
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+<div id="points-output"></div>
+
+<script>
+  // make it global
+  
+</script>
+
+    {% comment %} <script>
+    
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('timeText').textContent = hours + ':' + minutes;
+        }
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        function createSpeedometer(svgId, options) {
+            const value = options.value !== undefined ? options.value : 200;
+            const eMax = options.max !== undefined ? options.max : 240;
+            const step = options.step !== undefined ? options.step : 500;
+            const showValue = options.showValue !== undefined ? options.showValue : true;
+            const showTotalScore = options.showTotalScore !== undefined ? options.showTotalScore : true;
+            const showTrip = options.showTrip !== undefined ? options.showTrip : true;
+            const showHub = options.showHub !== undefined ? options.showHub : false;
+            const showNeedle = options.showNeedle !== undefined ? options.showNeedle : true;
+            const trip = options.trip !== undefined ? options.trip : 12;
+
+            const svg = document.getElementById(svgId);
+            const max = eMax / step;
+            const currentValue = value / step;
+            {% comment %} const minAngle = -180;
+            const maxAngle = 0; {% endcomment %}
+            const minAngle = options.minAngle;
+            const maxAngle = options.maxAngle;
+            const angleRange = maxAngle - minAngle;
+            const angle = minAngle + (currentValue / max) * angleRange;
+
+            svg.innerHTML = '';
+
+            for (let i = 0; i <= max; i++) {
+                const tickAngle = minAngle + (i / max) * angleRange;
+                const radians = (tickAngle * Math.PI) / 180;
+                const r1 = 75;
+                const r2 = 90;
+                const x1 = 100 + r1 * Math.cos(radians);
+                const y1 = 100 + r1 * Math.sin(radians);
+                const x2 = 100 + r2 * Math.cos(radians);
+                const y2 = 100 + r2 * Math.sin(radians);
+
+                const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+
+                // Tick mark
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', x1);
+                line.setAttribute('y1', y1);
+                line.setAttribute('x2', x2);
+                line.setAttribute('y2', y2);
+                line.setAttribute('stroke', 'white');
+                line.setAttribute('stroke-width', '1.5');
+                line.setAttribute('stroke-linecap', 'round');
+                g.appendChild(line);
+
+                const textRadius = 65;
+                const tx = 100 + textRadius * Math.cos(radians);
+                const ty = 100 + textRadius * Math.sin(radians);
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.setAttribute('x', tx);
+                text.setAttribute('y', ty);
+                text.setAttribute('fill', 'white');
+                text.setAttribute('font-size', '7px');
+                text.setAttribute('letter-spacing', 'normal');
+                text.setAttribute('font-weight', 'normal');
+                text.setAttribute('text-anchor', 'middle');
+                text.setAttribute('dominant-baseline', 'middle');
+                text.setAttribute('transform', 'rotate(' + (tickAngle + 90) + ' ' + tx + ' ' + ty + ')');
+                text.textContent = i * step;
+                g.appendChild(text);
+
+                svg.appendChild(g);
+            }
+
+            // Draw sub tick marks
+            for (let i = 0; i < max * 4; i++) {
+                if (i % 4 === 0) continue;
+                const tickAngle = minAngle + (i / (max * 4)) * angleRange;
+                const radians = (tickAngle * Math.PI) / 180;
+                const r1 = 84;
+                const r2 = 90;
+                const x1 = 100 + r1 * Math.cos(radians);
+                const y1 = 100 + r1 * Math.sin(radians);
+                const x2 = 100 + r2 * Math.cos(radians);
+                const y2 = 100 + r2 * Math.sin(radians);
+
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', x1);
+                line.setAttribute('y1', y1);
+                line.setAttribute('x2', x2);
+                line.setAttribute('y2', y2);
+                line.setAttribute('stroke', 'white');
+                line.setAttribute('stroke-width', '1');
+                line.setAttribute('stroke-linecap', 'round');
+                line.setAttribute('opacity', '0.6');
+                svg.appendChild(line);
+            }
+
+            if (showValue) {
+                const valueText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                valueText.setAttribute('x', '100');
+                valueText.setAttribute('y', '70');
+                valueText.setAttribute('fill', 'white');
+                valueText.setAttribute('font-size', '18px');
+                valueText.setAttribute('font-weight', 'normal');
+                valueText.setAttribute('font-family', 'Danger Neue Free Regular');
+                valueText.setAttribute('text-anchor', 'middle');
+                valueText.setAttribute('id', 'center_gauge_value');
+                valueText.setAttribute('dominant-baseline', 'middle');
+                valueText.textContent = (currentValue * step).toFixed(0);
+                svg.appendChild(valueText);
+            }
+
+            // Total Score text
+            if (showTotalScore) {
+                const totalText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                totalText.setAttribute('x', '80');
+                totalText.setAttribute('y', '130');
+                totalText.setAttribute('fill', 'white');
+                totalText.setAttribute('font-size', '6px');
+                totalText.setAttribute('font-family', 'ABC Diatype');
+                totalText.setAttribute('letter-spacing', 'normal');
+                totalText.setAttribute('font-weight', 'bold');
+                totalText.setAttribute('text-anchor', 'middle');
+                totalText.setAttribute('dominant-baseline', 'middle');
+                totalText.textContent = 'TOTAL SCORE: ' + eMax.toFixed(0);
+                svg.appendChild(totalText);
+            }
+
+            if (showTrip) {
+                const tripText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                tripText.setAttribute('x', '130');
+                tripText.setAttribute('y', '130');
+                tripText.setAttribute('fill', 'white');
+                tripText.setAttribute('font-size', '6px');
+                tripText.setAttribute('font-family', 'ABC Diatype');
+                tripText.setAttribute('font-weight', 'bold');
+                tripText.setAttribute('text-anchor', 'middle');
+                tripText.setAttribute('dominant-baseline', 'middle');
+                tripText.textContent = 'TRIP: ' + trip.toFixed(0);
+                svg.appendChild(tripText);
+            }
+
+            // Needle
+            if (showNeedle) {
+                const needleGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+                needleGroup.setAttribute("class", "needle-group");
+              needleGroup.style.transformOrigin = "100px 100px";
+              needleGroup.style.transform = `rotate(${angle}deg)`;
+              needleGroup.dataset.minAngle = minAngle;
+              needleGroup.dataset.maxAngle = maxAngle;
+              needleGroup.dataset.maxValue = eMax;
+              needleGroup.dataset.step = step;
+
+                const shadow = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                shadow.setAttribute('x1', '100');
+                shadow.setAttribute('y1', '100');
+                shadow.setAttribute('x2', '164');
+                shadow.setAttribute('y2', '100');
+                shadow.setAttribute('stroke', 'rgba(0,0,0,0.3)');
+                shadow.setAttribute('stroke-width', '5');
+                shadow.setAttribute('stroke-linecap', 'round');
+                shadow.setAttribute('transform', 'translate(2, 2)');
+                needleGroup.appendChild(shadow);
+
+                {% comment %} const needle = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                needle.setAttribute('x1', '100');
+                needle.setAttribute('y1', '100');
+                needle.setAttribute('x2', '164');
+                needle.setAttribute('y2', '100');
+                needle.setAttribute('stroke', '#ff7a00');
+                needle.setAttribute('stroke-width', '5');
+                needle.setAttribute('stroke-linecap', 'round');
+                needleGroup.appendChild(needle); {% endcomment %}
+
+
+
+
+
+const needleShadow = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+
+const shadowShaft = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+shadowShaft.setAttribute(
+  'd',
+  `
+    M 100 96
+    L 160 98
+    L 160 100
+    L 160 100
+    L 100 103
+    Z
+  `
+);
+shadowShaft.setAttribute('fill', 'rgba(0,0,0,0.45)');
+shadowShaft.setAttribute('transform', 'translate(4,4)');
+
+
+const shadowHub = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+shadowHub.setAttribute('cx', '100');
+shadowHub.setAttribute('cy', '100');
+shadowHub.setAttribute('r', '7');
+shadowHub.setAttribute('fill', 'rgba(0,0,0,0.45)');
+shadowHub.setAttribute('transform', 'translate(4,4)');
+
+needleShadow.appendChild(shadowShaft);
+needleShadow.appendChild(shadowHub);
+
+const needleMain = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+
+const shaft = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+shaft.setAttribute(
+  'd',
+  `
+    M 100 96
+    L 160 98
+    L 160 100
+    L 160 100
+    L 100 103
+    Z
+  `
+);
+shaft.setAttribute('fill', '#ec5607');
+
+
+const hub = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+hub.setAttribute('cx', '100');
+hub.setAttribute('cy', '100');
+hub.setAttribute('r', '7');
+hub.setAttribute('fill', '#ec5607');
+
+needleMain.appendChild(shaft);
+needleMain.appendChild(hub);
+
+needleGroup.appendChild(needleShadow);
+needleGroup.appendChild(needleMain);
+
+
+
+                
+
+                svg.appendChild(needleGroup);
+            }
+
+            const hub = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            hub.setAttribute('cx', '100');
+            hub.setAttribute('cy', '100');
+            hub.setAttribute('r', '5');
+            hub.setAttribute('fill', '#ff7a00');
+            svg.appendChild(hub);
+
+            if (showHub) {
+                const innerHub = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                innerHub.setAttribute('cx', '100');
+                innerHub.setAttribute('cy', '100');
+                innerHub.setAttribute('r', '3');
+                innerHub.setAttribute('fill', '#1c1c1c');
+                svg.appendChild(innerHub);
+            }
+        }
+        // Initialize gauges
+       const TOTAL_POINTS = 4000;
+          createSpeedometer("leftGauge", {
+            step: 1,
+            max: 7,
+            value: 0,
+            showTrip: false,
+            showTotalScore: false,
+            showValue: false,
+            minAngle: -210,
+            maxAngle: 0,
+          });
+          createSpeedometer("centerGauge", {
+            value: 0,
+            max: TOTAL_POINTS,
+            step: 500,
+            showValue: true,
+            showTotalScore: true,
+            showTrip: true,
+            trip: 12,
+            minAngle: -180,
+            maxAngle: 0,
+          });
+          let value = 0;
+
+          function clamp(val, min, max) {
+            return Math.min(Math.max(val, min), max);
+          }
+
+          const baseTierImage =
+            "https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_1_a6b1bf9c-5113-4864-b2aa-53fb77a68341.png?v=1770810715";
+          const scoutTierImage =
+            "https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_2_fe25c4de-0871-4b74-8114-8473656bf229.png?v=1770810716";
+          const leadTierImage =
+            "https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_3_3062b154-429b-4483-939f-042e342cf355.png?v=1770810716";
+
+          const tier_image_el = document.querySelector("#tier_diagram");
+          const bottomBar = document.querySelector("#meterFill");
+          createSpeedometer("leftGauge", {
+            step: 1,
+            max: 7,
+            value: 0,
+            showTrip: false,
+            showTotalScore: false,
+            showValue: false,
+            minAngle: -210,
+            maxAngle: 0,
+          });
+          createSpeedometer("centerGauge", {
+            value: 0,
+            max: TOTAL_POINTS,
+            step: 500,
+            showValue: true,
+            showTotalScore: true,
+            showTrip: true,
+            trip: 12,
+            minAngle: -200,
+            maxAngle: 20,
+          });
+          function setNewTierImgSrc(newSrc) {
+            tier_image_el.src = newSrc;
+          }
+
+          function updateDerivedValues() {
+            const image = clamp(Math.floor((value / 3000) * 2), 0, 2);
+            const newSrc =
+              image === 0
+                ? baseTierImage
+                : image === 1
+                  ? scoutTierImage
+                  : leadTierImage;
+
+            setNewTierImgSrc(newSrc);
+          }
+          function updateNeedle(svgId, value) {
+            const svg = document.getElementById(svgId);
+            const needleGroup = svg.querySelector(".needle-group");
+            if (!needleGroup) return;
+            const minAngle = Number(needleGroup.dataset.minAngle);
+            const maxAngle = Number(needleGroup.dataset.maxAngle);
+            const maxValue = Number(needleGroup.dataset.maxValue);
+            const clampedValue = clamp(value, 0, maxValue);
+            const angle =
+              minAngle + (clampedValue / maxValue) * (maxAngle - minAngle);
+            needleGroup.style.transform = `rotate(${angle}deg)`;
+          }
+          function updateUIFromPoints() {
+            const bottomBarValue = clamp((value / 3000) * 100, 0, 100);
+            const rpmMeterValue = clamp((value / TOTAL_POINTS) * 7, 0, 7); 
+            if (bottomBar) {
+              bottomBar.style.width = bottomBarValue + "%";
+            }
+            updateNeedle("leftGauge", rpmMeterValue);
+            updateNeedle("centerGauge", value);
+          }
+
+          function setValue(newValue) {
+     const valueText = document.querySelector("#center_gauge_value");
+     valueText.textContent = newValue;
+            value = clamp(newValue, 0, TOTAL_POINTS);
+            updateDerivedValues();
+            updateUIFromPoints();
+          }
+window.newPoints1 = null;
+
+  const observer = new MutationObserver(() => {
+ 
+    const img_target = document.querySelector('.vip_tier_new_updated');
+
+if (img_target) {
+  const vipText = img_target.innerText.trim();
+  console.log(vipText); // "Base Camp"
+}
+  const target = document.querySelector(
+    '.gw-rd-customer-points-balance-inline-widget-placeholder'
+  );
+
+  if (!target) return;
+
+  const match = target.textContent.match(/\d+/);
+  if (!match) return;
+
+  const newPoints = Number(match[0]);
+
+  if (window.newPoints1 !== newPoints) {
+    window.newPoints1 = newPoints;
+    console.log('newPoints updated:', window.newPoints1);
+    setValue(window.newPoints1);
+  }
+});
+
+observer.observe(document.body, {
+  childList: true,
+  subtree: true
+});
+
+
+ const newPoints = window.newPoints1 ;
+
+ console.log({newPoints});
+{% comment %}           setValue(0);
+          setTimeout(() => setValue(120), 2000);
+          setTimeout(() => setValue(600), 4000);
+          setTimeout(() => setValue(450), 6000);
+          setTimeout(() => setValue(300), 8000); {% endcomment %}
+          setTimeout(() => setValue(newPoints), 1000);
+    </script> {% endcomment %}
+<script>
+  // storage helpers
+const STORAGE_KEYS = {
+  tier: "tstn_cs_vp_m_t", 
+  bar: "tstn_cs_vp_m_b", 
+};
+function getStoredTier() {
+  return sessionStorage.getItem(STORAGE_KEYS.tier);
+}
+
+function setStoredTier(tier) {
+  sessionStorage.setItem(STORAGE_KEYS.tier, tier);
+}
+
+function getStoredBar() {
+  return Number(sessionStorage.getItem(STORAGE_KEYS.bar) || 0);
+}
+
+function setStoredBar(value) {
+  sessionStorage.setItem(STORAGE_KEYS.bar, value);
+}
+const TIER_ORDER = ["base", "scout", "lead"];
+function getHigherTier(t1, t2) {
+  if (!t1) return t2;
+  if (!t2) return t1;
+  const i1 = TIER_ORDER.indexOf(t1);
+  const i2 = TIER_ORDER.indexOf(t2);
+  return i1 > i2 ? t1 : t2;
+}
+// constants
+const baseTierImage =
+  "https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_1_a6b1bf9c-5113-4864-b2aa-53fb77a68341.png?v=1770810715";
+const scoutTierImage =
+  "https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_2_fe25c4de-0871-4b74-8114-8473656bf229.png?v=1770810716";
+const leadTierImage =
+  "https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_3_3062b154-429b-4483-939f-042e342cf355.png?v=1770810716";
+const TIER_CONFIG = {
+  base: {
+    regex: /\b(base|base\s*camp)\b/i,
+    bar: 0,
+    img: baseTierImage,
+  },
+  scout: {
+    regex: /\b(scout)\b/i,
+    bar: 50,
+    img: scoutTierImage,
+  },
+  lead: {
+    regex: /\b(lead|leader)\b/i,
+    bar: 100,
+    img: leadTierImage,
+  },
+};
+function updateTime() {
+  const now = new Date();
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  document.getElementById("timeText").textContent = hours + ":" + minutes;
+}
+updateTime();
+setInterval(updateTime, 1000);
+function createSpeedometer(svgId, options) {
+  const value = options.value !== undefined ? options.value : 200;
+  const eMax = options.max !== undefined ? options.max : 240;
+  const step = options.step !== undefined ? options.step : 500;
+  const showValue = options.showValue !== undefined ? options.showValue : true;
+  const showTotalScore =
+    options.showTotalScore !== undefined ? options.showTotalScore : true;
+  const showTrip = options.showTrip !== undefined ? options.showTrip : true;
+  const showHub = options.showHub !== undefined ? options.showHub : false;
+  const showNeedle =
+    options.showNeedle !== undefined ? options.showNeedle : true;
+  const trip = options.trip !== undefined ? options.trip : 12;
+  const svg = document.getElementById(svgId);
+  const max = eMax / step;
+  const currentValue = value / step;
+  const minAngle = options.minAngle;
+  const maxAngle = options.maxAngle;
+  const angleRange = maxAngle - minAngle;
+  const angle = minAngle + (currentValue / max) * angleRange;
+  svg.innerHTML = "";
+  for (let i = 0; i <= max; i++) {
+    const tickAngle = minAngle + (i / max) * angleRange;
+    const radians = (tickAngle * Math.PI) / 180;
+    const r1 = 75;
+    const r2 = 90;
+    const x1 = 100 + r1 * Math.cos(radians);
+    const y1 = 100 + r1 * Math.sin(radians);
+    const x2 = 100 + r2 * Math.cos(radians);
+    const y2 = 100 + r2 * Math.sin(radians);
+    const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    line.setAttribute("x1", x1);
+    line.setAttribute("y1", y1);
+    line.setAttribute("x2", x2);
+    line.setAttribute("y2", y2);
+    line.setAttribute("stroke", "white");
+    line.setAttribute("stroke-width", "1.5");
+    line.setAttribute("stroke-linecap", "round");
+    g.appendChild(line);
+    const textRadius = 65;
+    const tx = 100 + textRadius * Math.cos(radians);
+    const ty = 100 + textRadius * Math.sin(radians);
+    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+    text.setAttribute("x", tx);
+    text.setAttribute("y", ty);
+    text.setAttribute("fill", "white");
+    text.setAttribute("font-size", "7px");
+    text.setAttribute("letter-spacing", "normal");
+    text.setAttribute("font-weight", "normal");
+    text.setAttribute("text-anchor", "middle");
+    text.setAttribute("dominant-baseline", "middle");
+    text.setAttribute(
+      "transform",
+      "rotate(" + (tickAngle + 90) + " " + tx + " " + ty + ")",
+    );
+    text.textContent = i * step;
+    g.appendChild(text);
+    svg.appendChild(g);
+  }
+  for (let i = 0; i < max * 4; i++) {
+    if (i % 4 === 0) continue;
+    const tickAngle = minAngle + (i / (max * 4)) * angleRange;
+    const radians = (tickAngle * Math.PI) / 180;
+    const r1 = 84;
+    const r2 = 90;
+    const x1 = 100 + r1 * Math.cos(radians);
+    const y1 = 100 + r1 * Math.sin(radians);
+    const x2 = 100 + r2 * Math.cos(radians);
+    const y2 = 100 + r2 * Math.sin(radians);
+    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    line.setAttribute("x1", x1);
+    line.setAttribute("y1", y1);
+    line.setAttribute("x2", x2);
+    line.setAttribute("y2", y2);
+    line.setAttribute("stroke", "white");
+    line.setAttribute("stroke-width", "1");
+    line.setAttribute("stroke-linecap", "round");
+    line.setAttribute("opacity", "0.6");
+    svg.appendChild(line);
+  }
+  if (showValue) {
+    const valueText = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "text",
+    );
+    valueText.setAttribute("x", "100");
+    valueText.setAttribute("y", "70");
+    valueText.setAttribute("fill", "white");
+    valueText.setAttribute("font-size", "18px");
+    valueText.setAttribute("font-weight", "normal");
+    valueText.setAttribute("font-family", "Danger Neue Free Regular");
+    valueText.setAttribute("text-anchor", "middle");
+    valueText.setAttribute("id", "center_gauge_value");
+    valueText.setAttribute("dominant-baseline", "middle");
+    valueText.textContent = (currentValue * step).toFixed(0);
+    svg.appendChild(valueText);
+  }
+  if (showTotalScore) {
+    const totalText = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "text",
+    );
+    totalText.setAttribute("x", "80");
+    totalText.setAttribute("y", "130");
+    totalText.setAttribute("fill", "white");
+    totalText.setAttribute("font-size", "6px");
+    totalText.setAttribute("font-family", "ABC Diatype");
+    totalText.setAttribute("letter-spacing", "normal");
+    totalText.setAttribute("font-weight", "bold");
+    totalText.setAttribute("text-anchor", "middle");
+    totalText.setAttribute("dominant-baseline", "middle");
+    // {% comment %} totalText.textContent = "TOTAL SCORE: " + eMax.toFixed(0); {% endcomment %}
+    svg.appendChild(totalText);
+  }
+  if (showTrip) {
+    const tripText = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "text",
+    );
+    tripText.setAttribute("x", "130");
+    tripText.setAttribute("y", "130");
+    tripText.setAttribute("fill", "white");
+    tripText.setAttribute("font-size", "6px");
+    tripText.setAttribute("font-family", "ABC Diatype");
+    tripText.setAttribute("font-weight", "bold");
+    tripText.setAttribute("text-anchor", "middle");
+    tripText.setAttribute("dominant-baseline", "middle");
+    // {% comment %} tripText.textContent = "TRIP: " + trip.toFixed(0); {% endcomment %}
+    svg.appendChild(tripText);
+  }
+  if (showNeedle) {
+    const needleGroup = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "g",
+    );
+    needleGroup.setAttribute("class", "needle-group");
+    needleGroup.style.transformOrigin = "100px 100px";
+    needleGroup.style.transform = `rotate(${angle}deg)`;
+    needleGroup.dataset.minAngle = minAngle;
+    needleGroup.dataset.maxAngle = maxAngle;
+    needleGroup.dataset.maxValue = eMax;
+    needleGroup.dataset.step = step;
+    const shadow = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "line",
+    );
+    shadow.setAttribute("x1", "100");
+    shadow.setAttribute("y1", "100");
+    shadow.setAttribute("x2", "164");
+    shadow.setAttribute("y2", "100");
+    shadow.setAttribute("stroke", "rgba(0,0,0,0.3)");
+    shadow.setAttribute("stroke-width", "5");
+    shadow.setAttribute("stroke-linecap", "round");
+    shadow.setAttribute("transform", "translate(2, 2)");
+    needleGroup.appendChild(shadow);
+    const needleShadow = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "g",
+    );
+    const shadowShaft = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "path",
+    );
+    shadowShaft.setAttribute(
+      "d",
+      `M 100 96 L 160 98 L 160 100 L 160 100 L 100 103 Z`,
+    );
+    shadowShaft.setAttribute("fill", "rgba(0,0,0,0.45)");
+    shadowShaft.setAttribute("transform", "translate(4,4)");
+    const shadowHub = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "circle",
+    );
+    shadowHub.setAttribute("cx", "100");
+    shadowHub.setAttribute("cy", "100");
+    shadowHub.setAttribute("r", "7");
+    shadowHub.setAttribute("fill", "rgba(0,0,0,0.45)");
+    shadowHub.setAttribute("transform", "translate(4,4)");
+    needleShadow.appendChild(shadowShaft);
+    needleShadow.appendChild(shadowHub);
+    const needleMain = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "g",
+    );
+    const shaft = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "path",
+    );
+    shaft.setAttribute(
+      "d",
+      `M 100 96 L 160 98 L 160 100 L 160 100 L 100 103 Z`,
+    );
+    shaft.setAttribute("fill", "#ec5607");
+    const hub = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "circle",
+    );
+    hub.setAttribute("cx", "100");
+    hub.setAttribute("cy", "100");
+    hub.setAttribute("r", "7");
+    hub.setAttribute("fill", "#ec5607");
+    needleMain.appendChild(shaft);
+    needleMain.appendChild(hub);
+    needleGroup.appendChild(needleShadow);
+    needleGroup.appendChild(needleMain);
+    svg.appendChild(needleGroup);
+  }
+  const hub = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+  hub.setAttribute("cx", "100");
+  hub.setAttribute("cy", "100");
+  hub.setAttribute("r", "5");
+  hub.setAttribute("fill", "#ff7a00");
+  svg.appendChild(hub);
+  if (showHub) {
+    const innerHub = document.createElementNS(
+      "http://www.w3.org/2000/svg",
+      "circle",
+    );
+    innerHub.setAttribute("cx", "100");
+    innerHub.setAttribute("cy", "100");
+    innerHub.setAttribute("r", "3");
+    innerHub.setAttribute("fill", "#1c1c1c");
+    svg.appendChild(innerHub);
+  }
+}
+const TOTAL_POINTS = 4000;
+let value = 0;
+function clamp(val, min, max) {
+  return Math.min(Math.max(val, min), max);
+}
+
+function getTierFromText(text) {
+  if (!text) return null;
+  for (const key in TIER_CONFIG) {
+    if (TIER_CONFIG[key].regex.test(text)) {
+      return key;
+    }
+  }
+  return null;
+}
+
+function updateFromVipText() {
+  const vipEl = document.querySelector(".vip_tier_new_updated");
+  if (!vipEl) return false;
+  const vipText = vipEl.innerText.trim();
+  const tier = getTierFromText(vipText);
+  if (tier) {
+    applyTierUI(tier);
+    return true;
+  }
+  return false;
+}
+let tier_image_el;
+
+window.addEventListener("DOMContentLoaded", () => {
+  tier_image_el = document.querySelector("#tier_diagram");
+});
+
+const bottomBar = document.querySelector("#meterFill");
+const maxBottomBarPoints = 3000;
+function getBottomBarFromPoints() {
+  return clamp((value / maxBottomBarPoints) * 100, 0, 100);
+}
+function getBottomBarWithTierFloor(tierKey) {
+  const progress = getBottomBarFromPoints();
+  if (!tierKey || !TIER_CONFIG[tierKey]) return progress;
+  const tierMin = TIER_CONFIG[tierKey].bar; // Lead = always full
+  if (tierMin === 100) return 100; // Otherwise enforce minimum
+  return Math.max(progress, tierMin);
+}
+function setNewTierImgSrc(newSrc) {
+  if (tier_image_el) {
+    tier_image_el.src = newSrc;
+  }
+}
+function applyTierUI(tierKey) {
+  if (!tierKey || !TIER_CONFIG[tierKey]) return;
+  const storedTier = getStoredTier();
+  const finalTier = getHigherTier(storedTier, tierKey);
+  setStoredTier(finalTier);
+  const config = TIER_CONFIG[finalTier];
+  console.log({config})
+  setNewTierImgSrc(config.img);
+  if (bottomBar) {
+    const calculatedBar = getBottomBarWithTierFloor(finalTier);
+    const storedBar = getStoredBar();
+    console.log({
+      calculatedBar,storedBar,storedTier,finalTier
+
+    })
+    const finalBar = Math.max(calculatedBar, storedBar);
+    bottomBar.style.width = finalBar + "%";
+    setStoredBar(finalBar);
+  }
+}
+createSpeedometer("leftGauge", {
+  step: 1,
+  max: 7,
+  value: 0,
+  showTrip: false,
+  showTotalScore: false,
+  showValue: false,
+  minAngle: -210,
+  maxAngle: 0,
+});
+createSpeedometer("centerGauge", {
+  value: 0,
+  max: TOTAL_POINTS,
+  step: 500,
+  showValue: true,
+  showTotalScore: true,
+  showTrip: true,
+  trip: 12,
+  minAngle: -200,
+  maxAngle: 20,
+});
+// tier points rule according to the points
+function updateDerivedValues() {
+  let tier;
+  if (value >= 3000) tier = "lead";
+  else if (value >= 1500) tier = "scout";
+  else tier = "base";
+  applyTierUI(tier);
+}
+
+function updateNeedle(svgId, value) {
+  const svg = document.getElementById(svgId);
+  const needleGroup = svg.querySelector(".needle-group");
+  if (!needleGroup) return;
+  const minAngle = Number(needleGroup.dataset.minAngle);
+  const maxAngle = Number(needleGroup.dataset.maxAngle);
+  const maxValue = Number(needleGroup.dataset.maxValue);
+  const clampedValue = clamp(value, 0, maxValue);
+  const angle = minAngle + (clampedValue / maxValue) * (maxAngle - minAngle);
+  needleGroup.style.transform = `rotate(${angle}deg)`;
+}
+// new
+function updateUIFromPoints() {
+  const calculated = clamp((value / 3000) * 100, 0, 100);
+  const storedBar = getStoredBar();
+  console.log({calculated, storedBar})
+  const finalBar = Math.max(calculated, storedBar);
+  if (bottomBar) {
+    bottomBar.style.width = finalBar + "%";
+  }
+  setStoredBar(finalBar);
+}
+function updateGauges() {
+  const rpmMeterValue = clamp((value / TOTAL_POINTS) * 7, 0, 7);
+  updateNeedle("leftGauge", rpmMeterValue);
+  updateNeedle("centerGauge", value);
+}
+function applyPointsFallback() {
+  updateDerivedValues();
+  updateUIFromPoints();
+}
+function setValue(newValue) {
+  const valueText = document.querySelector("#center_gauge_value");
+  if (valueText) {
+    valueText.textContent = newValue;
+    value = clamp(newValue, 0, TOTAL_POINTS);
+    const tierApplied = updateFromVipText();
+    if (!tierApplied) {
+      applyPointsFallback();
+    }
+    updateGauges();
+  } else {
+    console.log("Unable to find the svg to add the value text into");
+  }
+}
+window.newPoints1 = null;
+const observer = new MutationObserver(() => {
+  const target = document.querySelector(
+    ".gw-rd-customer-points-balance-inline-widget-placeholder",
+  );
+  if (!target) return;
+  const match = target.textContent.match(/\d+/);
+  if (!match) return;
+  const newPoints = Number(match[0]);
+  if (window.newPoints1 !== newPoints) {
+    window.newPoints1 = newPoints;
+    setValue(window.newPoints1);
+  }
+});
+observer.observe(document.body, {
+  childList: true,
+  subtree: true,
+});
+const newPoints = window.newPoints1;
+console.log({ newPoints });
+setTimeout(() => {
+  if (newPoints !== null) {
+    setValue(newPoints);
+  }
+}, 1000);
+</script>
+  </div>
+ {% unless customer %}
+<div class="none_customer_signup">
+  <div class="non_custopmer_class">
+    <div class="non_contact_main">
+ <img src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/image_1_1_76d32aab-2b4e-4c68-a411-5a2a219321bf.png?v=1770384836">
+            <p>TSTN ClUBE</p>
+  </div>
+  <h2>JOIN THE TRIBE</h2>
+  <p class="margin_class_top">Earn Points. Get Featured. Unlock the Inner Circle.</p>
+  <a class="new_main_createaccount" href="/account/register">Create Account</a>
+</div>
+</div>
+ {% endunless %}
+</div>
+
+{% unless customer %}
+  <style>
+    @media (max-width: 767px){
+.gtw_image_wrapper {
+    height: 100vh;
+}
+.growave_tiers_wrapper {
+    height: 100vh;
+}
+}
+</style>
+{% endunless %}
+
+
+
+{% schema %}
+{
+  "name": "Growave Tires",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "feat_image",
+      "label": "Background Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Growave Tires"
+    }
+  ]
+}
+{% endschema %}

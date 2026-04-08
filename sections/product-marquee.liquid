@@ -1,0 +1,126 @@
+<div class="{{section.settings.class}} main-section-marquee" 
+     style="background-color:{{ section.settings.color }}" 
+     data-speed="{{ section.settings.speed }}" 
+     data-direction="{{ section.settings.direction }}" 
+     data-pause="{{ section.settings.pause_on_hover }}">
+  <div class="page-width">
+    {% if section.settings.heading != blank %}
+      <h2 class="heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+    {% if section.settings.content != blank %}
+      <div class="main-content">{{ section.settings.content }}</div>
+    {% endif %}
+  </div>
+
+  {% if section.blocks.size > 0 and section.settings.show_marquee_bar %}
+  <div class="marquee-wrapper">
+    <div class="marquee-track">
+      {% for block in section.blocks %}
+<div class="hura-message {% if block.settings.highlight and customer == blank %}hide_the_block{% endif %}" 
+     style="background: {{ block.settings.colorBackground }}; color: {{ block.settings.colorText }};">
+
+          {% if block.settings.topimg != blank %}
+          <div class="top-image">
+            <img class="top-imageee" src="{{ block.settings.topimg | img_url:'master' }}">
+          </div>
+          {% endif %}
+          {% if block.settings.image != blank %}
+          <div class="custom-image">
+            <img src="{{ block.settings.image | img_url:'master' }}">
+          </div>
+          {% endif %}
+          <div class="content">
+            {% if block.settings.authorimg != blank %}
+            <div class="author-images">
+              <img class="author-image" src="{{ block.settings.authorimg | img_url:'master' }}">
+            </div>
+            {% endif %}
+            {{ block.settings.message }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const wrappers = document.querySelectorAll('.marquee-wrapper');
+  if (!wrappers.length) return;
+
+  wrappers.forEach(wrapper => {
+    const track = wrapper.querySelector('.marquee-track');
+    const slides = Array.from(track.children);
+
+    // Duplicate slides 2x for smooth continuous scroll
+    slides.forEach(slide => track.appendChild(slide.cloneNode(true)));
+    slides.forEach(slide => track.appendChild(slide.cloneNode(true)));
+
+    let scroll = 0;
+    const parent = wrapper.closest('.main-section-marquee');
+    const sectionSpeed = parseFloat(parent.dataset.speed) || 1; // px per frame
+    const direction = parent.dataset.direction || 'right';
+    const pauseOnHover = parent.dataset.pause === 'true';
+    const trackWidth = track.scrollWidth / 3;
+
+    let isPaused = false;
+    if (pauseOnHover) {
+      wrapper.addEventListener('mouseenter', () => isPaused = true);
+      wrapper.addEventListener('mouseleave', () => isPaused = false);
+    }
+
+    function step() {
+      if (!isPaused) {
+        scroll += sectionSpeed;
+        if (scroll >= trackWidth) scroll = 0;
+
+        if(direction === 'left') {
+          track.style.transform = `translateX(-${scroll}px)`;
+        } else { // right
+          track.style.transform = `translateX(-${trackWidth - scroll}px)`;
+        }
+      }
+      requestAnimationFrame(step);
+    }
+
+    step();
+  });
+});
+</script>
+
+{% schema %}
+{
+  "name": "Product Marquee",
+  "settings":[
+    { "type":"text","id":"class","label":"Add Your Class" },
+    { "type":"color","id":"color","label":"Background color" },
+    { "type":"text","id":"heading","label":"Heading" },
+    { "type":"richtext","id":"content","label":"Content" },
+    { "type":"checkbox","id":"show_marquee_bar","label":"Show","default":true },
+    { "type":"text","id":"speed","label":"Speed (px/frame)","default":"1" },
+    { "type":"select","id":"direction","label":"Direction","options":[
+      { "value":"left","label":"Left" },
+      { "value":"right","label":"Right" }
+    ], "default":"right" },
+    { "type":"checkbox","id":"pause_on_hover","label":"Pause on hover","default":false }
+  ],
+  "blocks":[
+    {
+      "type":"message",
+      "name":"Message",
+     "settings":[
+  { "type":"image_picker","id":"topimg","label":"Top image" },
+  { "type":"image_picker","id":"image","label":"Main image" },
+  { "type":"textarea","id":"message","label":"Message" },
+  { "type":"color","id":"colorBackground","label":"Background color","default":"#ffffff" },
+  { "type":"color","id":"colorText","label":"Text color","default":"#000000" },
+  { "type":"image_picker","id":"authorimg","label":"Author image" },
+  { "type":"checkbox","id":"highlight","label":"Hide The Block","default":false }
+]
+
+    }
+  ],
+  "presets":[ { "name":"Product Marquee" } ]
+}
+{% endschema %}

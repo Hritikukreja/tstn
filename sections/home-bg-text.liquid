@@ -1,0 +1,107 @@
+<div class="home-bg-text">
+  <div class="home-bg">
+
+    {% if section.settings.background_image != blank %}
+      <img
+        src="{{ section.settings.background_image | img_url: 'master' }}"
+        alt="{{ section.settings.main_heading | escape }}"
+        class="bg-desktop"
+      >
+    {% endif %}
+
+    {% if section.settings.background_image_mobile != blank %}
+      <img
+        src="{{ section.settings.background_image_mobile | img_url: 'master' }}"
+        alt="{{ section.settings.main_heading | escape }}"
+        class="bg-mobile"
+      >
+    {% endif %}
+
+    <div class="content-wrapper">
+      <div class="page-width">
+
+        <h2 class="heading">
+          {{ section.settings.main_heading }}
+        </h2>
+
+        <p class="sub-heading">
+          {{ section.settings.subheading }}
+        </p>
+
+        <div class="content">
+          {{ section.settings.description }}
+        </div>
+
+        {% if section.blocks.size > 0 %}
+          <ul class="stats">
+            {% for block in section.blocks %}
+              <li class="stats-itmes stat-item">
+                <span class="stat-number">{{ block.settings.stat_number }}</span>
+                <span class="stat-label">{{ block.settings.stat_label }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Home bg text",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Desktop Bg Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "Mobile Bg Image"
+    },
+    {
+      "type": "text",
+      "id": "main_heading",
+      "label": "Main Heading",
+      "default": "Meet Shaun"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "Block",
+      "name": "Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "stat_number",
+          "label": "Stat Number"
+        },
+        {
+          "type": "text",
+          "id": "stat_label",
+          "label": "Stat Label"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home bg text"
+    }
+  ]
+}
+{% endschema %}

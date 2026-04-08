@@ -1,0 +1,467 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<div class="growave_shop_talk  color-{{ section.settings.color_scheme }} gradient">
+  <div class="section-{{ section.id }}-padding">
+    <div class="page-width">
+      <div class="shop_tal_main_wrapper">
+        <div class="gst_shop_heading">
+            <h2>{{ section.settings.title }}</h2>
+            <p>{{ section.settings.text }}</p>
+            </div>
+        <div class="gst_main_wrapper">
+<div
+            class="gw-rv-questions-list-widget-placeholder"
+            data-gw-product-id="8347361935495"
+            data-gw-add-question-button-enabled="true"
+            style="display: block"
+          ></div>
+ </div>
+ </div>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Growave Shop Talk",
+  "settings": [
+     {
+      "id": "title",
+      "type": "textarea",
+      "label": "Section Heading"
+    },
+    {
+      "id": "text",
+      "type": "textarea",
+      "label": "Section Text"
+    },
+       {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 52
+    }
+  ],
+  "presets": [
+    {
+      "name": "Growave Shop Talk",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+
+
+<style id="gw-style-for-QuestionsListWidgetV2">
+.gw-qa-item.svelte-13uinpa {
+    display: block !important;
+    font-family: ABC Diatype !important;
+    font-size: 16px !important;
+    color: #fff;
+    background: #1a1a1a  !important;
+}
+.gw-qa-item-answeritem-answer.svelte-1bfj1ck {
+    background: #FF6700 !important;
+    background: linear-gradient(90deg, rgb(255 103 0 / 25%) 0%, rgba(26, 26, 26, 1) 63%) !important;
+    border-top: 1px solid #1D293D;
+    border-radius: 0px !important;
+    border-left: 2px solid #ec560a !important;
+}
+.gw-qa-item.svelte-13uinpa:not(:last-child) {
+    padding-bottom: 0px !important;
+    border-bottom: unset !important;
+}
+.gw-qa-item__author-block.svelte-13uinpa {
+    padding-left: 1em;
+}
+.gw-qa-item__text-block.svelte-13uinpa {
+    padding-left: 1em;
+}
+.gw-qa-item__username.svelte-1ieyiiq {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    position: relative;
+    padding-top: 10px;
+    padding-left: 24px;
+    color: #A8A8A8 !important;
+    letter-spacing: normal;
+}
+.gw-qa-item__username.svelte-1ieyiiq:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 14px;
+    background: url(https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Icon.png?v=1770818637);
+    height: 20px;
+    width: 20px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.gw-view-more__text.svelte-rtmxcf {
+    font-size: 16px !important;
+    letter-spacing: normal;
+}
+.gw-qa-item__body.svelte-13uinpa {
+    position: relative;
+}
+.gw-qa-item__date-block.svelte-13uinpa {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    top: -25px;
+    right: 10px;
+    font-weight: 700 !important;
+}
+.gw-qa-item__body.svelte-13uinpa {
+    gap: 25px !important;
+}
+.gw-qa-item.svelte-13uinpa {
+    border-top: 1px solid #1D293D !important;
+    border: 1px solid #1D293D !important;
+}
+.gw-qa-item-answeritem-answer__username.svelte-1bfj1ck {
+    text-transform: capitalize !important;
+    font-weight: 600;
+    line-height: 16px;
+    font-size: 17px !important;
+    position: relative;
+    color: #ec560a;
+    font-weight: 700 !important;
+    padding-left: 35px;
+}
+.gw-qa-item-answeritem-answer__username.svelte-1bfj1ck:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -8px;
+    background: url(https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Ellipse_2.png?v=1770818657);
+    height: 30px;
+    width: 30px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.gw-qa-item-answeritem-answer__username.svelte-1bfj1ck:before {
+    content: 'VERIFIED PRO';
+    position: absolute;
+    top: -3px;
+    width: fit-content;
+    right: -96px;
+    font-size: 10px;
+    background: #ec560a;
+    color: #fff;
+    padding: 3px 5px;
+}.gw-qa-item-answeritem-answer.svelte-1bfj1ck {
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
+}
+.gw-qa-item__author-block.svelte-13uinpa {
+    padding-top: 15px !important;
+}
+.gw-btn.gw-button.--large {
+    font-size: 18px !important;
+    border: 2px solid #1e293d !important !important;
+}
+  {% unless customer %}
+      .gw-qa-item.svelte-13uinpa {
+    position: relative;
+}
+.gw-qa-item.svelte-13uinpa:not(:nth-child(1)) {
+    position:relative;
+  }
+.gw-qa-item.svelte-13uinpa:not(:nth-child(1))::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Container_1.webp?v=1770985911);
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+}
+     {% endunless %}
+
+
+/****************** V2 CSS START ********************/
+.gw-rv-qa-item .svelte-1avcdxv {
+    display: block !important;
+    font-size: 16px !important;
+    color: #fff;
+    background: #1a1a1a  !important;
+    font-family: ABC Diatype !important;
+}
+.gw-rv-qa-item .svelte-1avcdxv:not(:last-child) {
+    padding-bottom: 0px !important;
+    {% comment %} border-bottom: unset !important; {% endcomment %}
+}
+.gw-rv-qa-item__author {
+    padding-left: 1em !important;
+    font-family:  !important;
+}
+p.gw-text.gw-text--body-md.gw-text--tone-inherit {
+    padding-left: 1em !important;
+}
+.gw-rv-qa-item__reply.svelte-bwghqu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8em;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    background: linear-gradient(90deg, rgb(255 103 0 / 25%) 0%, rgba(26, 26, 26, 1) 63%) !important;
+    border-top: 1px solid #1D293D;
+    border-radius: 0px !important;
+    border-left: 2px solid #ec560a !important;
+}
+
+
+.gw-text--tone-inherit {
+position:Relative;
+
+}
+
+.gw-rv-item-reply .gw-text--heading-md:after {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 5px;
+    background: url(https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Ellipse_2.png?v=1770818657);
+    height: 30px;
+    width: 30px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+li.gw-rv-item-reply.svelte-xv688s .gw-text.gw-text--heading-md.gw-text--tone-inherit{
+    text-transform: capitalize !important;
+    font-weight: 600;
+    line-height: 16px;
+    font-size: 17px !important;
+    position: relative;
+    color: #ec560a !Important;
+    font-weight: 700 !important;
+    padding-left: 60px;
+    padding-bottom: 14px;
+}
+
+
+.gw-rv-item-reply .gw-text--heading-md:before {
+    content: 'VERIFIED PRO';
+    position: absolute;
+    top: 7px;
+    width: fit-content;
+    right: 79%;
+    font-size: 10px;
+    background: #ec560a;
+    color: #fff;
+    padding: 6px 15px;
+}
+.gw-text.gw-text--heading-md.gw-text--tone-inherit {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    position: relative;
+    padding-top: 10px;
+    padding-left: 33px;
+    color: #A8A8A8 !important;
+    letter-spacing: normal;
+}
+.gw-rv-qa-item__author .gw-text.gw-text--heading-md.gw-text--tone-inherit:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10px;
+    background: url(https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Icon.png?v=1770818637);
+    height: 25px;
+    width: 25px;
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+.gw-view-more__content .gw-text.gw-text--body-md.gw-text--tone-inherit {
+    font-size: 16px !important;
+    letter-spacing: normal;
+}
+
+.gw-rv-qa-item__date .svelte-1avcdxv {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    top: -25px;
+    right: 10px;
+    font-weight: 700 !important;
+}
+
+
+li.gw-rv-item-reply.svelte-xv688s {
+    padding-top: 30px !important;
+    padding-bottom: 30px !important;
+}
+
+
+.gw-rv-qa-item {
+    border: 1px solid #1D293D !important;
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    margin-bottom: 20px !IMPORTANT;
+}
+
+.gw-view-more.svelte-131ojgy {
+    padding-bottom: 30px !Important;
+     padding-top: 15px !Important;
+}
+.gw-rv-item-reply .gw-view-more.svelte-131ojgy {
+    padding-bottom: 0px !IMPORTANT;
+}
+
+
+.gw-btn--mode-secondary {
+    background-color: transparent !important;
+}
+.gw-btn--mode-secondary {
+    background-color: transparent !important;
+    border: 1px solid white !important;
+    padding: 11px 20px !IMPORTANT;
+    border-radius: 0px !important;
+    color: white !IMPORTANT;
+}
+span.gw-text.gw-text--body-md.gw-text--tone-inherit.gw-text--medium {
+    font-weight: 400;
+    font-size: 17px !important;
+}
+.gw-btn--mode-secondary:hover {
+    border: 1px solid #ec560a !important;
+    background-color: #ec560a !IMPORTANT;
+}
+
+.gw-btn--mode-primary {
+    background-color: transparent !important;
+    border: 1px solid white !important;
+    padding: 11px 20px !IMPORTANT;
+    border-radius: 0px !important;
+    color: white !IMPORTANT;
+  }
+.gw-btn--mode-primary:hover {
+    border: 1px solid #ec560a !important;
+    background-color: #ec560a !IMPORTANT;
+}
+
+.gw-rv-qa-item__date .gw-text {
+    color: white !IMPORTANT;
+    font-family: 'ABC Diatype';
+    text-align: right !important;
+    position: relative;
+    top: 20px;
+    padding-right: 20px;
+}
+
+ {% unless customer %}
+.gw-rv-qa-item.svelte-1avcdxv {
+    position: relative;
+}
+.gw-rv-qa-item.svelte-1avcdxv:not(:nth-child(1)) {
+    position:relative;
+  }
+.gw-rv-qa-item.svelte-1avcdxv:not(:nth-child(1))::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Container_1.webp?v=1770985911);
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+}
+     {% endunless %}
+
+
+.gw-unstyled-btn.gw-btn--mode-primary {
+    display: none !important;
+}
+
+
+
+/*************************v2 CSS END *********************/
+
+
+ @media (max-width: 767px) {
+.gst_shop_heading h2 {
+    font-size: 30px;
+}
+
+.gst_shop_heading p {
+    max-width: 100%;
+}
+.gst_shop_heading p {
+    font-size: 17px;
+    text-align: left;
+}
+.gst_shop_heading h2 {
+    font-size: 30px;
+    text-align: left;
+}
+.gw-rv-questions-list-header {
+    justify-content: start;
+    margin-top: 20px;
+}
+.shop_tal_main_wrapper {
+    background: #121212;
+    padding: 34px 15px;
+}
+
+
+
+
+/***** V2 MOBILE ******/
+
+
+.gw-rv-item-reply .gw-text--heading-md:before {
+    content: 'VERIFIED PRO';
+    position: absolute;
+    right: 0%;
+}
+}
+
+
+  </style>

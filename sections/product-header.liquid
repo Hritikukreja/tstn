@@ -1,0 +1,79 @@
+<section class="product-header">
+  <div class="page-width">
+    <div class="flex_wrapper">
+      <div class="left_wrapper-footer">
+        {% if section.settings.image != blank %}
+        <a href="/">
+          <img class="logo-image" src="{{ section.settings.image | img_url:'master' }}"></a>
+        {%- endif %}
+      </div>
+
+      <div class="right_wrapper-footer">
+      <div class="account-links">
+        {% if customer %}
+        <a class="header-links" href="{{ section.settings.url }}">{{  section.settings.text }}</a>
+        {% endif %}
+        {% unless customer %}
+          <a class="header-links_new" href="{{ section.settings.url1 }}">{{  section.settings.text1 }}</a>
+        {% endunless %}
+      </div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product-header",
+  "tag": "section",
+  "settings": [
+    {
+      "id": "image",
+      "type": "image_picker",
+      "label": "Choose an image"
+    },
+    {
+      "type": "url",
+      "id": "url",
+      "label": "Link"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text"
+    },
+     {
+      "type": "url",
+      "id": "url1",
+      "label": "Link W/o Customer"
+    },
+    {
+      "type": "text",
+      "id": "text1",
+      "label": "Text W/o Customer"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product-header"
+    }
+  ]
+}
+{% endschema %}
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const header = document.querySelector('.product-header');
+
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 50) { // scroll threshold
+      header.classList.add('sticky');
+    } else {
+      header.classList.remove('sticky');
+    }
+  });
+});
+</script>

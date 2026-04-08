@@ -1,0 +1,175 @@
+<div class="{{section.settings.class}} join-crew-section">
+  <div class="join-crew-padding">
+    <div class="join-back-image">
+      {% if section.settings.background_image != blank %}
+        <div class="join-img">
+          <img
+            src="{{ section.settings.background_image | image_url: width: 2000 }}"
+            alt="{{ section.settings.background_image.alt | escape }}"
+            loading="lazy"
+          >
+        </div>
+      {% endif %}
+
+      {% if section.settings.background_image_mobile != blank %}
+        <div class="join-img-mobile">
+          <img
+            src="{{ section.settings.background_image_mobile | image_url: width: 2000 }}"
+            alt="{{ section.settings.background_image_mobile.alt | escape }}"
+            loading="lazy"
+          >
+        </div>
+      {% endif %}
+
+      <div class="join-crew-wrapper">
+        <div class="page-width">
+          <div class="crew-content">
+            {% if section.settings.main_heading != blank %}
+              <h2 class="heading">{{ section.settings.main_heading }}</h2>
+            {% endif %}
+
+
+<div class="custom-table">
+  <div class="table-wrapper">
+
+
+    <div class="table-row table-header">
+      <div class="table-cell">{{ product.metafields.custom.column_1_title }}</div>
+      <div class="table-cell">{{ product.metafields.custom.col_1_value }}</div>
+      <div class="table-cell">{{ product.metafields.custom.column_2_title }}</div>
+            <div class="table-cell">{{ product.metafields.custom.col_2_value }}</div>
+      <div class="table-cell">{{ product.metafields.custom.column_3_title }}</div>
+            <div class="table-cell">{{ product.metafields.custom.col_3_value }}</div>
+      <div class="table-cell">{{ product.metafields.custom.column_4_title }}</div>
+            <div class="table-cell">{{ product.metafields.custom.col_4_value }}</div>
+      <div class="table-cell">{{ product.metafields.custom.column_5_title }}</div>
+            <div class="table-cell">{{ product.metafields.custom.col_5_value }}</div>
+    </div>
+
+  </div>
+</div>
+
+
+            {% if section.settings.subheading != blank %}
+              <div class="sub-heading">
+                <h3>{{ section.settings.subheading }}</h3>
+              </div>
+            {% endif %}
+
+            {% if section.settings.description != blank %}
+              <div class="textarea">
+                {{ section.settings.description }}
+              </div>
+            {% endif %}
+
+            {% if section.blocks.size > 0 %}
+              <ul class="features-list">
+                {% for block in section.blocks %}
+                  <li class="feature-item" {{ block.shopify_attributes }}>
+                    {% if block.settings.icon != blank %}
+                      <img
+                        src="{{ block.settings.icon | image_url: width: 80 }}"
+                        alt="{{ block.settings.icon.alt | escape }}"
+                        loading="lazy"
+                      >
+                    {% endif %}
+
+                    {% if block.settings.title != blank %}
+                      <div class="feature-title">{{ block.settings.title }}</div>
+                    {% endif %}
+
+                    {% if block.settings.description != blank %}
+                      <p class="feature-text">{{ block.settings.description }}</p>
+                    {% endif %}
+                  </li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+
+            {% if section.settings.button_text != blank and section.settings.button_link != blank %}
+              <a href="{{ section.settings.button_link }}" class="button button--primary">
+                {{ section.settings.button_text }}
+              </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Join Crew",
+  "settings": [
+    {
+      "type": "text",
+      "id": "class",
+      "label": "Add Your Class"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Desktop Bg image"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image_mobile",
+      "label": "Mobile Bg image"
+    },
+    {
+      "type": "text",
+      "id": "main_heading",
+      "label": "Main Heading"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Sub Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Join Crew"
+    }
+  ]
+}
+{% endschema %}

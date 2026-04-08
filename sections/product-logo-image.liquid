@@ -1,0 +1,33 @@
+<section class="product-logo-image" style="background-color:{{ section.settings.color }}">
+  <div class="page-width">
+    <div class="flex_wrapper">
+      {% if section.settings.image != blank %}
+        <img class="logo-image" src="{{ section.settings.image | img_url:'master' }}">
+      {%- endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product logo image",
+  "tag": "section",
+  "settings": [
+    {
+      "id": "color",
+      "type": "color",
+      "label": "Choose background color"
+    },
+    {
+      "id": "image",
+      "type": "image_picker",
+      "label": "Choose an image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product logo image"
+    }
+  ]
+}
+{% endschema %}

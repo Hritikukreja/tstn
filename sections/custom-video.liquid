@@ -1,0 +1,282 @@
+<section class="letest-from-trail-section">
+    <div class="page-width">
+        <div class="trail-header">
+            <div class="section-heading">
+                <h2 class="heading">{{ section.settings.main_heading }}</h2>
+            </div>
+            <div class="main-textarea">
+                <div class="textarea">{{ section.settings.description }}</div>
+            </div>
+        </div>
+        
+        <div class="video-gallery-content">
+            {% assign first_video = section.blocks | where: "type", "video" | first %}
+            {% if first_video and first_video.settings.video %}
+            <div class="video-main-wrapper">
+                <div class="video-main-player" id="mainPlayer">
+                    <video id="mainVideo" preload="auto" playsinline>
+                        {% for source in first_video.settings.video.sources %}
+                            <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                        {% endfor %}
+                    </video>
+                    
+                    <div class="video-play-overlay" id="playOverlay"></div>
+                    <div class="video-center-play-btn" id="centerPlayBtn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="70" height="49" viewBox="0 0 70 49" fill="none" class="play-icon">
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M62.3486 1.4624C65.3604 2.26736 67.7321 4.63959 68.537 7.65082C70 13.1103 70 24.4996 70 24.4996C70 24.4996 70 35.8894 68.537 41.3483C67.7321 44.3596 65.3604 46.7323 62.3486 47.5367C56.8897 48.9997 34.9997 48.9997 34.9997 48.9997C34.9997 48.9997 13.1103 48.9997 7.6514 47.5367C4.63959 46.7323 2.26793 44.3596 1.46298 41.3483C0 35.8894 0 24.4996 0 24.4996C0 24.4996 0 13.1103 1.46298 7.65082C2.26793 4.63959 4.63959 2.26736 7.6514 1.4624C13.1103 0 34.9997 0 34.9997 0C34.9997 0 56.8897 0 62.3486 1.4624ZM46.1856 24.5002L28 34.9997V13.9994L46.1856 24.5002Z" fill="#FF0000"/>
+                        </svg>
+                        <svg viewBox="0 0 24 24" class="pause-icon" style="display:none;">
+                            <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z" fill="white"/>
+                        </svg>
+                    </div>
+                    <div class="video-bottom-text" id="bottomText">
+                        {{ first_video.settings.bottom_text }}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if section.blocks.size > 0 %}
+                <div class="video-stats-sidebar">
+                    {% for block in section.blocks %}
+                        {% if block.type == 'text' %}
+                            <div class="stat-block">
+                                <div class="stat-title">
+                                    <div class="social-text">{{ block.settings.stat_title }}</div>
+                                </div>
+                                <div class="stat-description">
+                                     <div class="social-desc">{{ block.settings.stat_desc }}</div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        {% if section.blocks.size > 0 %}
+            <div class="video-thumbnails-wrapper">
+                <div class="video-thumbnails">
+                    {% for block in section.blocks %}
+                    {% if block.type == 'video' and block.settings.video %}
+                        <div class="video-thumbnail" 
+                            data-video-index="{{ forloop.index0 }}"
+                            data-title="{{ block.settings.video_title | escape }}"
+                            data-bottom="{{ block.settings.bottom_text | escape }}">
+                        {% if block.settings.video.preview_image %}
+                            <img src="{{ block.settings.video.preview_image | image_url: width: 600 }}" 
+                                alt="{{ block.settings.video_title }}"
+                                loading="lazy">
+                        {% else %}
+                            <video preload="metadata">
+                            {% for source in block.settings.video.sources %}
+                                <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                            {% endfor %}
+                            </video>
+                        {% endif %}
+                        <div class="video-thumbnail-play">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="70" height="49" viewBox="0 0 70 49" fill="none">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M62.3486 1.4624C65.3604 2.26736 67.7321 4.63959 68.537 7.65082C70 13.1103 70 24.4996 70 24.4996C70 24.4996 70 35.8894 68.537 41.3483C67.7321 44.3596 65.3604 46.7323 62.3486 47.5367C56.8897 48.9997 34.9997 48.9997 34.9997 48.9997C34.9997 48.9997 13.1103 48.9997 7.6514 47.5367C4.63959 46.7323 2.26793 44.3596 1.46298 41.3483C0 35.8894 0 24.4996 0 24.4996C0 24.4996 0 13.1103 1.46298 7.65082C2.26793 4.63959 4.63959 2.26736 7.6514 1.4624C13.1103 0 34.9997 0 34.9997 0C34.9997 0 56.8897 0 62.3486 1.4624ZM46.1856 24.5002L28 34.9997V13.9994L46.1856 24.5002Z" fill="#FF0000"/>
+                            </svg>
+                        </div>
+                        </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>
+
+<style>
+   
+ 
+</style>
+
+<script>
+(function() {
+  var mainVideo = document.getElementById('mainVideo');
+  var mainPlayer = document.getElementById('mainPlayer');
+  var playOverlay = document.getElementById('playOverlay');
+  var centerPlayBtn = document.getElementById('centerPlayBtn');
+  var bottomText = document.getElementById('bottomText');
+  
+  var playIcon = centerPlayBtn.querySelector('.play-icon');
+  var pauseIcon = centerPlayBtn.querySelector('.pause-icon');
+  
+  var allVideoSources = [];
+  
+  // Store all video sources from blocks
+  {% for block in section.blocks %}
+    {% if block.type == 'video' and block.settings.video %}
+      allVideoSources.push({
+        sources: [
+          {% for source in block.settings.video.sources %}
+            { url: "{{ source.url }}", type: "{{ source.mime_type }}" }{% unless forloop.last %},{% endunless %}
+          {% endfor %}
+        ],
+        title: "{{ block.settings.video_title | escape }}",
+        bottom: "{{ block.settings.bottom_text | escape }}"
+      });
+    {% endif %}
+  {% endfor %}
+  
+  // Update icon based on play state
+  function updateIcon(playing) {
+    if (playing) {
+      playIcon.style.display = 'none';
+      pauseIcon.style.display = 'block';
+      mainPlayer.classList.add('playing');
+    } else {
+      playIcon.style.display = 'block';
+      pauseIcon.style.display = 'none';
+      mainPlayer.classList.remove('playing');
+    }
+  }
+  
+  // Toggle play/pause
+  function togglePlayPause() {
+    if (mainVideo.paused) {
+      mainVideo.play();
+      updateIcon(true);
+    } else {
+      mainVideo.pause();
+      updateIcon(false);
+    }
+  }
+  
+  // Center button click
+  if (centerPlayBtn) {
+    centerPlayBtn.addEventListener('click', togglePlayPause);
+  }
+  
+  // Play overlay click
+  if (playOverlay) {
+    playOverlay.addEventListener('click', togglePlayPause);
+  }
+  
+  // Video click to pause
+  if (mainVideo) {
+    mainVideo.addEventListener('click', togglePlayPause);
+    
+    mainVideo.addEventListener('ended', function() {
+      updateIcon(false);
+    });
+    
+    // Show icon on pause
+    mainVideo.addEventListener('pause', function() {
+      updateIcon(false);
+    });
+    
+    // Hide icon on play
+    mainVideo.addEventListener('play', function() {
+      updateIcon(true);
+    });
+  }
+  
+  // Thumbnail clicks
+  document.querySelectorAll('.video-thumbnail').forEach(function(thumb, index) {
+    thumb.addEventListener('click', function() {
+      if (allVideoSources[index]) {
+        var videoData = allVideoSources[index];
+        
+        // Pause current video
+        if (mainVideo) {
+          mainVideo.pause();
+          mainVideo.innerHTML = '';
+          
+          // Add new sources
+          videoData.sources.forEach(function(src) {
+            var source = document.createElement('source');
+            source.src = src.url;
+            source.type = src.type;
+            mainVideo.appendChild(source);
+          });
+          
+          // Load and play from beginning
+          mainVideo.load();
+          mainVideo.currentTime = 0;
+          mainVideo.play();
+          updateIcon(true);
+        }
+        
+        // Update text
+        if (bottomText) bottomText.textContent = videoData.bottom;
+      }
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Custom video",
+  "settings": [
+    {
+      "type": "text",
+      "id": "main_heading",
+      "label": "Section Heading",
+      "default": "LATEST FROM THE TRAIL"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Section Description",
+      "default": "Fresh drops every week."
+    },
+    {
+      "type": "header",
+      "content": "Mobile Padding"
+    },
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "textarea",
+          "id": "bottom_text",
+          "label": "Bottom Text"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "name": "Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "stat_title",
+          "label": "Title",
+          "default": "325K+"
+        },
+        {
+          "type": "textarea",
+          "id": "stat_desc",
+          "label": "Description",
+          "default": "YouTube Subscribers"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom video",
+      "blocks": [
+        {
+          "type": "video"
+        },
+        {
+          "type": "text"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
