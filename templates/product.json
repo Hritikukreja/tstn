@@ -10,7 +10,7 @@
 {
   "sections": {
     "product_banner_XPWEW8": {
-      "type": "Product-banner",
+      "type": "main-product",
       "name": "Product Banner",
       "settings": {
         "subheading": "",
