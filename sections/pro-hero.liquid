@@ -4,6 +4,14 @@
 %}
 
 <section id="{{ section_id }}" class="pro-hero color-{{ section.settings.color_scheme }} gradient">
+  <div
+    class="pro-hero__media-wrap"
+    style="
+      --hero-height-desktop: {{ section.settings.hero_height_desktop }}vh;
+      --hero-height-mobile: {{ section.settings.hero_height_mobile }}vh;
+      --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    "
+  >
   <div class="pro-hero__media-wrap" style="--hero-height: {{ section.settings.hero_height }}vh; --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};">
     {% if media_type == 'video' and section.settings.hero_video != blank %}
       <video
@@ -46,6 +54,36 @@
 
       <div class="pro-hero__cta-wrap">
         {% if section.settings.button_label != blank %}
+          {% if section.settings.product != blank %}
+            {% form 'product', section.settings.product, class: 'pro-hero__buy-form' %}
+              <input type="hidden" name="id" value="{{ section.settings.product.selected_or_first_available_variant.id }}">
+              <button
+                type="submit"
+                name="add"
+                class="button button--primary pro-hero__button"
+                {% unless section.settings.product.available %}
+                  disabled
+                {% endunless %}
+              >
+                {% if section.settings.product.available %}
+                  {{ section.settings.button_label }}
+                {% else %}
+                  Sold out
+                {% endif %}
+              </button>
+            {% endform %}
+          {% else %}
+            <a
+              class="button button--primary pro-hero__button"
+              {% if section.settings.button_link != blank %}
+                href="{{ section.settings.button_link }}"
+              {% else %}
+                href="{{ routes.all_products_collection_url }}"
+              {% endif %}
+            >
+              {{ section.settings.button_label }}
+            </a>
+          {% endif %}
           <a
             class="button button--primary pro-hero__button"
             {% if section.settings.button_link != blank %}
@@ -69,6 +107,7 @@
 <style>
   #{{ section_id }} .pro-hero__media-wrap {
     position: relative;
+    min-height: calc(var(--hero-height-desktop) * 1svh);
     min-height: min(100svh, calc(var(--hero-height) * 1svh));
     display: flex;
     align-items: stretch;
@@ -144,6 +183,10 @@
     padding-inline: 1.7rem;
   }
 
+  #{{ section_id }} .pro-hero__buy-form {
+    margin: 0;
+  }
+
   #{{ section_id }} .pro-hero__price {
     margin: 0;
     font-size: 1.7rem;
@@ -152,6 +195,10 @@
   }
 
   @media screen and (max-width: 749px) {
+    #{{ section_id }} .pro-hero__media-wrap {
+      min-height: calc(var(--hero-height-mobile) * 1svh);
+    }
+
     #{{ section_id }} .pro-hero__content {
       padding-top: 2rem;
       padding-bottom: 1.8rem;
@@ -204,6 +251,10 @@
     },
     {
       "type": "range",
+      "id": "hero_height_desktop",
+      "label": "Hero height desktop (viewport %)",
+      "min": 40,
+      "max": 120,
       "id": "hero_height",
       "label": "Hero height (viewport %)",
       "min": 60,
@@ -211,6 +262,16 @@
       "step": 5,
       "unit": "%",
       "default": 100
+    },
+    {
+      "type": "range",
+      "id": "hero_height_mobile",
+      "label": "Hero height mobile (viewport %)",
+      "min": 40,
+      "max": 120,
+      "step": 5,
+      "unit": "%",
+      "default": 90
     },
     {
       "type": "range",
@@ -241,6 +302,14 @@
       "default": "Buy"
     },
     {
+      "type": "product",
+      "id": "product",
+      "label": "Product for Buy button"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link (used when no product is selected)"
       "type": "url",
       "id": "button_link",
       "label": "Button link"
