@@ -60,7 +60,7 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "Large visuals first. Clean details second."
+            "text": "<p>Large visuals first. Clean details second.</p>"
           }
         }
       },
