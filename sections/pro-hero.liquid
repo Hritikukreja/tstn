@@ -96,7 +96,8 @@
 <style>
   #{{ section_id }} .pro-hero__media-wrap {
     position: relative;
-    min-height: calc(var(--hero-height-desktop) * 1svh);
+    height: calc(var(--hero-height-desktop) * 1svh);           /* Main fix */
+    height: var(--hero-height-desktop);                        /* fallback */
     display: flex;
     align-items: stretch;
     justify-content: center;
@@ -135,7 +136,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    min-height: inherit;
+    height: 100%;                    /* Ensures content stretches with height */
   }
 
   #{{ section_id }} .pro-hero__kicker {
@@ -182,9 +183,11 @@
     color: {{ section.settings.price_color }};
   }
 
+  /* Mobile height */
   @media screen and (max-width: 749px) {
     #{{ section_id }} .pro-hero__media-wrap {
-      min-height: calc(var(--hero-height-mobile) * 1svh);
+      height: calc(var(--hero-height-mobile) * 1svh);
+      height: var(--hero-height-mobile);     /* fallback */
     }
 
     #{{ section_id }} .pro-hero__content {
@@ -211,14 +214,8 @@
       "label": "Media type",
       "default": "image",
       "options": [
-        {
-          "value": "image",
-          "label": "Image"
-        },
-        {
-          "value": "video",
-          "label": "Video"
-        }
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
       ]
     },
     {
