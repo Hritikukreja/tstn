@@ -217,6 +217,7 @@
           "type": "feature",
           "settings": {
             "media_type": "image",
+            "image": "shopify://shop_images/TSTN_Club_img.png",
             "show_controls": false,
             "title": "Built for life",
             "description": "<p>Aluminum, double-coated steel construction for corrosion resistance delivers a longer product life</p>",
