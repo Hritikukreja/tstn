@@ -1,0 +1,352 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "product_banner_XPWEW8": {
+      "type": "main-product",
+      "disabled": true,
+      "name": "Product Banner",
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "product_short_description_hyF9Hk": {
+          "type": "product_short_description",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "growave_loyalty_wishlist_block_product_earn_points_widget_xcKpAg": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.earnPointsWidget/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "show_icon": true,
+            "font_color": "#121212",
+            "icon_color": "#000000",
+            "background_color": "#f8f8f8",
+            "custom_css": ""
+          }
+        },
+        "growwave_points_mFRkER": {
+          "type": "growwave_points",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify://shop_images/grawewave.svg"
+          }
+        },
+        "delivery_date_time_4ge69g": {
+          "type": "delivery-date-time",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": false
+          }
+        },
+        "complementary_nJRtM3": {
+          "type": "complementary",
+          "disabled": true,
+          "settings": {
+            "block_heading": "",
+            "make_collapsible_row": false,
+            "icon": "price_tag",
+            "product_list_limit": 10,
+            "products_per_page": 2,
+            "pagination_style": "counter",
+            "image_ratio": "square",
+            "enable_quick_add": false
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "product_short_description_hyF9Hk",
+        "price",
+        "growave_loyalty_wishlist_block_product_earn_points_widget_xcKpAg",
+        "growwave_points_mFRkER",
+        "delivery_date_time_4ge69g",
+        "buy_buttons",
+        "complementary_nJRtM3"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail_slider",
+        "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 76,
+        "padding_bottom": 44
+      }
+    },
+    "pro_hero_ye7RgN": {
+      "type": "pro-hero",
+      "name": "Pro hero",
+      "settings": {
+        "media_type": "image",
+        "hero_image": "shopify://shop_images/Large-Thule_LS_Hullavator_898.jpg",
+        "show_controls": false,
+        "hero_height": 100,
+        "overlay_opacity": 35,
+        "kicker": "Thule",
+        "heading": "hullavotr",
+        "button_label": "Buy",
+        "button_link": "",
+        "price_text": "From $1099 or $45.79/mo. for 24 mo.*",
+        "heading_color": "#ff8a2b",
+        "price_color": "#ffffff",
+        "color_scheme": ""
+      }
+    },
+    "join_crew_EUdPaY": {
+      "type": "join-crew",
+      "blocks": {
+        "block_UUCPip": {
+          "type": "block",
+          "settings": {
+            "icon": "{{ product.metafields.custom.specification_icon1.value }}",
+            "title": "{{ product.metafields.custom.specification_icon_title1.value }}",
+            "description": ""
+          }
+        },
+        "block_mC9nRJ": {
+          "type": "block",
+          "settings": {
+            "icon": "{{ product.metafields.custom.specification_icon2.value }}",
+            "title": "{{ product.metafields.custom.specification_icon_title2.value }}",
+            "description": ""
+          }
+        },
+        "block_ePqQp3": {
+          "type": "block",
+          "settings": {
+            "icon": "{{ product.metafields.custom.specification_icon3.value }}",
+            "title": "{{ product.metafields.custom.specification_icon_title3.value }}",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "block_UUCPip",
+        "block_mC9nRJ",
+        "block_ePqQp3"
+      ],
+      "name": "Join Crew",
+      "settings": {
+        "class": "product-crew",
+        "background_image": "{{ product.metafields.custom.specification_desktop_image.value }}",
+        "background_image_mobile": "{{ product.metafields.custom.specification_mobile_image.value }}",
+        "main_heading": "Specifications",
+        "subheading": "{{ product.metafields.custom.specifications_subheading.value }}",
+        "description": "",
+        "button_text": "",
+        "button_link": ""
+      }
+    },
+    "product_faq_h3Cdgd": {
+      "type": "product-faq",
+      "name": "Product FAQ",
+      "settings": {
+        "title": ""
+      }
+    },
+    "custom_multicol_VFKWpH": {
+      "type": "custom-multicol",
+      "blocks": {
+        "column_BCxcxc": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/return_1_b387e2f5-0462-4d7f-80a8-b57632302153.svg",
+            "title": "30-day easy returns",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_4cbcMA": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/x31_1_Free_Shipping.svg",
+            "title": "Free shipping over <strong>$100.</strong>",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_k89eYT": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/shield_1_0ea4da51-f4a2-48e6-a096-a6ba49ef2694.svg",
+            "title": "2-year warranty",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "column_MRNTdN": {
+          "type": "column",
+          "settings": {
+            "image": "shopify://shop_images/payment-protection_1_ee19d959-f5c9-4b98-a8fb-c709a09ff3b7.svg",
+            "title": "Secure Checkout",
+            "text": "",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "column_BCxcxc",
+        "column_4cbcMA",
+        "column_k89eYT",
+        "column_MRNTdN"
+      ],
+      "name": "Custom Multicol",
+      "settings": {
+        "title": "",
+        "l_title": "",
+        "heading_size": "h1",
+        "image_width": "third",
+        "image_ratio": "adapt",
+        "button_label": "",
+        "button_link": "",
+        "columns_desktop": 4,
+        "column_alignment": "center",
+        "background_style": "none",
+        "color_scheme": "scheme-2",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 36,
+        "padding_bottom": 48
+      }
+    },
+    "1767174510346020cc": {
+      "type": "apps",
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "176682539376c70439": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_FmFWHw": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "review_data": "sample_data",
+            "max_width": 1200,
+            "show_shop_reviews": false,
+            "empty_state": "empty_widget"
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_FmFWHw"
+      ],
+      "disabled": true,
+      "settings": {
+        "include_margins": true
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "disabled": true,
+      "settings": {
+        "section_bg": "shopify://shop_images/Frame_36.png",
+        "heading": "Continue the Adventure",
+        "btn_text": "Explore More Gear",
+        "btn_link": "#",
+        "heading_size": "h2",
+        "products_to_show": 2,
+        "columns_desktop": 2,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    },
+    "custom_coll_jdyER7": {
+      "type": "custom-coll",
+      "name": "Custom Coll",
+      "settings": {
+        "collection": "frontpage",
+        "background_image": "shopify://shop_images/shaun_gear_img.png",
+        "products_to_show": 3,
+        "title": "Shaun’s Gear Picks",
+        "main_heading_color": "",
+        "heading_size": "h1",
+        "description": "<p>The gear Shaun actually uses.</p>",
+        "description_color": "",
+        "show_description": false,
+        "description_style": "body",
+        "columns_desktop": 3,
+        "enable_desktop_slider": false,
+        "full_width": false,
+        "show_view_all": false,
+        "view_all_style": "link",
+        "color_scheme": "",
+        "image_ratio": "portrait",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "columns_mobile": "2",
+        "swipe_on_mobile": false,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "button_text": "Explore More Gear",
+        "button_link": "#"
+      }
+    }
+  },
+  "order": [
+    "product_banner_XPWEW8",
+    "main",
+    "pro_hero_ye7RgN",
+    "join_crew_EUdPaY",
+    "product_faq_h3Cdgd",
+    "custom_multicol_VFKWpH",
+    "1767174510346020cc",
+    "176682539376c70439",
+    "related-products",
+    "custom_coll_jdyER7"
+  ]
+}
