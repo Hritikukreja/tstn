@@ -121,7 +121,7 @@
         "media_type": "video",
         "hero_image": "shopify://shop_images/2hullavator_JPEG.png",
         "hero_video": "shopify://files/videos/Thule - Made with Clipchamp Full Width.mp4",
-        "show_controls": true,
+        "show_controls": false,
         "hero_height_desktop": 85,
         "hero_height_mobile": 70,
         "overlay_opacity": 90,
