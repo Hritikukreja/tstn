@@ -137,7 +137,7 @@
         "price_text": "From $1099 or $45.79/mo. for 24 mo.*",
         "heading_color": "#ff8a2b",
         "price_color": "#ffffff",
-        "color_scheme": "scheme-1"
+        "color_scheme": "scheme-5330df68-7ce6-41b9-9bf9-37d268b32221"
       }
     },
     "join_crew_EUdPaY": {
@@ -415,9 +415,9 @@
         "cta_label": "Shop all Gears",
         "cta_url": "",
         "bg_color": "#000000",
-        "card_bg_color": "#1d1d1f",
+        "card_bg_color": "#121212",
         "kicker_color": "#f56300",
-        "heading_color": "#f5f5f7",
+        "heading_color": "#f8f8f8",
         "cta_color": "#2997ff",
         "caption_color": "#a1a1a6",
         "caption_name_color": "#f5f5f7",
@@ -429,6 +429,7 @@
     },
     "custom_coll_jdyER7": {
       "type": "custom-coll",
+      "disabled": true,
       "name": "Custom Coll",
       "settings": {
         "collection": "frontpage",
@@ -463,6 +464,7 @@
     },
     "featured_collection_MFMxnR": {
       "type": "featured-collection",
+      "disabled": true,
       "name": "t:sections.featured-collection.presets.name",
       "settings": {
         "collection": "frontpage",
