@@ -1,0 +1,301 @@
+{% liquid
+  assign section_id = 'FeatureGallery-' | append: section.id
+%}
+
+<section id="{{ section_id }}" class="feature-gallery color-{{ section.settings.color_scheme }} gradient">
+  <div class="page-width">
+    <div class="feature-gallery__header">
+      {% if section.settings.kicker != blank %}
+        <p class="feature-gallery__kicker">{{ section.settings.kicker }}</p>
+      {% endif %}
+      {% if section.settings.heading != blank %}
+        <h2 class="feature-gallery__heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.text != blank %}
+        <div class="feature-gallery__text rte">{{ section.settings.text }}</div>
+      {% endif %}
+    </div>
+
+    <div class="feature-gallery__grid feature-gallery__grid--{{ section.settings.columns_desktop }}">
+      {% for block in section.blocks %}
+        <article class="feature-gallery__card" {{ block.shopify_attributes }}>
+          <div class="feature-gallery__media-wrap">
+            {% if block.settings.media_type == 'video' and block.settings.video != blank %}
+              {{
+                block.settings.video
+                | video_tag:
+                  image_size: '1200x',
+                  autoplay: true,
+                  loop: true,
+                  muted: true,
+                  controls: block.settings.show_controls,
+                  class: 'feature-gallery__media'
+              }}
+            {% elsif block.settings.image != blank %}
+              {{
+                block.settings.image
+                | image_url: width: 1600
+                | image_tag:
+                  loading: 'lazy',
+                  widths: '360, 540, 720, 960, 1200, 1600',
+                  sizes: '(min-width: 990px) calc(100vw / ' | append: section.settings.columns_desktop | append: '), 100vw',
+                  class: 'feature-gallery__media',
+                  alt: block.settings.image.alt | escape
+              }}
+            {% else %}
+              {{ 'image' | placeholder_svg_tag: 'feature-gallery__placeholder' }}
+            {% endif %}
+          </div>
+
+          <div class="feature-gallery__content">
+            {% if block.settings.title != blank %}
+              <h3 class="feature-gallery__card-title">{{ block.settings.title }}</h3>
+            {% endif %}
+            {% if block.settings.description != blank %}
+              <div class="feature-gallery__card-text rte">{{ block.settings.description }}</div>
+            {% endif %}
+            {% if block.settings.link_label != blank %}
+              <a class="link underlined-link" href="{{ block.settings.link | default: '#' }}">{{ block.settings.link_label }}</a>
+            {% endif %}
+          </div>
+        </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  #{{ section_id }} .feature-gallery__header {
+    text-align: center;
+    margin: 0 auto 3rem;
+    max-width: 76rem;
+  }
+
+  #{{ section_id }} .feature-gallery__kicker {
+    margin: 0;
+    font-size: 1.3rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  #{{ section_id }} .feature-gallery__heading {
+    margin: 0.8rem 0 0;
+    font-size: clamp(2.8rem, 6vw, 5.4rem);
+    line-height: 1.06;
+  }
+
+  #{{ section_id }} .feature-gallery__text {
+    margin-top: 1.2rem;
+  }
+
+  #{{ section_id }} .feature-gallery__grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+  }
+
+  #{{ section_id }} .feature-gallery__grid--2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  #{{ section_id }} .feature-gallery__grid--3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #{{ section_id }} .feature-gallery__grid--4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  #{{ section_id }} .feature-gallery__card {
+    border-radius: 2rem;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.03);
+    border: 0.1rem solid rgba(255, 255, 255, 0.08);
+  }
+
+  #{{ section_id }} .feature-gallery__media-wrap {
+    position: relative;
+    background: #000;
+    aspect-ratio: {{ section.settings.media_aspect_ratio }};
+  }
+
+  #{{ section_id }} .feature-gallery__media,
+  #{{ section_id }} .feature-gallery__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #{{ section_id }} .feature-gallery__content {
+    padding: 1.8rem;
+  }
+
+  #{{ section_id }} .feature-gallery__card-title {
+    margin: 0;
+    font-size: 2rem;
+  }
+
+  #{{ section_id }} .feature-gallery__card-text {
+    margin-top: 1rem;
+  }
+
+  #{{ section_id }} .feature-gallery__content .link {
+    display: inline-block;
+    margin-top: 1rem;
+  }
+
+  @media screen and (max-width: 989px) {
+    #{{ section_id }} .feature-gallery__grid,
+    #{{ section_id }} .feature-gallery__grid--2,
+    #{{ section_id }} .feature-gallery__grid--3,
+    #{{ section_id }} .feature-gallery__grid--4 {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Feature gallery",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker",
+      "label": "Top text",
+      "default": "Feature gallery"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Designed to showcase key features"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Description",
+      "default": "<p>Add up to eight feature cards with image or video.</p>"
+    },
+    {
+      "type": "select",
+      "id": "columns_desktop",
+      "label": "Desktop columns",
+      "default": "3",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "media_aspect_ratio",
+      "label": "Media aspect ratio",
+      "default": "4 / 5"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature card",
+      "settings": [
+        {
+          "type": "select",
+          "id": "media_type",
+          "label": "Media type",
+          "default": "image",
+          "options": [
+            { "value": "image", "label": "Image" },
+            { "value": "video", "label": "Video" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_controls",
+          "label": "Show video controls",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Feature title"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Describe this feature in one or two lines.</p>"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link label",
+          "default": "Learn more"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature gallery",
+      "blocks": [
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" }
+      ]
+    }
+  ]
+}
+{% endschema %}
