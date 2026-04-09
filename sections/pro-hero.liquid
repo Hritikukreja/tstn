@@ -42,18 +42,20 @@
       {{ 'lifestyle-2' | placeholder_svg_tag: 'pro-hero__placeholder' }}
     {% endif %}
 
-    <div class="pro-hero__overlay"></div>
+    <!-- Tint layer (solid color overlay) -->
     <div class="pro-hero__tint"></div>
 
+    <!-- Bottom gradient overlay -->
+    <div class="pro-hero__overlay"></div>
+
+    <!-- Content -->
     <div class="pro-hero__content page-width pro-hero__content--{{ section.settings.content_position }} pro-hero__content-align--{{ section.settings.content_alignment }}">
       {% if section.settings.kicker != blank %}
         <p class="pro-hero__kicker">{{ section.settings.kicker }}</p>
       {% endif %}
-
       {% if section.settings.heading != blank %}
         <h2 class="pro-hero__heading">{{ section.settings.heading }}</h2>
       {% endif %}
-
       <div class="pro-hero__cta-wrap">
         {% if section.settings.button_label != blank %}
           {% if section.settings.product != blank %}
@@ -99,7 +101,7 @@
 <style>
   #{{ section_id }} .pro-hero__media-wrap {
     position: relative;
-    min-height: calc(var(--hero-height-desktop) * 1svh);
+    height: calc(var(--hero-height-desktop) * 1svh);     /* Fixed height control */
     display: flex;
     align-items: stretch;
     justify-content: center;
@@ -116,6 +118,17 @@
     object-fit: cover;
   }
 
+  /* Solid color tint layer */
+  #{{ section_id }} .pro-hero__tint {
+    position: absolute;
+    inset: 0;
+    background: var(--tint-color);
+    opacity: var(--tint-opacity);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Bottom gradient overlay */
   #{{ section_id }} .pro-hero__overlay {
     position: absolute;
     inset: 0;
@@ -125,46 +138,29 @@
       rgba(0, 0, 0, var(--overlay-opacity)) 100%
     );
     pointer-events: none;
-  }
-
-  #{{ section_id }} .pro-hero__tint {
-    position: absolute;
-    inset: 0;
-    background: var(--tint-color);
-    opacity: var(--tint-opacity);
-    pointer-events: none;
+    z-index: 2;
   }
 
   #{{ section_id }} .pro-hero__content {
     position: relative;
-    z-index: 2;
+    z-index: 3;
     width: 100%;
-    padding-top: 3rem;
-    padding-bottom: 2rem;
+    padding: 3rem 0 2rem;
     color: rgb(var(--color-foreground));
-    text-align: center;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    min-height: inherit;
+    height: 100%;
   }
 
-  #{{ section_id }} .pro-hero__content--top {
-    justify-content: flex-start;
-  }
+  /* Vertical positioning */
+  #{{ section_id }} .pro-hero__content--top    { justify-content: flex-start; padding-top: 4rem; }
+  #{{ section_id }} .pro-hero__content--middle { justify-content: center; }
+  #{{ section_id }} .pro-hero__content--bottom { justify-content: flex-end; padding-bottom: 4rem; }
 
-  #{{ section_id }} .pro-hero__content--middle {
-    justify-content: center;
-  }
-
-  #{{ section_id }} .pro-hero__content--bottom {
-    justify-content: flex-end;
-  }
-
+  /* Horizontal alignment */
   #{{ section_id }} .pro-hero__content-align--left {
     text-align: left;
   }
-
   #{{ section_id }} .pro-hero__content-align--left .pro-hero__cta-wrap {
     align-items: flex-start;
   }
@@ -172,11 +168,13 @@
   #{{ section_id }} .pro-hero__content-align--center {
     text-align: center;
   }
+  #{{ section_id }} .pro-hero__content-align--center .pro-hero__cta-wrap {
+    align-items: center;
+  }
 
   #{{ section_id }} .pro-hero__content-align--right {
     text-align: right;
   }
-
   #{{ section_id }} .pro-hero__content-align--right .pro-hero__cta-wrap {
     align-items: flex-end;
   }
@@ -204,7 +202,6 @@
     margin-top: clamp(2rem, 6vw, 5rem);
     display: inline-flex;
     flex-direction: column;
-    align-items: center;
     gap: 1.1rem;
   }
 
@@ -225,14 +222,14 @@
     color: {{ section.settings.price_color }};
   }
 
+  /* Mobile adjustments */
   @media screen and (max-width: 749px) {
     #{{ section_id }} .pro-hero__media-wrap {
-      min-height: calc(var(--hero-height-mobile) * 1svh);
+      height: calc(var(--hero-height-mobile) * 1svh);
     }
 
     #{{ section_id }} .pro-hero__content {
-      padding-top: 2rem;
-      padding-bottom: 1.8rem;
+      padding: 2rem 0 1.8rem;
     }
 
     #{{ section_id }} .pro-hero__price {
@@ -254,14 +251,8 @@
       "label": "Media type",
       "default": "image",
       "options": [
-        {
-          "value": "image",
-          "label": "Image"
-        },
-        {
-          "value": "video",
-          "label": "Video"
-        }
+        { "value": "image", "label": "Image" },
+        { "value": "video", "label": "Video" }
       ]
     },
     {
@@ -303,7 +294,7 @@
     {
       "type": "range",
       "id": "overlay_opacity",
-      "label": "Bottom overlay opacity",
+      "label": "Bottom gradient opacity",
       "min": 0,
       "max": 90,
       "step": 5,
@@ -320,18 +311,9 @@
       "label": "Vertical text position",
       "default": "bottom",
       "options": [
-        {
-          "value": "top",
-          "label": "Top"
-        },
-        {
-          "value": "middle",
-          "label": "Middle"
-        },
-        {
-          "value": "bottom",
-          "label": "Bottom"
-        }
+        { "value": "top",    "label": "Top" },
+        { "value": "middle", "label": "Middle" },
+        { "value": "bottom", "label": "Bottom" }
       ]
     },
     {
@@ -340,34 +322,25 @@
       "label": "Horizontal text alignment",
       "default": "center",
       "options": [
-        {
-          "value": "left",
-          "label": "Left"
-        },
-        {
-          "value": "center",
-          "label": "Center"
-        },
-        {
-          "value": "right",
-          "label": "Right"
-        }
+        { "value": "left",   "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right",  "label": "Right" }
       ]
     },
     {
       "type": "header",
-      "content": "Whole section color overlay"
+      "content": "Whole section color overlay (Tint)"
     },
     {
       "type": "color",
       "id": "tint_color",
-      "label": "Overlay color",
+      "label": "Tint color",
       "default": "#000000"
     },
     {
       "type": "range",
       "id": "tint_opacity",
-      "label": "Overlay opacity",
+      "label": "Tint opacity",
       "min": 0,
       "max": 90,
       "step": 5,
@@ -377,7 +350,7 @@
     {
       "type": "text",
       "id": "kicker",
-      "label": "Top text",
+      "label": "Top text (kicker)",
       "default": "iPhone 17"
     },
     {
