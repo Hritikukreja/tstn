@@ -11,8 +11,23 @@
   "sections": {
     "product_banner_XPWEW8": {
       "type": "main-product",
+      "disabled": true,
       "name": "Product Banner",
-      "settings": {}
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     },
     "main": {
       "type": "main-product",
@@ -96,6 +111,25 @@
         "enable_video_looping": false,
         "padding_top": 76,
         "padding_bottom": 44
+      }
+    },
+    "pro_hero_ye7RgN": {
+      "type": "pro-hero",
+      "name": "Pro hero",
+      "settings": {
+        "media_type": "image",
+        "hero_image": "shopify://shop_images/Large-Thule_LS_Hullavator_898.jpg",
+        "show_controls": false,
+        "hero_height": 100,
+        "overlay_opacity": 35,
+        "kicker": "Thule",
+        "heading": "hullavotr",
+        "button_label": "Buy",
+        "button_link": "",
+        "price_text": "From $1099 or $45.79/mo. for 24 mo.*",
+        "heading_color": "#ff8a2b",
+        "price_color": "#ffffff",
+        "color_scheme": ""
       }
     },
     "join_crew_EUdPaY": {
@@ -203,6 +237,7 @@
       "name": "Custom Multicol",
       "settings": {
         "title": "",
+        "l_title": "",
         "heading_size": "h1",
         "image_width": "third",
         "image_ratio": "adapt",
@@ -305,6 +340,7 @@
   "order": [
     "product_banner_XPWEW8",
     "main",
+    "pro_hero_ye7RgN",
     "join_crew_EUdPaY",
     "product_faq_h3Cdgd",
     "custom_multicol_VFKWpH",
