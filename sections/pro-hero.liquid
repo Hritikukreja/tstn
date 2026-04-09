@@ -12,7 +12,6 @@
       --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
     "
   >
-  <div class="pro-hero__media-wrap" style="--hero-height: {{ section.settings.hero_height }}vh; --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};">
     {% if media_type == 'video' and section.settings.hero_video != blank %}
       <video
         class="pro-hero__media"
@@ -84,16 +83,6 @@
               {{ section.settings.button_label }}
             </a>
           {% endif %}
-          <a
-            class="button button--primary pro-hero__button"
-            {% if section.settings.button_link != blank %}
-              href="{{ section.settings.button_link }}"
-            {% else %}
-              role="link" aria-disabled="true"
-            {% endif %}
-          >
-            {{ section.settings.button_label }}
-          </a>
         {% endif %}
 
         {% if section.settings.price_text != blank %}
@@ -108,7 +97,6 @@
   #{{ section_id }} .pro-hero__media-wrap {
     position: relative;
     min-height: calc(var(--hero-height-desktop) * 1svh);
-    min-height: min(100svh, calc(var(--hero-height) * 1svh));
     display: flex;
     align-items: stretch;
     justify-content: center;
@@ -252,16 +240,9 @@
     {
       "type": "range",
       "id": "hero_height_desktop",
-      "label": "Hero height desktop (viewport vh)",
+      "label": "Hero height desktop",
       "min": 40,
       "max": 120,
-      "label": "Hero height desktop (viewport %)",
-      "min": 40,
-      "max": 120,
-      "id": "hero_height",
-      "label": "Hero height (viewport %)",
-      "min": 60,
-      "max": 100,
       "step": 5,
       "unit": "%",
       "default": 100
@@ -269,8 +250,7 @@
     {
       "type": "range",
       "id": "hero_height_mobile",
-      "label": "Hero height mobile (viewport vh)",
-      "label": "Hero height mobile (viewport %)",
+      "label": "Hero height mobile",
       "min": 40,
       "max": 120,
       "step": 5,
@@ -313,17 +293,13 @@
     {
       "type": "url",
       "id": "button_link",
-      "label": "Button link (used when no product is selected)"
-      "type": "url",
-      "id": "button_link",
-      "label": "Button link"
+      "label": "Button link fallback"
     },
     {
       "type": "text",
       "id": "price_text",
       "label": "Editable price text",
       "default": "From $1099 or $45.79/mo. for 24 months"
-      "default": "From $1099 or $45.79/mo. for 24 mo.*"
     },
     {
       "type": "color",

@@ -120,7 +120,7 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "Sharper low-light imaging, cleaner highlights, deeper detail.",
+            "text": "<p>Sharper low-light imaging, cleaner highlights, deeper detail.</p>",
             "text_style": "body"
           }
         }
@@ -160,7 +160,7 @@
         "text": {
           "type": "text",
           "settings": {
-            "text": "Fast, smooth, and cool under demanding workflows.",
+            "text": "<p>Fast, smooth, and cool under demanding workflows.</p>",
             "text_style": "body"
           }
         }
@@ -190,7 +190,7 @@
           "settings": {
             "image": "",
             "title": "A17-class speed",
-            "text": "Ultra-responsive across apps.",
+            "text": "<p>Ultra-responsive across apps.</p>",
             "link_label": "",
             "link": ""
           }
@@ -200,7 +200,7 @@
           "settings": {
             "image": "",
             "title": "Pro camera",
-            "text": "New depth and color control.",
+            "text": "<p>New depth and color control.</p>",
             "link_label": "",
             "link": ""
           }
@@ -210,7 +210,7 @@
           "settings": {
             "image": "",
             "title": "All-day battery",
-            "text": "Built for long creative sessions.",
+            "text": "<p>Built for long creative sessions.</p>",
             "link_label": "",
             "link": ""
           }
@@ -220,7 +220,7 @@
           "settings": {
             "image": "",
             "title": "Titanium frame",
-            "text": "Lightweight. Durable. Premium.",
+            "text": "<p>Lightweight. Durable. Premium.</p>",
             "link_label": "",
             "link": ""
           }
