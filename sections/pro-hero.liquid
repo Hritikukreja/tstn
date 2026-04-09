@@ -7,8 +7,8 @@
   <div
     class="pro-hero__media-wrap"
     style="
-      --hero-height-desktop: {{ section.settings.hero_height_desktop }}vh;
-      --hero-height-mobile: {{ section.settings.hero_height_mobile }}vh;
+      --hero-height-desktop: {{ section.settings.hero_height_desktop }};
+      --hero-height-mobile: {{ section.settings.hero_height_mobile }};
       --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
       --tint-opacity: {{ section.settings.tint_opacity | divided_by: 100.0 }};
       --tint-color: {{ section.settings.tint_color }};
@@ -100,67 +100,73 @@
 
 <style>
   #{{ section_id }} .pro-hero__media-wrap {
-    position: relative !important;
-    height: calc(var(--hero-height-desktop) * 1svh) !important;
-    display: flex !important;
-    align-items: stretch !important;
-    overflow: hidden !important;
+    position: relative;
+    height: calc(var(--hero-height-desktop) * 1vh);
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
     background: #000;
   }
 
   #{{ section_id }} .pro-hero__media,
   #{{ section_id }} .pro-hero__placeholder {
-    position: absolute !important;
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
-  /* Solid color tint */
+  /* Solid tint overlay */
   #{{ section_id }} .pro-hero__tint {
-    position: absolute !important;
-    inset: 0 !important;
-    background: var(--tint-color) !important;
-    opacity: var(--tint-opacity) !important;
-    pointer-events: none !important;
-    z-index: 1 !important;
+    position: absolute;
+    inset: 0;
+    background: var(--tint-color);
+    opacity: var(--tint-opacity);
+    pointer-events: none;
+    z-index: 1;
   }
 
-  /* Bottom gradient overlay */
+  /*
+    Bottom dark gradient overlay.
+    CSS variables cannot be used as arguments inside rgba(), so we use
+    a workaround: apply the gradient at full opacity and control its
+    visibility via the element's own opacity property.
+  */
   #{{ section_id }} .pro-hero__overlay {
-    position: absolute !important;
-    inset: 0 !important;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,var(--overlay-opacity)) 100%) !important;
-    pointer-events: none !important;
-    z-index: 2 !important;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.9) 100%);
+    opacity: var(--overlay-opacity);
+    pointer-events: none;
+    z-index: 2;
   }
 
   #{{ section_id }} .pro-hero__content {
-    position: relative !important;
-    z-index: 3 !important;
-    width: 100% !important;
-    padding: 3rem 2rem 2rem !important;
-    display: flex !important;
-    flex-direction: column !important;
-    height: 100% !important;
+    position: relative;
+    z-index: 3;
+    width: 100%;
+    padding: 3rem 2rem 2rem;
     color: rgb(var(--color-foreground));
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
-  /* Vertical positioning */
-  #{{ section_id }} .pro-hero__content--top    { justify-content: flex-start !important; padding-top: 5rem !important; }
-  #{{ section_id }} .pro-hero__content--middle { justify-content: center !important; }
-  #{{ section_id }} .pro-hero__content--bottom { justify-content: flex-end !important; padding-bottom: 5rem !important; }
+  /* Vertical position */
+  #{{ section_id }} .pro-hero__content--top    { justify-content: flex-start; padding-top: 5rem; }
+  #{{ section_id }} .pro-hero__content--middle { justify-content: center; }
+  #{{ section_id }} .pro-hero__content--bottom { justify-content: flex-end; padding-bottom: 5rem; }
 
   /* Horizontal alignment */
-  #{{ section_id }} .pro-hero__content-align--left   { text-align: left !important; }
-  #{{ section_id }} .pro-hero__content-align--left .pro-hero__cta-wrap   { align-items: flex-start !important; }
+  #{{ section_id }} .pro-hero__content-align--left   { text-align: left; }
+  #{{ section_id }} .pro-hero__content-align--left .pro-hero__cta-wrap   { align-items: flex-start; }
 
-  #{{ section_id }} .pro-hero__content-align--center { text-align: center !important; }
-  #{{ section_id }} .pro-hero__content-align--center .pro-hero__cta-wrap { align-items: center !important; }
+  #{{ section_id }} .pro-hero__content-align--center { text-align: center; }
+  #{{ section_id }} .pro-hero__content-align--center .pro-hero__cta-wrap { align-items: center; }
 
-  #{{ section_id }} .pro-hero__content-align--right  { text-align: right !important; }
-  #{{ section_id }} .pro-hero__content-align--right .pro-hero__cta-wrap  { align-items: flex-end !important; }
+  #{{ section_id }} .pro-hero__content-align--right  { text-align: right; }
+  #{{ section_id }} .pro-hero__content-align--right .pro-hero__cta-wrap  { align-items: flex-end; }
 
   #{{ section_id }} .pro-hero__kicker {
     margin: 0 0 0.5rem;
@@ -203,10 +209,10 @@
   /* Mobile */
   @media screen and (max-width: 749px) {
     #{{ section_id }} .pro-hero__media-wrap {
-      height: calc(var(--hero-height-mobile) * 1svh) !important;
+      height: calc(var(--hero-height-mobile) * 1vh);
     }
     #{{ section_id }} .pro-hero__content {
-      padding: 2rem 1.5rem 1.8rem !important;
+      padding: 2rem 1.5rem 1.8rem;
     }
     #{{ section_id }} .pro-hero__price {
       font-size: 1.4rem;
@@ -286,7 +292,7 @@
       "label": "Vertical text position",
       "default": "bottom",
       "options": [
-        { "value": "top",    "label": "Top" },
+        { "value": "top", "label": "Top" },
         { "value": "middle", "label": "Middle" },
         { "value": "bottom", "label": "Bottom" }
       ]
@@ -297,9 +303,9 @@
       "label": "Horizontal text alignment",
       "default": "center",
       "options": [
-        { "value": "left",   "label": "Left" },
+        { "value": "left", "label": "Left" },
         { "value": "center", "label": "Center" },
-        { "value": "right",  "label": "Right" }
+        { "value": "right", "label": "Right" }
       ]
     },
     {
