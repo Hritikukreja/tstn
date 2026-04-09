@@ -182,6 +182,62 @@
         "button_link": ""
       }
     },
+    "feature_gallery_xpJVXd": {
+      "type": "feature-gallery",
+      "blocks": {
+        "feature_4UN7bL": {
+          "type": "feature",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/Large-Thule_LS_Hullavator_898.jpg",
+            "show_controls": false,
+            "title": "Kayaking made easy",
+            "description": "<p>Load and unload your kayak on your own, thanks to the gas-assist struts that lift and lower 40 lbs of the kayak’s weight</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "feature_XwaB6Y": {
+          "type": "feature",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/Small-Thule_LS_Comfort_Ducato_Van_Hullavator_Pro_898000.jpg",
+            "show_controls": false,
+            "title": "Protection at its peak",
+            "description": "<p>Maximum protection for your kayak, thanks to 8 touch points of padded support</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "feature_EVxyAD": {
+          "type": "feature",
+          "settings": {
+            "media_type": "image",
+            "show_controls": false,
+            "title": "Built for life",
+            "description": "<p>Aluminum, double-coated steel construction for corrosion resistance delivers a longer product life</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_4UN7bL",
+        "feature_XwaB6Y",
+        "feature_EVxyAD"
+      ],
+      "name": "Feature gallery",
+      "settings": {
+        "kicker": "Feature gallery",
+        "heading": "Designed to showcase key features",
+        "text": "<p>Add up to eight feature cards with image or video.</p>",
+        "columns_desktop": "3",
+        "media_aspect_ratio": "4 / 5",
+        "color_scheme": "",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
+    },
     "product_faq_h3Cdgd": {
       "type": "product-faq",
       "name": "Product FAQ",
@@ -347,6 +403,7 @@
     "main",
     "pro_hero_ye7RgN",
     "join_crew_EUdPaY",
+    "feature_gallery_xpJVXd",
     "product_faq_h3Cdgd",
     "custom_multicol_VFKWpH",
     "1767174510346020cc",
