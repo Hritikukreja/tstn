@@ -123,7 +123,7 @@
         "hero_video": "shopify://files/videos/Thule - Made with Clipchamp Full Width.mp4",
         "show_controls": true,
         "hero_height_desktop": 85,
-        "hero_height_mobile": 90,
+        "hero_height_mobile": 70,
         "overlay_opacity": 90,
         "content_position": "bottom",
         "content_alignment": "center",
