@@ -118,14 +118,14 @@
       "type": "pro-hero",
       "name": "Pro hero",
       "settings": {
-        "media_type": "image",
+        "media_type": "video",
         "hero_image": "shopify://shop_images/hulla3_b3992ab2-d097-4001-87cb-5af1f9b251f6.png",
         "hero_video": "shopify://files/videos/Thule - Made with Clipchamp Full Width.mp4",
         "show_controls": false,
         "hero_height_desktop": 85,
         "hero_height_mobile": 70,
         "overlay_opacity": 90,
-        "content_position": "top",
+        "content_position": "bottom",
         "content_alignment": "center",
         "tint_color": "#121212",
         "tint_opacity": 0,
@@ -135,7 +135,7 @@
         "product": "thule-hullavator-pro-kayak-rack-modula-racks",
         "button_link": "",
         "price_text": "From $1099 or $45.79/mo. for 24 mo.*",
-        "heading_color": "#121212",
+        "heading_color": "#ffffff",
         "price_color": "#ffffff",
         "color_scheme": "scheme-5330df68-7ce6-41b9-9bf9-37d268b32221"
       }
