@@ -237,7 +237,7 @@
         "kicker": "Feature gallery",
         "heading": "Designed to showcase key features",
         "text": "<p>Add up to eight feature cards with image or video.</p>",
-        "columns_desktop": "4",
+        "columns_desktop": "3",
         "card_alignment": "left",
         "media_aspect_ratio": "4 / 5",
         "color_scheme": "scheme-5330df68-7ce6-41b9-9bf9-37d268b32221",
