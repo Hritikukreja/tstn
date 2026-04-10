@@ -491,6 +491,82 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "feature_cards_casosuel_YkhJH3": {
+      "type": "feature-cards-casosuel",
+      "blocks": {
+        "card_zFFGch": {
+          "type": "card",
+          "settings": {
+            "kicker": "Save Money",
+            "title": "Earn Rewards Points",
+            "description": "Get credit toward your next purchase when you trade in your old one.",
+            "image": "shopify://shop_images/New_Project_1.png",
+            "link": ""
+          }
+        },
+        "card_6tJzW9": {
+          "type": "card",
+          "settings": {
+            "kicker": "Ways to Buy",
+            "title": "Get 0% APR monthly payments.",
+            "description": "Spread out the cost of your new Gear with interest-free monthly payments and no hidden fees.",
+            "image": "shopify://shop_images/APR.png",
+            "link": ""
+          }
+        },
+        "card_YAFPQn": {
+          "type": "card",
+          "settings": {
+            "kicker": "Personal Setup",
+            "title": "Support your Creator",
+            "description": "Talk one on one with a Specialist to set up your device and discover new features.",
+            "link": ""
+          }
+        },
+        "card_W7RHLq": {
+          "type": "card",
+          "settings": {
+            "kicker": "Delivery and Pickup",
+            "title": "Free Shipping",
+            "description": "Choose two-hour delivery, free delivery, or easy pickup options.",
+            "link": ""
+          }
+        },
+        "card_E7raUP": {
+          "type": "card",
+          "settings": {
+            "kicker": "Feature",
+            "title": "Easy Returns",
+            "description": "A short supporting sentence that adds context to the title above.",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_zFFGch",
+        "card_6tJzW9",
+        "card_YAFPQn",
+        "card_W7RHLq",
+        "card_E7raUP"
+      ],
+      "name": "Feature cards carousel",
+      "settings": {
+        "heading": "Why we're the best place to buy.",
+        "cta_label": "Shop now",
+        "cta_url": "",
+        "card_width": 320,
+        "card_height": 520,
+        "bg_color": "#e3e4e1",
+        "card_bg": "#ffffff",
+        "heading_color": "#1d1d1f",
+        "cta_color": "#0066cc",
+        "kicker_color": "#6e6e73",
+        "card_title_color": "#1d1d1f",
+        "card_desc_color": "#1d1d1f",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
     }
   },
   "order": [
@@ -506,6 +582,7 @@
     "related-products",
     "product_showcase_dczdxa",
     "custom_coll_jdyER7",
-    "featured_collection_MFMxnR"
+    "featured_collection_MFMxnR",
+    "feature_cards_casosuel_YkhJH3"
   ]
 }
