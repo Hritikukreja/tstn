@@ -116,10 +116,7 @@
     },
     "pro_hero_ye7RgN": {
       "type": "pro-hero",
-      "custom_css": [
-        "p, .pro-hero__heading {font-size: 100px}",
-        ".button--primary, .button, .pro-hero__cta-wrap {color: white;}"
-      ],
+      "custom_css": [],
       "name": "Pro hero",
       "settings": {
         "media_type": "video",
