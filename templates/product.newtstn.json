@@ -389,8 +389,8 @@
           "settings": {
             "product": "epic-crow-molle",
             "custom_image": "shopify://shop_images/Crow_Molle_2.png",
-            "title_override": "",
-            "description": "",
+            "title_override": "TRUST THE GEAR WITH EPIC MOLLE",
+            "description": "<p>The EPIC CROW MOLLE Panel is a lightweight aluminum overhead rack (CROW = Cargo Rack for Organizing Whatever) for Jeep JL/JT and Ford Bronco.</p>",
             "custom_url": ""
           }
         },
@@ -399,8 +399,8 @@
           "settings": {
             "product": "thule-hullavator-pro-kayak-rack-modula-racks",
             "custom_image": "shopify://shop_images/join_crew_mobile.png",
-            "title_override": "",
-            "description": "",
+            "title_override": "Thule Hullavator Pro",
+            "description": "<p>A premium lift-assist kayak carrier that makes solo loading easy. Gas-assist struts lower the cradle up to 3 feet to waist height and reduce up to 40 lbs of the kayak’s weight.</p>",
             "custom_url": ""
           }
         }
@@ -411,7 +411,7 @@
         "product_card_PzG9m7"
       ],
       "custom_css": [
-        ".product-showcase__card{color: white;}"
+        ".product-showcase__card {color: white;}"
       ],
       "name": "Product showcase",
       "settings": {
