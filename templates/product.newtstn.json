@@ -501,7 +501,7 @@
             "kicker": "Save Money",
             "title": "Earn Rewards Points",
             "description": "Get credit toward your next purchase when you trade in your old one.",
-            "image": "shopify://shop_images/New_Project_1.png",
+            "image": "shopify://shop_images/Rewards.avif",
             "link": ""
           }
         },
@@ -511,7 +511,7 @@
             "kicker": "Ways to Buy",
             "title": "Get 0% APR monthly payments.",
             "description": "Spread out the cost of your new Gear with interest-free monthly payments and no hidden fees.",
-            "image": "shopify://shop_images/APR.png",
+            "image": "shopify://shop_images/APR_30c5a74c-6a6b-424f-bd78-99d2cf1ddd83.png",
             "link": ""
           }
         },
@@ -521,6 +521,7 @@
             "kicker": "Personal Setup",
             "title": "Support your Creator",
             "description": "Talk one on one with a Specialist to set up your device and discover new features.",
+            "image": "shopify://shop_images/TSTN.png",
             "link": ""
           }
         },
@@ -530,6 +531,7 @@
             "kicker": "Delivery and Pickup",
             "title": "Free Shipping",
             "description": "Choose two-hour delivery, free delivery, or easy pickup options.",
+            "image": "shopify://shop_images/Free_Shipping.png",
             "link": ""
           }
         },
@@ -539,6 +541,7 @@
             "kicker": "Feature",
             "title": "Easy Returns",
             "description": "A short supporting sentence that adds context to the title above.",
+            "image": "shopify://shop_images/ChatGPT_Image_Apr_9_2026_06_45_03_PM.png",
             "link": ""
           }
         }
@@ -555,8 +558,8 @@
         "heading": "Why we're the best place to buy.",
         "cta_label": "Shop now",
         "cta_url": "",
-        "card_width": 320,
-        "card_height": 520,
+        "card_width": 328,
+        "card_height": 376,
         "bg_color": "#e3e4e1",
         "card_bg": "#ffffff",
         "heading_color": "#1d1d1f",
