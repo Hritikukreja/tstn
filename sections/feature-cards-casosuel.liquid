@@ -1,0 +1,586 @@
+{% liquid
+  assign section_id = 'FeatureCards-' | append: section.id
+%}
+
+<section id="{{ section_id }}" class="feature-cards">
+  <div class="feature-cards__page-width">
+
+    {%- comment -%} ── Header row ── {%- endcomment -%}
+    <div class="feature-cards__header">
+      <div class="feature-cards__header-left">
+        {%- if section.settings.heading != blank -%}
+          <h2 class="feature-cards__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      </div>
+      <div class="feature-cards__header-right">
+        {%- if section.settings.cta_label != blank -%}
+          <a class="feature-cards__cta" href="{{ section.settings.cta_url | default: '#' }}">
+            {{ section.settings.cta_label }}
+            <svg width="8" height="12" viewBox="0 0 8 12" fill="none" aria-hidden="true">
+              <path d="M1.5 1l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- comment -%} ── Carousel ── {%- endcomment -%}
+    <div class="feature-cards__carousel-wrap">
+      <div class="feature-cards__track" id="{{ section_id }}-track">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign img_sizes = '340px'
+            assign card_url = block.settings.link | default: '#'
+          -%}
+          <article class="feature-cards__card" {{ block.shopify_attributes }}>
+            <div class="feature-cards__card-body">
+              <div class="feature-cards__card-text">
+                {%- if block.settings.kicker != blank -%}
+                  <p class="feature-cards__card-kicker">{{ block.settings.kicker }}</p>
+                {%- endif -%}
+                {%- if block.settings.title != blank -%}
+                  <h3 class="feature-cards__card-title">{{ block.settings.title }}</h3>
+                {%- endif -%}
+                {%- if block.settings.description != blank -%}
+                  <p class="feature-cards__card-desc">{{ block.settings.description }}</p>
+                {%- endif -%}
+              </div>
+
+              <div class="feature-cards__card-media">
+                {%- if block.settings.image != blank -%}
+                  {{
+                    block.settings.image
+                    | image_url: width: 680
+                    | image_tag:
+                      loading: 'lazy',
+                      widths: '340, 500, 680',
+                      sizes: img_sizes,
+                      class: 'feature-cards__card-img',
+                      alt: block.settings.image.alt | default: block.settings.title | escape
+                  }}
+                {%- else -%}
+                  {{ 'image' | placeholder_svg_tag: 'feature-cards__card-placeholder' }}
+                {%- endif -%}
+              </div>
+            </div>
+
+            {%- if card_url != '#' or block.settings.link != blank -%}
+              <a class="feature-cards__card-btn" href="{{ card_url }}" aria-label="Learn more about {{ block.settings.title | escape }}">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                  <path d="M2 7h10M7.5 2.5l5 4.5-5 4.5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            {%- else -%}
+              <span class="feature-cards__card-btn feature-cards__card-btn--static" aria-hidden="true">
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                  <path d="M7 2v10M2 7h10" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+                </svg>
+              </span>
+            {%- endif -%}
+          </article>
+        {%- endfor -%}
+      </div>
+    </div>
+
+    {%- comment -%} ── Nav arrows ── {%- endcomment -%}
+    {%- if section.blocks.size > 1 -%}
+      <div class="feature-cards__nav" id="{{ section_id }}-nav">
+        <button
+          class="feature-cards__nav-btn feature-cards__nav-btn--prev"
+          id="{{ section_id }}-prev"
+          aria-label="Previous"
+          disabled
+        >
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M8 1L3 6l5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button
+          class="feature-cards__nav-btn feature-cards__nav-btn--next"
+          id="{{ section_id }}-next"
+          aria-label="Next"
+        >
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <path d="M4 1l5 5-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+<style>
+  #{{ section_id }} {
+    background: {{ section.settings.bg_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  #{{ section_id }} .feature-cards__page-width {
+    max-width: 128rem;
+    margin: 0 auto;
+    padding: 0 4.4rem;
+  }
+
+  /* ── Header ── */
+  #{{ section_id }} .feature-cards__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 3.6rem;
+  }
+
+  #{{ section_id }} .feature-cards__heading {
+    margin: 0;
+    font-size: clamp(2.8rem, 4vw, 4.4rem);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -0.022em;
+    color: {{ section.settings.heading_color }};
+    max-width: 60rem;
+  }
+
+  #{{ section_id }} .feature-cards__cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: {{ section.settings.cta_color }};
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding-bottom: 0.4rem; /* align with heading baseline */
+    transition: opacity 0.15s ease;
+  }
+
+  #{{ section_id }} .feature-cards__cta:hover {
+    opacity: 0.7;
+  }
+
+  /* ── Carousel track ── */
+  #{{ section_id }} .feature-cards__carousel-wrap {
+    overflow: hidden;
+  }
+
+  #{{ section_id }} .feature-cards__track {
+    display: flex;
+    gap: 1.6rem;
+    transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+    align-items: stretch;
+  }
+
+  /* ── Card ── */
+  #{{ section_id }} .feature-cards__card {
+    flex: 0 0 {{ section.settings.card_width }}px;
+    width: {{ section.settings.card_width }}px;
+    background: {{ section.settings.card_bg }};
+    border-radius: 1.8rem;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  #{{ section_id }} .feature-cards__card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+    padding: 2.4rem 2.4rem 0;
+    min-height: {{ section.settings.card_height }}px;
+  }
+
+  #{{ section_id }} .feature-cards__card-text {
+    flex-shrink: 0;
+  }
+
+  #{{ section_id }} .feature-cards__card-kicker {
+    margin: 0 0 0.8rem;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: {{ section.settings.kicker_color }};
+    letter-spacing: 0;
+  }
+
+  #{{ section_id }} .feature-cards__card-title {
+    margin: 0 0 1rem;
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.18;
+    letter-spacing: -0.016em;
+    color: {{ section.settings.card_title_color }};
+  }
+
+  #{{ section_id }} .feature-cards__card-desc {
+    margin: 0;
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: {{ section.settings.card_desc_color }};
+  }
+
+  /* ── Card image — sits at bottom, fills width ── */
+  #{{ section_id }} .feature-cards__card-media {
+    margin-top: 2rem;
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+    border-radius: 0 0 1.8rem 1.8rem;
+  }
+
+  #{{ section_id }} .feature-cards__card-img,
+  #{{ section_id }} .feature-cards__card-placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #{{ section_id }} .feature-cards__card-placeholder {
+    min-height: 16rem;
+    opacity: 0.2;
+  }
+
+  /* ── Plus / arrow button ── */
+  #{{ section_id }} .feature-cards__card-btn {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    width: 3.6rem;
+    height: 3.6rem;
+    background: #1d1d1f;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background 0.15s ease, transform 0.15s ease;
+    border: none;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  #{{ section_id }} .feature-cards__card-btn:hover {
+    background: #3a3a3c;
+    transform: scale(1.08);
+  }
+
+  #{{ section_id }} .feature-cards__card-btn--static {
+    cursor: default;
+  }
+
+  #{{ section_id }} .feature-cards__card-btn--static:hover {
+    background: #1d1d1f;
+    transform: none;
+  }
+
+  /* ── Nav arrows ── */
+  #{{ section_id }} .feature-cards__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    margin-top: 3.2rem;
+  }
+
+  #{{ section_id }} .feature-cards__nav-btn {
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 50%;
+    background: transparent;
+    border: 0.1rem solid rgba(0, 0, 0, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: {{ section.settings.heading_color }};
+    transition: background 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+  }
+
+  #{{ section_id }} .feature-cards__nav-btn:hover:not(:disabled) {
+    background: rgba(0, 0, 0, 0.06);
+    border-color: rgba(0, 0, 0, 0.3);
+  }
+
+  #{{ section_id }} .feature-cards__nav-btn:disabled {
+    opacity: 0.28;
+    cursor: default;
+  }
+
+  /* ── Mobile ── */
+  @media screen and (max-width: 749px) {
+    #{{ section_id }} .feature-cards__page-width {
+      padding: 0 2rem;
+    }
+
+    #{{ section_id }} .feature-cards__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.2rem;
+      margin-bottom: 2.4rem;
+    }
+
+    #{{ section_id }} .feature-cards__card {
+      flex: 0 0 calc(100vw - 6rem);
+      width: calc(100vw - 6rem);
+    }
+  }
+</style>
+
+<script>
+  (function () {
+    const trackEl = document.getElementById('{{ section_id }}-track');
+    const prevBtn = document.getElementById('{{ section_id }}-prev');
+    const nextBtn = document.getElementById('{{ section_id }}-next');
+
+    if (!trackEl || !prevBtn || !nextBtn) return;
+
+    const cards = Array.from(trackEl.children);
+    if (cards.length === 0) return;
+
+    let currentIndex = 0;
+
+    function getVisibleCount() {
+      const wrapWidth = trackEl.parentElement.offsetWidth;
+      const cardWidth = cards[0].offsetWidth;
+      const gap = 16;
+      return Math.max(1, Math.floor((wrapWidth + gap) / (cardWidth + gap)));
+    }
+
+    function maxIndex() {
+      return Math.max(0, cards.length - getVisibleCount());
+    }
+
+    function getOffset(index) {
+      const cardWidth = cards[0].offsetWidth;
+      const gap = 16;
+      return index * (cardWidth + gap);
+    }
+
+    function go(index) {
+      currentIndex = Math.max(0, Math.min(index, maxIndex()));
+      trackEl.style.transform = `translateX(-${getOffset(currentIndex)}px)`;
+      prevBtn.disabled = currentIndex === 0;
+      nextBtn.disabled = currentIndex >= maxIndex();
+    }
+
+    prevBtn.addEventListener('click', () => go(currentIndex - 1));
+    nextBtn.addEventListener('click', () => go(currentIndex + 1));
+
+    // Reset on resize
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => go(Math.min(currentIndex, maxIndex())), 100);
+    });
+
+    // Initial state
+    go(0);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Feature cards carousel",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why we're the best place to buy."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA label",
+      "default": "Shop now"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "CTA link"
+    },
+    {
+      "type": "header",
+      "content": "Cards"
+    },
+    {
+      "type": "range",
+      "id": "card_width",
+      "min": 240,
+      "max": 480,
+      "step": 8,
+      "unit": "px",
+      "label": "Card width",
+      "default": 320
+    },
+    {
+      "type": "range",
+      "id": "card_height",
+      "min": 300,
+      "max": 700,
+      "step": 4,
+      "unit": "px",
+      "label": "Card min height",
+      "default": 520
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#f5f5f7"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Section heading color",
+      "default": "#1d1d1f"
+    },
+    {
+      "type": "color",
+      "id": "cta_color",
+      "label": "CTA link color",
+      "default": "#0066cc"
+    },
+    {
+      "type": "color",
+      "id": "kicker_color",
+      "label": "Card kicker color",
+      "default": "#6e6e73"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card title color",
+      "default": "#1d1d1f"
+    },
+    {
+      "type": "color",
+      "id": "card_desc_color",
+      "label": "Card description color",
+      "default": "#1d1d1f"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Top padding",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Bottom padding",
+      "default": 64
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Feature card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "kicker",
+          "label": "Kicker (small top label)",
+          "default": "Feature"
+        },
+        {
+          "type": "textarea",
+          "id": "title",
+          "label": "Title",
+          "default": "A compelling reason to choose us."
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "A short supporting sentence that adds context to the title above."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Card link",
+          "info": "Links the + button. Leave blank to show a static + icon."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature cards carousel",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "kicker": "Trade In",
+            "title": "Save on a new purchase with a trade-in.",
+            "description": "Get credit toward your next purchase when you trade in your old one."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "kicker": "Ways to Buy",
+            "title": "Get 0% APR monthly payments.",
+            "description": "Choose an easy way to finance your purchase with convenient monthly payment options."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "kicker": "Personal Setup",
+            "title": "Make the most of your purchase with an online session.",
+            "description": "Talk one on one with a Specialist to set up your device and discover new features."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "kicker": "Delivery and Pickup",
+            "title": "Get your order quickly and easily.",
+            "description": "Choose two-hour delivery, free delivery, or easy pickup options."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
