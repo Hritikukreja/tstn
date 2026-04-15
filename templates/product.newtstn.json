@@ -141,6 +141,48 @@
         "color_scheme": "scheme-5330df68-7ce6-41b9-9bf9-37d268b32221"
       }
     },
+    "video_buy_section_fh7rn3": {
+      "type": "video-buy-section",
+      "blocks": {
+        "trust_badge_rj9Jji": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "✓",
+            "text": "Free shipping on orders over $99"
+          }
+        },
+        "trust_badge_ENiQfA": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "↩",
+            "text": "30-day returns"
+          }
+        }
+      },
+      "block_order": [
+        "trust_badge_rj9Jji",
+        "trust_badge_ENiQfA"
+      ],
+      "name": "Video + Buy Now",
+      "settings": {
+        "video_type": "youtube",
+        "youtube_url": "https://youtu.be/TRtR_j5dqcU?si=Hh17jORefVurzyok",
+        "mp4_video": "",
+        "heading": "Thule Hallvator",
+        "subheading": "What Shaun has to say?\n\"This is a very good product \"",
+        "product": "",
+        "button_label": "Buy Now",
+        "button_url": "",
+        "richtext": "",
+        "bg_color": "#0a0a0a",
+        "panel_bg_color": "#111111",
+        "text_color": "#ffffff",
+        "accent_color": "#ffffff",
+        "max_width": 1280,
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
     "join_crew_EUdPaY": {
       "type": "join-crew",
       "blocks": {
@@ -581,6 +623,7 @@
     "product_banner_XPWEW8",
     "main",
     "pro_hero_ye7RgN",
+    "video_buy_section_fh7rn3",
     "join_crew_EUdPaY",
     "feature_gallery_xpJVXd",
     "product_faq_h3Cdgd",
