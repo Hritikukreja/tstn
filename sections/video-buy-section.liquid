@@ -3,8 +3,6 @@
   Layout: 70% video | 30% buy panel, rich text below
 {% endcomment %}
 
-{{ 'video-buy-section.css' | asset_url | stylesheet_tag }}
-
 {%- liquid
   assign video_type = section.settings.video_type
   assign youtube_url = section.settings.youtube_url
