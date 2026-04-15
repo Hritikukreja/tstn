@@ -155,8 +155,8 @@
   #{{ section_id }} .pro-hero__kicker {
     margin: 0 0 0.5rem;
     font-family: 'Danger Neue', sans-serif;
-    font-size: clamp(2rem, 5vw, 4.2rem);
-    font-weight: 400;
+    font-size: {{ section.settings.kicker_size }}px;
+    font-weight: {{ section.settings.kicker_weight }};
     line-height: 1;
     color: {{ section.settings.kicker_color }};
   }
@@ -164,8 +164,8 @@
   #{{ section_id }} .pro-hero__heading {
     margin: 0;
     font-family: 'Danger Neue', sans-serif;
-    font-size: clamp(3.4rem, 12vw, 13rem);
-    font-weight: 400;
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: {{ section.settings.heading_weight }};
     text-transform: uppercase;
     letter-spacing: -0.02em;
     line-height: 0.95;
@@ -179,23 +179,29 @@
     gap: 1.1rem;
   }
 
-  #{{ section_id }} .pro-hero__button {
+  /* Remove ALL button overrides from theme */
+  #{{ section_id }} .pro-hero__button,
+  #{{ section_id }} .pro-hero__button:hover,
+  #{{ section_id }} .pro-hero__button:focus,
+  #{{ section_id }} .pro-hero__button:active {
     min-width: 8rem;
     border-radius: 999px;
     padding-inline: 1.7rem;
-    border: none;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none;
     background-color: {{ section.settings.button_bg_color }};
     color: {{ section.settings.button_text_color }};
+    transition: background-color 0.2s ease;
   }
 
   #{{ section_id }} .pro-hero__button:hover {
-    background-color: {{ section.settings.button_hover_color }};
-    color: {{ section.settings.button_text_color }};
+    background-color: {{ section.settings.button_hover_color }} !important;
   }
 
   #{{ section_id }} .pro-hero__price {
     margin: 0;
-    font-size: 1.7rem;
+    font-size: {{ section.settings.price_size }}px;
     font-weight: 600;
     color: {{ section.settings.price_color }};
   }
@@ -206,9 +212,6 @@
     }
     #{{ section_id }} .pro-hero__content {
       padding: 2rem 1.5rem 1.8rem;
-    }
-    #{{ section_id }} .pro-hero__price {
-      font-size: 1.4rem;
     }
   }
 </style>
@@ -324,19 +327,77 @@
     },
     {
       "type": "header",
-      "content": "Text & button"
+      "content": "Kicker text"
     },
     {
       "type": "text",
       "id": "kicker",
-      "label": "Top text (kicker)",
+      "label": "Kicker text",
       "default": "iPhone 17"
+    },
+    {
+      "type": "color",
+      "id": "kicker_color",
+      "label": "Kicker colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "kicker_size",
+      "label": "Kicker font size",
+      "min": 12,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "range",
+      "id": "kicker_weight",
+      "label": "Kicker font weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Heading"
     },
     {
       "type": "text",
       "id": "heading",
       "label": "Main heading",
       "default": "PRO"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading colour",
+      "default": "#ff8a2b"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading font size",
+      "min": 20,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "heading_weight",
+      "label": "Heading font weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "default": 400
+    },
+    {
+      "type": "header",
+      "content": "Button"
     },
     {
       "type": "text",
@@ -355,40 +416,6 @@
       "label": "Button link (fallback)"
     },
     {
-      "type": "text",
-      "id": "price_text",
-      "label": "Price text",
-      "default": "From $1099 or $45.79/mo. for 24 months"
-    },
-    {
-      "type": "header",
-      "content": "Colours"
-    },
-    {
-      "type": "color",
-      "id": "section_bg_color",
-      "label": "Section background",
-      "default": "#000000"
-    },
-    {
-      "type": "color",
-      "id": "kicker_color",
-      "label": "Kicker text colour",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "heading_color",
-      "label": "Heading colour",
-      "default": "#ff8a2b"
-    },
-    {
-      "type": "color",
-      "id": "price_color",
-      "label": "Price text colour",
-      "default": "#ffffff"
-    },
-    {
       "type": "color",
       "id": "button_bg_color",
       "label": "Button background",
@@ -404,6 +431,42 @@
       "type": "color",
       "id": "button_text_color",
       "label": "Button text colour",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Price text"
+    },
+    {
+      "type": "text",
+      "id": "price_text",
+      "label": "Price text",
+      "default": "From $1099 or $45.79/mo. for 24 months"
+    },
+    {
+      "type": "color",
+      "id": "price_color",
+      "label": "Price colour",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "price_size",
+      "label": "Price font size",
+      "min": 10,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "default": 17
+    },
+    {
+      "type": "header",
+      "content": "Section background"
+    },
+    {
+      "type": "color",
+      "id": "section_bg_color",
+      "label": "Background colour",
       "default": "#000000"
     }
   ],
