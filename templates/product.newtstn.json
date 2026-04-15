@@ -483,9 +483,7 @@
         "product_card_Mth6Je",
         "product_card_PzG9m7"
       ],
-      "custom_css": [
-        ".product-showcase__card {color: white;}"
-      ],
+      "custom_css": [],
       "name": "Product showcase",
       "settings": {
         "kicker": "Used & Tested",

@@ -15,18 +15,8 @@
       "type": "product-logo-image",
       "name": "Product logo image",
       "settings": {
-        "color": "",
+        "color": "#000000",
         "image": "shopify://shop_images/TSTN_CLUB.png"
-      }
-    },
-    "product_footer_8GDRyG": {
-      "type": "product-footer",
-      "disabled": true,
-      "name": "Product-footer",
-      "settings": {
-        "color": "",
-        "newsletter_heading": "",
-        "menu": "footer"
       }
     },
     "footer": {
@@ -34,6 +24,7 @@
       "blocks": {
         "brand_information_i9FKAe": {
           "type": "brand_information",
+          "disabled": true,
           "settings": {
             "logo": "shopify://shop_images/New_Project_1.png",
             "show_social": true
@@ -74,6 +65,16 @@
         "margin_top": 0,
         "padding_top": 72,
         "padding_bottom": 28
+      }
+    },
+    "product_footer_8GDRyG": {
+      "type": "product-footer",
+      "disabled": true,
+      "name": "Product-footer",
+      "settings": {
+        "color": "",
+        "newsletter_heading": "",
+        "menu": "footer"
       }
     }
   },
