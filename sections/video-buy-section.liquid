@@ -1,38 +1,50 @@
 {% comment %}
   Section: Video + Buy Now Panel
-  Layout: 70% video | 30% buy panel, rich text below
+  Layout: Configurable split | video panel | buy panel, rich text below
+  Premium dark theme – Danger Neue headings
 {% endcomment %}
 
 {%- liquid
-  assign video_type = section.settings.video_type
-  assign youtube_url = section.settings.youtube_url
-  assign mp4_video = section.settings.mp4_video
-  assign heading = section.settings.heading
-  assign subheading = section.settings.subheading
-  assign product = section.settings.product
-  assign btn_label = section.settings.button_label | default: 'Buy Now'
-  assign btn_url = section.settings.button_url | default: product.url
-  assign richtext = section.settings.richtext
-  assign section_padding_top = section.settings.padding_top
+  assign video_type       = section.settings.video_type
+  assign youtube_url      = section.settings.youtube_url
+  assign mp4_video        = section.settings.mp4_video
+  assign heading          = section.settings.heading
+  assign subheading       = section.settings.subheading
+  assign product          = section.settings.product
+  assign btn_label        = section.settings.button_label | default: 'Buy Now'
+  assign btn_url          = section.settings.button_url | default: product.url
+  assign richtext         = section.settings.richtext
+  assign section_padding_top    = section.settings.padding_top
   assign section_padding_bottom = section.settings.padding_bottom
+  assign video_split      = section.settings.video_split
+  assign panel_split      = 100 | minus: video_split
+  assign show_controls    = section.settings.show_video_controls
+  assign badge_color      = section.settings.badge_text_color
+  assign badge_icon_color = section.settings.badge_icon_color
 -%}
 
 <section
   id="video-buy-{{ section.id }}"
   class="vb-section"
-  style="padding-top: {{ section_padding_top }}px; padding-bottom: {{ section_padding_bottom }}px;"
+  style="
+    padding-top: {{ section_padding_top }}px;
+    padding-bottom: {{ section_padding_bottom }}px;
+    --vb-video-split: {{ video_split }}%;
+    --vb-panel-split: calc({{ panel_split }}% - var(--vb-gap));
+    --vb-badge-text-color: {{ badge_color }};
+    --vb-badge-icon-color: {{ badge_icon_color }};
+  "
 >
   <div class="vb-wrapper">
 
     {%- comment -%} ── TOP SPLIT ROW ── {%- endcomment -%}
     <div class="vb-split">
 
-      {%- comment -%} VIDEO COLUMN – 70% {%- endcomment -%}
+      {%- comment -%} VIDEO COLUMN {%- endcomment -%}
       <div class="vb-video-col">
         <div class="vb-video-frame">
 
           {%- if video_type == 'youtube' and youtube_url != blank -%}
-            {%- comment -%} Extract YouTube ID from full URL or bare ID {%- endcomment -%}
             {%- assign yt_id = youtube_url -%}
             {%- if youtube_url contains 'youtu.be/' -%}
               {%- assign yt_id = youtube_url | split: 'youtu.be/' | last | split: '?' | first -%}
@@ -42,9 +54,20 @@
               {%- assign yt_id = youtube_url | split: 'embed/' | last | split: '?' | first -%}
             {%- endif -%}
 
+            {%- comment -%}
+              YouTube iframes always show their own native controls.
+              When show_controls = false we hide controls via the controls=0 param
+              and overlay a custom play button instead.
+            {%- endcomment -%}
+            {%- if show_controls -%}
+              {%- assign yt_controls = '1' -%}
+            {%- else -%}
+              {%- assign yt_controls = '0' -%}
+            {%- endif -%}
+
             <iframe
               class="vb-iframe"
-              src="https://www.youtube.com/embed/{{ yt_id }}?rel=0&modestbranding=1"
+              src="https://www.youtube.com/embed/{{ yt_id }}?rel=0&modestbranding=1&controls={{ yt_controls }}&autoplay=0"
               title="{{ heading | escape }}"
               frameborder="0"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -54,9 +77,9 @@
           {%- elsif video_type == 'file' and mp4_video != blank -%}
             <video
               class="vb-video"
-              controls
               playsinline
               preload="metadata"
+              {%- if show_controls -%} controls {%- endif -%}
               {%- if section.settings.video_poster != blank -%}
                 poster="{{ section.settings.video_poster | image_url: width: 1600 }}"
               {%- endif -%}
@@ -65,8 +88,22 @@
               Your browser does not support HTML5 video.
             </video>
 
+            {%- unless show_controls -%}
+              {%- comment -%} Custom play overlay when native controls are hidden {%- endcomment -%}
+              <button class="vb-play-overlay" aria-label="Play video" onclick="
+                var v = this.closest('.vb-video-frame').querySelector('video');
+                if (v.paused) { v.play(); this.classList.add('vb-play-overlay--hidden'); }
+              ">
+                <span class="vb-play-icon">
+                  <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <circle cx="28" cy="28" r="27" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+                    <polygon points="22,16 44,28 22,40" fill="white"/>
+                  </svg>
+                </span>
+              </button>
+            {%- endunless -%}
+
           {%- else -%}
-            {%- comment -%} Placeholder when no video is configured {%- endcomment -%}
             <div class="vb-placeholder">
               <svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <circle cx="32" cy="32" r="31" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
@@ -76,13 +113,23 @@
             </div>
           {%- endif -%}
 
+          {%- comment -%} Decorative corner accent {%- endcomment -%}
+          <span class="vb-corner vb-corner--tl" aria-hidden="true"></span>
+          <span class="vb-corner vb-corner--br" aria-hidden="true"></span>
+
         </div>
       </div>
       {%- comment -%} END VIDEO COLUMN {%- endcomment -%}
 
-      {%- comment -%} BUY PANEL – 30% {%- endcomment -%}
+      {%- comment -%} BUY PANEL {%- endcomment -%}
       <div class="vb-buy-col">
         <div class="vb-buy-panel">
+
+          {%- comment -%} Subtle scanline texture overlay {%- endcomment -%}
+          <div class="vb-panel-texture" aria-hidden="true"></div>
+
+          {%- comment -%} Accent bar at top {%- endcomment -%}
+          <div class="vb-panel-bar" aria-hidden="true"></div>
 
           {%- if heading != blank -%}
             <h2 class="vb-heading">{{ heading }}</h2>
@@ -96,10 +143,13 @@
             <div class="vb-price">
               {%- if product.compare_at_price > product.price -%}
                 <span class="vb-price--compare">{{ product.compare_at_price | money }}</span>
+                <span class="vb-price--badge">SAVE {{ product.compare_at_price | minus: product.price | money }}</span>
               {%- endif -%}
               <span class="vb-price--current">{{ product.price | money }}</span>
             </div>
           {%- endif -%}
+
+          <div class="vb-divider" aria-hidden="true"></div>
 
           <div class="vb-btn-wrap">
             <a
@@ -107,23 +157,28 @@
               class="vb-btn"
               {%- if btn_url == blank -%} aria-disabled="true" {%- endif -%}
             >
-              {{ btn_label }}
+              <span class="vb-btn-label">{{ btn_label }}</span>
               <svg class="vb-btn-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path d="M3 9H15M15 9L10 4M15 9L10 14" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </a>
           </div>
 
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'trust_badge' -%}
-              <div class="vb-badge" {{ block.shopify_attributes }}>
-                {%- if block.settings.icon != blank -%}
-                  <span class="vb-badge-icon">{{ block.settings.icon }}</span>
+          {%- comment -%} Trust badges {%- endcomment -%}
+          {%- if section.blocks.size > 0 -%}
+            <div class="vb-badges">
+              {%- for block in section.blocks -%}
+                {%- if block.type == 'trust_badge' -%}
+                  <div class="vb-badge" {{ block.shopify_attributes }}>
+                    {%- if block.settings.icon != blank -%}
+                      <span class="vb-badge-icon">{{ block.settings.icon }}</span>
+                    {%- endif -%}
+                    <span class="vb-badge-text">{{ block.settings.text }}</span>
+                  </div>
                 {%- endif -%}
-                <span class="vb-badge-text">{{ block.settings.text }}</span>
-              </div>
-            {%- endif -%}
-          {%- endfor -%}
+              {%- endfor -%}
+            </div>
+          {%- endif -%}
 
         </div>
       </div>
@@ -144,31 +199,51 @@
 
 <style>
   /* ─────────────────────────────────────────
-     VIDEO + BUY SECTION  –  inline styles
-     (move to assets/video-buy-section.css
-      if preferred)
+     TSTN – Video + Buy Now Section
+     Premium dark theme · Danger Neue headings
   ───────────────────────────────────────── */
 
+  @import url('https://fonts.cdnfonts.com/css/danger-neue');
+
   #video-buy-{{ section.id }} {
-    --vb-bg:          {{ section.settings.bg_color }};
-    --vb-text:        {{ section.settings.text_color }};
-    --vb-accent:      {{ section.settings.accent_color }};
-    --vb-panel-bg:    {{ section.settings.panel_bg_color }};
-    --vb-border:      rgba(255,255,255,0.1);
-    --vb-radius:      12px;
-    --vb-gap:         2px;
+    --vb-bg:              {{ section.settings.bg_color }};
+    --vb-text:            {{ section.settings.text_color }};
+    --vb-accent:          {{ section.settings.accent_color }};
+    --vb-panel-bg:        {{ section.settings.panel_bg_color }};
+    --vb-border:          rgba(255,255,255,0.08);
+    --vb-radius:          14px;
+    --vb-gap:             3px;
+    --vb-badge-text-color: {{ badge_color }};
+    --vb-badge-icon-color: {{ badge_icon_color }};
   }
 
+  /* ── Section wrapper ── */
   .vb-section {
     background: var(--vb-bg);
     color: var(--vb-text);
     width: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Subtle ambient glow behind the panel */
+  .vb-section::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -10%;
+    width: 55%;
+    height: 160%;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,0.03) 0%, transparent 65%);
+    pointer-events: none;
   }
 
   .vb-wrapper {
     max-width: {{ section.settings.max_width }}px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
   }
 
   /* ── Split row ── */
@@ -178,15 +253,19 @@
     align-items: stretch;
     border-radius: var(--vb-radius);
     overflow: hidden;
+    box-shadow:
+      0 0 0 1px var(--vb-border),
+      0 32px 80px rgba(0,0,0,0.6),
+      0 8px 24px rgba(0,0,0,0.4);
   }
 
   .vb-video-col {
-    flex: 0 0 70%;
+    flex: 0 0 var(--vb-video-split);
     min-width: 0;
   }
 
   .vb-buy-col {
-    flex: 0 0 calc(30% - var(--vb-gap));
+    flex: 0 0 var(--vb-panel-split);
     min-width: 0;
   }
 
@@ -195,8 +274,9 @@
     position: relative;
     width: 100%;
     height: 100%;
-    min-height: 420px;
+    min-height: 460px;
     background: #000;
+    overflow: hidden;
   }
 
   .vb-iframe,
@@ -210,6 +290,61 @@
     border: none;
   }
 
+  /* Decorative corner marks */
+  .vb-corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .vb-corner--tl {
+    top: 12px;
+    left: 12px;
+    border-top: 2px solid var(--vb-accent);
+    border-left: 2px solid var(--vb-accent);
+    opacity: 0.5;
+  }
+
+  .vb-corner--br {
+    bottom: 12px;
+    right: 12px;
+    border-bottom: 2px solid var(--vb-accent);
+    border-right: 2px solid var(--vb-accent);
+    opacity: 0.5;
+  }
+
+  /* Custom play overlay */
+  .vb-play-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.35);
+    border: none;
+    cursor: pointer;
+    transition: background 0.25s ease;
+    z-index: 2;
+  }
+
+  .vb-play-overlay:hover {
+    background: rgba(0,0,0,0.2);
+  }
+
+  .vb-play-icon {
+    transition: transform 0.2s ease;
+  }
+
+  .vb-play-overlay:hover .vb-play-icon {
+    transform: scale(1.1);
+  }
+
+  .vb-play-overlay--hidden {
+    display: none;
+  }
+
   .vb-placeholder {
     position: absolute;
     inset: 0;
@@ -218,61 +353,128 @@
     align-items: center;
     justify-content: center;
     gap: 16px;
-    background: #111;
-    color: rgba(255,255,255,0.4);
-    font-size: 14px;
-    letter-spacing: 0.04em;
+    background: #0d0d0d;
+    color: rgba(255,255,255,0.3);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   /* ── Buy panel ── */
   .vb-buy-panel {
     background: var(--vb-panel-bg);
     height: 100%;
-    padding: 36px 28px;
+    padding: 40px 32px 36px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 18px;
     border-left: 1px solid var(--vb-border);
+    position: relative;
+    overflow: hidden;
   }
 
+  /* Scanline texture */
+  .vb-panel-texture {
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.015) 2px,
+      rgba(255,255,255,0.015) 4px
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Accent top bar */
+  .vb-panel-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--vb-accent) 30%,
+      var(--vb-accent) 70%,
+      transparent 100%
+    );
+    opacity: 0.8;
+    z-index: 1;
+  }
+
+  /* All direct children above the texture */
+  .vb-buy-panel > *:not(.vb-panel-texture):not(.vb-panel-bar) {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── Heading – Danger Neue ── */
   .vb-heading {
-    font-size: clamp(20px, 2vw, 28px);
-    font-weight: 700;
-    line-height: 1.2;
+    font-family: 'Danger Neue', 'Impact', sans-serif;
+    font-weight: 400; /* Danger Neue Regular */
+    font-size: clamp(22px, 2.4vw, 34px);
+    line-height: 1.1;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     color: var(--vb-text);
     margin: 0;
   }
 
   .vb-subheading {
-    font-size: 14px;
-    line-height: 1.6;
-    color: rgba(255,255,255,0.6);
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.5);
     margin: 0;
+    letter-spacing: 0.02em;
   }
 
+  /* ── Price ── */
   .vb-price {
     display: flex;
-    align-items: baseline;
+    align-items: center;
     gap: 10px;
     flex-wrap: wrap;
   }
 
   .vb-price--compare {
-    font-size: 15px;
-    color: rgba(255,255,255,0.4);
+    font-size: 14px;
+    color: rgba(255,255,255,0.3);
     text-decoration: line-through;
   }
 
   .vb-price--current {
-    font-size: clamp(22px, 2.2vw, 30px);
+    font-size: clamp(24px, 2.4vw, 32px);
     font-weight: 700;
     color: var(--vb-text);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
+  }
+
+  .vb-price--badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--vb-bg);
+    background: var(--vb-accent);
+    padding: 3px 8px;
+    border-radius: 4px;
+  }
+
+  /* ── Divider ── */
+  .vb-divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--vb-accent) 0%, transparent 80%);
+    opacity: 0.25;
+    margin: 2px 0;
   }
 
   /* ── Button ── */
   .vb-btn-wrap {
-    margin-top: auto;
+    margin-top: 4px;
   }
 
   .vb-btn {
@@ -281,24 +483,44 @@
     justify-content: center;
     gap: 10px;
     width: 100%;
-    padding: 16px 24px;
+    padding: 17px 24px;
     background: var(--vb-accent);
     color: var(--vb-bg);
-    font-size: 15px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     text-decoration: none;
     border-radius: 8px;
     border: 2px solid var(--vb-accent);
     cursor: pointer;
-    transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+  }
+
+  /* Shine sweep on hover */
+  .vb-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transform: skewX(-15deg);
+    transition: left 0.4s ease;
+  }
+
+  .vb-btn:hover::after {
+    left: 150%;
   }
 
   .vb-btn:hover {
     background: transparent;
     color: var(--vb-accent);
     transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
   }
 
   .vb-btn-arrow {
@@ -307,31 +529,55 @@
   }
 
   .vb-btn:hover .vb-btn-arrow {
-    transform: translateX(4px);
+    transform: translateX(5px);
   }
 
   /* ── Trust badges ── */
+  .vb-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-top: auto;
+    border-top: 1px solid var(--vb-border);
+    padding-top: 16px;
+  }
+
   .vb-badge {
     display: flex;
     align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    color: rgba(255,255,255,0.55);
-    border-top: 1px solid var(--vb-border);
-    padding-top: 14px;
+    gap: 10px;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    color: var(--vb-badge-text-color);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    transition: color 0.2s ease;
+  }
+
+  .vb-badge:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
   }
 
   .vb-badge-icon {
-    font-size: 16px;
+    font-size: 15px;
+    color: var(--vb-badge-icon-color);
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+  }
+
+  .vb-badge-text {
+    color: var(--vb-badge-text-color);
   }
 
   /* ── Rich text ── */
   .vb-richtext {
-    margin-top: 40px;
-    padding-top: 40px;
+    margin-top: 48px;
+    padding-top: 48px;
     border-top: 1px solid var(--vb-border);
-    color: var(--vb-text);
-    line-height: 1.75;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.8;
     font-size: 15px;
   }
 
@@ -339,38 +585,48 @@
   .vb-richtext h2,
   .vb-richtext h3,
   .vb-richtext h4 {
+    font-family: 'Danger Neue', 'Impact', sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     color: var(--vb-text);
-    margin-top: 1.5em;
+    margin-top: 1.6em;
   }
 
   .vb-richtext a {
     color: var(--vb-accent);
     text-decoration: underline;
+    text-underline-offset: 3px;
   }
 
   .vb-richtext ul,
   .vb-richtext ol {
-    padding-left: 1.4em;
+    padding-left: 1.5em;
   }
 
   /* ── Responsive ── */
-  @media (max-width: 768px) {
+  @media (max-width: 860px) {
     .vb-split {
       flex-direction: column;
     }
 
     .vb-video-col,
     .vb-buy-col {
-      flex: 0 0 100%;
+      flex: 0 0 100% !important;
     }
 
     .vb-video-frame {
-      min-height: 56vw; /* 16:9 approx on mobile */
+      min-height: 56vw;
     }
 
     .vb-buy-panel {
       border-left: none;
       border-top: 1px solid var(--vb-border);
+      padding: 32px 24px 28px;
+    }
+
+    .vb-panel-bar {
+      top: 0;
     }
   }
 </style>
@@ -414,6 +670,13 @@
       "id": "video_poster",
       "label": "Video poster image",
       "info": "Shown before the hosted video plays."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_video_controls",
+      "label": "Show video controls",
+      "default": true,
+      "info": "Hide controls for a cleaner cinematic look. A custom play button will appear for hosted videos."
     },
     {
       "type": "header",
@@ -487,8 +750,30 @@
       "default": "#ffffff"
     },
     {
+      "type": "color",
+      "id": "badge_text_color",
+      "label": "Trust badge text color",
+      "default": "#999999"
+    },
+    {
+      "type": "color",
+      "id": "badge_icon_color",
+      "label": "Trust badge icon color",
+      "default": "#ffffff"
+    },
+    {
       "type": "header",
       "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "video_split",
+      "label": "Video column width (%)",
+      "min": 40,
+      "max": 80,
+      "step": 5,
+      "default": 70,
+      "info": "The buy panel takes the remaining width."
     },
     {
       "type": "range",
@@ -522,7 +807,7 @@
     {
       "type": "trust_badge",
       "name": "Trust badge",
-      "limit": 4,
+      "limit": 5,
       "settings": [
         {
           "type": "text",
@@ -555,6 +840,13 @@
           "settings": {
             "icon": "↩",
             "text": "30-day returns"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "🔒",
+            "text": "Secure checkout"
           }
         }
       ]
