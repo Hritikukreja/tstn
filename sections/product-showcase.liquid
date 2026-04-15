@@ -99,16 +99,14 @@
             </a>
 
             <div class="product-showcase__caption">
-              <p class="product-showcase__caption-text" style="color: {{ card_desc_color }};">
-                {%- if display_title != blank -%}
-                  <a class="product-showcase__product-link" href="{{ card_url }}">
-                    <strong class="product-showcase__product-name" style="color: {{ card_title_color }};">{{ display_title }}.</strong>
-                  </a>
-                {%- endif -%}
-                {%- if description != blank -%}
-                  {{ description }}
-                {%- endif -%}
-              </p>
+              {%- if display_title != blank -%}
+                <a class="product-showcase__product-link" href="{{ card_url }}">
+                  <strong class="product-showcase__product-name" style="color: {{ card_title_color }};">{{ display_title }}.</strong>
+                </a>
+              {%- endif -%}
+              {%- if description != blank -%}
+                <p class="product-showcase__caption-text" style="color: {{ card_desc_color }};">{{ description }}</p>
+              {%- endif -%}
             </div>
           </div>
         {%- endfor -%}
@@ -262,18 +260,15 @@
   #{{ section_id }} .product-showcase__caption {
     margin-top: 1.4rem;
     padding: 0 0.4rem;
-  }
-
-  #{{ section_id }} .product-showcase__caption-text {
-    margin: 0;
-    font-size: 1.4rem;
-    line-height: 1.6;
-    color: {{ section.settings.caption_color }};
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
   }
 
   #{{ section_id }} .product-showcase__product-link {
     text-decoration: none;
     color: inherit;
+    display: block;
   }
 
   #{{ section_id }} .product-showcase__product-name {
@@ -282,11 +277,19 @@
     font-size: 1.6rem;
     color: {{ section.settings.caption_name_color }};
     letter-spacing: 0.01em;
+    line-height: 1.2;
     transition: color 0.2s ease;
   }
 
   #{{ section_id }} .product-showcase__product-link:hover .product-showcase__product-name {
     color: {{ section.settings.kicker_color }};
+  }
+
+  #{{ section_id }} .product-showcase__caption-text {
+    margin: 0;
+    font-size: 1.35rem;
+    line-height: 1.65;
+    color: {{ section.settings.caption_color }};
   }
 </style>
 
