@@ -60,6 +60,18 @@
             else
               assign card_url = '#'
             endif
+
+            if block.settings.card_title_color != blank
+              assign card_title_color = block.settings.card_title_color
+            else
+              assign card_title_color = section.settings.caption_name_color
+            endif
+
+            if block.settings.card_desc_color != blank
+              assign card_desc_color = block.settings.card_desc_color
+            else
+              assign card_desc_color = section.settings.caption_color
+            endif
           -%}
 
           <div class="product-showcase__card" {{ block.shopify_attributes }}>
@@ -87,10 +99,10 @@
             </a>
 
             <div class="product-showcase__caption">
-              <p class="product-showcase__caption-text">
+              <p class="product-showcase__caption-text" style="color: {{ card_desc_color }};">
                 {%- if display_title != blank -%}
                   <a class="product-showcase__product-link" href="{{ card_url }}">
-                    <strong class="product-showcase__product-name">{{ display_title }}.</strong>
+                    <strong class="product-showcase__product-name" style="color: {{ card_title_color }};">{{ display_title }}.</strong>
                   </a>
                 {%- endif -%}
                 {%- if description != blank -%}
@@ -212,12 +224,12 @@
     border-radius: 1.2rem;
     overflow: hidden;
     background: {{ section.settings.card_bg_color }};
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid {{ section.settings.card_border_color }};
     transition: border-color 0.3s ease;
   }
 
   #{{ section_id }} .product-showcase__image-link:hover {
-    border-color: rgba({{ section.settings.kicker_color | remove: '#' }}, 0.35);
+    border-color: {{ section.settings.card_border_hover_color }};
   }
 
   #{{ section_id }} .product-showcase__image-wrap {
@@ -330,6 +342,18 @@
     },
     {
       "type": "color",
+      "id": "card_border_color",
+      "label": "Card border",
+      "default": "#1F1F1F"
+    },
+    {
+      "type": "color",
+      "id": "card_border_hover_color",
+      "label": "Card border (hover)",
+      "default": "#C9A84C"
+    },
+    {
+      "type": "color",
       "id": "kicker_color",
       "label": "Kicker / accent color",
       "default": "#C9A84C"
@@ -438,6 +462,22 @@
           "id": "custom_url",
           "label": "Override link",
           "info": "Leave blank to link to the product page"
+        },
+        {
+          "type": "header",
+          "content": "Text colors"
+        },
+        {
+          "type": "color",
+          "id": "card_title_color",
+          "label": "Title color",
+          "info": "Leave unset to use the section default"
+        },
+        {
+          "type": "color",
+          "id": "card_desc_color",
+          "label": "Description color",
+          "info": "Leave unset to use the section default"
         }
       ]
     }
