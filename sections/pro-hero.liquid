@@ -48,7 +48,7 @@
         <p class="pro-hero__kicker">{{ section.settings.kicker }}</p>
       {% endif %}
       {% if section.settings.heading != blank %}
-        <h2 class="pro-hero__heading">{{ section.settings.heading }}</h2>
+        <h2 class="pro-hero__heading main-heading">{{ section.settings.heading }}</h2>
       {% endif %}
       <div class="pro-hero__cta-wrap">
         {% if section.settings.button_label != blank %}
@@ -89,8 +89,7 @@
 <style>
   @font-face {
     font-family: 'Danger Neue';
-    src: url('https://cdn.jsdelivr.net/gh/mfd/fontcdn@master/fonts/DangerNeueFree/DangerNeueFree-Regular.woff2') format('woff2'),
-         url('https://cdn.jsdelivr.net/gh/mfd/fontcdn@master/fonts/DangerNeueFree/DangerNeueFree-Regular.woff') format('woff');
+    src: url('https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Danger_Neue_Regular.ttf?v=1776280277') format('truetype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -114,7 +113,6 @@
     object-fit: cover;
   }
 
-  /* Solid colour tint — colour and opacity set via inline style vars */
   #{{ section_id }} .pro-hero__tint {
     position: absolute;
     inset: 0;
@@ -124,7 +122,6 @@
     z-index: 1;
   }
 
-  /* Bottom gradient fade */
   #{{ section_id }} .pro-hero__overlay {
     position: absolute;
     inset: 0;
@@ -145,12 +142,10 @@
     height: 100%;
   }
 
-  /* Vertical position */
   #{{ section_id }} .pro-hero__content--top    { justify-content: flex-start; padding-top: 5rem; }
   #{{ section_id }} .pro-hero__content--middle { justify-content: center; }
   #{{ section_id }} .pro-hero__content--bottom { justify-content: flex-end; padding-bottom: 5rem; }
 
-  /* Horizontal alignment */
   #{{ section_id }} .pro-hero__content-align--left   { text-align: left; }
   #{{ section_id }} .pro-hero__content-align--left   .pro-hero__cta-wrap { align-items: flex-start; }
   #{{ section_id }} .pro-hero__content-align--center { text-align: center; }
