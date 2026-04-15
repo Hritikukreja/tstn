@@ -454,7 +454,9 @@
             "custom_image": "shopify://shop_images/Bluetti_2.png",
             "title_override": "",
             "description": "<p>Powers multiple devices with 4 AC outlets, 2x 100W USB-C, and more. Offers fast charging (0-80% in ~50 min), 6,000+ cycles, quiet operation, and UPS backup. Ideal for camping, van life.</p>",
-            "custom_url": ""
+            "custom_url": "",
+            "card_title_color": "",
+            "card_desc_color": ""
           }
         },
         "product_card_Mth6Je": {
@@ -464,7 +466,9 @@
             "custom_image": "shopify://shop_images/Crow_Molle_2.png",
             "title_override": "TRUST THE GEAR WITH EPIC MOLLE",
             "description": "<p>It mounts tightly under the roof for maximum vertical clearance, made from lightweight aerospace-grade aluminum with a durable satin black powder coat. Features a smart deviated </p>",
-            "custom_url": ""
+            "custom_url": "",
+            "card_title_color": "#121212",
+            "card_desc_color": "#f87720"
           }
         },
         "product_card_PzG9m7": {
@@ -474,7 +478,9 @@
             "custom_image": "shopify://shop_images/join_crew_mobile.png",
             "title_override": "Thule Hullavator Pro",
             "description": "<p>A premium lift-assist kayak carrier that makes solo loading easy. Gas-assist struts lower the cradle up to 3 feet to waist height and reduce up to 40 lbs of the kayak’s weight.</p>",
-            "custom_url": ""
+            "custom_url": "",
+            "card_title_color": "",
+            "card_desc_color": ""
           }
         }
       },
@@ -492,6 +498,8 @@
         "cta_url": "",
         "bg_color": "#121212",
         "card_bg_color": "#121212",
+        "card_border_color": "#1f1f1f",
+        "card_border_hover_color": "#c9a84c",
         "kicker_color": "#f56300",
         "heading_color": "#f8f8f8",
         "cta_color": "#2997ff",
