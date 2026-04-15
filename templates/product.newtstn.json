@@ -155,6 +155,13 @@
     "video_buy_section_fh7rn3": {
       "type": "video-buy-section",
       "blocks": {
+        "trust_badge_mqD7Bq": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "✓",
+            "text": "0% APR Financing"
+          }
+        },
         "trust_badge_rj9Jji": {
           "type": "trust_badge",
           "settings": {
@@ -171,6 +178,7 @@
         }
       },
       "block_order": [
+        "trust_badge_mqD7Bq",
         "trust_badge_rj9Jji",
         "trust_badge_ENiQfA"
       ],
@@ -181,10 +189,13 @@
         "mp4_video": "",
         "show_video_controls": false,
         "heading": "Thule Hallvator",
-        "subheading": "\"I’ve used a lot of racks over the years, and the Thule Hullavator Pro is one of those pieces of gear that actually changes how often you go out.\n\nBeing able to load and unload a kayak without wrecking your shoulders—it sounds small, but it makes a huge difference. Especially if you're doing this solo or after a long day.\"",
+        "subheading": "<p><strong>What Shaun has to say?<br/></strong>\"I’ve used a lot of racks over the years, and the Thule Hullavator Pro is one of those pieces of gear that actually changes how often you go out. Being able to load and unload a kayak without wrecking your shoulders—it sounds small, but it makes a huge difference. Especially if you're doing this solo or after a long day.\"</p>",
+        "subheading_color": "#ffffff",
         "product": "",
+        "custom_price": "$45.79/mo. for 24 mo.*",
         "button_label": "Buy Now",
         "button_url": "shopify://products/thule-hullavator-pro-kayak-rack-modula-racks",
+        "show_buy_button": true,
         "richtext": "",
         "bg_color": "#0a0a0a",
         "panel_bg_color": "#111111",
@@ -192,6 +203,8 @@
         "accent_color": "#f8f8f8",
         "badge_text_color": "#f56300",
         "badge_icon_color": "#ffffff",
+        "badge_font_size": 15,
+        "badge_font_weight": "700",
         "video_split": 65,
         "max_width": 1280,
         "padding_top": 32,
