@@ -40,8 +40,8 @@
       {{ 'lifestyle-2' | placeholder_svg_tag: 'pro-hero__placeholder' }}
     {% endif %}
 
-    <div class="pro-hero__tint"></div>
-    <div class="pro-hero__overlay"></div>
+    <div class="pro-hero__tint" aria-hidden="true">&nbsp;</div>
+    <div class="pro-hero__overlay" aria-hidden="true">&nbsp;</div>
 
     <div class="pro-hero__content page-width pro-hero__content--{{ section.settings.content_position }} pro-hero__content-align--{{ section.settings.content_alignment }}">
       {% if section.settings.kicker != blank %}
@@ -58,7 +58,7 @@
               <button
                 type="submit"
                 name="add"
-                class="button button--primary pro-hero__button"
+                class="pro-hero__button"
                 {% unless section.settings.product.available %}disabled{% endunless %}
               >
                 {% if section.settings.product.available %}
@@ -70,7 +70,7 @@
             {% endform %}
           {% else %}
             
-              class="button button--primary pro-hero__button"
+              class="pro-hero__button"
               href="{{ section.settings.button_link | default: routes.all_products_collection_url }}"
             >
               {{ section.settings.button_label }}
@@ -114,21 +114,33 @@
   }
 
   #{{ section_id }} .pro-hero__tint {
-    position: absolute;
+    display: block !important;
+    position: absolute !important;
     inset: 0;
-    background-color: var(--tint-color, #000);
-    opacity: var(--tint-opacity, 0);
+    width: 100%;
+    height: 100%;
+    background-color: var(--tint-color, #000000) !important;
+    opacity: var(--tint-opacity, 0) !important;
     pointer-events: none;
     z-index: 1;
+    font-size: 0;
+    line-height: 0;
+    color: transparent;
   }
 
   #{{ section_id }} .pro-hero__overlay {
-    position: absolute;
+    display: block !important;
+    position: absolute !important;
     inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.9) 100%);
-    opacity: var(--overlay-opacity, 0.35);
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.9) 100%) !important;
+    opacity: var(--overlay-opacity, 0.35) !important;
     pointer-events: none;
     z-index: 2;
+    font-size: 0;
+    line-height: 0;
+    color: transparent;
   }
 
   #{{ section_id }} .pro-hero__content {
@@ -179,24 +191,33 @@
     gap: 1.1rem;
   }
 
-  /* Remove ALL button overrides from theme */
-  #{{ section_id }} .pro-hero__button,
-  #{{ section_id }} .pro-hero__button:hover,
-  #{{ section_id }} .pro-hero__button:focus,
-  #{{ section_id }} .pro-hero__button:active {
+  #{{ section_id }} .pro-hero__button {
+    display: inline-block;
     min-width: 8rem;
     border-radius: 999px;
-    padding-inline: 1.7rem;
+    padding: 0.8rem 1.7rem;
     border: none !important;
     box-shadow: none !important;
-    outline: none;
-    background-color: {{ section.settings.button_bg_color }};
-    color: {{ section.settings.button_text_color }};
+    outline: none !important;
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: {{ section.settings.button_bg_color }} !important;
+    color: {{ section.settings.button_text_color }} !important;
+    font-size: {{ section.settings.button_font_size }}px !important;
+    font-weight: {{ section.settings.button_font_weight }} !important;
+    cursor: pointer;
+    text-decoration: none;
     transition: background-color 0.2s ease;
   }
 
-  #{{ section_id }} .pro-hero__button:hover {
+  #{{ section_id }} .pro-hero__button:hover,
+  #{{ section_id }} .pro-hero__button:focus,
+  #{{ section_id }} .pro-hero__button:active {
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
     background-color: {{ section.settings.button_hover_color }} !important;
+    color: {{ section.settings.button_text_color }} !important;
   }
 
   #{{ section_id }} .pro-hero__price {
@@ -432,6 +453,25 @@
       "id": "button_text_color",
       "label": "Button text colour",
       "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "button_font_size",
+      "label": "Button font size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "button_font_weight",
+      "label": "Button font weight",
+      "min": 100,
+      "max": 900,
+      "step": 100,
+      "default": 400
     },
     {
       "type": "header",
