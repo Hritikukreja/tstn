@@ -179,19 +179,23 @@
         "video_type": "youtube",
         "youtube_url": "https://youtu.be/TRtR_j5dqcU?si=Hh17jORefVurzyok",
         "mp4_video": "",
+        "show_video_controls": false,
         "heading": "Thule Hallvator",
-        "subheading": "What Shaun has to say?\n\"This is a very good product \"",
+        "subheading": "\"I’ve used a lot of racks over the years, and the Thule Hullavator Pro is one of those pieces of gear that actually changes how often you go out.\n\nBeing able to load and unload a kayak without wrecking your shoulders—it sounds small, but it makes a huge difference. Especially if you're doing this solo or after a long day.\"",
         "product": "",
         "button_label": "Buy Now",
-        "button_url": "",
+        "button_url": "shopify://products/thule-hullavator-pro-kayak-rack-modula-racks",
         "richtext": "",
         "bg_color": "#0a0a0a",
         "panel_bg_color": "#111111",
         "text_color": "#ffffff",
         "accent_color": "#ffffff",
+        "badge_text_color": "#f56300",
+        "badge_icon_color": "#ffffff",
+        "video_split": 65,
         "max_width": 1280,
-        "padding_top": 60,
-        "padding_bottom": 60
+        "padding_top": 32,
+        "padding_bottom": 32
       }
     },
     "join_crew_EUdPaY": {
