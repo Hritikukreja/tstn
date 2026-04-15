@@ -61,17 +61,8 @@
               assign card_url = '#'
             endif
 
-            if block.settings.card_title_color != blank
-              assign card_title_color = block.settings.card_title_color
-            else
-              assign card_title_color = section.settings.caption_name_color
-            endif
-
-            if block.settings.card_desc_color != blank
-              assign card_desc_color = block.settings.card_desc_color
-            else
-              assign card_desc_color = section.settings.caption_color
-            endif
+            assign card_title_color = block.settings.card_title_color | default: section.settings.caption_name_color
+            assign card_desc_color  = block.settings.card_desc_color  | default: section.settings.caption_color
           -%}
 
           <div class="product-showcase__card" {{ block.shopify_attributes }}>
@@ -377,7 +368,7 @@
       "type": "color",
       "id": "caption_color",
       "label": "Caption text color",
-      "default": "#888888"
+      "default": "#CCCCCC"
     },
     {
       "type": "color",
