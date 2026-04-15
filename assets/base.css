@@ -1,3 +1,15 @@
+@font-face {
+  font-family: 'Danger Neue';
+  src: url('YOUR-SHOPIFY-CDN-URL.woff2') format('woff2'),
+       url('YOUR-SHOPIFY-CDN-URL.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+
+
 :root {
   --alpha-button-background: 1;
   --alpha-button-border: 1;
@@ -258,7 +270,7 @@ h5,
 .h3,
 .h4,
 .h5 {
-  font-family: var(--font-heading-family);
+  font-family: 'Danger Neue', sans-serif;
   font-style: var(--font-heading-style);
   font-weight: var(--font-heading-weight);
   letter-spacing: calc(var(--font-heading-scale) * 0.06rem);
