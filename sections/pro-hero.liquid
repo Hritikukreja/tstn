@@ -21,9 +21,7 @@
         muted
         loop
         playsinline
-        {% if section.settings.show_controls %}
-          controls
-        {% endif %}
+        {% if section.settings.show_controls %}controls{% endif %}
       >
         <source src="{{ section.settings.hero_video.sources[1].url | default: section.settings.hero_video.sources[0].url }}" type="video/mp4">
       </video>
@@ -42,13 +40,9 @@
       {{ 'lifestyle-2' | placeholder_svg_tag: 'pro-hero__placeholder' }}
     {% endif %}
 
-    <!-- Tint layer (solid color overlay) -->
     <div class="pro-hero__tint"></div>
-
-    <!-- Bottom gradient overlay -->
     <div class="pro-hero__overlay"></div>
 
-    <!-- Content -->
     <div class="pro-hero__content page-width pro-hero__content--{{ section.settings.content_position }} pro-hero__content-align--{{ section.settings.content_alignment }}">
       {% if section.settings.kicker != blank %}
         <p class="pro-hero__kicker">{{ section.settings.kicker }}</p>
@@ -65,9 +59,7 @@
                 type="submit"
                 name="add"
                 class="button button--primary pro-hero__button"
-                {% unless section.settings.product.available %}
-                  disabled
-                {% endunless %}
+                {% unless section.settings.product.available %}disabled{% endunless %}
               >
                 {% if section.settings.product.available %}
                   {{ section.settings.button_label }}
@@ -77,13 +69,9 @@
               </button>
             {% endform %}
           {% else %}
-            <a
+            
               class="button button--primary pro-hero__button"
-              {% if section.settings.button_link != blank %}
-                href="{{ section.settings.button_link }}"
-              {% else %}
-                href="{{ routes.all_products_collection_url }}"
-              {% endif %}
+              href="{{ section.settings.button_link | default: routes.all_products_collection_url }}"
             >
               {{ section.settings.button_label }}
             </a>
@@ -99,6 +87,15 @@
 </section>
 
 <style>
+  @font-face {
+    font-family: 'Danger Neue';
+    src: url('https://cdn.jsdelivr.net/gh/mfd/fontcdn@master/fonts/DangerNeueFree/DangerNeueFree-Regular.woff2') format('woff2'),
+         url('https://cdn.jsdelivr.net/gh/mfd/fontcdn@master/fonts/DangerNeueFree/DangerNeueFree-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
   #{{ section_id }} .pro-hero__media-wrap {
     position: relative;
     height: calc(var(--hero-height-desktop) * 1vh);
@@ -117,27 +114,22 @@
     object-fit: cover;
   }
 
-  /* Solid tint overlay */
+  /* Solid colour tint — colour and opacity set via inline style vars */
   #{{ section_id }} .pro-hero__tint {
     position: absolute;
     inset: 0;
-    background: var(--tint-color);
-    opacity: var(--tint-opacity);
+    background-color: var(--tint-color, #000);
+    opacity: var(--tint-opacity, 0);
     pointer-events: none;
     z-index: 1;
   }
 
-  /*
-    Bottom dark gradient overlay.
-    CSS variables cannot be used as arguments inside rgba(), so we use
-    a workaround: apply the gradient at full opacity and control its
-    visibility via the element's own opacity property.
-  */
+  /* Bottom gradient fade */
   #{{ section_id }} .pro-hero__overlay {
     position: absolute;
     inset: 0;
     background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.9) 100%);
-    opacity: var(--overlay-opacity);
+    opacity: var(--overlay-opacity, 0.35);
     pointer-events: none;
     z-index: 2;
   }
@@ -160,26 +152,26 @@
 
   /* Horizontal alignment */
   #{{ section_id }} .pro-hero__content-align--left   { text-align: left; }
-  #{{ section_id }} .pro-hero__content-align--left .pro-hero__cta-wrap   { align-items: flex-start; }
-
+  #{{ section_id }} .pro-hero__content-align--left   .pro-hero__cta-wrap { align-items: flex-start; }
   #{{ section_id }} .pro-hero__content-align--center { text-align: center; }
   #{{ section_id }} .pro-hero__content-align--center .pro-hero__cta-wrap { align-items: center; }
-
   #{{ section_id }} .pro-hero__content-align--right  { text-align: right; }
-  #{{ section_id }} .pro-hero__content-align--right .pro-hero__cta-wrap  { align-items: flex-end; }
+  #{{ section_id }} .pro-hero__content-align--right  .pro-hero__cta-wrap { align-items: flex-end; }
 
   #{{ section_id }} .pro-hero__kicker {
     margin: 0 0 0.5rem;
+    font-family: 'Danger Neue', sans-serif;
     font-size: clamp(2rem, 5vw, 4.2rem);
-    font-weight: 500;
+    font-weight: 400;
     line-height: 1;
     color: {{ section.settings.heading_color }};
   }
 
   #{{ section_id }} .pro-hero__heading {
     margin: 0;
+    font-family: 'Danger Neue', sans-serif;
     font-size: clamp(3.4rem, 12vw, 13rem);
-    font-weight: 800;
+    font-weight: 400;
     text-transform: uppercase;
     letter-spacing: -0.02em;
     line-height: 0.95;
@@ -197,6 +189,7 @@
     min-width: 8rem;
     border-radius: 999px;
     padding-inline: 1.7rem;
+    border: none;
   }
 
   #{{ section_id }} .pro-hero__price {
@@ -206,7 +199,6 @@
     color: {{ section.settings.price_color }};
   }
 
-  /* Mobile */
   @media screen and (max-width: 749px) {
     #{{ section_id }} .pro-hero__media-wrap {
       height: calc(var(--hero-height-mobile) * 1vh);
@@ -255,7 +247,7 @@
     {
       "type": "range",
       "id": "hero_height_desktop",
-      "label": "Hero height desktop",
+      "label": "Height – desktop (vh)",
       "min": 40,
       "max": 120,
       "step": 5,
@@ -265,12 +257,33 @@
     {
       "type": "range",
       "id": "hero_height_mobile",
-      "label": "Hero height mobile",
+      "label": "Height – mobile (vh)",
       "min": 40,
       "max": 120,
       "step": 5,
       "unit": "%",
       "default": 90
+    },
+    {
+      "type": "header",
+      "content": "Overlays"
+    },
+    {
+      "type": "color",
+      "id": "tint_color",
+      "label": "Tint colour",
+      "default": "#000000",
+      "info": "Solid colour overlaid on top of the media"
+    },
+    {
+      "type": "range",
+      "id": "tint_opacity",
+      "label": "Tint opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "default": 0
     },
     {
       "type": "range",
@@ -289,10 +302,10 @@
     {
       "type": "select",
       "id": "content_position",
-      "label": "Vertical text position",
+      "label": "Vertical position",
       "default": "bottom",
       "options": [
-        { "value": "top", "label": "Top" },
+        { "value": "top",    "label": "Top" },
         { "value": "middle", "label": "Middle" },
         { "value": "bottom", "label": "Bottom" }
       ]
@@ -300,33 +313,17 @@
     {
       "type": "select",
       "id": "content_alignment",
-      "label": "Horizontal text alignment",
+      "label": "Horizontal alignment",
       "default": "center",
       "options": [
-        { "value": "left", "label": "Left" },
+        { "value": "left",   "label": "Left" },
         { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
+        { "value": "right",  "label": "Right" }
       ]
     },
     {
       "type": "header",
-      "content": "Whole section color overlay (Tint)"
-    },
-    {
-      "type": "color",
-      "id": "tint_color",
-      "label": "Tint color",
-      "default": "#000000"
-    },
-    {
-      "type": "range",
-      "id": "tint_opacity",
-      "label": "Tint opacity",
-      "min": 0,
-      "max": 90,
-      "step": 5,
-      "unit": "%",
-      "default": 0
+      "content": "Text & button"
     },
     {
       "type": "text",
@@ -354,24 +351,24 @@
     {
       "type": "url",
       "id": "button_link",
-      "label": "Button link fallback"
+      "label": "Button link (fallback)"
     },
     {
       "type": "text",
       "id": "price_text",
-      "label": "Editable price text",
+      "label": "Price text",
       "default": "From $1099 or $45.79/mo. for 24 months"
     },
     {
       "type": "color",
       "id": "heading_color",
-      "label": "Heading color",
+      "label": "Heading colour",
       "default": "#ff8a2b"
     },
     {
       "type": "color",
       "id": "price_color",
-      "label": "Price color",
+      "label": "Price colour",
       "default": "#ffffff"
     },
     {
