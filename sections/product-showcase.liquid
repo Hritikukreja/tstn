@@ -49,8 +49,11 @@
               assign display_title = 'Product title'
             endif
 
-            if description == blank and product != blank
+            assign description_text = description | strip_html | strip
+            if description_text == blank and product != blank
               assign description = product.description | strip_html | truncatewords: 30
+            elsif description_text == blank
+              assign description = ''
             endif
 
             if product != blank
@@ -95,9 +98,9 @@
                   <strong class="product-showcase__product-name" style="color: {{ card_title_color }};">{{ display_title }}.</strong>
                 </a>
               {%- endif -%}
-              {%- if description != blank -%}
+              {%- unless description == blank or description == empty -%}
                 <p class="product-showcase__caption-text" style="color: {{ card_desc_color }};">{{ description }}</p>
-              {%- endif -%}
+              {%- endunless -%}
             </div>
           </div>
         {%- endfor -%}
