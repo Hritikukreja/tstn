@@ -5,33 +5,33 @@
 <section id="{{ section_id }}" class="product-showcase">
   <div class="product-showcase__inner page-width">
 
-    {%- comment -%} ── Header ── {%- endcomment -%}
-    <div class="product-showcase__header">
-      {%- if section.settings.kicker != blank -%}
-        <p class="product-showcase__kicker">{{ section.settings.kicker }}</p>
-      {%- endif -%}
-      {%- if section.settings.heading != blank -%}
-        <h2 class="product-showcase__heading">{{ section.settings.heading }}</h2>
-      {%- endif -%}
-      {%- if section.settings.cta_label != blank -%}
-        <a class="product-showcase__cta" href="{{ section.settings.cta_url | default: '#' }}">
-          {{ section.settings.cta_label }}
-          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
-            <path d="M2 5h6M5.5 2l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </a>
-      {%- endif -%}
-    </div>
+    {%- if section.settings.kicker != blank or section.settings.heading != blank or section.settings.cta_label != blank -%}
+      <div class="product-showcase__header">
+        {%- if section.settings.kicker != blank -%}
+          <p class="product-showcase__kicker">{{ section.settings.kicker }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="product-showcase__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.cta_label != blank -%}
+          <a class="product-showcase__cta" href="{{ section.settings.cta_url | default: '#' }}">
+            {{ section.settings.cta_label }}
+            <svg width="10" height="10" viewBox="0 0 10 10" fill="none" aria-hidden="true">
+              <path d="M2 5h6M5.5 2l3 3-3 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
 
-    {%- comment -%} ── Cards grid ── {%- endcomment -%}
     {%- if section.blocks.size > 0 -%}
       <div class="product-showcase__grid product-showcase__grid--{{ section.blocks.size }}">
         {%- for block in section.blocks -%}
           {%- liquid
-            assign product = block.settings.product
-            assign custom_image = block.settings.custom_image
+            assign product        = block.settings.product
+            assign custom_image   = block.settings.custom_image
             assign title_override = block.settings.title_override
-            assign description = block.settings.description
+            assign description    = block.settings.description
 
             if custom_image != blank
               assign display_image = custom_image
@@ -82,6 +82,7 @@
                 {%- else -%}
                   {{ 'product-1' | placeholder_svg_tag: 'product-showcase__placeholder' }}
                 {%- endif -%}
+                <div class="product-showcase__overlay"></div>
               </div>
             </a>
 
@@ -106,10 +107,23 @@
 </section>
 
 <style>
+  @import url('https://fonts.cdnfonts.com/css/danger-neue');
+
   #{{ section_id }} {
     background: {{ section.settings.bg_color }};
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
+    position: relative;
+  }
+
+  /* Subtle grain texture overlay */
+  #{{ section_id }}::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
   }
 
   #{{ section_id }} .product-showcase__inner {
@@ -117,53 +131,57 @@
     margin: 0 auto;
     padding-left: 2.4rem;
     padding-right: 2.4rem;
+    position: relative;
+    z-index: 1;
   }
 
   /* ── Header ── */
   #{{ section_id }} .product-showcase__header {
     text-align: center;
-    margin-bottom: 4.8rem;
+    margin-bottom: 5.6rem;
   }
 
   #{{ section_id }} .product-showcase__kicker {
-    margin: 0 0 1.2rem;
-    font-size: 1.4rem;
+    margin: 0 0 1.4rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
     color: {{ section.settings.kicker_color }};
   }
 
   #{{ section_id }} .product-showcase__heading {
-    margin: 0 0 1.6rem;
+    margin: 0 0 2rem;
+    font-family: 'Danger Neue', sans-serif;
+    font-weight: 400;
     font-size: clamp(4rem, 7vw, 7.2rem);
-    font-weight: 700;
     line-height: 1.04;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.01em;
     color: {{ section.settings.heading_color }};
   }
 
   #{{ section_id }} .product-showcase__cta {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    font-size: 1.5rem;
-    font-weight: 400;
+    gap: 0.5rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: {{ section.settings.cta_color }};
     text-decoration: none;
-    transition: opacity 0.15s ease;
+    border-bottom: 1px solid currentColor;
+    padding-bottom: 0.2rem;
+    transition: opacity 0.2s ease, gap 0.2s ease;
   }
 
   #{{ section_id }} .product-showcase__cta:hover {
-    opacity: 0.75;
+    opacity: 0.7;
+    gap: 0.9rem;
   }
 
   #{{ section_id }} .product-showcase__cta svg {
     flex-shrink: 0;
-    transition: transform 0.15s ease;
-  }
-
-  #{{ section_id }} .product-showcase__cta:hover svg {
-    transform: translateX(3px);
   }
 
   /* ── Grid ── */
@@ -191,9 +209,15 @@
   #{{ section_id }} .product-showcase__image-link {
     display: block;
     text-decoration: none;
-    border-radius: 1.8rem;
+    border-radius: 1.2rem;
     overflow: hidden;
     background: {{ section.settings.card_bg_color }};
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: border-color 0.3s ease;
+  }
+
+  #{{ section_id }} .product-showcase__image-link:hover {
+    border-color: rgba({{ section.settings.kicker_color | remove: '#' }}, 0.35);
   }
 
   #{{ section_id }} .product-showcase__image-wrap {
@@ -208,22 +232,30 @@
     height: 100%;
     object-fit: {{ section.settings.image_fit }};
     display: block;
-    transition: transform 0.5s ease;
+    transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   #{{ section_id }} .product-showcase__image-link:hover .product-showcase__image {
-    transform: scale(1.03);
+    transform: scale(1.04);
+  }
+
+  #{{ section_id }} .product-showcase__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.45) 0%, transparent 55%);
+    pointer-events: none;
   }
 
   /* ── Caption ── */
   #{{ section_id }} .product-showcase__caption {
-    margin-top: 1.6rem;
+    margin-top: 1.4rem;
+    padding: 0 0.4rem;
   }
 
   #{{ section_id }} .product-showcase__caption-text {
     margin: 0;
     font-size: 1.4rem;
-    line-height: 1.55;
+    line-height: 1.6;
     color: {{ section.settings.caption_color }};
   }
 
@@ -233,8 +265,16 @@
   }
 
   #{{ section_id }} .product-showcase__product-name {
-    font-weight: 700;
+    font-family: 'Danger Neue', sans-serif;
+    font-weight: 400;
+    font-size: 1.6rem;
     color: {{ section.settings.caption_name_color }};
+    letter-spacing: 0.01em;
+    transition: color 0.2s ease;
+  }
+
+  #{{ section_id }} .product-showcase__product-link:hover .product-showcase__product-name {
+    color: {{ section.settings.kicker_color }};
   }
 </style>
 
@@ -286,37 +326,37 @@
       "type": "color",
       "id": "card_bg_color",
       "label": "Card background",
-      "default": "#1d1d1f"
+      "default": "#111111"
     },
     {
       "type": "color",
       "id": "kicker_color",
-      "label": "Kicker color",
-      "default": "#f56300"
+      "label": "Kicker / accent color",
+      "default": "#C9A84C"
     },
     {
       "type": "color",
       "id": "heading_color",
       "label": "Heading color",
-      "default": "#f5f5f7"
+      "default": "#F5F5F5"
     },
     {
       "type": "color",
       "id": "cta_color",
       "label": "CTA link color",
-      "default": "#2997ff"
+      "default": "#C9A84C"
     },
     {
       "type": "color",
       "id": "caption_color",
       "label": "Caption text color",
-      "default": "#a1a1a6"
+      "default": "#888888"
     },
     {
       "type": "color",
       "id": "caption_name_color",
       "label": "Product name color",
-      "default": "#f5f5f7"
+      "default": "#F5F5F5"
     },
     {
       "type": "header",
@@ -335,7 +375,7 @@
       "label": "Image fit",
       "default": "cover",
       "options": [
-        { "value": "cover", "label": "Cover (crop to fill)" },
+        { "value": "cover",   "label": "Cover (crop to fill)" },
         { "value": "contain", "label": "Contain (show full image)" }
       ]
     },
