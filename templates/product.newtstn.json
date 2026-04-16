@@ -208,7 +208,7 @@
         "badge_icon_color": "#ffffff",
         "badge_font_size": 16,
         "badge_font_weight": "700",
-        "video_split": 65,
+        "video_split": 75,
         "max_width": 1520,
         "padding_top": 32,
         "padding_bottom": 32
