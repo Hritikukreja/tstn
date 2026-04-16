@@ -137,11 +137,10 @@
     opacity: 1;
   }
 
-  /* ── Logo text — Danger Neue, slightly larger than nav links ── */
+  /* ── Logo text — Danger Neue, size controlled via theme editor ── */
   .header__heading-link .h2 {
     font-family: 'Danger Neue', sans-serif;
     font-weight: 400;
-    font-size: 1.6rem;
     color: rgba(255, 255, 255, 0.95);
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -275,9 +274,6 @@
       color: rgba(245, 245, 247, 0.85);
     }
 
-    .header__heading-link .h2 {
-      font-size: 1.4rem;
-    }
   }
 </style>
 
@@ -289,6 +285,16 @@
   @media screen and (min-width: 750px) {
     .section-header {
       margin-bottom: {{ section.settings.margin_bottom }}px;
+    }
+  }
+
+  .header__heading-link .h2 {
+    font-size: {{ section.settings.logo_text_size | divided_by: 10.0 }}rem;
+  }
+
+  @media screen and (max-width: 989px) {
+    .header__heading-link .h2 {
+      font-size: {{ section.settings.logo_text_size | times: 0.875 | divided_by: 10.0 }}rem;
     }
   }
 {%- endstyle -%}
@@ -819,6 +825,20 @@
     {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "header",
+      "content": "Logo text"
+    },
+    {
+      "type": "range",
+      "id": "logo_text_size",
+      "min": 10,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Logo text size",
+      "default": 16
     },
     {
       "type": "range",
