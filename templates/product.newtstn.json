@@ -455,8 +455,8 @@
             "title_override": "",
             "description": "<p>Powers multiple devices with 4 AC outlets, 2x 100W USB-C, and more. Offers fast charging (0-80% in ~50 min), 6,000+ cycles, quiet operation, and UPS backup. Ideal for camping, van life.</p>",
             "custom_url": "",
-            "card_title_color": "",
-            "card_desc_color": "#f8f8f8"
+            "card_title_color": "#f56300",
+            "card_desc_color": "#b8922a"
           }
         },
         "product_card_Mth6Je": {
@@ -479,7 +479,7 @@
             "title_override": "Thule Hullavator Pro",
             "description": "<p>A premium lift-assist kayak carrier that makes solo loading easy. Gas-assist struts lower the cradle up to 3 feet to waist height and reduce up to 40 lbs of the kayak’s weight.</p>",
             "custom_url": "",
-            "card_title_color": "",
+            "card_title_color": "#f56300",
             "card_desc_color": ""
           }
         }
@@ -489,7 +489,9 @@
         "product_card_Mth6Je",
         "product_card_PzG9m7"
       ],
-      "custom_css": [],
+      "custom_css": [
+        "p {color: white;}"
+      ],
       "name": "Product showcase",
       "settings": {
         "kicker": "Used & Tested",
