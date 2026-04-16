@@ -57,7 +57,7 @@
         "nav_font_size": 15,
         "label_font_size": 18,
         "heading_font_size": 20,
-        "body_font_size": 14,
+        "body_font_size": 16,
         "copy_font_size": 11,
         "newsletter_enable": true,
         "newsletter_label": "Stay Connected",
