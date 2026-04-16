@@ -2,6 +2,9 @@
   assign section_id = 'FeatureGallery-' | append: section.id
 %}
 
+<link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
+<link href="https://fonts.cdnfonts.com/css/danger-neue" rel="stylesheet">
+
 <section id="{{ section_id }}" class="feature-gallery color-{{ section.settings.color_scheme }} gradient">
   <div class="page-width">
     <div class="feature-gallery__header">
@@ -68,41 +71,69 @@
 </section>
 
 <style>
-  #{{ section_id }} {
-    padding-top: {{ section.settings.padding_top }}px;
-    padding-bottom: {{ section.settings.padding_bottom }}px;
+  /* ── Danger Neue applied to all headings site-wide within this section ── */
+  #{{ section_id }} h2,
+  #{{ section_id }} h3 {
+    font-family: 'Danger Neue', sans-serif;
   }
 
+  /* ── Section: fluid vertical rhythm ── */
+  #{{ section_id }} {
+    /*
+      Dynamic padding: scales smoothly from 40px (mobile) → 120px (desktop).
+      clamp(MIN, PREFERRED, MAX) — the preferred value grows with viewport width.
+    */
+    padding-top:    clamp(4rem, {{ section.settings.padding_top }}px + 4vw, calc({{ section.settings.padding_top }}px + 4rem));
+    padding-bottom: clamp(4rem, {{ section.settings.padding_bottom }}px + 4vw, calc({{ section.settings.padding_bottom }}px + 4rem));
+
+    /* Subtle horizontal breathing room on smaller viewports */
+    padding-left:  clamp(1.6rem, 4vw, 0rem);
+    padding-right: clamp(1.6rem, 4vw, 0rem);
+  }
+
+  /* ── Header block ── */
   #{{ section_id }} .feature-gallery__header {
     text-align: center;
-    margin: 0 auto 3rem;
+    margin: 0 auto;
+    /* Dynamic bottom margin: tighter on mobile, generous on desktop */
+    margin-bottom: clamp(2.4rem, 5vw, 5.6rem);
     max-width: 76rem;
+    /* Fluid horizontal padding so text never crowds the edges */
+    padding: 0 clamp(1.6rem, 4vw, 4rem);
   }
 
   #{{ section_id }} .feature-gallery__kicker {
     margin: 0;
-    font-size: 1.3rem;
-    letter-spacing: 0.1em;
+    font-size: clamp(1.1rem, 1.3vw, 1.4rem);
+    letter-spacing: 0.16em;
     text-transform: uppercase;
     color: rgb(var(--color-foreground));
-    opacity: 0.7;
+    opacity: 0.55;
   }
 
   #{{ section_id }} .feature-gallery__heading {
-    margin: 0.8rem 0 0;
-    font-size: clamp(2.8rem, 6vw, 5.4rem);
+    /* Fluid type: 2.8rem mobile → 5.4rem wide desktop */
+    margin: clamp(0.6rem, 1.2vw, 1rem) 0 0;
+    font-size: clamp(2.8rem, 5.5vw, 5.4rem);
     line-height: 1.06;
+    letter-spacing: -0.01em;
     color: rgb(var(--color-foreground));
   }
 
   #{{ section_id }} .feature-gallery__text {
-    margin-top: 1.2rem;
+    /* Fluid gap between heading and body text */
+    margin-top: clamp(0.8rem, 1.5vw, 1.6rem);
+    font-size: clamp(1.5rem, 1.7vw, 1.8rem);
+    line-height: 1.65;
     color: rgb(var(--color-foreground));
+    opacity: 0.75;
   }
 
+  /* ── Grid ── */
   #{{ section_id }} .feature-gallery__grid {
     display: grid;
-    gap: 2rem;
+    /* Fluid gap: tighter on mobile, roomier on desktop */
+    gap: clamp(1.4rem, 2.5vw, 2.8rem);
     grid-template-columns: 1fr;
   }
 
@@ -110,7 +141,6 @@
     #{{ section_id }} .feature-gallery__grid--2 {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-
     #{{ section_id }} .feature-gallery__grid--3,
     #{{ section_id }} .feature-gallery__grid--4 {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -121,26 +151,33 @@
     #{{ section_id }} .feature-gallery__grid--2 {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
-
     #{{ section_id }} .feature-gallery__grid--3 {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
-
     #{{ section_id }} .feature-gallery__grid--4 {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }
 
+  /* ── Cards ── */
   #{{ section_id }} .feature-gallery__card {
-    border-radius: 2rem;
+    border-radius: clamp(1rem, 1.5vw, 2rem);
     overflow: hidden;
     background: rgba(var(--color-foreground), 0.03);
     border: 0.1rem solid rgba(var(--color-foreground), 0.08);
+    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
   }
 
+  #{{ section_id }} .feature-gallery__card:hover {
+    border-color: rgba(var(--color-foreground), 0.2);
+    transform: translateY(-3px);
+    box-shadow: 0 1.2rem 3.6rem rgba(0, 0, 0, 0.45);
+  }
+
+  /* ── Media wrapper ── */
   #{{ section_id }} .feature-gallery__media-wrap {
     position: relative;
-    background: rgb(var(--color-foreground), 0.05);
+    background: rgba(var(--color-foreground), 0.05);
     aspect-ratio: {{ section.settings.media_aspect_ratio }};
     overflow: hidden;
   }
@@ -151,10 +188,17 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 0.45s ease;
   }
 
+  #{{ section_id }} .feature-gallery__card:hover .feature-gallery__media {
+    transform: scale(1.04);
+  }
+
+  /* ── Card content: fluid inner padding ── */
   #{{ section_id }} .feature-gallery__content {
-    padding: 1.8rem;
+    /* Fluid padding: compact on mobile, spacious on desktop */
+    padding: clamp(1.4rem, 2.5vw, 2.4rem) clamp(1.4rem, 2.5vw, 2.4rem);
   }
 
   #{{ section_id }} .feature-gallery__card--align-center .feature-gallery__content {
@@ -167,18 +211,27 @@
 
   #{{ section_id }} .feature-gallery__card-title {
     margin: 0;
-    font-size: 2rem;
+    /* Fluid card title sizing */
+    font-size: clamp(1.6rem, 2vw, 2.2rem);
+    letter-spacing: -0.005em;
     color: rgb(var(--color-foreground));
   }
 
   #{{ section_id }} .feature-gallery__card-text {
-    margin-top: 1rem;
+    /* Fluid spacing below title */
+    margin-top: clamp(0.6rem, 1vw, 1.2rem);
+    font-size: clamp(1.3rem, 1.5vw, 1.6rem);
+    line-height: 1.6;
     color: rgb(var(--color-foreground));
+    opacity: 0.72;
   }
 
   #{{ section_id }} .feature-gallery__content .link {
     display: inline-block;
-    margin-top: 1rem;
+    margin-top: clamp(0.8rem, 1.2vw, 1.4rem);
+    font-size: clamp(1.2rem, 1.4vw, 1.4rem);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
   }
 </style>
 
