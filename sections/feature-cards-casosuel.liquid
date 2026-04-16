@@ -2,6 +2,10 @@
   assign section_id = 'FeatureCards-' | append: section.id
 %}
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;1,9..40,300&display=swap" rel="stylesheet">
+
 <section id="{{ section_id }}" class="feature-cards">
   <div class="feature-cards__page-width">
 
@@ -16,9 +20,11 @@
         {%- if section.settings.cta_label != blank -%}
           <a class="feature-cards__cta" href="{{ section.settings.cta_url | default: '#' }}">
             {{ section.settings.cta_label }}
-            <svg width="8" height="12" viewBox="0 0 8 12" fill="none" aria-hidden="true">
-              <path d="M1.5 1l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <span class="feature-cards__cta-arrow">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                <path d="M2 7h10M7.5 2.5l5 4.5-5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
           </a>
         {%- endif -%}
       </div>
@@ -33,10 +39,17 @@
             assign card_url = block.settings.link | default: '#'
           -%}
           <article class="feature-cards__card" {{ block.shopify_attributes }}>
+
+            {%- comment -%} Decorative corner accent {%- endcomment -%}
+            <span class="feature-cards__card-accent" aria-hidden="true"></span>
+
             <div class="feature-cards__card-body">
               <div class="feature-cards__card-text">
                 {%- if block.settings.kicker != blank -%}
-                  <p class="feature-cards__card-kicker">{{ block.settings.kicker }}</p>
+                  <p class="feature-cards__card-kicker">
+                    <span class="feature-cards__card-kicker-dot"></span>
+                    {{ block.settings.kicker }}
+                  </p>
                 {%- endif -%}
                 {%- if block.settings.title != blank -%}
                   <h3 class="feature-cards__card-title">{{ block.settings.title }}</h3>
@@ -67,16 +80,17 @@
             {%- if card_url != '#' or block.settings.link != blank -%}
               <a class="feature-cards__card-btn" href="{{ card_url }}" aria-label="Learn more about {{ block.settings.title | escape }}">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
-                  <path d="M2 7h10M7.5 2.5l5 4.5-5 4.5" stroke="white" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M2 7h10M7.5 2.5l5 4.5-5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
               </a>
             {%- else -%}
               <span class="feature-cards__card-btn feature-cards__card-btn--static" aria-hidden="true">
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                  <path d="M7 2v10M2 7h10" stroke="white" stroke-width="1.6" stroke-linecap="round"/>
+                  <path d="M7 2v10M2 7h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
                 </svg>
               </span>
             {%- endif -%}
+
           </article>
         {%- endfor -%}
       </div>
@@ -111,16 +125,72 @@
 </section>
 
 <style>
+  /* ── TSTN Design Tokens ── */
+  #{{ section_id }} {
+    --tstn-red:       #CC0000;
+    --tstn-red-glow:  rgba(204, 0, 0, 0.18);
+    --tstn-red-dim:   rgba(204, 0, 0, 0.08);
+    --tstn-white:     #FFFFFF;
+    --tstn-off-white: #E8E8E8;
+    --tstn-muted:     rgba(255, 255, 255, 0.45);
+    --tstn-card-bg:   #111111;
+    --tstn-card-border: rgba(255, 255, 255, 0.07);
+    --tstn-card-border-hover: rgba(204, 0, 0, 0.5);
+    --tstn-font-heading: 'Danger Neue Free Regular', 'DM Sans', sans-serif;
+    --tstn-font-body:    'DM Sans', sans-serif;
+  }
+
+  /* ── Danger Neue Free (self-hosted fallback path — swap to your CDN or Shopify asset) ── */
+  @font-face {
+    font-family: 'Danger Neue Free Regular';
+    src: url('{{ "DangerNeue-Regular.woff2" | asset_url }}') format('woff2'),
+         url('{{ "DangerNeue-Regular.woff"  | asset_url }}') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  /* ── Section ── */
   #{{ section_id }} {
     background: {{ section.settings.bg_color }};
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Subtle grid texture overlay */
+  #{{ section_id }}::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Red glow accent top-left */
+  #{{ section_id }}::after {
+    content: '';
+    position: absolute;
+    top: -120px;
+    left: -80px;
+    width: 420px;
+    height: 420px;
+    background: radial-gradient(circle, var(--tstn-red-glow) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
   }
 
   #{{ section_id }} .feature-cards__page-width {
     max-width: 128rem;
     margin: 0 auto;
     padding: 0 4.4rem;
+    position: relative;
+    z-index: 1;
   }
 
   /* ── Header ── */
@@ -129,35 +199,53 @@
     align-items: flex-end;
     justify-content: space-between;
     gap: 2rem;
-    margin-bottom: 3.6rem;
+    margin-bottom: 4rem;
   }
 
   #{{ section_id }} .feature-cards__heading {
     margin: 0;
-    font-size: clamp(2.8rem, 4vw, 4.4rem);
-    font-weight: 700;
-    line-height: 1.08;
-    letter-spacing: -0.022em;
+    font-family: var(--tstn-font-heading);
+    font-size: clamp(3.2rem, 5vw, 5.6rem);
+    font-weight: 400;
+    line-height: 1.0;
+    letter-spacing: 0.01em;
     color: {{ section.settings.heading_color }};
     max-width: 60rem;
+    text-transform: uppercase;
   }
 
   #{{ section_id }} .feature-cards__cta {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    font-size: 1.5rem;
-    font-weight: 400;
+    gap: 0.8rem;
+    font-family: var(--tstn-font-body);
+    font-size: 1.3rem;
+    font-weight: 300;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     color: {{ section.settings.cta_color }};
     text-decoration: none;
     white-space: nowrap;
     flex-shrink: 0;
-    padding-bottom: 0.4rem; /* align with heading baseline */
-    transition: opacity 0.15s ease;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid {{ section.settings.cta_color }};
+    transition: color 0.2s ease, border-color 0.2s ease, gap 0.2s ease;
   }
 
   #{{ section_id }} .feature-cards__cta:hover {
-    opacity: 0.7;
+    color: var(--tstn-white);
+    border-color: var(--tstn-white);
+    gap: 1.4rem;
+  }
+
+  #{{ section_id }} .feature-cards__cta-arrow {
+    display: flex;
+    align-items: center;
+    transition: transform 0.2s ease;
+  }
+
+  #{{ section_id }} .feature-cards__cta:hover .feature-cards__cta-arrow {
+    transform: translateX(3px);
   }
 
   /* ── Carousel track ── */
@@ -168,7 +256,7 @@
   #{{ section_id }} .feature-cards__track {
     display: flex;
     gap: 1.6rem;
-    transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     will-change: transform;
     align-items: stretch;
   }
@@ -178,11 +266,51 @@
     flex: 0 0 {{ section.settings.card_width }}px;
     width: {{ section.settings.card_width }}px;
     background: {{ section.settings.card_bg }};
-    border-radius: 1.8rem;
+    border: 1px solid var(--tstn-card-border);
+    border-radius: 2px;
     position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  #{{ section_id }} .feature-cards__card:hover {
+    border-color: var(--tstn-card-border-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--tstn-red-glow);
+  }
+
+  /* Top-edge red accent line */
+  #{{ section_id }} .feature-cards__card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--tstn-red);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+  }
+
+  #{{ section_id }} .feature-cards__card:hover::before {
+    opacity: 1;
+  }
+
+  /* ── Decorative corner accent ── */
+  #{{ section_id }} .feature-cards__card-accent {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 48px;
+    height: 48px;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 0 2px 0 0;
+    z-index: 1;
+    pointer-events: none;
   }
 
   #{{ section_id }} .feature-cards__card-body {
@@ -190,7 +318,7 @@
     flex-direction: column;
     justify-content: space-between;
     flex: 1;
-    padding: 2.4rem 2.4rem 0;
+    padding: 2.8rem 2.8rem 0;
     min-height: {{ section.settings.card_height }}px;
   }
 
@@ -198,38 +326,70 @@
     flex-shrink: 0;
   }
 
+  /* ── Kicker ── */
   #{{ section_id }} .feature-cards__card-kicker {
-    margin: 0 0 0.8rem;
-    font-size: 1.2rem;
-    font-weight: 400;
+    margin: 0 0 1.2rem;
+    font-family: var(--tstn-font-body);
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
     color: {{ section.settings.kicker_color }};
-    letter-spacing: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
   }
 
+  #{{ section_id }} .feature-cards__card-kicker-dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--tstn-red);
+    flex-shrink: 0;
+  }
+
+  /* ── Card title ── */
   #{{ section_id }} .feature-cards__card-title {
-    margin: 0 0 1rem;
-    font-size: 2rem;
-    font-weight: 700;
-    line-height: 1.18;
-    letter-spacing: -0.016em;
+    margin: 0 0 1.2rem;
+    font-family: var(--tstn-font-heading);
+    font-size: 2.4rem;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
     color: {{ section.settings.card_title_color }};
   }
 
+  /* ── Card description ── */
   #{{ section_id }} .feature-cards__card-desc {
     margin: 0;
+    font-family: var(--tstn-font-body);
     font-size: 1.3rem;
-    line-height: 1.5;
+    font-weight: 300;
+    line-height: 1.65;
     color: {{ section.settings.card_desc_color }};
   }
 
-  /* ── Card image — sits at bottom, fills width ── */
+  /* ── Card image ── */
   #{{ section_id }} .feature-cards__card-media {
-    margin-top: 2rem;
+    margin-top: 2.4rem;
     flex: 1;
     display: flex;
     align-items: flex-end;
     overflow: hidden;
-    border-radius: 0 0 1.8rem 1.8rem;
+    border-radius: 0;
+    position: relative;
+  }
+
+  /* Image fade to card bg */
+  #{{ section_id }} .feature-cards__card-media::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, {{ section.settings.card_bg }} 0%, transparent 30%);
+    z-index: 1;
+    pointer-events: none;
   }
 
   #{{ section_id }} .feature-cards__card-img,
@@ -238,44 +398,53 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    transition: transform 0.6s ease;
+  }
+
+  #{{ section_id }} .feature-cards__card:hover .feature-cards__card-img {
+    transform: scale(1.03);
   }
 
   #{{ section_id }} .feature-cards__card-placeholder {
     min-height: 16rem;
-    opacity: 0.2;
+    opacity: 0.08;
   }
 
-  /* ── Plus / arrow button ── */
+  /* ── Arrow button ── */
   #{{ section_id }} .feature-cards__card-btn {
     position: absolute;
-    bottom: 2rem;
-    right: 2rem;
+    bottom: 2.4rem;
+    right: 2.4rem;
     width: 3.6rem;
     height: 3.6rem;
-    background: #1d1d1f;
-    border-radius: 50%;
+    background: var(--tstn-red);
+    border-radius: 2px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-decoration: none;
-    transition: background 0.15s ease, transform 0.15s ease;
+    color: var(--tstn-white);
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     border: none;
     cursor: pointer;
-    z-index: 2;
+    z-index: 3;
   }
 
   #{{ section_id }} .feature-cards__card-btn:hover {
-    background: #3a3a3c;
-    transform: scale(1.08);
+    background: #E60000;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(204, 0, 0, 0.5);
   }
 
   #{{ section_id }} .feature-cards__card-btn--static {
+    background: rgba(255, 255, 255, 0.08);
     cursor: default;
   }
 
   #{{ section_id }} .feature-cards__card-btn--static:hover {
-    background: #1d1d1f;
+    background: rgba(255, 255, 255, 0.12);
     transform: none;
+    box-shadow: none;
   }
 
   /* ── Nav arrows ── */
@@ -284,30 +453,31 @@
     align-items: center;
     justify-content: center;
     gap: 1.2rem;
-    margin-top: 3.2rem;
+    margin-top: 4rem;
   }
 
   #{{ section_id }} .feature-cards__nav-btn {
-    width: 3.6rem;
-    height: 3.6rem;
-    border-radius: 50%;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 2px;
     background: transparent;
-    border: 0.1rem solid rgba(0, 0, 0, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.12);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     color: {{ section.settings.heading_color }};
-    transition: background 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+    transition: background 0.2s ease, border-color 0.2s ease, opacity 0.2s ease;
+    font-family: var(--tstn-font-body);
   }
 
   #{{ section_id }} .feature-cards__nav-btn:hover:not(:disabled) {
-    background: rgba(0, 0, 0, 0.06);
-    border-color: rgba(0, 0, 0, 0.3);
+    background: var(--tstn-red);
+    border-color: var(--tstn-red);
   }
 
   #{{ section_id }} .feature-cards__nav-btn:disabled {
-    opacity: 0.28;
+    opacity: 0.2;
     cursor: default;
   }
 
@@ -320,8 +490,12 @@
     #{{ section_id }} .feature-cards__header {
       flex-direction: column;
       align-items: flex-start;
-      gap: 1.2rem;
-      margin-bottom: 2.4rem;
+      gap: 1.6rem;
+      margin-bottom: 2.8rem;
+    }
+
+    #{{ section_id }} .feature-cards__heading {
+      font-size: clamp(2.8rem, 8vw, 4rem);
     }
 
     #{{ section_id }} .feature-cards__card {
@@ -371,14 +545,12 @@
     prevBtn.addEventListener('click', () => go(currentIndex - 1));
     nextBtn.addEventListener('click', () => go(currentIndex + 1));
 
-    // Reset on resize
     let resizeTimer;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => go(Math.min(currentIndex, maxIndex())), 100);
     });
 
-    // Initial state
     go(0);
   })();
 </script>
@@ -443,43 +615,43 @@
       "type": "color",
       "id": "bg_color",
       "label": "Section background",
-      "default": "#f5f5f7"
+      "default": "#0A0A0A"
     },
     {
       "type": "color",
       "id": "card_bg",
       "label": "Card background",
-      "default": "#ffffff"
+      "default": "#111111"
     },
     {
       "type": "color",
       "id": "heading_color",
       "label": "Section heading color",
-      "default": "#1d1d1f"
+      "default": "#FFFFFF"
     },
     {
       "type": "color",
       "id": "cta_color",
       "label": "CTA link color",
-      "default": "#0066cc"
+      "default": "#CC0000"
     },
     {
       "type": "color",
       "id": "kicker_color",
       "label": "Card kicker color",
-      "default": "#6e6e73"
+      "default": "#888888"
     },
     {
       "type": "color",
       "id": "card_title_color",
       "label": "Card title color",
-      "default": "#1d1d1f"
+      "default": "#FFFFFF"
     },
     {
       "type": "color",
       "id": "card_desc_color",
       "label": "Card description color",
-      "default": "#1d1d1f"
+      "default": "#999999"
     },
     {
       "type": "header",
@@ -493,7 +665,7 @@
       "step": 4,
       "unit": "px",
       "label": "Top padding",
-      "default": 64
+      "default": 80
     },
     {
       "type": "range",
@@ -503,7 +675,7 @@
       "step": 4,
       "unit": "px",
       "label": "Bottom padding",
-      "default": 64
+      "default": 80
     }
   ],
   "blocks": [
@@ -538,7 +710,7 @@
           "type": "url",
           "id": "link",
           "label": "Card link",
-          "info": "Links the + button. Leave blank to show a static + icon."
+          "info": "Links the arrow button. Leave blank to show a static + icon."
         }
       ]
     }
