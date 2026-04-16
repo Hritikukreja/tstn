@@ -17,6 +17,17 @@
 {%- endif -%}
 
 <style>
+  /* ── Danger Neue Bold font for logo ── */
+  @font-face {
+    font-family: 'Danger Neue';
+    src: url('{{ "DangerNeue-Bold.woff2" | asset_url }}') format('woff2'),
+         url('{{ "DangerNeue-Bold.woff" | asset_url }}') format('woff'),
+         url('{{ "DangerNeue-Bold.ttf" | asset_url }}') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+
   header-drawer {
     justify-self: start;
     margin-left: -1.2rem;
@@ -79,14 +90,12 @@
      APPLE-STYLE HEADER — solid, owns its space
      ============================================= */
 
-  /* Section stays in normal page flow — sticky but not overlapping */
   .section-header {
-    position: sticky; /* Safari z-index fix — kept from Dawn */
+    position: sticky;
     top: 0;
     z-index: 100;
   }
 
-  /* Always-visible dark bar — no transparency, no overlap */
   .header-wrapper {
     background-color: rgba(22, 22, 22, 0.96) !important;
     backdrop-filter: saturate(180%) blur(20px);
@@ -94,12 +103,10 @@
     border-bottom: none !important;
   }
 
-  /* Null out Dawn's color-scheme background so our override wins */
   .header-wrapper.gradient {
     background-image: none !important;
   }
 
-  /* Slim 44px bar */
   .header {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -132,11 +139,19 @@
     opacity: 1;
   }
 
+  /* ── Logo text — Danger Neue Bold, slightly larger than nav links ── */
   .header__heading-link .h2 {
-    color: rgba(255, 255, 255, 0.85);
-    font-size: 1.3rem;
-    font-weight: 400;
-    letter-spacing: -0.01em;
+    font-family: 'Danger Neue', sans-serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.15s ease;
+  }
+
+  .header__heading-link:hover .h2 {
+    color: rgba(255, 255, 255, 1);
   }
 
   /* ── Nav — centre column ── */
@@ -260,6 +275,10 @@
 
     .header__icon--menu {
       color: rgba(245, 245, 247, 0.85);
+    }
+
+    .header__heading-link .h2 {
+      font-size: 1.4rem;
     }
   }
 </style>
