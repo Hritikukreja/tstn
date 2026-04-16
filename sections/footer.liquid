@@ -1,514 +1,381 @@
 {% comment %}theme-check-disable UndefinedObject{% endcomment %}
-{{ 'section-footer.css' | asset_url | stylesheet_tag }}
-{{ 'component-newsletter.css' | asset_url | stylesheet_tag }}
-{{ 'component-list-menu.css' | asset_url | stylesheet_tag }}
 {{ 'component-list-payment.css' | asset_url | stylesheet_tag }}
-{{ 'component-list-social.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   @import url('https://fonts.cdnfonts.com/css/danger-neue');
-  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:wght@300;400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;1,300&family=Montserrat:wght@300;400;500&display=swap');
 
-  /* ═══════════════════════════════════════════════
-     TSTN FOOTER — CINEMATIC REDESIGN
-  ═══════════════════════════════════════════════ */
+  /* ══════════════════════════════════════════════════
+     TSTN FOOTER — CINEMATIC  |  v3
+  ══════════════════════════════════════════════════ */
 
-  :root {
-    --tstn-gold:       #b8922a;
-    --tstn-gold-lt:    rgba(184,146,42,0.18);
-    --tstn-gold-glow:  rgba(184,146,42,0.06);
-    --tstn-white:      #ffffff;
-    --tstn-dim:        rgba(255,255,255,0.38);
-    --tstn-muted:      rgba(255,255,255,0.18);
-    --tstn-border:     rgba(255,255,255,0.07);
-    --tstn-bg:         #060606;
+  /* ── Theme-editor-driven CSS variables ── */
+  .tstn-footer {
+    --f-gold:          {{ section.settings.accent_color }};
+    --f-nav-color:     {{ section.settings.nav_color }};
+    --f-nav-size:      {{ section.settings.nav_font_size }}px;
+    --f-label-color:   {{ section.settings.label_color }};
+    --f-label-size:    {{ section.settings.label_font_size }}px;
+    --f-heading-color: {{ section.settings.heading_color }};
+    --f-heading-size:  {{ section.settings.heading_font_size }}px;
+    --f-body-color:    {{ section.settings.body_color }};
+    --f-body-size:     {{ section.settings.body_font_size }}px;
+    --f-copy-color:    {{ section.settings.copy_color }};
+    --f-copy-size:     {{ section.settings.copy_font_size }}px;
+    --f-bg:            {{ section.settings.footer_bg_color }};
+    --f-border:        rgba(255,255,255,0.08);
+    --f-gold-glow:     rgba(184,146,42,0.07);
+    --f-gold-lt:       rgba(184,146,42,0.16);
   }
 
   /* ── WRAPPER ── */
   .tstn-footer {
     position: relative;
-    background: var(--tstn-bg);
+    background: var(--f-bg);
     overflow: hidden;
     margin-top: {{ section.settings.margin_top | times: 0.75 | round: 0 }}px;
   }
-
   @media screen and (min-width: 750px) {
-    .tstn-footer {
-      margin-top: {{ section.settings.margin_top }}px;
-    }
+    .tstn-footer { margin-top: {{ section.settings.margin_top }}px; }
   }
 
-  /* ── CINEMATIC TOP SHIMMER RULE ── */
+  /* ── SHIMMER TOP RULE ── */
   .tstn-footer__rule {
     position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      var(--tstn-muted) 20%,
-      var(--tstn-gold) 50%,
-      var(--tstn-muted) 80%,
-      transparent 100%
-    );
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12) 20%, var(--f-gold) 50%, rgba(255,255,255,0.12) 80%, transparent);
     z-index: 3;
   }
 
-  /* ── BACKGROUND WATERMARK LOGO ── */
+  /* ── BACKGROUND WATERMARK ── */
   .tstn-footer__bg-logo {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    pointer-events: none;
-    z-index: 1;
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    pointer-events: none; z-index: 1;
   }
-
   .tstn-footer__bg-logo img {
     width: {{ section.settings.bg_logo_size }}%;
-    max-width: 900px;
-    height: auto;
+    max-width: 900px; height: auto;
     opacity: {{ section.settings.bg_logo_opacity | divided_by: 100.0 }};
     filter: grayscale(1) brightness(2);
     object-fit: contain;
-    display: block;
   }
 
-  /* ── GRAIN TEXTURE ── */
+  /* ── GRAIN + VIGNETTE ── */
   .tstn-footer__grain {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-    opacity: 0.55;
+    position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    opacity: 0.5;
   }
-
-  /* ── RADIAL VIGNETTE ── */
   .tstn-footer__vignette {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    pointer-events: none;
-    background: radial-gradient(
-      ellipse 80% 100% at 50% 100%,
-      transparent 30%,
-      rgba(0,0,0,0.7) 100%
-    );
+    position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: radial-gradient(ellipse 80% 100% at 50% 100%, transparent 25%, rgba(0,0,0,0.65) 100%);
   }
 
-  /* ── MAIN CONTENT ── */
+  /* ── INNER CONTAINER ── */
   .tstn-footer__inner {
-    position: relative;
-    z-index: 4;
-    max-width: var(--page-width, 1280px);
-    margin: 0 auto;
-    padding: {{ section.settings.padding_top }}px 2.5rem {{ section.settings.padding_bottom }}px;
+    position: relative; z-index: 4;
+    max-width: 1280px; margin: 0 auto;
+    padding: {{ section.settings.padding_top }}px 3rem {{ section.settings.padding_bottom }}px;
   }
-
   @media screen and (max-width: 749px) {
-    .tstn-footer__inner {
-      padding: 3rem 1.25rem 2rem;
-    }
+    .tstn-footer__inner { padding: 3rem 1.5rem 2rem; }
   }
 
-  /* ── BRAND ROW ── */
+  /* ══ BRAND ══ */
   .tstn-footer__brand {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding-bottom: 3rem;
-    gap: 0.85rem;
-    animation: tstnFadeUp 0.9s ease both;
+    display: flex; flex-direction: column; align-items: center;
+    text-align: center; padding-bottom: 2.5rem; gap: 0.8rem;
+    animation: tstnFU 0.9s ease both;
   }
-
   .tstn-footer__brand-logo img {
-    height: 56px;
-    width: auto;
-    filter: brightness(0) invert(1);
-    opacity: 0.9;
-    display: block;
+    height: 60px; width: auto;
+    filter: brightness(0) invert(1); opacity: 0.92; display: block;
   }
-
   .tstn-footer__brand-name {
     font-family: 'Danger Neue', 'Impact', sans-serif;
-    font-size: clamp(2.6rem, 7vw, 5.5rem);
-    letter-spacing: 0.3em;
-    color: var(--tstn-white);
-    line-height: 1;
-    text-transform: uppercase;
-    margin: 0;
-    text-shadow: 0 0 80px rgba(184,146,42,0.15);
+    font-size: clamp(2.8rem, 8vw, 6rem);
+    letter-spacing: 0.28em; color: var(--f-heading-color);
+    line-height: 1; text-transform: uppercase; margin: 0;
+    text-shadow: 0 0 100px rgba(184,146,42,0.18);
   }
-
-  .tstn-footer__brand-tagline {
+  .tstn-footer__tagline {
     font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: 1.05rem;
-    letter-spacing: 0.25em;
-    color: var(--tstn-gold);
-    text-transform: uppercase;
-    margin: 0;
+    font-weight: 300; font-style: italic;
+    font-size: clamp(0.85rem, 1.2vw, 1.1rem);
+    letter-spacing: 0.28em; color: var(--f-gold);
+    text-transform: uppercase; margin: 0;
   }
 
-  /* ── HORIZONTAL NAV ── */
+  /* ══ HORIZONTAL NAV ══ */
   .tstn-footer__nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 0;
+    display: flex; flex-wrap: wrap;
+    justify-content: center; align-items: center;
     padding: 1.75rem 0;
-    border-top: 1px solid var(--tstn-border);
-    border-bottom: 1px solid var(--tstn-border);
-    animation: tstnFadeUp 0.9s 0.1s ease both;
+    border-top: 1px solid var(--f-border);
+    border-bottom: 1px solid var(--f-border);
+    animation: tstnFU 0.9s 0.1s ease both;
+    list-style: none; margin: 0; padding-left: 0; padding-right: 0;
   }
-
   .tstn-footer__nav-item {
-    display: flex;
-    align-items: center;
+    display: flex; align-items: center;
   }
-
   .tstn-footer__nav-item + .tstn-footer__nav-item::before {
     content: '';
     display: inline-block;
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--tstn-gold);
-    opacity: 0.5;
-    margin: 0 1.25rem;
-    flex-shrink: 0;
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--f-gold); opacity: 0.55;
+    margin: 0 1.4rem; flex-shrink: 0;
   }
-
   .tstn-footer__nav-link {
     font-family: 'Montserrat', sans-serif;
     font-weight: 400;
-    font-size: 0.82rem;
+    font-size: var(--f-nav-size);
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.6) !important;
+    color: var(--f-nav-color) !important;
     text-decoration: none !important;
-    transition: color 0.3s ease;
+    transition: color 0.25s, letter-spacing 0.25s;
     white-space: nowrap;
     display: inline-block;
-    padding: 0.2rem 0;
+    padding: 0.25rem 0;
   }
-
   .tstn-footer__nav-link:hover {
-    color: var(--tstn-white) !important;
+    color: #ffffff !important;
+    letter-spacing: 0.22em;
   }
-
-  .tstn-footer__nav-link.active {
-    color: var(--tstn-gold) !important;
-  }
-
+  .tstn-footer__nav-link.active { color: var(--f-gold) !important; }
   @media screen and (max-width: 600px) {
-    .tstn-footer__nav {
-      gap: 0.25rem 0;
-    }
-    .tstn-footer__nav-item + .tstn-footer__nav-item::before {
-      margin: 0 0.75rem;
-    }
-    .tstn-footer__nav-link {
-      font-size: 0.72rem;
-    }
+    .tstn-footer__nav-item + .tstn-footer__nav-item::before { margin: 0 0.8rem; }
   }
 
-  /* ── MIDDLE ROW ── */
+  /* ══ MIDDLE ROW ══ */
   .tstn-footer__mid {
     display: grid;
     grid-template-columns: 1fr 1px 1fr;
-    gap: 3rem;
-    padding: 3.5rem 0;
+    gap: 4rem; padding: 3.5rem 0;
     align-items: start;
-    animation: tstnFadeUp 0.9s 0.2s ease both;
+    animation: tstnFU 0.9s 0.2s ease both;
   }
-
   @media screen and (max-width: 860px) {
     .tstn-footer__mid {
       grid-template-columns: 1fr;
-      text-align: center;
-      gap: 2rem;
+      text-align: center; gap: 2.5rem;
     }
-    .tstn-footer__mid-divider {
-      display: none;
-    }
+    .tstn-footer__mid-divider { display: none; }
   }
-
-  /* Thin vertical divider */
   .tstn-footer__mid-divider {
-    width: 1px;
-    align-self: stretch;
-    background: linear-gradient(180deg, transparent, var(--tstn-border) 30%, var(--tstn-border) 70%, transparent);
+    width: 1px; align-self: stretch;
+    background: linear-gradient(180deg, transparent, var(--f-border) 25%, var(--f-border) 75%, transparent);
   }
 
-  /* ── SECTION LABEL ── */
-  .tstn-footer__section-label {
+  /* ── Section label (STAY CONNECTED / FOLLOW) ── */
+  .tstn-footer__label {
     font-family: 'Danger Neue', 'Impact', sans-serif;
-    font-size: 0.72rem;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: var(--tstn-gold);
-    display: block;
-    margin-bottom: 0.75rem;
+    font-size: var(--f-label-size);
+    letter-spacing: 0.38em; text-transform: uppercase;
+    color: var(--f-label-color);
+    display: block; margin-bottom: 0.8rem;
   }
 
-  /* ── NEWSLETTER ── */
-  .tstn-footer__newsletter-title {
+  /* ── Newsletter heading ── */
+  .tstn-footer__nl-heading {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
-    font-size: 1.6rem;
+    font-size: var(--f-heading-size);
     letter-spacing: 0.04em;
-    color: var(--tstn-white);
-    margin: 0 0 1.4rem;
-    line-height: 1.35;
+    color: var(--f-heading-color);
+    margin: 0 0 1.5rem; line-height: 1.35;
   }
 
+  /* ── Newsletter form ── */
   .tstn-footer__nl-form .tstn-field {
     display: flex;
-    border: 1px solid rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.14);
     background: rgba(255,255,255,0.04);
-    max-width: 360px;
+    max-width: 380px;
     transition: border-color 0.3s;
   }
-
   @media screen and (max-width: 860px) {
-    .tstn-footer__nl-form .tstn-field {
-      margin: 0 auto;
-    }
+    .tstn-footer__nl-form .tstn-field { margin: 0 auto; }
   }
-
   .tstn-footer__nl-form .tstn-field:focus-within {
-    border-color: rgba(184,146,42,0.55);
+    border-color: rgba(184,146,42,0.5);
   }
-
   .tstn-footer__nl-form input[type="email"] {
-    background: transparent;
-    border: none;
-    outline: none;
-    color: var(--tstn-white);
+    background: transparent; border: none; outline: none;
+    color: #ffffff;
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    padding: 0.9rem 1.1rem;
-    flex: 1;
-    min-width: 0;
+    font-size: var(--f-body-size);
+    letter-spacing: 0.07em;
+    padding: 0.95rem 1.1rem;
+    flex: 1; min-width: 0;
   }
-
   .tstn-footer__nl-form input[type="email"]::placeholder {
-    color: rgba(255,255,255,0.3);
+    color: rgba(255,255,255,0.28);
     text-transform: uppercase;
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
+    font-size: calc(var(--f-body-size) - 1px);
+    letter-spacing: 0.13em;
   }
-
-  .tstn-footer__nl-form label {
-    display: none;
-  }
-
+  .tstn-footer__nl-form label { display: none; }
   .tstn-footer__nl-form button[type="submit"] {
-    background: transparent;
-    border: none;
-    border-left: 1px solid rgba(255,255,255,0.12);
-    color: var(--tstn-gold);
+    background: transparent; border: none;
+    border-left: 1px solid rgba(255,255,255,0.1);
+    color: var(--f-gold);
     font-family: 'Danger Neue', 'Impact', sans-serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.28em;
-    text-transform: uppercase;
-    padding: 0 1.3rem;
-    cursor: pointer;
-    transition: background 0.3s, color 0.3s;
-    white-space: nowrap;
+    font-size: var(--f-body-size);
+    letter-spacing: 0.3em; text-transform: uppercase;
+    padding: 0 1.4rem; cursor: pointer;
+    transition: background 0.3s, color 0.3s; white-space: nowrap;
   }
-
   .tstn-footer__nl-form button[type="submit"]:hover {
-    background: var(--tstn-gold-lt);
-    color: var(--tstn-white);
+    background: var(--f-gold-lt); color: #ffffff;
   }
-
   .newsletter-form__message {
-    font-size: 0.75rem;
-    letter-spacing: 0.06em;
-    margin-top: 0.7rem;
-    color: var(--tstn-dim);
+    font-size: var(--f-body-size);
+    letter-spacing: 0.05em; margin-top: 0.7rem;
+    color: rgba(255,255,255,0.45);
   }
 
-  /* ── SOCIAL ── */
-  .tstn-footer__social {}
-
-  /* The Dawn social-icons snippet renders a <ul class="list-social"> with <li> items.
-     We override everything here to force a clean horizontal row. */
-  .tstn-footer__social-icons,
-  .tstn-footer__social-icons.list-social {
+  /* ══ SOCIAL ICONS — built inline, no Dawn snippet dependency ══ */
+  .tstn-social {
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: wrap !important;
     gap: 0.65rem !important;
     list-style: none !important;
-    padding: 0 !important;
-    margin: 0.6rem 0 0 !important;
+    padding: 0 !important; margin: 0.8rem 0 0 !important;
     align-items: center !important;
   }
-
   @media screen and (max-width: 860px) {
-    .tstn-footer__social-icons,
-    .tstn-footer__social-icons.list-social {
-      justify-content: center !important;
-    }
+    .tstn-social { justify-content: center !important; }
   }
-
-  /* Each list item */
-  .tstn-footer__social-icons li,
-  .tstn-footer__social-icons .list-social__item {
-    display: block !important;
-    width: auto !important;
-    height: auto !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border-radius: 0 !important;
-    background: none !important;
-  }
-
-  /* The actual link inside each item */
-  .tstn-footer__social-icons .list-social__link,
-  .tstn-footer__social-icons a {
-    display: flex !important;
-    align-items: center !important;
+  .tstn-social li { display: block !important; }
+  .tstn-social a {
+    display: flex !important; align-items: center !important;
     justify-content: center !important;
-    width: 42px !important;
-    height: 42px !important;
-    border: 1px solid rgba(255,255,255,0.12) !important;
+    width: 44px !important; height: 44px !important;
+    border: 1px solid rgba(255,255,255,0.14) !important;
     border-radius: 0 !important;
     background: rgba(255,255,255,0.03) !important;
-    color: rgba(255,255,255,0.5) !important;
+    color: rgba(255,255,255,0.55) !important;
     text-decoration: none !important;
     transition: border-color 0.3s, color 0.3s, background 0.3s !important;
-    /* Kill any Dawn circular styling */
-    box-shadow: none !important;
-    overflow: visible !important;
+    flex-shrink: 0 !important;
+  }
+  .tstn-social a:hover {
+    border-color: var(--f-gold) !important;
+    color: var(--f-gold) !important;
+    background: var(--f-gold-glow) !important;
+  }
+  .tstn-social svg {
+    width: 18px !important; height: 18px !important;
+    fill: currentColor !important; display: block !important;
   }
 
-  .tstn-footer__social-icons .list-social__link:hover,
-  .tstn-footer__social-icons a:hover {
-    border-color: rgba(184,146,42,0.6) !important;
-    color: var(--tstn-gold) !important;
-    background: rgba(184,146,42,0.08) !important;
-  }
-
-  /* SVG icons inside links */
-  .tstn-footer__social-icons .icon,
-  .tstn-footer__social-icons svg {
-    width: 18px !important;
-    height: 18px !important;
-    fill: currentColor !important;
-    display: block !important;
-  }
-  
-  /* Kill Dawn's default circular button on social icons */
-  .tstn-footer__social-icons .list-social__item .list-social__link {
-    border-radius: 0 !important;
-  }
-
-  /* ── BOTTOM BAR ── */
+  /* ══ BOTTOM BAR ══ */
   .tstn-footer__bottom {
-    border-top: 1px solid var(--tstn-border);
+    border-top: 1px solid var(--f-border);
     padding-top: 1.5rem;
-    display: flex;
-    align-items: center;
+    display: flex; align-items: center;
     justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 1rem;
-    animation: tstnFadeUp 0.9s 0.3s ease both;
+    flex-wrap: wrap; gap: 1rem;
+    animation: tstnFU 0.9s 0.3s ease both;
   }
-
   @media screen and (max-width: 600px) {
     .tstn-footer__bottom {
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
+      flex-direction: column; align-items: center; text-align: center;
     }
   }
-
   .tstn-footer__copy {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.25);
+    font-size: var(--f-copy-size);
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--f-copy-color);
   }
-
   .tstn-footer__payments .list-payment {
-    display: flex;
-    gap: 0.4rem;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    flex-wrap: wrap;
-    align-items: center;
+    display: flex; gap: 0.45rem; list-style: none;
+    padding: 0; margin: 0; flex-wrap: wrap; align-items: center;
   }
-
   .tstn-footer__payments .list-payment__item svg,
   .tstn-footer__payments .list-payment__item img {
-    height: 20px;
-    width: auto;
-    opacity: 0.22;
-    filter: grayscale(1) brightness(2);
+    height: 22px; width: auto;
+    opacity: 0.25; filter: grayscale(1) brightness(2);
     transition: opacity 0.2s;
   }
-
   .tstn-footer__payments .list-payment__item:hover svg,
-  .tstn-footer__payments .list-payment__item:hover img {
-    opacity: 0.5;
-  }
+  .tstn-footer__payments .list-payment__item:hover img { opacity: 0.55; }
 
   .tstn-footer__locale {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    align-items: center;
+    display: flex; gap: 1rem; flex-wrap: wrap; align-items: center;
   }
-
   .tstn-footer__locale .localization-form select {
     background: rgba(255,255,255,0.04);
-    border: 1px solid var(--tstn-border);
-    color: var(--tstn-muted);
+    border: 1px solid var(--f-border);
+    color: rgba(255,255,255,0.4);
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.62rem;
-    letter-spacing: 0.08em;
+    font-size: 0.75rem; letter-spacing: 0.07em;
     padding: 0.35rem 0.65rem;
   }
-
-  .tstn-footer__locale .caption-large.text-body {
+  .tstn-footer__locale .caption-large {
     font-family: 'Danger Neue', 'Impact', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.2em;
+    font-size: 0.68rem; letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--tstn-muted);
-    margin-bottom: 0.3rem;
+    color: rgba(255,255,255,0.3); margin-bottom: 0.3rem;
   }
 
-  /* ── ANIMATIONS ── */
-  @keyframes tstnFadeUp {
-    from { opacity: 0; transform: translateY(20px); }
+  /* ── ANIMATION ── */
+  @keyframes tstnFU {
+    from { opacity: 0; transform: translateY(22px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
 {%- endstyle -%}
 
 {%- liquid
-  assign has_social_icons = true
-  if settings.social_facebook_link == blank and settings.social_instagram_link == blank and settings.social_youtube_link == blank and settings.social_tiktok_link == blank and settings.social_twitter_link == blank and settings.social_pinterest_link == blank and settings.social_snapchat_link == blank and settings.social_tumblr_link == blank and settings.social_vimeo_link == blank
-    assign has_social_icons = false
+  assign has_fb    = false
+  assign has_ig    = false
+  assign has_yt    = false
+  assign has_tk    = false
+  assign has_tw    = false
+  assign has_pin   = false
+  assign has_snap  = false
+  assign has_vimeo = false
+
+  if settings.social_facebook_link != blank
+    assign has_fb = true
+  endif
+  if settings.social_instagram_link != blank
+    assign has_ig = true
+  endif
+  if settings.social_youtube_link != blank
+    assign has_yt = true
+  endif
+  if settings.social_tiktok_link != blank
+    assign has_tk = true
+  endif
+  if settings.social_twitter_link != blank
+    assign has_tw = true
+  endif
+  if settings.social_pinterest_link != blank
+    assign has_pin = true
+  endif
+  if settings.social_snapchat_link != blank
+    assign has_snap = true
+  endif
+  if settings.social_vimeo_link != blank
+    assign has_vimeo = true
+  endif
+
+  assign has_social = false
+  if has_fb or has_ig or has_yt or has_tk or has_tw or has_pin or has_snap or has_vimeo
+    assign has_social = true
   endif
 -%}
 
 <footer class="tstn-footer color-{{ section.settings.color_scheme }}">
 
-  <div class="tstn-footer__rule" aria-hidden="true"></div>
+  <div class="tstn-footer__rule"    aria-hidden="true"></div>
   <div class="tstn-footer__grain"   aria-hidden="true"></div>
   <div class="tstn-footer__vignette" aria-hidden="true"></div>
 
@@ -530,11 +397,11 @@
         <h2 class="tstn-footer__brand-name">{{ shop.name }}</h2>
       {%- endif -%}
       {%- if section.settings.tagline != blank -%}
-        <p class="tstn-footer__brand-tagline">{{ section.settings.tagline }}</p>
+        <p class="tstn-footer__tagline">{{ section.settings.tagline }}</p>
       {%- endif -%}
     </div>
 
-    <!-- ══ HORIZONTAL NAV — all link_list blocks ══ -->
+    <!-- ══ HORIZONTAL NAV ══ -->
     {%- assign has_links = false -%}
     {%- for block in section.blocks -%}
       {%- if block.type == 'link_list' and block.settings.menu != blank -%}
@@ -543,31 +410,33 @@
     {%- endfor -%}
 
     {%- if has_links -%}
-      <nav class="tstn-footer__nav" aria-label="Footer navigation">
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'link_list' and block.settings.menu != blank -%}
-            {%- for link in block.settings.menu.links -%}
-              <div class="tstn-footer__nav-item" {{ block.shopify_attributes }}>
-                <a
-                  href="{{ link.url }}"
-                  class="tstn-footer__nav-link{% if link.active %} active{% endif %}"
-                >{{ link.title | escape }}</a>
-              </div>
-            {%- endfor -%}
-          {%- endif -%}
-        {%- endfor -%}
+      <nav aria-label="Footer navigation">
+        <ul class="tstn-footer__nav">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'link_list' and block.settings.menu != blank -%}
+              {%- for link in block.settings.menu.links -%}
+                <li class="tstn-footer__nav-item" {{ block.shopify_attributes }}>
+                  <a href="{{ link.url }}"
+                     class="tstn-footer__nav-link{% if link.active %} active{% endif %}">
+                    {{ link.title | escape }}
+                  </a>
+                </li>
+              {%- endfor -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
       </nav>
     {%- endif -%}
 
-    <!-- ══ MIDDLE ROW: Newsletter | Divider | Social ══ -->
+    <!-- ══ MID ROW: Newsletter | Divider | Social ══ -->
     <div class="tstn-footer__mid">
 
       <!-- Newsletter -->
       <div class="tstn-footer__newsletter">
         {%- if section.settings.newsletter_enable -%}
-          <span class="tstn-footer__section-label">{{ section.settings.newsletter_label }}</span>
+          <span class="tstn-footer__label">{{ section.settings.newsletter_label }}</span>
           {%- if section.settings.newsletter_heading != blank -%}
-            <p class="tstn-footer__newsletter-title">{{ section.settings.newsletter_heading }}</p>
+            <p class="tstn-footer__nl-heading">{{ section.settings.newsletter_heading }}</p>
           {%- endif -%}
           {%- form 'customer', id: 'ContactFooter', class: 'tstn-footer__nl-form' -%}
             <input type="hidden" name="contact[tags]" value="newsletter">
@@ -575,17 +444,13 @@
               <div class="tstn-field">
                 <input
                   id="NewsletterForm--{{ section.id }}"
-                  type="email"
-                  name="contact[email]"
+                  type="email" name="contact[email]"
                   value="{{ form.email }}"
                   aria-required="true"
-                  autocorrect="off"
-                  autocapitalize="off"
-                  autocomplete="email"
+                  autocorrect="off" autocapitalize="off" autocomplete="email"
                   {% if form.errors %}autofocus aria-invalid="true" aria-describedby="ContactFooter-error"
                   {% elsif form.posted_successfully? %}aria-describedby="ContactFooter-success"{% endif %}
-                  placeholder="{{ 'newsletter.label' | t }}"
-                  required
+                  placeholder="{{ 'newsletter.label' | t }}" required
                 >
                 <label for="NewsletterForm--{{ section.id }}">{{ 'newsletter.label' | t }}</label>
                 <button type="submit" name="commit" aria-label="{{ 'newsletter.button_label' | t }}">Join</button>
@@ -608,27 +473,81 @@
         {%- endif -%}
       </div>
 
-      <!-- Divider line -->
+      <!-- Divider -->
       <div class="tstn-footer__mid-divider" aria-hidden="true"></div>
 
-      <!-- Social -->
+      <!-- Social — built inline so Dawn CSS cannot interfere -->
       <div class="tstn-footer__social">
-        {%- if has_social_icons -%}
-          <span class="tstn-footer__section-label">Follow</span>
-          {%- render 'social-icons', class: 'tstn-footer__social-icons' -%}
+        {%- if has_social -%}
+          <span class="tstn-footer__label">{{ section.settings.social_label }}</span>
+          <ul class="tstn-social">
+            {%- if settings.social_facebook_link != blank -%}
+              <li>
+                <a href="{{ settings.social_facebook_link }}" target="_blank" rel="noopener" aria-label="Facebook">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                </a>
+              </li>
+            {%- endif -%}
+            {%- if settings.social_instagram_link != blank -%}
+              <li>
+                <a href="{{ settings.social_instagram_link }}" target="_blank" rel="noopener" aria-label="Instagram">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" fill="none" stroke="currentColor" stroke-width="2"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+                </a>
+              </li>
+            {%- endif -%}
+            {%- if settings.social_youtube_link != blank -%}
+              <li>
+                <a href="{{ settings.social_youtube_link }}" target="_blank" rel="noopener" aria-label="YouTube">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="{{ section.settings.footer_bg_color }}"/></svg>
+                </a>
+              </li>
+            {%- endif -%}
+            {%- if settings.social_tiktok_link != blank -%}
+              <li>
+                <a href="{{ settings.social_tiktok_link }}" target="_blank" rel="noopener" aria-label="TikTok">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+                </a>
+              </li>
+            {%- endif -%}
+            {%- if settings.social_twitter_link != blank -%}
+              <li>
+                <a href="{{ settings.social_twitter_link }}" target="_blank" rel="noopener" aria-label="X / Twitter">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.264 5.637L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/></svg>
+                </a>
+              </li>
+            {%- endif -%}
+            {%- if settings.social_pinterest_link != blank -%}
+              <li>
+                <a href="{{ settings.social_pinterest_link }}" target="_blank" rel="noopener" aria-label="Pinterest">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.236 2.636 7.855 6.356 9.312-.088-.791-.167-2.005.035-2.868.181-.78 1.172-4.97 1.172-4.97s-.299-.598-.299-1.482c0-1.388.806-2.428 1.808-2.428.852 0 1.266.64 1.266 1.408 0 .858-.546 2.14-.828 3.33-.236.995.499 1.806 1.476 1.806 1.772 0 3.137-1.868 3.137-4.558 0-2.386-1.715-4.052-4.163-4.052-2.838 0-4.502 2.128-4.502 4.326 0 .856.33 1.772.741 2.273a.3.3 0 0 1 .069.286c-.076.31-.244.995-.277 1.134-.044.183-.146.222-.337.134-1.249-.581-2.03-2.407-2.03-3.874 0-3.154 2.292-6.052 6.608-6.052 3.469 0 6.165 2.473 6.165 5.776 0 3.447-2.173 6.22-5.19 6.22-1.013 0-1.966-.527-2.292-1.148l-.623 2.378c-.226.869-.835 1.958-1.244 2.621.937.29 1.931.446 2.962.446 5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+                </a>
+              </li>
+            {%- endif -%}
+            {%- if settings.social_snapchat_link != blank -%}
+              <li>
+                <a href="{{ settings.social_snapchat_link }}" target="_blank" rel="noopener" aria-label="Snapchat">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12.017 2C8.396 2 6 4.668 6 7.869v.818c-.309.14-.534.12-.82.12-.508 0-.96.34-.96.856 0 .46.347.8.79.93-.056.197-.12.39-.2.573-.482 1.104-1.363 1.89-2.41 2.283-.293.107-.4.38-.267.651.362.743 1.476.93 2.482 1.084.04.177.053.364.156.516.143.209.387.31.65.31.21 0 .44-.052.697-.108.38-.082.855-.185 1.488-.185.39 0 .77.043 1.14.137.69.178 1.232.636 2.017.636.77 0 1.32-.456 2.012-.636.37-.094.753-.137 1.143-.137.633 0 1.107.103 1.49.185.256.056.487.108.696.108.263 0 .508-.1.65-.31.103-.152.116-.34.156-.516 1.006-.154 2.12-.34 2.482-1.084.133-.27.026-.544-.267-.651-1.047-.393-1.928-1.179-2.41-2.283-.08-.182-.144-.376-.2-.573.443-.13.79-.47.79-.93 0-.516-.452-.856-.96-.856-.286 0-.51.02-.82-.12v-.818C18 4.668 15.617 2 12.017 2z"/></svg>
+                </a>
+              </li>
+            {%- endif -%}
+            {%- if settings.social_vimeo_link != blank -%}
+              <li>
+                <a href="{{ settings.social_vimeo_link }}" target="_blank" rel="noopener" aria-label="Vimeo">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22 7.42c-.09 2.01-1.5 4.77-4.21 8.28C15 19.35 12.67 21.1 10.8 21.1c-1.15 0-2.12-1.06-2.92-3.19l-1.59-5.83C5.6 9.95 4.92 8.9 4.19 8.9c-.16 0-.72.34-1.68 1.01L1.5 8.66c1.06-.93 2.1-1.86 3.12-2.79 1.4-1.21 2.45-1.85 3.15-1.9 1.66-.16 2.68.97 3.07 3.39.41 2.62.7 4.25.85 4.9.47 2.14.99 3.2 1.56 3.2.44 0 1.11-.7 2-2.09.89-1.4 1.36-2.46 1.42-3.19.13-1.2-.35-1.81-1.42-1.81-.5 0-1.02.12-1.55.34.97-3.2 2.83-4.75 5.57-4.65 2.02.06 2.97 1.37 2.83 3.35z"/></svg>
+                </a>
+              </li>
+            {%- endif -%}
+          </ul>
         {%- endif -%}
         {%- if shop.features.follow_on_shop? and section.settings.enable_follow_on_shop -%}
-          <div style="margin-top:1rem;">
-            {{ shop | login_button: action: 'follow' }}
-          </div>
+          <div style="margin-top:1rem;">{{ shop | login_button: action: 'follow' }}</div>
         {%- endif -%}
       </div>
 
-    </div>
+    </div><!-- /.tstn-footer__mid -->
 
     <!-- ══ BOTTOM BAR ══ -->
     <div class="tstn-footer__bottom">
-
       <div class="tstn-footer__copy">
         {%- if section.settings.bottom_text != blank -%}
           {{ section.settings.bottom_text }}
@@ -641,7 +560,7 @@
         {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
           <localization-form>
             {%- form 'localization', id: 'FooterCountryForm', class: 'localization-form' -%}
-              <h2 class="caption-large text-body" id="FooterCountryLabel">{{ 'localization.country_label' | t }}</h2>
+              <h2 class="caption-large" id="FooterCountryLabel">{{ 'localization.country_label' | t }}</h2>
               {%- render 'country-localization', localPosition: 'FooterCountry' -%}
             {%- endform -%}
           </localization-form>
@@ -649,7 +568,7 @@
         {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
           <localization-form>
             {%- form 'localization', id: 'FooterLanguageForm', class: 'localization-form' -%}
-              <h2 class="caption-large text-body" id="FooterLanguageLabel">{{ 'localization.language_label' | t }}</h2>
+              <h2 class="caption-large" id="FooterLanguageLabel">{{ 'localization.language_label' | t }}</h2>
               {%- render 'language-localization', localPosition: 'FooterLanguage' -%}
             {%- endform -%}
           </localization-form>
@@ -666,19 +585,16 @@
           </ul>
         </div>
       {%- endif -%}
-
     </div>
 
-  </div>
+  </div><!-- /.tstn-footer__inner -->
 </footer>
 
 {% schema %}
 {
   "name": "Footer",
   "blocks": [
-    {
-      "type": "@app"
-    },
+    { "type": "@app" },
     {
       "type": "link_list",
       "name": "Navigation Menu",
@@ -699,14 +615,12 @@
       "label": "Color scheme",
       "default": "scheme-1"
     },
-    {
-      "type": "header",
-      "content": "Brand"
-    },
+
+    { "type": "header", "content": "Brand" },
     {
       "type": "image_picker",
       "id": "footer_logo",
-      "label": "Footer logo (replaces shop name text)"
+      "label": "Footer logo (replaces shop name)"
     },
     {
       "type": "text",
@@ -714,48 +628,120 @@
       "label": "Tagline",
       "default": "The Official Destination"
     },
-    {
-      "type": "header",
-      "content": "Background Watermark Logo"
-    },
+
+    { "type": "header", "content": "Background Watermark" },
     {
       "type": "image_picker",
       "id": "bg_logo",
-      "label": "Background watermark image"
+      "label": "Watermark image"
     },
     {
       "type": "range",
       "id": "bg_logo_size",
-      "min": 20,
-      "max": 100,
-      "step": 5,
-      "unit": "%",
+      "min": 20, "max": 100, "step": 5, "unit": "%",
       "label": "Watermark size",
       "default": 60
     },
     {
       "type": "range",
       "id": "bg_logo_opacity",
-      "min": 1,
-      "max": 15,
-      "step": 1,
+      "min": 1, "max": 15, "step": 1,
       "label": "Watermark opacity",
       "default": 4
     },
+
+    { "type": "header", "content": "Colors" },
     {
-      "type": "header",
-      "content": "Newsletter"
+      "type": "color",
+      "id": "footer_bg_color",
+      "label": "Footer background",
+      "default": "#060606"
     },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent / gold color",
+      "default": "#b8922a"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Headings & brand name",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "nav_color",
+      "label": "Nav link color",
+      "default": "#999999"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Section labels (Stay Connected / Follow)",
+      "default": "#b8922a"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body text color",
+      "default": "#888888"
+    },
+    {
+      "type": "color",
+      "id": "copy_color",
+      "label": "Copyright text color",
+      "default": "#444444"
+    },
+
+    { "type": "header", "content": "Font Sizes" },
+    {
+      "type": "range",
+      "id": "nav_font_size",
+      "min": 10, "max": 20, "step": 1, "unit": "px",
+      "label": "Nav link size",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "label_font_size",
+      "min": 9, "max": 18, "step": 1, "unit": "px",
+      "label": "Section label size",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "min": 14, "max": 36, "step": 1, "unit": "px",
+      "label": "Newsletter heading size",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "body_font_size",
+      "min": 11, "max": 18, "step": 1, "unit": "px",
+      "label": "Body / input text size",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "copy_font_size",
+      "min": 9, "max": 16, "step": 1, "unit": "px",
+      "label": "Copyright text size",
+      "default": 11
+    },
+
+    { "type": "header", "content": "Newsletter" },
     {
       "type": "checkbox",
       "id": "newsletter_enable",
       "default": true,
-      "label": "Show newsletter signup"
+      "label": "Show newsletter"
     },
     {
       "type": "text",
       "id": "newsletter_label",
-      "label": "Section label",
+      "label": "Newsletter section label",
       "default": "Stay Connected"
     },
     {
@@ -764,21 +750,22 @@
       "default": "Subscribe for exclusive access",
       "label": "Newsletter heading"
     },
+
+    { "type": "header", "content": "Social" },
     {
-      "type": "header",
-      "content": "Social & Shop"
+      "type": "text",
+      "id": "social_label",
+      "label": "Social section label",
+      "default": "Follow"
     },
     {
       "type": "checkbox",
       "id": "enable_follow_on_shop",
       "default": false,
-      "label": "Enable follow on Shop",
-      "info": "Requires the Shop channel to be installed."
+      "label": "Enable follow on Shop"
     },
-    {
-      "type": "header",
-      "content": "Region & Language"
-    },
+
+    { "type": "header", "content": "Region & Language" },
     {
       "type": "checkbox",
       "id": "enable_country_selector",
@@ -791,10 +778,8 @@
       "default": true,
       "label": "Enable language selector"
     },
-    {
-      "type": "header",
-      "content": "Bottom Bar"
-    },
+
+    { "type": "header", "content": "Bottom Bar" },
     {
       "type": "checkbox",
       "id": "payment_enable",
@@ -806,45 +791,32 @@
       "id": "bottom_text",
       "label": "Copyright / bottom text"
     },
-    {
-      "type": "header",
-      "content": "Spacing"
-    },
+
+    { "type": "header", "content": "Spacing" },
     {
       "type": "range",
       "id": "margin_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
+      "min": 0, "max": 100, "step": 4, "unit": "px",
       "label": "Margin top",
       "default": 0
     },
     {
       "type": "range",
       "id": "padding_top",
-      "min": 20,
-      "max": 120,
-      "step": 4,
-      "unit": "px",
+      "min": 20, "max": 120, "step": 4, "unit": "px",
       "label": "Padding top",
       "default": 64
     },
     {
       "type": "range",
       "id": "padding_bottom",
-      "min": 20,
-      "max": 120,
-      "step": 4,
-      "unit": "px",
+      "min": 20, "max": 120, "step": 4, "unit": "px",
       "label": "Padding bottom",
       "default": 44
     }
   ],
   "default": {
-    "blocks": [
-      { "type": "link_list" }
-    ]
+    "blocks": [{ "type": "link_list" }]
   }
 }
 {% endschema %}
