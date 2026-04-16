@@ -67,10 +67,10 @@
         "enable_country_selector": true,
         "enable_language_selector": true,
         "payment_enable": true,
-        "bottom_text": "Copyright © 2025TSTN. All rights reserved.",
+        "bottom_text": "Copyright © 2026 TSTN. All rights reserved.",
         "margin_top": 16,
-        "padding_top": 72,
-        "padding_bottom": 28
+        "padding_top": 36,
+        "padding_bottom": 36
       }
     },
     "product_footer_8GDRyG": {
