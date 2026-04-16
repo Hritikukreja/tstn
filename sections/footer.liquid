@@ -152,7 +152,7 @@
   /* ══ MIDDLE ROW ══ */
   .tstn-footer__mid {
     display: grid;
-    grid-template-columns: 1fr 1px 1fr;
+    grid-template-columns: 1fr 1px auto;
     gap: 4rem; padding: 3.5rem 0;
     align-items: start;
     animation: tstnFU 0.9s 0.2s ease both;
@@ -237,20 +237,27 @@
     color: rgba(255,255,255,0.45);
   }
 
-  /* ══ SOCIAL ICONS — built inline, no Dawn snippet dependency ══ */
+  /* ══ SOCIAL ICONS ══ */
   .tstn-social {
     display: flex !important;
     flex-direction: row !important;
-    flex-wrap: wrap !important;
+    flex-wrap: nowrap !important;
     gap: 0.65rem !important;
     list-style: none !important;
-    padding: 0 !important; margin: 0.8rem 0 0 !important;
+    padding: 0 !important;
+    margin: 0.8rem 0 0 !important;
     align-items: center !important;
   }
   @media screen and (max-width: 860px) {
-    .tstn-social { justify-content: center !important; }
+    .tstn-social {
+      flex-wrap: wrap !important;
+      justify-content: center !important;
+    }
   }
-  .tstn-social li { display: block !important; }
+  .tstn-social li {
+    display: block !important;
+    flex-shrink: 0 !important;
+  }
   .tstn-social a {
     display: flex !important; align-items: center !important;
     justify-content: center !important;
