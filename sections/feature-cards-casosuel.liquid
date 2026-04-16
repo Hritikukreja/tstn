@@ -545,6 +545,41 @@
     prevBtn.addEventListener('click', () => go(currentIndex - 1));
     nextBtn.addEventListener('click', () => go(currentIndex + 1));
 
+    // ── Touch / swipe support ──
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let isDragging = false;
+
+    trackEl.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      isDragging = true;
+    }, { passive: true });
+
+    trackEl.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const deltaX = e.touches[0].clientX - touchStartX;
+      const deltaY = e.touches[0].clientY - touchStartY;
+      // If scrolling vertically more than horizontally, don't hijack scroll
+      if (Math.abs(deltaY) > Math.abs(deltaX)) {
+        isDragging = false;
+        return;
+      }
+      e.preventDefault();
+    }, { passive: false });
+
+    trackEl.addEventListener('touchend', (e) => {
+      if (!isDragging) return;
+      isDragging = false;
+      const deltaX = e.changedTouches[0].clientX - touchStartX;
+      const threshold = 50;
+      if (deltaX < -threshold) {
+        go(currentIndex + 1);
+      } else if (deltaX > threshold) {
+        go(currentIndex - 1);
+      }
+    }, { passive: true });
+
     let resizeTimer;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
@@ -605,7 +640,7 @@
       "step": 4,
       "unit": "px",
       "label": "Card min height",
-      "default": 520
+      "default": 444
     },
     {
       "type": "header",
