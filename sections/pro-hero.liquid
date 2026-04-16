@@ -176,7 +176,11 @@
   #{{ section_id }} .pro-hero__heading {
     margin: 0;
     font-family: 'Danger Neue', sans-serif;
-    font-size: {{ section.settings.heading_size }}px;
+    font-size: clamp(
+      calc({{ section.settings.heading_size }}px * 0.35),
+      8vw,
+      {{ section.settings.heading_size }}px
+    );
     font-weight: {{ section.settings.heading_weight }};
     text-transform: uppercase;
     letter-spacing: -0.02em;
@@ -400,7 +404,7 @@
     {
       "type": "range",
       "id": "heading_size",
-      "label": "Heading font size",
+      "label": "Heading font size (desktop max)",
       "min": 20,
       "max": 200,
       "step": 4,
