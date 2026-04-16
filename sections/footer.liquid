@@ -100,10 +100,10 @@
     text-shadow: 0 0 100px rgba(184,146,42,0.18);
   }
   .tstn-footer__tagline {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300; font-style: italic;
-    font-size: clamp(0.85rem, 1.2vw, 1.1rem);
-    letter-spacing: 0.28em; color: var(--f-gold);
+    font-family: 'Danger Neue', 'Impact', sans-serif;
+    font-weight: 400; font-style: normal;
+    font-size: clamp(0.75rem, 1.1vw, 0.95rem);
+    letter-spacing: 0.35em; color: var(--f-gold);
     text-transform: uppercase; margin: 0;
   }
 
@@ -154,7 +154,7 @@
     display: grid;
     grid-template-columns: 1fr 1px auto;
     gap: 4rem; padding: 3.5rem 0;
-    align-items: start;
+    align-items: center;
     animation: tstnFU 0.9s 0.2s ease both;
   }
   @media screen and (max-width: 860px) {
@@ -167,6 +167,17 @@
   .tstn-footer__mid-divider {
     width: 1px; align-self: stretch;
     background: linear-gradient(180deg, transparent, var(--f-border) 25%, var(--f-border) 75%, transparent);
+  }
+
+  /* Social column alignment */
+  .tstn-footer__social {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+  @media screen and (max-width: 860px) {
+    .tstn-footer__social { align-items: center; }
   }
 
   /* ── Section label (STAY CONNECTED / FOLLOW) ── */
@@ -242,7 +253,7 @@
     display: flex !important;
     flex-direction: row !important;
     flex-wrap: nowrap !important;
-    gap: 0.65rem !important;
+    gap: 0.5rem !important;
     list-style: none !important;
     padding: 0 !important;
     margin: 0.8rem 0 0 !important;
@@ -261,22 +272,23 @@
   .tstn-social a {
     display: flex !important; align-items: center !important;
     justify-content: center !important;
-    width: 44px !important; height: 44px !important;
-    border: 1px solid rgba(255,255,255,0.14) !important;
+    width: 46px !important; height: 46px !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
     border-radius: 0 !important;
-    background: rgba(255,255,255,0.03) !important;
-    color: rgba(255,255,255,0.55) !important;
+    background: rgba(255,255,255,0.02) !important;
+    color: rgba(255,255,255,0.5) !important;
     text-decoration: none !important;
-    transition: border-color 0.3s, color 0.3s, background 0.3s !important;
+    transition: border-color 0.3s, color 0.3s, background 0.3s, transform 0.2s !important;
     flex-shrink: 0 !important;
   }
   .tstn-social a:hover {
     border-color: var(--f-gold) !important;
     color: var(--f-gold) !important;
     background: var(--f-gold-glow) !important;
+    transform: translateY(-2px) !important;
   }
   .tstn-social svg {
-    width: 18px !important; height: 18px !important;
+    width: 17px !important; height: 17px !important;
     fill: currentColor !important; display: block !important;
   }
 
