@@ -147,7 +147,7 @@
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
     font-style: italic;
-    font-size: 0.88rem;
+    font-size: 1.05rem;
     letter-spacing: 0.25em;
     color: var(--tstn-gold);
     text-transform: uppercase;
@@ -161,7 +161,7 @@
     justify-content: center;
     align-items: center;
     gap: 0;
-    padding: 2rem 0;
+    padding: 1.75rem 0;
     border-top: 1px solid var(--tstn-border);
     border-bottom: 1px solid var(--tstn-border);
     animation: tstnFadeUp 0.9s 0.1s ease both;
@@ -175,25 +175,27 @@
   .tstn-footer__nav-item + .tstn-footer__nav-item::before {
     content: '';
     display: inline-block;
-    width: 3px;
-    height: 3px;
+    width: 4px;
+    height: 4px;
     border-radius: 50%;
     background: var(--tstn-gold);
-    opacity: 0.45;
-    margin: 0 1.1rem;
+    opacity: 0.5;
+    margin: 0 1.25rem;
+    flex-shrink: 0;
   }
 
   .tstn-footer__nav-link {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
-    font-size: 0.67rem;
-    letter-spacing: 0.22em;
+    font-weight: 400;
+    font-size: 0.82rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--tstn-dim) !important;
+    color: rgba(255,255,255,0.6) !important;
     text-decoration: none !important;
     transition: color 0.3s ease;
     white-space: nowrap;
     display: inline-block;
+    padding: 0.2rem 0;
   }
 
   .tstn-footer__nav-link:hover {
@@ -206,10 +208,13 @@
 
   @media screen and (max-width: 600px) {
     .tstn-footer__nav {
-      gap: 0;
+      gap: 0.25rem 0;
     }
     .tstn-footer__nav-item + .tstn-footer__nav-item::before {
-      margin: 0 0.65rem;
+      margin: 0 0.75rem;
+    }
+    .tstn-footer__nav-link {
+      font-size: 0.72rem;
     }
   }
 
@@ -244,30 +249,30 @@
   /* ── SECTION LABEL ── */
   .tstn-footer__section-label {
     font-family: 'Danger Neue', 'Impact', sans-serif;
-    font-size: 0.6rem;
-    letter-spacing: 0.32em;
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
     text-transform: uppercase;
     color: var(--tstn-gold);
     display: block;
-    margin-bottom: 0.65rem;
+    margin-bottom: 0.75rem;
   }
 
   /* ── NEWSLETTER ── */
   .tstn-footer__newsletter-title {
     font-family: 'Cormorant Garamond', serif;
     font-weight: 300;
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     letter-spacing: 0.04em;
     color: var(--tstn-white);
-    margin: 0 0 1.25rem;
+    margin: 0 0 1.4rem;
     line-height: 1.35;
   }
 
   .tstn-footer__nl-form .tstn-field {
     display: flex;
-    border: 1px solid var(--tstn-border);
-    background: rgba(255,255,255,0.025);
-    max-width: 340px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.04);
+    max-width: 360px;
     transition: border-color 0.3s;
   }
 
@@ -278,7 +283,7 @@
   }
 
   .tstn-footer__nl-form .tstn-field:focus-within {
-    border-color: rgba(184,146,42,0.45);
+    border-color: rgba(184,146,42,0.55);
   }
 
   .tstn-footer__nl-form input[type="email"] {
@@ -287,18 +292,18 @@
     outline: none;
     color: var(--tstn-white);
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.67rem;
-    letter-spacing: 0.1em;
-    padding: 0.8rem 1rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    padding: 0.9rem 1.1rem;
     flex: 1;
     min-width: 0;
   }
 
   .tstn-footer__nl-form input[type="email"]::placeholder {
-    color: rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.3);
     text-transform: uppercase;
-    font-size: 0.61rem;
-    letter-spacing: 0.15em;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
   }
 
   .tstn-footer__nl-form label {
@@ -308,13 +313,13 @@
   .tstn-footer__nl-form button[type="submit"] {
     background: transparent;
     border: none;
-    border-left: 1px solid var(--tstn-border);
+    border-left: 1px solid rgba(255,255,255,0.12);
     color: var(--tstn-gold);
     font-family: 'Danger Neue', 'Impact', sans-serif;
-    font-size: 0.6rem;
+    font-size: 0.75rem;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    padding: 0 1.15rem;
+    padding: 0 1.3rem;
     cursor: pointer;
     transition: background 0.3s, color 0.3s;
     white-space: nowrap;
@@ -326,56 +331,86 @@
   }
 
   .newsletter-form__message {
-    font-size: 0.64rem;
+    font-size: 0.75rem;
     letter-spacing: 0.06em;
-    margin-top: 0.6rem;
+    margin-top: 0.7rem;
     color: var(--tstn-dim);
   }
 
   /* ── SOCIAL ── */
   .tstn-footer__social {}
 
-  .tstn-footer__social-grid {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-    margin-top: 0.4rem;
+  /* The Dawn social-icons snippet renders a <ul class="list-social"> with <li> items.
+     We override everything here to force a clean horizontal row. */
+  .tstn-footer__social-icons,
+  .tstn-footer__social-icons.list-social {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    gap: 0.65rem !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0.6rem 0 0 !important;
+    align-items: center !important;
   }
 
   @media screen and (max-width: 860px) {
-    .tstn-footer__social-grid {
-      justify-content: center;
+    .tstn-footer__social-icons,
+    .tstn-footer__social-icons.list-social {
+      justify-content: center !important;
     }
   }
 
-  /* Target social icon links from the Dawn social-icons snippet */
-  .tstn-footer__social-grid .list-social__link,
-  .tstn-footer__social-icons .list-social__link {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    width: 38px;
-    height: 38px;
-    border: 1px solid var(--tstn-border);
-    color: var(--tstn-muted);
-    text-decoration: none;
-    transition: border-color 0.3s, color 0.3s, background 0.3s;
+  /* Each list item */
+  .tstn-footer__social-icons li,
+  .tstn-footer__social-icons .list-social__item {
+    display: block !important;
+    width: auto !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    background: none !important;
   }
 
-  .tstn-footer__social-grid .list-social__link:hover,
-  .tstn-footer__social-icons .list-social__link:hover {
-    border-color: rgba(184,146,42,0.45);
-    color: var(--tstn-gold);
-    background: var(--tstn-gold-glow);
+  /* The actual link inside each item */
+  .tstn-footer__social-icons .list-social__link,
+  .tstn-footer__social-icons a {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 42px !important;
+    height: 42px !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    border-radius: 0 !important;
+    background: rgba(255,255,255,0.03) !important;
+    color: rgba(255,255,255,0.5) !important;
+    text-decoration: none !important;
+    transition: border-color 0.3s, color 0.3s, background 0.3s !important;
+    /* Kill any Dawn circular styling */
+    box-shadow: none !important;
+    overflow: visible !important;
   }
 
-  .tstn-footer__social-icons {
-    display: flex !important;
-    gap: 0.5rem;
-    list-style: none;
-    padding: 0;
-    margin: 0.4rem 0 0;
-    flex-wrap: wrap;
+  .tstn-footer__social-icons .list-social__link:hover,
+  .tstn-footer__social-icons a:hover {
+    border-color: rgba(184,146,42,0.6) !important;
+    color: var(--tstn-gold) !important;
+    background: rgba(184,146,42,0.08) !important;
+  }
+
+  /* SVG icons inside links */
+  .tstn-footer__social-icons .icon,
+  .tstn-footer__social-icons svg {
+    width: 18px !important;
+    height: 18px !important;
+    fill: currentColor !important;
+    display: block !important;
+  }
+  
+  /* Kill Dawn's default circular button on social icons */
+  .tstn-footer__social-icons .list-social__item .list-social__link {
+    border-radius: 0 !important;
   }
 
   /* ── BOTTOM BAR ── */
@@ -400,10 +435,10 @@
 
   .tstn-footer__copy {
     font-family: 'Montserrat', sans-serif;
-    font-size: 0.59rem;
-    letter-spacing: 0.15em;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.16);
+    color: rgba(255,255,255,0.25);
   }
 
   .tstn-footer__payments .list-payment {
@@ -449,7 +484,7 @@
 
   .tstn-footer__locale .caption-large.text-body {
     font-family: 'Danger Neue', 'Impact', sans-serif;
-    font-size: 0.58rem;
+    font-size: 0.7rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--tstn-muted);
