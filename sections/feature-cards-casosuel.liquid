@@ -127,15 +127,15 @@
 <style>
   /* ── TSTN Design Tokens ── */
   #{{ section_id }} {
-    --tstn-red:       #CC0000;
-    --tstn-red-glow:  rgba(204, 0, 0, 0.18);
-    --tstn-red-dim:   rgba(204, 0, 0, 0.08);
+    --tstn-red:       #F56300;
+    --tstn-red-glow:  rgba(245, 99, 0, 0.18);
+    --tstn-red-dim:   rgba(245, 99, 0, 0.08);
     --tstn-white:     #FFFFFF;
     --tstn-off-white: #E8E8E8;
     --tstn-muted:     rgba(255, 255, 255, 0.45);
     --tstn-card-bg:   #111111;
     --tstn-card-border: rgba(255, 255, 255, 0.07);
-    --tstn-card-border-hover: rgba(204, 0, 0, 0.5);
+    --tstn-card-border-hover: rgba(245, 99, 0, 0.5);
     --tstn-font-heading: 'Danger Neue Free Regular', 'DM Sans', sans-serif;
     --tstn-font-body:    'DM Sans', sans-serif;
   }
@@ -172,7 +172,7 @@
     z-index: 0;
   }
 
-  /* Red glow accent top-left */
+  /* Orange glow accent top-left */
   #{{ section_id }}::after {
     content: '';
     position: absolute;
@@ -278,7 +278,7 @@
   #{{ section_id }} .feature-cards__card:hover {
     border-color: var(--tstn-card-border-hover);
     transform: translateY(-3px);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--tstn-red-glow);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(245, 99, 0, 0.18);
   }
 
   /* Top-edge red accent line */
@@ -431,9 +431,9 @@
   }
 
   #{{ section_id }} .feature-cards__card-btn:hover {
-    background: #E60000;
+    background: #E05800;
     transform: scale(1.1);
-    box-shadow: 0 0 20px rgba(204, 0, 0, 0.5);
+    box-shadow: 0 0 20px rgba(245, 99, 0, 0.5);
   }
 
   #{{ section_id }} .feature-cards__card-btn--static {
@@ -633,7 +633,7 @@
       "type": "color",
       "id": "cta_color",
       "label": "CTA link color",
-      "default": "#CC0000"
+      "default": "#F56300"
     },
     {
       "type": "color",
