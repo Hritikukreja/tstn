@@ -97,6 +97,32 @@
   .list-social__link:hover svg {
     fill: rgba(245, 245, 247, 1) !important;
   }
+
+  /* ── Fix social list ovals (these were the culprit) ── */
+  .menu-drawer .list-social__item,
+  .menu-drawer .list-social__item .list-social__link {
+    border: none !important;
+    border-radius: 0 !important;
+    border-bottom: none !important;
+  }
+
+  .menu-drawer .list-social {
+    border: none !important;
+    gap: 0.4rem;
+  }
+
+  .menu-drawer .list-social__link {
+    background: transparent !important;
+    padding: 1rem !important;
+    border: none !important;
+  }
+
+  /* Ensure social icons render visibly */
+  .menu-drawer .list-social__link svg {
+    width: 1.8rem;
+    height: 1.8rem;
+    fill: rgba(245, 245, 247, 0.7) !important;
+  }
 </style>
 
 <header-drawer data-breakpoint="{% if section.settings.menu_type_desktop == 'drawer' %}desktop{% else %}tablet{% endif %}">
