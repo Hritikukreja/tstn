@@ -1,0 +1,586 @@
+{%- liquid
+  assign section_id = section.id
+  assign heading = section.settings.heading
+  assign subheading = section.settings.subheading
+  assign heading_color = section.settings.heading_color
+  assign subheading_color = section.settings.subheading_color
+  assign accent_color = section.settings.accent_color
+  assign card_bg_start = section.settings.card_bg_start
+  assign card_bg_end = section.settings.card_bg_end
+  assign card_border_color = section.settings.card_border_color
+  assign label_bg_color = section.settings.label_bg_color
+  assign completed_bg_color = section.settings.completed_bg_color
+  assign heading_font_size = section.settings.heading_font_size
+  assign heading_font_size_mobile = section.settings.heading_font_size_mobile
+  assign card_label_font_size = section.settings.card_label_font_size
+  assign card_height = section.settings.card_height
+  assign card_height_mobile = section.settings.card_height_mobile
+  assign section_bg = section.settings.section_bg
+  assign referral_heading = section.settings.referral_heading
+  assign referral_subtext = section.settings.referral_subtext
+  assign referral_image = section.settings.referral_image
+-%}
+
+{%- style -%}
+  .tstn-earn-{{ section_id }} {
+    --tstn-accent: {{ accent_color }};
+    --tstn-heading-color: {{ heading_color }};
+    --tstn-subheading-color: {{ subheading_color }};
+    --tstn-card-bg-start: {{ card_bg_start }};
+    --tstn-card-bg-end: {{ card_bg_end }};
+    --tstn-card-border: {{ card_border_color }};
+    --tstn-label-bg: {{ label_bg_color }};
+    --tstn-completed-bg: {{ completed_bg_color }};
+    --tstn-section-bg: {{ section_bg }};
+    --tstn-heading-size: {{ heading_font_size }}px;
+    --tstn-heading-size-mobile: {{ heading_font_size_mobile }}px;
+    --tstn-card-label-size: {{ card_label_font_size }}px;
+    --tstn-card-height: {{ card_height }}px;
+    --tstn-card-height-mobile: {{ card_height_mobile }}px;
+
+    background: var(--tstn-section-bg);
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .tstn-earn-{{ section_id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="tstn-earn tstn-earn-{{ section_id }} color-{{ section.settings.color_scheme }}">
+  <div class="page-width">
+    <div class="tstn-earn__wrap">
+      {%- if heading != blank or subheading != blank -%}
+        <div class="tstn-earn__header">
+          {%- if heading != blank -%}
+            <h2 class="tstn-earn__heading">{{ heading }}</h2>
+          {%- endif -%}
+          {%- if subheading != blank -%}
+            <p class="tstn-earn__subheading">{{ subheading }}</p>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+      <div class="tstn-earn__content">
+        {%- comment -%} Ways to Earn Widget {%- endcomment -%}
+        <div
+          class="gw-rd-ways-to-earn-page-widget-placeholder"
+          data-gw-widget-shadow-root-enabled="true"
+          data-gw-show-points-balance="true"
+          style="display: block"
+        ></div>
+
+        {%- comment -%} Referral Program Widget {%- endcomment -%}
+        <div
+          class="gw-rd-referral-program-page-widget-placeholder tstn-referral"
+          {% if referral_image != blank %}
+            data-gw-img-url="{{ referral_image | image_url: width: 600 }}"
+          {% endif %}
+          data-gw-widget-shadow-root-enabled="true"
+          style="display: block"
+        ></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- comment -%} ============================================
+   STYLES — Organized by component
+   ============================================ {%- endcomment -%}
+<style>
+  /* ===== Section Header ===== */
+  .tstn-earn__header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .tstn-earn__heading {
+    font-family: 'Danger Neue Free Regular', sans-serif;
+    font-size: var(--tstn-heading-size);
+    color: var(--tstn-heading-color);
+    text-transform: uppercase;
+    margin: 0 0 12px;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  .tstn-earn__subheading {
+    color: var(--tstn-subheading-color);
+    font-size: 16px;
+    margin: 0;
+    opacity: 0.85;
+  }
+
+  .tstn-earn__content {
+    position: relative;
+  }
+
+  /* ===== Ways to Earn Widget ===== */
+  .tstn-earn h2.gw-rd-page-widget-title,
+  .tstn-earn .gw-rd-page-widget-customer-balance {
+    display: none !important;
+  }
+
+  .tstn-earn .gw-rd-page-widget-layout {
+    max-width: 100% !important;
+  }
+
+  .tstn-earn .gw-rd-page-widget-container {
+    padding: 0 !important;
+    position: relative;
+  }
+
+  .tstn-earn .gw-rd-ways-to-earn-page-widget {
+    background: transparent !important;
+  }
+
+  .tstn-earn .gw-rd-list {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    margin-top: 20px !important;
+  }
+
+  .tstn-earn .gw-rd-list--page-layout.svelte-13ronxd {
+    gap: 25px !important;
+  }
+
+  .tstn-earn li.gw-rd-list__item {
+    flex: unset !important;
+    width: 32% !important;
+    height: var(--tstn-card-height);
+  }
+
+  /* ===== Earn Cards ===== */
+  .tstn-earn .gw-rd-page-widget-card.svelte-3ln76z.svelte-3ln76z {
+    border-radius: 0 !important;
+    border: 1px solid var(--tstn-card-border) !important;
+    color: #fff;
+    background: linear-gradient(135deg, var(--tstn-card-bg-start), var(--tstn-card-bg-end)) !important;
+    box-shadow: inset 0 0 0 1px rgba(254, 254, 254, 0.03) !important;
+    height: var(--tstn-card-height) !important;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .tstn-earn .gw-rd-page-widget-card--completed.svelte-3ln76z.svelte-3ln76z {
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+
+  .tstn-earn .gw-rd-page-widget-card__icon.svelte-3ln76z.svelte-3ln76z {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+  }
+
+  .tstn-earn .gw-image__img.svelte-1ijgyj3.svelte-1ijgyj3 {
+    object-fit: contain !important;
+  }
+
+  .tstn-earn .gw-image.gw-image--loaded.svelte-1ijgyj3 .gw-image__img.svelte-1ijgyj3 {
+    max-width: 80px !important;
+  }
+
+  /* Card text labels */
+  .tstn-earn .gw-layout-text--variant-base.svelte-yjnpd {
+    font-family: 'ABC Diatype', sans-serif !important;
+    text-transform: uppercase;
+    font-size: 14px !important;
+    font-weight: 400 !important;
+    color: #fff !important;
+  }
+
+  .tstn-earn .gw-layout-text--variant-secondary.svelte-yjnpd,
+  .tstn-earn .gw-rd-page-widget-action-completed.svelte-1klamai {
+    font-family: 'Danger Neue Free Regular', sans-serif !important;
+    font-size: var(--tstn-card-label-size) !important;
+    text-transform: uppercase !important;
+    color: #fff !important;
+    background: var(--tstn-label-bg) !important;
+    width: 100%;
+    display: block !important;
+    padding: 10px 0;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    line-height: normal !important;
+    box-shadow: 0 2px 5px 0 rgba(255, 255, 255, 0.15) !important;
+  }
+
+  .tstn-earn .gw-rd-page-widget-action-completed.svelte-1klamai {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--tstn-completed-bg) !important;
+    padding: 20px 0;
+  }
+
+  /* Accent colored elements */
+  .tstn-earn .gw-rd-icon-branding-color.svelte-4wr0zw {
+    color: var(--tstn-accent) !important;
+    border: 1px solid #fff;
+    border-radius: 50%;
+  }
+
+  .tstn-earn .gw-rd-icon-branding-color.svelte-4wr0zw rect {
+    fill: var(--tstn-accent) !important;
+  }
+
+  .tstn-earn .gw-btn--reset.gw-rd-action-btn--secondary:hover {
+    background-color: var(--tstn-accent) !important;
+  }
+
+  /* Modal */
+  .tstn-earn .gw-rd-page-widget-modal-body__title.svelte-dxvp56 {
+    font-family: 'Danger Neue Free Regular', sans-serif !important;
+    text-transform: uppercase !important;
+  }
+
+  /* ===== Referral Program Widget ===== */
+  .tstn-referral {
+    position: absolute;
+    bottom: 0;
+    right: 14px;
+    width: 32%;
+  }
+
+  .tstn-earn .gw-rd-page-widget-title.svelte-tmdh8j,
+  .tstn-earn .gw-rd-referral-program-page-widget__benefits {
+    display: none !important;
+  }
+
+  .tstn-earn .gw-rd-page-widget-container.svelte-1mnbt6f {
+    width: 400px;
+    padding: 20px;
+    position: relative;
+  }
+
+  .tstn-earn .gw-rd-referral-program-page-widget {
+    width: 100%;
+    margin-top: 25px;
+    background: var(--tstn-card-bg-start) !important;
+    border: 1px solid var(--tstn-card-border);
+  }
+
+  /* Referral text styling */
+  .tstn-referral .gw-layout-text--variant-secondary.svelte-yjnpd,
+  .tstn-referral .gw-layout-text--variant-primary.svelte-yjnpd {
+    font-family: 'Danger Neue Free Regular', sans-serif !important;
+    text-transform: uppercase;
+    font-size: 15px !important;
+  }
+
+  .tstn-referral .gw-layout-text--variant-secondary.svelte-yjnpd {
+    color: #fff !important;
+  }
+
+  .tstn-referral .gw-layout-text--variant-primary.svelte-yjnpd {
+    color: var(--tstn-accent) !important;
+  }
+
+  .tstn-earn .gw-rd-copy-field.svelte-tsjl1f .gw-rd-text-field .gw-rd-text-field__input {
+    color: var(--tstn-accent) !important;
+  }
+
+  .tstn-earn .gw-rd-popup-widget-referral-program__reward.svelte-1i38tde {
+    border: 1px solid var(--tstn-card-border) !important;
+    position: relative;
+  }
+
+  .tstn-earn .gw-rd-text-field.svelte-6gf4o4 {
+    border: 1px solid var(--tstn-card-border) !important;
+  }
+
+  .tstn-earn .gw-rd-copy-icon-btn.svelte-4aojgv {
+    background: #5b5b5b !important;
+  }
+
+  .tstn-earn .gw-tooltip-content.gw-tooltip-light.svelte-18q7x75 {
+    background: #5b5b5b;
+  }
+
+  /* Referral heading */
+  .tstn-earn .gw-rd-referral-program-page-widget__refer-friend {
+    position: relative;
+  }
+
+  .tstn-earn .gw-rd-referral-program-page-widget__refer-friend::after {
+    content: '{{ referral_heading | escape }}';
+    position: absolute;
+    color: var(--tstn-accent);
+    top: -56px;
+    text-align: center;
+    width: 100%;
+    font-size: 30px;
+    font-family: 'Danger Neue Free Regular', sans-serif;
+  }
+
+  /* Referral subtext */
+  .tstn-earn .gw-rd-page-widget-container.svelte-1mnbt6f::after {
+    content: '{{ referral_subtext | escape }}';
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-transform: uppercase;
+    color: #fff;
+    font-family: 'Danger Neue Free Regular', sans-serif !important;
+    bottom: 12px;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 767px) {
+    .tstn-earn__heading {
+      font-size: var(--tstn-heading-size-mobile);
+    }
+
+    .tstn-earn li.gw-rd-list__item {
+      flex: unset !important;
+      width: 100% !important;
+      height: 100%;
+    }
+
+    .tstn-earn .gw-rd-list--page-layout.svelte-13ronxd {
+      justify-content: space-between;
+      gap: 25px !important;
+    }
+
+    .tstn-earn .gw-layout-text--variant-secondary.svelte-yjnpd,
+    .tstn-earn .gw-rd-page-widget-action-completed.svelte-1klamai {
+      font-size: 14px !important;
+    }
+
+    .tstn-earn .gw-image.gw-image--loaded.svelte-1ijgyj3 .gw-image__img.svelte-1ijgyj3 {
+      max-width: 56px !important;
+    }
+
+    .tstn-earn .gw-rd-page-widget-card.svelte-3ln76z.svelte-3ln76z {
+      height: var(--tstn-card-height-mobile) !important;
+      justify-content: space-between;
+      padding: 10px !important;
+    }
+
+    .tstn-earn .gw-rd-page-widget-action-completed.svelte-1klamai {
+      padding: 11px 0;
+    }
+
+    .tstn-earn .gw-layout-text--variant-secondary.svelte-yjnpd {
+      padding: 13px 0;
+    }
+
+    .tstn-referral {
+      position: unset;
+      width: 100%;
+    }
+
+    .tstn-earn .gw-rd-page-widget-container.svelte-1mnbt6f::after {
+      bottom: 3px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Ways To Earn",
+  "tag": "section",
+  "class": "section-tstn-earn",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Section Heading",
+      "default": "Ways To Earn"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Section Subtext",
+      "default": "Earn points every time you shop, share, and engage."
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size",
+      "min": 24,
+      "max": 96,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size (Desktop)",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "heading_font_size_mobile",
+      "min": 18,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading Size (Mobile)",
+      "default": 30
+    },
+
+    {
+      "type": "header",
+      "content": "Referral Program"
+    },
+    {
+      "type": "text",
+      "id": "referral_heading",
+      "label": "Referral Heading",
+      "default": "REFER A FRIEND"
+    },
+    {
+      "type": "text",
+      "id": "referral_subtext",
+      "label": "Referral Reward Text",
+      "default": "You get 500 points once your friend makes a purchase"
+    },
+    {
+      "type": "image_picker",
+      "id": "referral_image",
+      "label": "Referral Image"
+    },
+
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "section_bg",
+      "label": "Section Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading Color",
+      "default": "#CCCCCC"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color",
+      "default": "#EC560A"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_start",
+      "label": "Card Background (Start)",
+      "default": "#0E0E0E"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_end",
+      "label": "Card Background (End)",
+      "default": "#141414"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card Border Color",
+      "default": "#303030"
+    },
+    {
+      "type": "color",
+      "id": "label_bg_color",
+      "label": "Card Label Background",
+      "default": "#1A1A1A"
+    },
+    {
+      "type": "color",
+      "id": "completed_bg_color",
+      "label": "Completed Card Background",
+      "default": "#EC560A"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color Scheme",
+      "default": "scheme-1"
+    },
+
+    {
+      "type": "header",
+      "content": "Card Settings"
+    },
+    {
+      "type": "range",
+      "id": "card_label_font_size",
+      "min": 14,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Card Label Size",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "card_height",
+      "min": 200,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Card Height (Desktop)",
+      "default": 330
+    },
+    {
+      "type": "range",
+      "id": "card_height_mobile",
+      "min": 160,
+      "max": 400,
+      "step": 10,
+      "unit": "px",
+      "label": "Card Height (Mobile)",
+      "default": 220
+    },
+
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ways To Earn",
+      "category": "Rewards"
+    }
+  ]
+}
+{% endschema %}
