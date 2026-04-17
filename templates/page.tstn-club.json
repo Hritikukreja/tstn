@@ -17,26 +17,36 @@
         "padding_bottom": 28
       }
     },
-    "17764605262630b88f": {
-      "type": "apps",
-      "blocks": {
-        "growave_loyalty_wishlist_v2_rewards_ways_to_earn_page_widget_9ahQXC": {
-          "type": "shopify://apps/growave-loyalty-wishlist/blocks/v2.rewards.waysToEarnPageWidget/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
-          "settings": {
-            "custom_css": ""
-          }
-        }
-      },
-      "block_order": [
-        "growave_loyalty_wishlist_v2_rewards_ways_to_earn_page_widget_9ahQXC"
-      ],
+    "updated_ways_to_earn_DDmChJ": {
+      "type": "updated-ways-to-earn",
+      "name": "Ways To Earn",
       "settings": {
-        "include_margins": true
+        "heading": "Ways To Earn",
+        "subheading": "Earn points every time you shop, share, and engage.",
+        "heading_font_size": 48,
+        "heading_font_size_mobile": 30,
+        "referral_heading": "REFER A FRIEND",
+        "referral_subtext": "You get 500 points once your friend makes a purchase",
+        "section_bg": "#000000",
+        "heading_color": "#FFFFFF",
+        "subheading_color": "#CCCCCC",
+        "accent_color": "#EC560A",
+        "card_bg_start": "#0E0E0E",
+        "card_bg_end": "#141414",
+        "card_border_color": "#303030",
+        "label_bg_color": "#1A1A1A",
+        "completed_bg_color": "#EC560A",
+        "color_scheme": "",
+        "card_label_font_size": 30,
+        "card_height": 330,
+        "card_height_mobile": 220,
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     }
   },
   "order": [
     "main",
-    "17764605262630b88f"
+    "updated_ways_to_earn_DDmChJ"
   ]
 }
