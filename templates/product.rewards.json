@@ -148,7 +148,9 @@
     "growave_tiers_BMVmYY": {
       "type": "growave-tiers",
       "name": "Growave Tires",
-      "settings": {}
+      "settings": {
+        "feat_image": "shopify://shop_images/TSTN_Club_page.webp"
+      }
     },
     "growave_ways_earn_8V88RL": {
       "type": "growave-ways-earn",
