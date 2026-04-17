@@ -343,6 +343,30 @@
     padding: 0.4rem;
     line-height: 1;
   }
+
+  /* ── Remove Dawn drawer decorative ovals ── */
+  .menu-drawer__utility-links::before,
+  .menu-drawer__utility-links::after,
+  .menu-drawer__inner-container::before,
+  .menu-drawer__inner-container::after,
+  .menu-drawer::before,
+  .menu-drawer::after,
+  header-drawer::before,
+  header-drawer::after,
+  .drawer::before,
+  .drawer::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  .menu-drawer {
+    background-color: rgb(18, 18, 18) !important;
+    border-right: none !important;
+  }
+
+  .menu-drawer__inner-container {
+    overflow: hidden !important;
+  }
 </style>
 
 {%- style -%}
