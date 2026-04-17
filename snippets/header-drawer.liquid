@@ -5,6 +5,66 @@
   {% render 'header-drawer' %}
 {% endcomment %}
 
+<style>
+  /* ── Kill Dawn's decorative ovals completely ── */
+  .menu-drawer__inner-container {
+    overflow: hidden !important;
+  }
+
+  .menu-drawer__inner-container::before,
+  .menu-drawer__inner-container::after {
+    display: none !important;
+    content: none !important;
+    background: none !important;
+    border: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+
+  /* ── Dark drawer theme ── */
+  #menu-drawer,
+  .menu-drawer,
+  .menu-drawer__submenu {
+    background: rgb(18, 18, 18) !important;
+    background-image: none !important;
+    border-right: none !important;
+  }
+
+  .menu-drawer__menu-item,
+  .menu-drawer__menu-item.link,
+  .menu-drawer__close-button {
+    color: rgba(245, 245, 247, 0.85) !important;
+    font-size: 1.6rem;
+    font-weight: 400;
+    letter-spacing: -0.01em;
+  }
+
+  .menu-drawer__menu-item:hover,
+  .menu-drawer__close-button:hover {
+    color: rgba(245, 245, 247, 1) !important;
+  }
+
+  .menu-drawer__menu-item--active {
+    color: rgba(245, 245, 247, 1) !important;
+  }
+
+  .menu-drawer__utility-links {
+    border-top: 0.5px solid rgba(245, 245, 247, 0.1);
+  }
+
+  .menu-drawer__account {
+    color: rgba(245, 245, 247, 0.7) !important;
+  }
+
+  .list-social__link svg {
+    fill: rgba(245, 245, 247, 0.6) !important;
+  }
+
+  .list-social__link:hover svg {
+    fill: rgba(245, 245, 247, 1) !important;
+  }
+</style>
+
 <header-drawer data-breakpoint="{% if section.settings.menu_type_desktop == 'drawer' %}desktop{% else %}tablet{% endif %}">
   <details id="Details-menu-drawer-container" class="menu-drawer-container">
     <summary
