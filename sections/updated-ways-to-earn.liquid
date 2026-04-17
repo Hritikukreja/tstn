@@ -22,7 +22,7 @@
 -%}
 
 {%- style -%}
-  .tstn-earn-{{ section_id }} {
+  #shopify-section-{{ section_id }} {
     --tstn-accent: {{ accent_color }};
     --tstn-heading-color: {{ heading_color }};
     --tstn-subheading-color: {{ subheading_color }};
@@ -37,7 +37,9 @@
     --tstn-card-label-size: {{ card_label_font_size }}px;
     --tstn-card-height: {{ card_height }}px;
     --tstn-card-height-mobile: {{ card_height_mobile }}px;
+  }
 
+  .tstn-earn-{{ section_id }} {
     background: var(--tstn-section-bg);
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
@@ -53,28 +55,30 @@
 
 <div class="tstn-earn tstn-earn-{{ section_id }} color-{{ section.settings.color_scheme }}">
   <div class="page-width">
-    <div class="tstn-earn__wrap">
-      {%- if heading != blank or subheading != blank -%}
-        <div class="tstn-earn__header">
-          {%- if heading != blank -%}
-            <h2 class="tstn-earn__heading">{{ heading }}</h2>
-          {%- endif -%}
-          {%- if subheading != blank -%}
-            <p class="tstn-earn__subheading">{{ subheading }}</p>
-          {%- endif -%}
-        </div>
-      {%- endif -%}
+    {%- if heading != blank or subheading != blank -%}
+      <div class="tstn-earn__header">
+        {%- if heading != blank -%}
+          <h2 class="tstn-earn__heading">{{ heading }}</h2>
+        {%- endif -%}
+        {%- if subheading != blank -%}
+          <p class="tstn-earn__subheading">{{ subheading }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
 
-      <div class="tstn-earn__content">
-        {%- comment -%} Ways to Earn Widget {%- endcomment -%}
+    <div class="tstn-earn__grid">
+      {%- comment -%} Ways to Earn cards — rendered by Growave {%- endcomment -%}
+      <div class="tstn-earn__ways">
         <div
           class="gw-rd-ways-to-earn-page-widget-placeholder"
           data-gw-widget-shadow-root-enabled="true"
           data-gw-show-points-balance="true"
           style="display: block"
         ></div>
+      </div>
 
-        {%- comment -%} Referral Program Widget {%- endcomment -%}
+      {%- comment -%} Referral card — styled to match earn cards, sits as last cell {%- endcomment -%}
+      <div class="tstn-earn__referral-slot">
         <div
           class="gw-rd-referral-program-page-widget-placeholder tstn-referral"
           {% if referral_image != blank %}
@@ -88,11 +92,10 @@
   </div>
 </div>
 
-{%- comment -%} ============================================
-   STYLES — Organized by component
-   ============================================ {%- endcomment -%}
 <style>
-  /* ===== Section Header ===== */
+  /* ============================================
+     HEADER
+     ============================================ */
   .tstn-earn__header {
     text-align: center;
     margin-bottom: 40px;
@@ -115,65 +118,92 @@
     opacity: 0.85;
   }
 
-  .tstn-earn__content {
-    position: relative;
+  /* ============================================
+     GRID — 3 cols desktop, 2 tablet, 1 mobile
+     The referral box lives in its own grid cell next to earn cards
+     ============================================ */
+  .tstn-earn__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+    align-items: start;
   }
 
-  /* ===== Ways to Earn Widget ===== */
+  .tstn-earn__ways {
+    min-width: 0;
+  }
+
+  .tstn-earn__referral-slot {
+    min-width: 0;
+  }
+
+  @media (min-width: 990px) {
+    .tstn-earn__grid {
+      grid-template-columns: 2fr 1fr;
+    }
+  }
+
+  /* ============================================
+     WAYS TO EARN — Growave widget overrides
+     ============================================ */
   .tstn-earn h2.gw-rd-page-widget-title,
   .tstn-earn .gw-rd-page-widget-customer-balance {
     display: none !important;
   }
 
-  .tstn-earn .gw-rd-page-widget-layout {
-    max-width: 100% !important;
-  }
-
+  .tstn-earn .gw-rd-page-widget-layout,
   .tstn-earn .gw-rd-page-widget-container {
+    max-width: 100% !important;
     padding: 0 !important;
-    position: relative;
+    background: transparent !important;
   }
 
   .tstn-earn .gw-rd-ways-to-earn-page-widget {
     background: transparent !important;
   }
 
+  /* Earn cards grid (inside the ways widget) */
   .tstn-earn .gw-rd-list {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    margin-top: 20px !important;
-  }
-
-  .tstn-earn .gw-rd-list--page-layout.svelte-13ronxd {
-    gap: 25px !important;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
   }
 
   .tstn-earn li.gw-rd-list__item {
     flex: unset !important;
-    width: 32% !important;
-    height: var(--tstn-card-height);
+    width: 100% !important;
+    max-width: 100% !important;
+    height: var(--tstn-card-height) !important;
+    margin: 0 !important;
+    padding: 0 !important;
   }
 
-  /* ===== Earn Cards ===== */
-  .tstn-earn .gw-rd-page-widget-card.svelte-3ln76z.svelte-3ln76z {
+  /* Earn card styling — dark gradient */
+  .tstn-earn .gw-rd-page-widget-card,
+  .tstn-earn .gw-rd-page-widget-card.svelte-3ln76z.svelte-3ln76z,
+  .tstn-earn .gw-rd-page-widget-card--cursor-pointer.svelte-3ln76z.svelte-3ln76z {
     border-radius: 0 !important;
     border: 1px solid var(--tstn-card-border) !important;
-    color: #fff;
+    color: #fff !important;
     background: linear-gradient(135deg, var(--tstn-card-bg-start), var(--tstn-card-bg-end)) !important;
+    background-color: var(--tstn-card-bg-start) !important;
     box-shadow: inset 0 0 0 1px rgba(254, 254, 254, 0.03) !important;
     height: var(--tstn-card-height) !important;
     display: flex !important;
-    flex-direction: column;
-    justify-content: space-around;
+    flex-direction: column !important;
+    justify-content: space-around !important;
+    cursor: pointer;
+    overflow: hidden;
   }
 
   .tstn-earn .gw-rd-page-widget-card--completed.svelte-3ln76z.svelte-3ln76z {
-    height: 100% !important;
-    display: flex !important;
-    flex-direction: column;
-    justify-content: space-around;
+    height: var(--tstn-card-height) !important;
   }
 
+  .tstn-earn .gw-rd-page-widget-card__icon,
   .tstn-earn .gw-rd-page-widget-card__icon.svelte-3ln76z.svelte-3ln76z {
     width: 100% !important;
     height: 100% !important;
@@ -181,24 +211,29 @@
     background: transparent !important;
   }
 
+  .tstn-earn .gw-image__img,
   .tstn-earn .gw-image__img.svelte-1ijgyj3.svelte-1ijgyj3 {
     object-fit: contain !important;
   }
 
-  .tstn-earn .gw-image.gw-image--loaded.svelte-1ijgyj3 .gw-image__img.svelte-1ijgyj3 {
+  .tstn-earn .gw-image.gw-image--loaded .gw-image__img {
     max-width: 80px !important;
   }
 
-  /* Card text labels */
+  /* Card body text */
+  .tstn-earn .gw-layout-text--variant-base,
   .tstn-earn .gw-layout-text--variant-base.svelte-yjnpd {
     font-family: 'ABC Diatype', sans-serif !important;
-    text-transform: uppercase;
+    text-transform: uppercase !important;
     font-size: 14px !important;
     font-weight: 400 !important;
     color: #fff !important;
   }
 
+  /* Points pill + Completed label */
+  .tstn-earn .gw-layout-text--variant-secondary,
   .tstn-earn .gw-layout-text--variant-secondary.svelte-yjnpd,
+  .tstn-earn .gw-rd-page-widget-action-completed,
   .tstn-earn .gw-rd-page-widget-action-completed.svelte-1klamai {
     font-family: 'Danger Neue Free Regular', sans-serif !important;
     font-size: var(--tstn-card-label-size) !important;
@@ -213,22 +248,23 @@
     box-shadow: 0 2px 5px 0 rgba(255, 255, 255, 0.15) !important;
   }
 
+  .tstn-earn .gw-rd-page-widget-action-completed,
   .tstn-earn .gw-rd-page-widget-action-completed.svelte-1klamai {
-    display: flex;
+    display: flex !important;
     justify-content: center;
     align-items: center;
     background: var(--tstn-completed-bg) !important;
     padding: 20px 0;
   }
 
-  /* Accent colored elements */
-  .tstn-earn .gw-rd-icon-branding-color.svelte-4wr0zw {
+  /* Accent elements */
+  .tstn-earn .gw-rd-icon-branding-color {
     color: var(--tstn-accent) !important;
     border: 1px solid #fff;
     border-radius: 50%;
   }
 
-  .tstn-earn .gw-rd-icon-branding-color.svelte-4wr0zw rect {
+  .tstn-earn .gw-rd-icon-branding-color rect {
     fill: var(--tstn-accent) !important;
   }
 
@@ -236,152 +272,164 @@
     background-color: var(--tstn-accent) !important;
   }
 
-  /* Modal */
-  .tstn-earn .gw-rd-page-widget-modal-body__title.svelte-dxvp56 {
+  .tstn-earn .gw-rd-page-widget-modal-body__title {
     font-family: 'Danger Neue Free Regular', sans-serif !important;
     text-transform: uppercase !important;
   }
 
-  /* ===== Referral Program Widget ===== */
-  .tstn-referral {
-    position: absolute;
-    bottom: 0;
-    right: 14px;
-    width: 32%;
+  /* ============================================
+     REFERRAL BOX — Styled like a dark earn card
+     ============================================ */
+  .tstn-earn__referral-slot {
+    height: 100%;
   }
 
-  .tstn-earn .gw-rd-page-widget-title.svelte-tmdh8j,
-  .tstn-earn .gw-rd-referral-program-page-widget__benefits {
+  .tstn-earn .tstn-referral {
+    width: 100% !important;
+    height: 100%;
+    display: block;
+  }
+
+  /* Hide Growave's default referral title + benefits */
+  .tstn-earn .tstn-referral .gw-rd-page-widget-title,
+  .tstn-earn .tstn-referral .gw-rd-page-widget-title.svelte-tmdh8j,
+  .tstn-earn .tstn-referral .gw-rd-referral-program-page-widget__benefits {
     display: none !important;
   }
 
-  .tstn-earn .gw-rd-page-widget-container.svelte-1mnbt6f {
-    width: 400px;
-    padding: 20px;
-    position: relative;
-  }
-
-  .tstn-earn .gw-rd-referral-program-page-widget {
-    width: 100%;
-    margin-top: 25px;
-    background: var(--tstn-card-bg-start) !important;
-    border: 1px solid var(--tstn-card-border);
-  }
-
-  /* Referral text styling */
-  .tstn-referral .gw-layout-text--variant-secondary.svelte-yjnpd,
-  .tstn-referral .gw-layout-text--variant-primary.svelte-yjnpd {
-    font-family: 'Danger Neue Free Regular', sans-serif !important;
-    text-transform: uppercase;
-    font-size: 15px !important;
-  }
-
-  .tstn-referral .gw-layout-text--variant-secondary.svelte-yjnpd {
-    color: #fff !important;
-  }
-
-  .tstn-referral .gw-layout-text--variant-primary.svelte-yjnpd {
-    color: var(--tstn-accent) !important;
-  }
-
-  .tstn-earn .gw-rd-copy-field.svelte-tsjl1f .gw-rd-text-field .gw-rd-text-field__input {
-    color: var(--tstn-accent) !important;
-  }
-
-  .tstn-earn .gw-rd-popup-widget-referral-program__reward.svelte-1i38tde {
+  /* Make the referral widget container into a dark card */
+  .tstn-earn .tstn-referral .gw-rd-page-widget-container,
+  .tstn-earn .tstn-referral .gw-rd-page-widget-container.svelte-1mnbt6f {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 50px 20px 20px !important;
+    background: linear-gradient(135deg, var(--tstn-card-bg-start), var(--tstn-card-bg-end)) !important;
     border: 1px solid var(--tstn-card-border) !important;
+    border-radius: 0 !important;
+    box-shadow: inset 0 0 0 1px rgba(254, 254, 254, 0.03) !important;
     position: relative;
   }
 
-  .tstn-earn .gw-rd-text-field.svelte-6gf4o4 {
-    border: 1px solid var(--tstn-card-border) !important;
-  }
-
-  .tstn-earn .gw-rd-copy-icon-btn.svelte-4aojgv {
-    background: #5b5b5b !important;
-  }
-
-  .tstn-earn .gw-tooltip-content.gw-tooltip-light.svelte-18q7x75 {
-    background: #5b5b5b;
-  }
-
-  /* Referral heading */
-  .tstn-earn .gw-rd-referral-program-page-widget__refer-friend {
-    position: relative;
-  }
-
-  .tstn-earn .gw-rd-referral-program-page-widget__refer-friend::after {
+  /* Custom referral heading */
+  .tstn-earn .tstn-referral .gw-rd-page-widget-container::before {
     content: '{{ referral_heading | escape }}';
+    display: block;
     position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
     color: var(--tstn-accent);
-    top: -56px;
     text-align: center;
-    width: 100%;
     font-size: 30px;
     font-family: 'Danger Neue Free Regular', sans-serif;
+    text-transform: uppercase;
+    line-height: 1;
   }
 
-  /* Referral subtext */
-  .tstn-earn .gw-rd-page-widget-container.svelte-1mnbt6f::after {
+  /* Custom referral subtext */
+  .tstn-earn .tstn-referral .gw-rd-page-widget-container::after {
     content: '{{ referral_subtext | escape }}';
-    position: absolute;
+    display: block;
+    margin-top: 16px;
     text-align: center;
     width: 100%;
-    left: 50%;
-    transform: translateX(-50%);
     text-transform: uppercase;
     color: #fff;
     font-family: 'Danger Neue Free Regular', sans-serif !important;
-    bottom: 12px;
+    font-size: 13px;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
   }
 
-  /* ===== Responsive ===== */
+  .tstn-earn .tstn-referral .gw-rd-referral-program-page-widget {
+    width: 100% !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border: none !important;
+  }
+
+  /* Referral inner text */
+  .tstn-earn .tstn-referral .gw-layout-text--variant-secondary,
+  .tstn-earn .tstn-referral .gw-layout-text--variant-primary {
+    font-family: 'Danger Neue Free Regular', sans-serif !important;
+    text-transform: uppercase !important;
+    font-size: 15px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 4px 0 !important;
+  }
+
+  .tstn-earn .tstn-referral .gw-layout-text--variant-secondary {
+    color: #fff !important;
+  }
+
+  .tstn-earn .tstn-referral .gw-layout-text--variant-primary {
+    color: var(--tstn-accent) !important;
+  }
+
+  .tstn-earn .gw-rd-copy-field .gw-rd-text-field .gw-rd-text-field__input {
+    color: var(--tstn-accent) !important;
+  }
+
+  .tstn-earn .gw-rd-popup-widget-referral-program__reward {
+    border: 1px solid var(--tstn-card-border) !important;
+  }
+
+  .tstn-earn .gw-rd-text-field {
+    border: 1px solid var(--tstn-card-border) !important;
+  }
+
+  .tstn-earn .gw-rd-copy-icon-btn {
+    background: #5b5b5b !important;
+  }
+
+  .tstn-earn .gw-tooltip-content.gw-tooltip-light {
+    background: #5b5b5b;
+  }
+
+  /* ============================================
+     RESPONSIVE
+     ============================================ */
+  @media (max-width: 989px) {
+    .tstn-earn .gw-rd-list {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+
   @media (max-width: 767px) {
     .tstn-earn__heading {
       font-size: var(--tstn-heading-size-mobile);
     }
 
-    .tstn-earn li.gw-rd-list__item {
-      flex: unset !important;
-      width: 100% !important;
-      height: 100%;
+    .tstn-earn__grid {
+      gap: 20px;
     }
 
-    .tstn-earn .gw-rd-list--page-layout.svelte-13ronxd {
-      justify-content: space-between;
-      gap: 25px !important;
+    .tstn-earn .gw-rd-list {
+      grid-template-columns: 1fr !important;
+      gap: 20px !important;
     }
 
-    .tstn-earn .gw-layout-text--variant-secondary.svelte-yjnpd,
-    .tstn-earn .gw-rd-page-widget-action-completed.svelte-1klamai {
-      font-size: 14px !important;
-    }
-
-    .tstn-earn .gw-image.gw-image--loaded.svelte-1ijgyj3 .gw-image__img.svelte-1ijgyj3 {
-      max-width: 56px !important;
-    }
-
+    .tstn-earn li.gw-rd-list__item,
+    .tstn-earn .gw-rd-page-widget-card,
     .tstn-earn .gw-rd-page-widget-card.svelte-3ln76z.svelte-3ln76z {
       height: var(--tstn-card-height-mobile) !important;
-      justify-content: space-between;
+    }
+
+    .tstn-earn .gw-rd-page-widget-card,
+    .tstn-earn .gw-rd-page-widget-card.svelte-3ln76z.svelte-3ln76z {
       padding: 10px !important;
     }
 
-    .tstn-earn .gw-rd-page-widget-action-completed.svelte-1klamai {
-      padding: 11px 0;
+    .tstn-earn .gw-layout-text--variant-secondary,
+    .tstn-earn .gw-rd-page-widget-action-completed {
+      font-size: 18px !important;
+      padding: 11px 0 !important;
     }
 
-    .tstn-earn .gw-layout-text--variant-secondary.svelte-yjnpd {
-      padding: 13px 0;
-    }
-
-    .tstn-referral {
-      position: unset;
-      width: 100%;
-    }
-
-    .tstn-earn .gw-rd-page-widget-container.svelte-1mnbt6f::after {
-      bottom: 3px;
+    .tstn-earn .gw-image.gw-image--loaded .gw-image__img {
+      max-width: 56px !important;
     }
   }
 </style>
@@ -431,7 +479,7 @@
 
     {
       "type": "header",
-      "content": "Referral Program"
+      "content": "Referral Card"
     },
     {
       "type": "text",
@@ -448,7 +496,7 @@
     {
       "type": "image_picker",
       "id": "referral_image",
-      "label": "Referral Image"
+      "label": "Referral Image (optional)"
     },
 
     {
