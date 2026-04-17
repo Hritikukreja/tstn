@@ -164,8 +164,45 @@
         "padding_bottom": 64
       }
     },
+    "1776469809e2eb7715": {
+      "type": "apps",
+      "blocks": {
+        "collective_club_community_feed_QKkDMR": {
+          "type": "shopify://apps/collective-club/blocks/community-feed/019afe39-d050-7ff5-8454-0b261632ba15",
+          "settings": {
+            "title": "THE SHOP TALK.",
+            "description": "No keyboard warriors. Just real advice on suspension, lighting, and recovery setups. Ask questions and get answers from the community that actually wheels.",
+            "show_title": true,
+            "show_description": true,
+            "title_font": "heading",
+            "font_preset": "body",
+            "primary_color": "#f56300",
+            "contrast_color": "",
+            "text_color": "#ffffff",
+            "button_text_color": "#121212",
+            "background_color": "#121212",
+            "card_bg_color": "#1c1c1c",
+            "border_color": "#f56300",
+            "colored_borders": true,
+            "border_radius": "rounded",
+            "sidebar_title": "",
+            "sidebar_description": "",
+            "sidebar_rule_1": "",
+            "sidebar_rule_2": "",
+            "sidebar_rule_3": ""
+          }
+        }
+      },
+      "block_order": [
+        "collective_club_community_feed_QKkDMR"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
     "growave_shop_talk_J3EVqD": {
       "type": "growave-shop-talk",
+      "disabled": true,
       "name": "Growave Shop Talk",
       "settings": {
         "title": "THE SHOP TALK.",
@@ -505,6 +542,7 @@
     "related-products",
     "growave_tiers_BMVmYY",
     "growave_ways_earn_8V88RL",
+    "1776469809e2eb7715",
     "growave_shop_talk_J3EVqD",
     "product_marquee_jKL8Dp",
     "product_marquee_h4KghV",
