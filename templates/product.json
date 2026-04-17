@@ -12,7 +12,21 @@
     "product_banner_XPWEW8": {
       "type": "main-product",
       "name": "Product Banner",
-      "settings": {}
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     },
     "main": {
       "type": "main-product",
@@ -70,6 +84,16 @@
             "image_ratio": "square",
             "enable_quick_add": false
           }
+        },
+        "growave_loyalty_wishlist_block_product_earn_points_widget_8xGeEq": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.earnPointsWidget/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "show_icon": true,
+            "font_color": "#121212",
+            "icon_color": "#000000",
+            "background_color": "#f8f8f8",
+            "custom_css": ""
+          }
         }
       },
       "block_order": [
@@ -80,7 +104,8 @@
         "growwave_points_mFRkER",
         "delivery_date_time_4ge69g",
         "buy_buttons",
-        "complementary_nJRtM3"
+        "complementary_nJRtM3",
+        "growave_loyalty_wishlist_block_product_earn_points_widget_8xGeEq"
       ],
       "settings": {
         "enable_sticky_info": true,
@@ -203,6 +228,7 @@
       "name": "Custom Multicol",
       "settings": {
         "title": "",
+        "l_title": "",
         "heading_size": "h1",
         "image_width": "third",
         "image_ratio": "adapt",

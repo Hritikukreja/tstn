@@ -11,13 +11,32 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "17764605262630b88f": {
+      "type": "apps",
+      "blocks": {
+        "growave_loyalty_wishlist_v2_rewards_ways_to_earn_page_widget_9ahQXC": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/v2.rewards.waysToEarnPageWidget/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "custom_css": ""
+          }
+        }
+      },
+      "block_order": [
+        "growave_loyalty_wishlist_v2_rewards_ways_to_earn_page_widget_9ahQXC"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "17764605262630b88f"
   ]
 }
