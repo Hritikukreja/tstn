@@ -6,30 +6,63 @@
 {% endcomment %}
 
 <style>
-  /* ── Kill Dawn's decorative ovals completely ── */
-  .menu-drawer__inner-container {
+  /* ===================================================
+     NUCLEAR OVAL REMOVAL — kills every decorative shape
+     ================================================= */
+
+  .menu-drawer,
+  .menu-drawer__inner-container,
+  .menu-drawer__navigation-container,
+  .menu-drawer__navigation,
+  .menu-drawer__utility-links,
+  .menu-drawer__submenu,
+  .menu-drawer__inner-submenu {
+    background: rgb(18, 18, 18) !important;
+    background-image: none !important;
+    background-color: rgb(18, 18, 18) !important;
+  }
+
+  .menu-drawer *::before,
+  .menu-drawer *::after,
+  .menu-drawer::before,
+  .menu-drawer::after,
+  .menu-drawer__inner-container::before,
+  .menu-drawer__inner-container::after,
+  .menu-drawer__navigation-container::before,
+  .menu-drawer__navigation-container::after,
+  .menu-drawer__navigation::before,
+  .menu-drawer__navigation::after,
+  .menu-drawer__utility-links::before,
+  .menu-drawer__utility-links::after,
+  .menu-drawer__submenu::before,
+  .menu-drawer__submenu::after {
+    background: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  /* Remove any stray SVG decorations in drawer that aren't icons */
+  .menu-drawer > svg,
+  .menu-drawer__inner-container > svg,
+  .menu-drawer__navigation-container > svg,
+  .menu-drawer__utility-links > svg {
+    display: none !important;
+  }
+
+  /* Kill the hamburger toggle gradient too */
+  #menu-drawer,
+  #menu-drawer.gradient {
+    background: rgb(18, 18, 18) !important;
+    background-image: none !important;
+  }
+
+  .menu-drawer {
     overflow: hidden !important;
   }
 
-  .menu-drawer__inner-container::before,
-  .menu-drawer__inner-container::after {
-    display: none !important;
-    content: none !important;
-    background: none !important;
-    border: none !important;
-    width: 0 !important;
-    height: 0 !important;
-  }
-
-  /* ── Dark drawer theme ── */
-  #menu-drawer,
-  .menu-drawer,
-  .menu-drawer__submenu {
-    background: rgb(18, 18, 18) !important;
-    background-image: none !important;
-    border-right: none !important;
-  }
-
+  /* ── Drawer text styling to match dark theme ── */
   .menu-drawer__menu-item,
   .menu-drawer__menu-item.link,
   .menu-drawer__close-button {
@@ -42,6 +75,7 @@
   .menu-drawer__menu-item:hover,
   .menu-drawer__close-button:hover {
     color: rgba(245, 245, 247, 1) !important;
+    background-color: rgba(245, 245, 247, 0.04) !important;
   }
 
   .menu-drawer__menu-item--active {
