@@ -200,414 +200,6 @@
   
 </script>
 
-    {% comment %} <script>
-    
-        function updateTime() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            document.getElementById('timeText').textContent = hours + ':' + minutes;
-        }
-        updateTime();
-        setInterval(updateTime, 1000);
-
-        function createSpeedometer(svgId, options) {
-            const value = options.value !== undefined ? options.value : 200;
-            const eMax = options.max !== undefined ? options.max : 240;
-            const step = options.step !== undefined ? options.step : 500;
-            const showValue = options.showValue !== undefined ? options.showValue : true;
-            const showTotalScore = options.showTotalScore !== undefined ? options.showTotalScore : true;
-            const showTrip = options.showTrip !== undefined ? options.showTrip : true;
-            const showHub = options.showHub !== undefined ? options.showHub : false;
-            const showNeedle = options.showNeedle !== undefined ? options.showNeedle : true;
-            const trip = options.trip !== undefined ? options.trip : 12;
-
-            const svg = document.getElementById(svgId);
-            const max = eMax / step;
-            const currentValue = value / step;
-            {% comment %} const minAngle = -180;
-            const maxAngle = 0; {% endcomment %}
-            const minAngle = options.minAngle;
-            const maxAngle = options.maxAngle;
-            const angleRange = maxAngle - minAngle;
-            const angle = minAngle + (currentValue / max) * angleRange;
-
-            svg.innerHTML = '';
-
-            for (let i = 0; i <= max; i++) {
-                const tickAngle = minAngle + (i / max) * angleRange;
-                const radians = (tickAngle * Math.PI) / 180;
-                const r1 = 75;
-                const r2 = 90;
-                const x1 = 100 + r1 * Math.cos(radians);
-                const y1 = 100 + r1 * Math.sin(radians);
-                const x2 = 100 + r2 * Math.cos(radians);
-                const y2 = 100 + r2 * Math.sin(radians);
-
-                const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-
-                // Tick mark
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line.setAttribute('x1', x1);
-                line.setAttribute('y1', y1);
-                line.setAttribute('x2', x2);
-                line.setAttribute('y2', y2);
-                line.setAttribute('stroke', 'white');
-                line.setAttribute('stroke-width', '1.5');
-                line.setAttribute('stroke-linecap', 'round');
-                g.appendChild(line);
-
-                const textRadius = 65;
-                const tx = 100 + textRadius * Math.cos(radians);
-                const ty = 100 + textRadius * Math.sin(radians);
-                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                text.setAttribute('x', tx);
-                text.setAttribute('y', ty);
-                text.setAttribute('fill', 'white');
-                text.setAttribute('font-size', '7px');
-                text.setAttribute('letter-spacing', 'normal');
-                text.setAttribute('font-weight', 'normal');
-                text.setAttribute('text-anchor', 'middle');
-                text.setAttribute('dominant-baseline', 'middle');
-                text.setAttribute('transform', 'rotate(' + (tickAngle + 90) + ' ' + tx + ' ' + ty + ')');
-                text.textContent = i * step;
-                g.appendChild(text);
-
-                svg.appendChild(g);
-            }
-
-            // Draw sub tick marks
-            for (let i = 0; i < max * 4; i++) {
-                if (i % 4 === 0) continue;
-                const tickAngle = minAngle + (i / (max * 4)) * angleRange;
-                const radians = (tickAngle * Math.PI) / 180;
-                const r1 = 84;
-                const r2 = 90;
-                const x1 = 100 + r1 * Math.cos(radians);
-                const y1 = 100 + r1 * Math.sin(radians);
-                const x2 = 100 + r2 * Math.cos(radians);
-                const y2 = 100 + r2 * Math.sin(radians);
-
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line.setAttribute('x1', x1);
-                line.setAttribute('y1', y1);
-                line.setAttribute('x2', x2);
-                line.setAttribute('y2', y2);
-                line.setAttribute('stroke', 'white');
-                line.setAttribute('stroke-width', '1');
-                line.setAttribute('stroke-linecap', 'round');
-                line.setAttribute('opacity', '0.6');
-                svg.appendChild(line);
-            }
-
-            if (showValue) {
-                const valueText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                valueText.setAttribute('x', '100');
-                valueText.setAttribute('y', '70');
-                valueText.setAttribute('fill', 'white');
-                valueText.setAttribute('font-size', '18px');
-                valueText.setAttribute('font-weight', 'normal');
-                valueText.setAttribute('font-family', 'Danger Neue Free Regular');
-                valueText.setAttribute('text-anchor', 'middle');
-                valueText.setAttribute('id', 'center_gauge_value');
-                valueText.setAttribute('dominant-baseline', 'middle');
-                valueText.textContent = (currentValue * step).toFixed(0);
-                svg.appendChild(valueText);
-            }
-
-            // Total Score text
-            if (showTotalScore) {
-                const totalText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                totalText.setAttribute('x', '80');
-                totalText.setAttribute('y', '130');
-                totalText.setAttribute('fill', 'white');
-                totalText.setAttribute('font-size', '6px');
-                totalText.setAttribute('font-family', 'ABC Diatype');
-                totalText.setAttribute('letter-spacing', 'normal');
-                totalText.setAttribute('font-weight', 'bold');
-                totalText.setAttribute('text-anchor', 'middle');
-                totalText.setAttribute('dominant-baseline', 'middle');
-                totalText.textContent = 'TOTAL SCORE: ' + eMax.toFixed(0);
-                svg.appendChild(totalText);
-            }
-
-            if (showTrip) {
-                const tripText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-                tripText.setAttribute('x', '130');
-                tripText.setAttribute('y', '130');
-                tripText.setAttribute('fill', 'white');
-                tripText.setAttribute('font-size', '6px');
-                tripText.setAttribute('font-family', 'ABC Diatype');
-                tripText.setAttribute('font-weight', 'bold');
-                tripText.setAttribute('text-anchor', 'middle');
-                tripText.setAttribute('dominant-baseline', 'middle');
-                tripText.textContent = 'TRIP: ' + trip.toFixed(0);
-                svg.appendChild(tripText);
-            }
-
-            // Needle
-            if (showNeedle) {
-                const needleGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-                needleGroup.setAttribute("class", "needle-group");
-              needleGroup.style.transformOrigin = "100px 100px";
-              needleGroup.style.transform = `rotate(${angle}deg)`;
-              needleGroup.dataset.minAngle = minAngle;
-              needleGroup.dataset.maxAngle = maxAngle;
-              needleGroup.dataset.maxValue = eMax;
-              needleGroup.dataset.step = step;
-
-                const shadow = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                shadow.setAttribute('x1', '100');
-                shadow.setAttribute('y1', '100');
-                shadow.setAttribute('x2', '164');
-                shadow.setAttribute('y2', '100');
-                shadow.setAttribute('stroke', 'rgba(0,0,0,0.3)');
-                shadow.setAttribute('stroke-width', '5');
-                shadow.setAttribute('stroke-linecap', 'round');
-                shadow.setAttribute('transform', 'translate(2, 2)');
-                needleGroup.appendChild(shadow);
-
-                {% comment %} const needle = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                needle.setAttribute('x1', '100');
-                needle.setAttribute('y1', '100');
-                needle.setAttribute('x2', '164');
-                needle.setAttribute('y2', '100');
-                needle.setAttribute('stroke', '#ff7a00');
-                needle.setAttribute('stroke-width', '5');
-                needle.setAttribute('stroke-linecap', 'round');
-                needleGroup.appendChild(needle); {% endcomment %}
-
-
-
-
-
-const needleShadow = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-
-const shadowShaft = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-shadowShaft.setAttribute(
-  'd',
-  `
-    M 100 96
-    L 160 98
-    L 160 100
-    L 160 100
-    L 100 103
-    Z
-  `
-);
-shadowShaft.setAttribute('fill', 'rgba(0,0,0,0.45)');
-shadowShaft.setAttribute('transform', 'translate(4,4)');
-
-
-const shadowHub = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-shadowHub.setAttribute('cx', '100');
-shadowHub.setAttribute('cy', '100');
-shadowHub.setAttribute('r', '7');
-shadowHub.setAttribute('fill', 'rgba(0,0,0,0.45)');
-shadowHub.setAttribute('transform', 'translate(4,4)');
-
-needleShadow.appendChild(shadowShaft);
-needleShadow.appendChild(shadowHub);
-
-const needleMain = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-
-const shaft = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-shaft.setAttribute(
-  'd',
-  `
-    M 100 96
-    L 160 98
-    L 160 100
-    L 160 100
-    L 100 103
-    Z
-  `
-);
-shaft.setAttribute('fill', '#ec5607');
-
-
-const hub = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-hub.setAttribute('cx', '100');
-hub.setAttribute('cy', '100');
-hub.setAttribute('r', '7');
-hub.setAttribute('fill', '#ec5607');
-
-needleMain.appendChild(shaft);
-needleMain.appendChild(hub);
-
-needleGroup.appendChild(needleShadow);
-needleGroup.appendChild(needleMain);
-
-
-
-                
-
-                svg.appendChild(needleGroup);
-            }
-
-            const hub = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-            hub.setAttribute('cx', '100');
-            hub.setAttribute('cy', '100');
-            hub.setAttribute('r', '5');
-            hub.setAttribute('fill', '#ff7a00');
-            svg.appendChild(hub);
-
-            if (showHub) {
-                const innerHub = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                innerHub.setAttribute('cx', '100');
-                innerHub.setAttribute('cy', '100');
-                innerHub.setAttribute('r', '3');
-                innerHub.setAttribute('fill', '#1c1c1c');
-                svg.appendChild(innerHub);
-            }
-        }
-        // Initialize gauges
-       const TOTAL_POINTS = 4000;
-          createSpeedometer("leftGauge", {
-            step: 1,
-            max: 7,
-            value: 0,
-            showTrip: false,
-            showTotalScore: false,
-            showValue: false,
-            minAngle: -210,
-            maxAngle: 0,
-          });
-          createSpeedometer("centerGauge", {
-            value: 0,
-            max: TOTAL_POINTS,
-            step: 500,
-            showValue: true,
-            showTotalScore: true,
-            showTrip: true,
-            trip: 12,
-            minAngle: -180,
-            maxAngle: 0,
-          });
-          let value = 0;
-
-          function clamp(val, min, max) {
-            return Math.min(Math.max(val, min), max);
-          }
-
-          const baseTierImage =
-            "https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_1_a6b1bf9c-5113-4864-b2aa-53fb77a68341.png?v=1770810715";
-          const scoutTierImage =
-            "https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_2_fe25c4de-0871-4b74-8114-8473656bf229.png?v=1770810716";
-          const leadTierImage =
-            "https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_3_3062b154-429b-4483-939f-042e342cf355.png?v=1770810716";
-
-          const tier_image_el = document.querySelector("#tier_diagram");
-          const bottomBar = document.querySelector("#meterFill");
-          createSpeedometer("leftGauge", {
-            step: 1,
-            max: 7,
-            value: 0,
-            showTrip: false,
-            showTotalScore: false,
-            showValue: false,
-            minAngle: -210,
-            maxAngle: 0,
-          });
-          createSpeedometer("centerGauge", {
-            value: 0,
-            max: TOTAL_POINTS,
-            step: 500,
-            showValue: true,
-            showTotalScore: true,
-            showTrip: true,
-            trip: 12,
-            minAngle: -200,
-            maxAngle: 20,
-          });
-          function setNewTierImgSrc(newSrc) {
-            tier_image_el.src = newSrc;
-          }
-
-          function updateDerivedValues() {
-            const image = clamp(Math.floor((value / 3000) * 2), 0, 2);
-            const newSrc =
-              image === 0
-                ? baseTierImage
-                : image === 1
-                  ? scoutTierImage
-                  : leadTierImage;
-
-            setNewTierImgSrc(newSrc);
-          }
-          function updateNeedle(svgId, value) {
-            const svg = document.getElementById(svgId);
-            const needleGroup = svg.querySelector(".needle-group");
-            if (!needleGroup) return;
-            const minAngle = Number(needleGroup.dataset.minAngle);
-            const maxAngle = Number(needleGroup.dataset.maxAngle);
-            const maxValue = Number(needleGroup.dataset.maxValue);
-            const clampedValue = clamp(value, 0, maxValue);
-            const angle =
-              minAngle + (clampedValue / maxValue) * (maxAngle - minAngle);
-            needleGroup.style.transform = `rotate(${angle}deg)`;
-          }
-          function updateUIFromPoints() {
-            const bottomBarValue = clamp((value / 3000) * 100, 0, 100);
-            const rpmMeterValue = clamp((value / TOTAL_POINTS) * 7, 0, 7); 
-            if (bottomBar) {
-              bottomBar.style.width = bottomBarValue + "%";
-            }
-            updateNeedle("leftGauge", rpmMeterValue);
-            updateNeedle("centerGauge", value);
-          }
-
-          function setValue(newValue) {
-     const valueText = document.querySelector("#center_gauge_value");
-     valueText.textContent = newValue;
-            value = clamp(newValue, 0, TOTAL_POINTS);
-            updateDerivedValues();
-            updateUIFromPoints();
-          }
-window.newPoints1 = null;
-
-  const observer = new MutationObserver(() => {
- 
-    const img_target = document.querySelector('.vip_tier_new_updated');
-
-if (img_target) {
-  const vipText = img_target.innerText.trim();
-  console.log(vipText); // "Base Camp"
-}
-  const target = document.querySelector(
-    '.gw-rd-customer-points-balance-inline-widget-placeholder'
-  );
-
-  if (!target) return;
-
-  const match = target.textContent.match(/\d+/);
-  if (!match) return;
-
-  const newPoints = Number(match[0]);
-
-  if (window.newPoints1 !== newPoints) {
-    window.newPoints1 = newPoints;
-    console.log('newPoints updated:', window.newPoints1);
-    setValue(window.newPoints1);
-  }
-});
-
-observer.observe(document.body, {
-  childList: true,
-  subtree: true
-});
-
-
- const newPoints = window.newPoints1 ;
-
- console.log({newPoints});
-{% comment %}           setValue(0);
-          setTimeout(() => setValue(120), 2000);
-          setTimeout(() => setValue(600), 4000);
-          setTimeout(() => setValue(450), 6000);
-          setTimeout(() => setValue(300), 8000); {% endcomment %}
-          setTimeout(() => setValue(newPoints), 1000);
-    </script> {% endcomment %}
 <script>
   // storage helpers
 const STORAGE_KEYS = {
@@ -780,7 +372,6 @@ function createSpeedometer(svgId, options) {
     totalText.setAttribute("font-weight", "bold");
     totalText.setAttribute("text-anchor", "middle");
     totalText.setAttribute("dominant-baseline", "middle");
-    // {% comment %} totalText.textContent = "TOTAL SCORE: " + eMax.toFixed(0); {% endcomment %}
     svg.appendChild(totalText);
   }
   if (showTrip) {
@@ -796,7 +387,6 @@ function createSpeedometer(svgId, options) {
     tripText.setAttribute("font-weight", "bold");
     tripText.setAttribute("text-anchor", "middle");
     tripText.setAttribute("dominant-baseline", "middle");
-    // {% comment %} tripText.textContent = "TRIP: " + trip.toFixed(0); {% endcomment %}
     svg.appendChild(tripText);
   }
   if (showNeedle) {
@@ -924,7 +514,7 @@ function updateFromVipText() {
 let tier_image_el;
 
 window.addEventListener("DOMContentLoaded", () => {
-  tier_image_el = document.querySelector("#tier_diagram");
+  tier_image_el = document.querySelector("#tier_diagram");
 });
 
 const bottomBar = document.querySelector("#meterFill");
@@ -935,8 +525,8 @@ function getBottomBarFromPoints() {
 function getBottomBarWithTierFloor(tierKey) {
   const progress = getBottomBarFromPoints();
   if (!tierKey || !TIER_CONFIG[tierKey]) return progress;
-  const tierMin = TIER_CONFIG[tierKey].bar; // Lead = always full
-  if (tierMin === 100) return 100; // Otherwise enforce minimum
+  const tierMin = TIER_CONFIG[tierKey].bar;
+  if (tierMin === 100) return 100;
   return Math.max(progress, tierMin);
 }
 function setNewTierImgSrc(newSrc) {
@@ -957,7 +547,6 @@ function applyTierUI(tierKey) {
     const storedBar = getStoredBar();
     console.log({
       calculatedBar,storedBar,storedTier,finalTier
-
     })
     const finalBar = Math.max(calculatedBar, storedBar);
     bottomBar.style.width = finalBar + "%";
@@ -985,13 +574,12 @@ createSpeedometer("centerGauge", {
   minAngle: -200,
   maxAngle: 20,
 });
-// tier points rule according to the points
 function updateDerivedValues() {
-  let tier;
-  if (value >= 3000) tier = "lead";
-  else if (value >= 1500) tier = "scout";
-  else tier = "base";
-  applyTierUI(tier);
+  let tier;
+  if (value >= 3000) tier = "lead";
+  else if (value >= 1500) tier = "scout";
+  else tier = "base";
+  applyTierUI(tier);
 }
 
 function updateNeedle(svgId, value) {
@@ -1005,7 +593,6 @@ function updateNeedle(svgId, value) {
   const angle = minAngle + (clampedValue / maxValue) * (maxAngle - minAngle);
   needleGroup.style.transform = `rotate(${angle}deg)`;
 }
-// new
 function updateUIFromPoints() {
   const calculated = clamp((value / 3000) * 100, 0, 100);
   const storedBar = getStoredBar();
@@ -1081,20 +668,37 @@ setTimeout(() => {
  {% endunless %}
 </div>
 
-{% unless customer %}
-  <style>
-    @media (max-width: 767px){
-.gtw_image_wrapper {
-    height: 100vh;
-}
-.growave_tiers_wrapper {
-    height: 100vh;
-}
-}
+<style>
+  /* Reduce section height by 25% on desktop and mobile */
+  #shopify-section-{{ section.id }} .growave_tiers_wrapper,
+  #shopify-section-{{ section.id }} .gtw_image_wrapper {
+    height: 75vh !important;
+    min-height: 75vh !important;
+    max-height: 75vh !important;
+  }
+
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .growave_tiers_wrapper,
+    #shopify-section-{{ section.id }} .gtw_image_wrapper {
+      height: 75vh !important;
+      min-height: 75vh !important;
+      max-height: 75vh !important;
+    }
+  }
+
+  /* Ensure inner content scales properly */
+  #shopify-section-{{ section.id }} .gtw_content_wrapper,
+  #shopify-section-{{ section.id }} .dashboard-wrapper,
+  #shopify-section-{{ section.id }} .screen-container {
+    height: 100%;
+  }
+
+  /* Ensure the background image fills the new height */
+  #shopify-section-{{ section.id }} .gtw_image_wrapper img,
+  #shopify-section-{{ section.id }} .none_customer_signup {
+    height: 100% !important;
+  }
 </style>
-{% endunless %}
-
-
 
 {% schema %}
 {
