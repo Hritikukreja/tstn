@@ -196,6 +196,9 @@
       "block_order": [
         "collective_club_community_feed_QKkDMR"
       ],
+      "custom_css": [
+        "h1, h2, h3, h4, h5, h6,.page-title,.section-title,.product-title,.club-heading,.merch-heading {font-family: 'Danger Neue', sans-serif;}"
+      ],
       "settings": {
         "include_margins": true
       }
