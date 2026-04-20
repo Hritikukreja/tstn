@@ -239,7 +239,7 @@
             "colorBackground": "#ffffff",
             "colorText": "#000000",
             "authorimg": "shopify://shop_images/Ellipse_3.png",
-            "highlight": false
+            "highlight": true
           }
         },
         "message_hYef4T": {
