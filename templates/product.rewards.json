@@ -222,12 +222,12 @@
           "type": "message",
           "settings": {
             "topimg": "shopify://shop_images/Frame_264.png",
-            "image": "shopify://shop_images/hulla3_b3992ab2-d097-4001-87cb-5af1f9b251f6.png",
+            "image": "shopify://shop_images/BLUETTI_Elite_30_V2_7.webp",
             "message": "Weekend warriors unite",
             "colorBackground": "#ffffff",
             "colorText": "#000000",
             "authorimg": "shopify://shop_images/Ellipse_3.png",
-            "highlight": true
+            "highlight": false
           }
         },
         "message_pLVamN": {
