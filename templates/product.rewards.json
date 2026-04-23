@@ -462,11 +462,11 @@
         "pause_on_hover": false
       }
     },
-    "1776711029db5134c9": {
+    "1776920067ae1f3b1a": {
       "type": "apps",
       "blocks": {
-        "growave_loyalty_wishlist_block_index_instagram_Wj9YjQ": {
-          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.index.instagram/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+        "growave_loyalty_wishlist_block_product_instagram_eGRKbe": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.instagram/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
           "settings": {
             "option_galleries_id": "1",
             "option_galleries_layout": "0"
@@ -474,10 +474,10 @@
         }
       },
       "block_order": [
-        "growave_loyalty_wishlist_block_index_instagram_Wj9YjQ"
+        "growave_loyalty_wishlist_block_product_instagram_eGRKbe"
       ],
       "settings": {
-        "include_margins": false
+        "include_margins": true
       }
     },
     "custom_multicol_dPrTeX": {
@@ -552,7 +552,7 @@
     "growave_shop_talk_J3EVqD",
     "product_marquee_jKL8Dp",
     "product_marquee_h4KghV",
-    "1776711029db5134c9",
+    "1776920067ae1f3b1a",
     "custom_multicol_dPrTeX"
   ]
 }
