@@ -1,0 +1,227 @@
+<section class="tstn-trust" style="--tstn-accent: {{ section.settings.accent_color }};">
+  <div class="tstn-trust__inner">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'badge' -%}
+        <div class="tstn-trust__item" {{ block.shopify_attributes }}>
+          <div class="tstn-trust__icon">
+            {%- if block.settings.icon_image != blank -%}
+              {{
+                block.settings.icon_image
+                | image_url: width: 80
+                | image_tag: loading: 'lazy', class: 'tstn-trust__icon-img'
+              }}
+            {%- else -%}
+              {% case block.settings.icon_preset %}
+                {% when 'rewards' %}
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.25">
+                    <circle cx="16" cy="16" r="13"/>
+                    <path d="M16 8l2.5 5.2 5.7.8-4.1 4 1 5.7L16 21l-5.1 2.7 1-5.7-4.1-4 5.7-.8z"/>
+                  </svg>
+                {% when 'financing' %}
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.25">
+                    <rect x="4" y="8" width="24" height="16" rx="2"/>
+                    <line x1="4" y1="13" x2="28" y2="13"/>
+                    <line x1="8" y1="19" x2="12" y2="19"/>
+                  </svg>
+                {% when 'tested' %}
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.25">
+                    <path d="M16 3l11 5v7c0 7-5 12-11 14-6-2-11-7-11-14V8z"/>
+                    <path d="M11 16l3.5 3.5L21 13"/>
+                  </svg>
+                {% when 'shipping' %}
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.25">
+                    <rect x="2" y="9" width="16" height="12"/>
+                    <path d="M18 13h6l4 4v4h-10z"/>
+                    <circle cx="9" cy="24" r="2.5"/>
+                    <circle cx="23" cy="24" r="2.5"/>
+                  </svg>
+                {% when 'returns' %}
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.25">
+                    <path d="M27 16a11 11 0 1 1-3.2-7.8"/>
+                    <path d="M27 4v6h-6"/>
+                  </svg>
+                {% else %}
+                  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.25">
+                    <circle cx="16" cy="16" r="13"/>
+                    <path d="M16 10v6l4 2"/>
+                  </svg>
+              {% endcase %}
+            {%- endif -%}
+          </div>
+
+          <div class="tstn-trust__text">
+            {%- if block.settings.title != blank -%}
+              <h3 class="tstn-trust__title">{{ block.settings.title }}</h3>
+            {%- endif -%}
+            {%- if block.settings.description != blank -%}
+              <p class="tstn-trust__desc">{{ block.settings.description }}</p>
+            {%- endif -%}
+            {%- if block.settings.link_label != blank -%}
+              <a href="{{ block.settings.link | default: '#' }}" class="tstn-trust__link">
+                {{ block.settings.link_label }}
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+</section>
+
+<style>
+  .tstn-trust {
+    background: #0a0a0a;
+    color: #ffffff;
+    padding: 32px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .tstn-trust__inner {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 6vw, 80px);
+  }
+
+  .tstn-trust__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .tstn-trust__icon {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  .tstn-trust__icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.85;
+  }
+
+  .tstn-trust__text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+
+  .tstn-trust__title {
+    font-family: 'Danger Neue Free Regular', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin: 0;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .tstn-trust__desc {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.55);
+    margin: 2px 0 0;
+  }
+
+  .tstn-trust__link {
+    display: inline-block;
+    margin-top: 6px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--tstn-accent, #ff6a1a);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+  }
+
+  .tstn-trust__link:hover {
+    color: #ffffff;
+  }
+
+  @media (max-width: 1024px) {
+    .tstn-trust__inner {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 500px) {
+    .tstn-trust__inner {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Trust Badges",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Link color",
+      "default": "#ff6a1a"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "badge",
+      "name": "Badge",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon_preset",
+          "label": "Icon",
+          "options": [
+            { "value": "rewards", "label": "Rewards (star/medal)" },
+            { "value": "financing", "label": "Financing (card)" },
+            { "value": "tested", "label": "Tested (shield)" },
+            { "value": "shipping", "label": "Shipping (truck)" },
+            { "value": "returns", "label": "Returns (refresh)" }
+          ],
+          "default": "rewards"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Custom icon (optional, overrides preset)"
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "BADGE TITLE" },
+        { "type": "text", "id": "description", "label": "Description" },
+        { "type": "text", "id": "link_label", "label": "Link label", "default": "LEARN MORE" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Trust Badges",
+      "blocks": [
+        { "type": "badge", "settings": { "icon_preset": "rewards", "title": "TSTN CLUB REWARDS", "description": "Earn points on every order. Unlock exclusive gear and perks." } },
+        { "type": "badge", "settings": { "icon_preset": "financing", "title": "0% APR FINANCING", "description": "Flexible payments. More adventures. Pay over time with Shop Pay." } },
+        { "type": "badge", "settings": { "icon_preset": "tested", "title": "TESTED & TRUSTED", "description": "We run it, break it in, and only keep what works." } },
+        { "type": "badge", "settings": { "icon_preset": "shipping", "title": "FAST SHIPPING", "description": "Ships quick from our warehouse. Free shipping on orders $99+." } },
+        { "type": "badge", "settings": { "icon_preset": "returns", "title": "EASY RETURNS", "description": "60-day returns on most items. No hassle. No stress." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
