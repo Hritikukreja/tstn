@@ -477,30 +477,35 @@
         "photo_nNFXKW": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/Frame_250.png",
             "link": ""
           }
         },
         "photo_pwfdRh": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/hullavator_JPEG.png",
             "link": ""
           }
         },
         "photo_qQEyUE": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/join_crew_mobile.png",
             "link": ""
           }
         },
         "photo_wxgXz8": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/unnamed.webp",
             "link": ""
           }
         },
         "photo_CdbFWc": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/1.webp",
             "link": ""
           }
         }
@@ -524,6 +529,7 @@
       "type": "contact-cta",
       "name": "Contact CTA",
       "settings": {
+        "background_image": "shopify://shop_images/3.png",
         "heading": "NEED HELP CHOOSING THE RIGHT SETUP?",
         "description": "I got you. Reach out and I'll point you in the right direction.",
         "button_label": "CONTACT THE CREW",
