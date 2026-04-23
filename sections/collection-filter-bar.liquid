@@ -1,0 +1,269 @@
+<section
+  class="tstn-filter-bar"
+  style="
+    --tstn-accent: {{ section.settings.accent_color }};
+  "
+>
+  <div class="tstn-filter-bar__inner">
+    <div class="tstn-filter-bar__left">
+      <span class="tstn-filter-bar__count">
+        {{ section.settings.product_count }} {{ section.settings.count_label }}
+      </span>
+      <button type="button" class="tstn-filter-bar__filters-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="4" y1="6" x2="20" y2="6"/>
+          <line x1="4" y1="12" x2="20" y2="12"/>
+          <line x1="4" y1="18" x2="14" y2="18"/>
+          <circle cx="16" cy="6" r="2" fill="currentColor"/>
+          <circle cx="8" cy="12" r="2" fill="currentColor"/>
+          <circle cx="18" cy="18" r="2" fill="currentColor"/>
+        </svg>
+        {{ section.settings.filters_label }}
+      </button>
+    </div>
+
+    <nav class="tstn-filter-bar__tabs">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'tab' -%}
+          <a
+            href="{{ block.settings.link | default: '#' }}"
+            class="tstn-filter-bar__tab {% if block.settings.is_active %}is-active{% endif %}"
+            {{ block.shopify_attributes }}
+          >
+            {{ block.settings.label }}
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </nav>
+
+    <div class="tstn-filter-bar__right">
+      <span class="tstn-filter-bar__sort-label">{{ section.settings.sort_label }}</span>
+      <div class="tstn-filter-bar__sort">
+        <span class="tstn-filter-bar__sort-value">{{ section.settings.default_sort }}</span>
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M1 1L5 5L9 1"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tstn-filter-bar {
+    background: #0a0a0a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+  }
+
+  .tstn-filter-bar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 18px clamp(20px, 6vw, 80px);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .tstn-filter-bar__left,
+  .tstn-filter-bar__right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-shrink: 0;
+  }
+
+  .tstn-filter-bar__count {
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+  }
+
+  .tstn-filter-bar__filters-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.85);
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    cursor: pointer;
+    padding: 0;
+    font-weight: 500;
+  }
+
+  .tstn-filter-bar__filters-btn:hover {
+    color: #ffffff;
+  }
+
+  .tstn-filter-bar__tabs {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex: 1;
+    justify-content: center;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .tstn-filter-bar__tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tstn-filter-bar__tab {
+    position: relative;
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 4px 0;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+  }
+
+  .tstn-filter-bar__tab:hover {
+    color: #ffffff;
+  }
+
+  .tstn-filter-bar__tab.is-active {
+    color: #ffffff;
+  }
+
+  .tstn-filter-bar__tab.is-active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--tstn-accent, #ff6a1a);
+  }
+
+  .tstn-filter-bar__sort-label {
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 500;
+  }
+
+  .tstn-filter-bar__sort {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  @media (max-width: 1024px) {
+    .tstn-filter-bar__inner {
+      flex-wrap: wrap;
+    }
+    .tstn-filter-bar__tabs {
+      order: 3;
+      width: 100%;
+      justify-content: flex-start;
+      padding-top: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      margin-top: 4px;
+    }
+  }
+
+  @media (max-width: 749px) {
+    .tstn-filter-bar__inner {
+      padding: 14px 20px;
+      font-size: 11px;
+    }
+    .tstn-filter-bar__left,
+    .tstn-filter-bar__right {
+      gap: 14px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Collection Filter Bar",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "product_count",
+      "label": "Product count",
+      "default": "72"
+    },
+    {
+      "type": "text",
+      "id": "count_label",
+      "label": "Count label",
+      "default": "PRODUCTS"
+    },
+    {
+      "type": "text",
+      "id": "filters_label",
+      "label": "Filters button label",
+      "default": "FILTERS"
+    },
+    {
+      "type": "text",
+      "id": "sort_label",
+      "label": "Sort by label",
+      "default": "SORT BY"
+    },
+    {
+      "type": "text",
+      "id": "default_sort",
+      "label": "Default sort value",
+      "default": "FEATURED"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Active tab underline color",
+      "default": "#ff6a1a"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Category tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "CATEGORY"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "checkbox",
+          "id": "is_active",
+          "label": "Mark as active",
+          "default": false
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Filter Bar",
+      "blocks": [
+        { "type": "tab", "settings": { "label": "ALL", "is_active": true } },
+        { "type": "tab", "settings": { "label": "POWER" } },
+        { "type": "tab", "settings": { "label": "STORAGE" } },
+        { "type": "tab", "settings": { "label": "RECOVERY" } },
+        { "type": "tab", "settings": { "label": "SHELTER" } },
+        { "type": "tab", "settings": { "label": "VEHICLE" } },
+        { "type": "tab", "settings": { "label": "APPAREL" } },
+        { "type": "tab", "settings": { "label": "ACCESSORIES" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
