@@ -43,8 +43,8 @@
       "type": "hero-collection",
       "name": "Hero Collection",
       "settings": {
-        "background_image": "shopify://shop_images/1.1.png",
-        "overlay_opacity": 55,
+        "background_image": "shopify://shop_images/2.0.png",
+        "overlay_opacity": 40,
         "overline": "THE COLLECTION",
         "heading": "GEAR THAT GOES FURTHER",
         "subheading": "<p>Hand-picked gear for real adventures. Tested, trusted, and used out on the trail.</p>",
@@ -150,9 +150,10 @@
         "overline": "CURATED BY SHAUN",
         "heading": "WHY THIS GEAR MAKES THE CUT",
         "description": "<p>Every product in this collection earns its place. I personally use this gear in the harshest conditions, and would trust it with my crew, my family, and every mile in between.</p>",
+        "signature_image": "shopify://shop_images/BLUETTI_Elite_30_V2__Shaun.png",
         "signature_fallback": "Shaun",
         "signature_name": "SHAUN",
-        "video_thumbnail": "shopify://shop_images/2.0.png",
+        "video_thumbnail": "shopify://shop_images/BLUETTI_Elite_30_V2__Shaun.png",
         "video_link": "https://www.youtube.com/watch?v=w4zwJ1fxMPs",
         "video_caption": "WATCH: WHY I STAND BEHIND THIS GEAR",
         "accent_color": "#ff6a1a"
