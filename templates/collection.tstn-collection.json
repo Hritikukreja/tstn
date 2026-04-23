@@ -62,7 +62,7 @@
           "type": "tab",
           "settings": {
             "label": "ALL",
-            "link": "",
+            "link": "shopify://collections",
             "is_active": true
           }
         },
