@@ -1,0 +1,217 @@
+<section class="tstn-community">
+  <div class="tstn-community__inner">
+    <div class="tstn-community__copy">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="tstn-community__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.description != blank -%}
+        <p class="tstn-community__desc">{{ section.settings.description }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link | default: '#' }}" class="tstn-community__btn">
+          {{ section.settings.button_label }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="tstn-community__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'photo' -%}
+          <a
+            href="{{ block.settings.link | default: '#' }}"
+            class="tstn-community__tile"
+            target="_blank"
+            rel="noopener"
+            {{ block.shopify_attributes }}
+          >
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 600
+                | image_tag:
+                  loading: 'lazy',
+                  sizes: '(min-width: 900px) 20vw, 50vw',
+                  widths: '300, 400, 600',
+                  class: 'tstn-community__img'
+              }}
+            {%- else -%}
+              <div class="tstn-community__placeholder"></div>
+            {%- endif -%}
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tstn-community {
+    background: #0a0a0a;
+    color: #ffffff;
+    padding: clamp(40px, 5vw, 70px) 0;
+  }
+
+  .tstn-community__inner {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: clamp(24px, 4vw, 50px);
+    align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 6vw, 80px);
+  }
+
+  .tstn-community__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .tstn-community__heading {
+    font-family: 'Danger Neue Free Regular', 'Helvetica Neue', Arial, sans-serif;
+    font-size: clamp(26px, 2.8vw, 38px);
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin: 0;
+    font-weight: 400;
+    line-height: 1.05;
+  }
+
+  .tstn-community__desc {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.55;
+    color: rgba(255, 255, 255, 0.65);
+    margin: 0;
+    max-width: 280px;
+  }
+
+  .tstn-community__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    padding: 12px 26px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 6px;
+    transition: all 0.2s ease;
+  }
+
+  .tstn-community__btn:hover {
+    background: #ffffff;
+    color: #0a0a0a;
+    border-color: #ffffff;
+  }
+
+  .tstn-community__grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+  }
+
+  .tstn-community__tile {
+    position: relative;
+    display: block;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #1a1a1a;
+  }
+
+  .tstn-community__img,
+  .tstn-community__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease, filter 0.25s ease;
+  }
+
+  .tstn-community__placeholder {
+    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+  }
+
+  .tstn-community__tile:hover .tstn-community__img {
+    transform: scale(1.05);
+    filter: brightness(1.1);
+  }
+
+  @media (max-width: 900px) {
+    .tstn-community__inner {
+      grid-template-columns: 1fr;
+    }
+    .tstn-community__grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 500px) {
+    .tstn-community__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Community Grid",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "BUILT BY THE TSTN COMMUNITY"
+    },
+    {
+      "type": "text",
+      "id": "description",
+      "label": "Description",
+      "default": "Tag @tstn.official to be featured."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "VIEW ON INSTAGRAM"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "photo",
+      "name": "Photo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "url", "id": "link", "label": "Link (e.g., Instagram post)" }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Community Grid",
+      "blocks": [
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" },
+        { "type": "photo" }
+      ]
+    }
+  ]
+}
+{% endschema %}
