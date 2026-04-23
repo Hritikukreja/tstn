@@ -152,6 +152,7 @@
         "description": "<p>Every product in this collection earns its place. I personally use this gear in the harshest conditions, and would trust it with my crew, my family, and every mile in between.</p>",
         "signature_fallback": "Shaun",
         "signature_name": "SHAUN",
+        "video_thumbnail": "shopify://shop_images/2.0.png",
         "video_link": "https://www.youtube.com/watch?v=w4zwJ1fxMPs",
         "video_caption": "WATCH: WHY I STAND BEHIND THIS GEAR",
         "accent_color": "#ff6a1a"
@@ -163,6 +164,7 @@
         "product_d9iLdy": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/BLUETTI_Elite_30_V2_8.webp",
             "brand": "BLUETTI",
             "title": "ELITE 30 V2",
             "description": "Power that goes the distance. Built for off-grid freedom.",
@@ -174,6 +176,7 @@
         "product_Gq8UJk": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/product-sub-img.png",
             "brand": "PRINSU",
             "title": "ROOF RACK PRO",
             "description": "Robust. Modular. Adventure ready. Built to carry it all.",
