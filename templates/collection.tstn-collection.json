@@ -176,9 +176,9 @@
         "product_Gq8UJk": {
           "type": "product",
           "settings": {
-            "image": "shopify://shop_images/product-sub-img.png",
-            "brand": "PRINSU",
-            "title": "ROOF RACK PRO",
+            "image": "shopify://shop_images/Hulla.png",
+            "brand": "Thule",
+            "title": "Hullavator Pro",
             "description": "Robust. Modular. Adventure ready. Built to carry it all.",
             "price": "$1,299.00",
             "button_label": "VIEW PRODUCT",
@@ -188,10 +188,11 @@
         "product_FManUQ": {
           "type": "product",
           "settings": {
-            "brand": "DIODE DYNAMICS",
-            "title": "SS3 PRO LIGHT POD",
-            "description": "Tiny size. Massive output. Light the trail ahead.",
-            "price": "$249.00",
+            "image": "shopify://shop_images/Crow_Molle_2.png",
+            "brand": "ON x Offroad",
+            "title": "Offroad Trails Membership",
+            "description": "Offroad Trails & Public Lands in the US",
+            "price": "$27.99 Billed Yearly",
             "button_label": "VIEW PRODUCT",
             "link": ""
           }
@@ -199,8 +200,9 @@
         "product_gRpP3F": {
           "type": "product",
           "settings": {
-            "brand": "TSTN",
-            "title": "KINETIC RECOVERY ROPE",
+            "image": "shopify://shop_images/epic.png",
+            "brand": "EPIC Crow",
+            "title": "Molle Panel",
             "description": "Stronger, lighter, safer. Made for the moments that matter.",
             "price": "$89.00",
             "button_label": "VIEW PRODUCT",
@@ -365,6 +367,7 @@
         "guide_cKM4BF": {
           "type": "guide",
           "settings": {
+            "image": "shopify://shop_images/BLUETTI_Elite_30_V2__Shaun.png",
             "title": "POWER SETUPS EXPLAINED",
             "subtitle": "Watch Now",
             "link": ""
@@ -373,6 +376,7 @@
         "guide_66LBAG": {
           "type": "guide",
           "settings": {
+            "image": "shopify://shop_images/join-behind-banner.png",
             "title": "ROOF RACK BUYER'S GUIDE",
             "subtitle": "Watch Now",
             "link": ""
@@ -381,6 +385,7 @@
         "guide_Jgxcti": {
           "type": "guide",
           "settings": {
+            "image": "shopify://shop_images/custom-banner-img.jpg",
             "title": "RECOVERY GEAR 101",
             "subtitle": "Watch Now",
             "link": ""
@@ -394,6 +399,7 @@
       ],
       "name": "Guides Block",
       "settings": {
+        "main_video_thumbnail": "shopify://shop_images/4.png",
         "main_video_link": "",
         "main_video_title": "GEAR PUT TO WORK",
         "main_video_sub": "WATCH ON YOUTUBE",
