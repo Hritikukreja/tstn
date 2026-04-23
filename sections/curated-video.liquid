@@ -1,0 +1,311 @@
+<section class="tstn-curated" style="--tstn-accent: {{ section.settings.accent_color }};">
+  <div class="tstn-curated__inner">
+    <div class="tstn-curated__text">
+      {%- if section.settings.overline != blank -%}
+        <p class="tstn-curated__overline">{{ section.settings.overline }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="tstn-curated__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.description != blank -%}
+        <div class="tstn-curated__description">{{ section.settings.description }}</div>
+      {%- endif -%}
+
+      <div class="tstn-curated__signature">
+        {%- if section.settings.signature_image != blank -%}
+          {{
+            section.settings.signature_image
+            | image_url: width: 200
+            | image_tag: class: 'tstn-curated__signature-img', alt: 'Signature'
+          }}
+        {%- else -%}
+          <span class="tstn-curated__signature-text">{{ section.settings.signature_fallback }}</span>
+        {%- endif -%}
+        {%- if section.settings.signature_name != blank -%}
+          <span class="tstn-curated__signature-name">— {{ section.settings.signature_name }}</span>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="tstn-curated__media">
+      <a
+        href="{{ section.settings.video_link | default: '#' }}"
+        class="tstn-curated__video"
+        aria-label="Play video"
+      >
+        {%- if section.settings.video_thumbnail != blank -%}
+          {{
+            section.settings.video_thumbnail
+            | image_url: width: 1400
+            | image_tag:
+              loading: 'lazy',
+              sizes: '(min-width: 750px) 60vw, 100vw',
+              widths: '600, 900, 1200, 1400',
+              class: 'tstn-curated__video-img'
+          }}
+        {%- else -%}
+          <div class="tstn-curated__video-placeholder"></div>
+        {%- endif -%}
+
+        <span class="tstn-curated__play" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </span>
+
+        {%- if section.settings.video_caption != blank -%}
+          <span class="tstn-curated__caption">{{ section.settings.video_caption }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .tstn-curated {
+    background: #0a0a0a;
+    color: #ffffff;
+    padding: clamp(50px, 7vw, 90px) 0;
+  }
+
+  .tstn-curated__inner {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: clamp(30px, 6vw, 80px);
+    align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 6vw, 80px);
+  }
+
+  .tstn-curated__text {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .tstn-curated__overline {
+    font-family: 'Danger Neue Free Regular', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--tstn-accent, #ff6a1a);
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .tstn-curated__heading {
+    font-family: 'Danger Neue Free Regular', 'Helvetica Neue', Arial, sans-serif;
+    font-size: clamp(28px, 3.2vw, 44px);
+    line-height: 1.05;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin: 0;
+    font-weight: 400;
+  }
+
+  .tstn-curated__description {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 440px;
+  }
+
+  .tstn-curated__description p {
+    margin: 0 0 8px;
+  }
+
+  .tstn-curated__signature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 8px;
+  }
+
+  .tstn-curated__signature-img {
+    height: 40px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+  }
+
+  .tstn-curated__signature-text {
+    font-family: 'Brush Script MT', cursive;
+    font-size: 28px;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .tstn-curated__signature-name {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+  }
+
+  .tstn-curated__media {
+    position: relative;
+  }
+
+  .tstn-curated__video {
+    position: relative;
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #1a1a1a;
+    cursor: pointer;
+  }
+
+  .tstn-curated__video-img,
+  .tstn-curated__video-placeholder {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .tstn-curated__video-placeholder {
+    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+  }
+
+  .tstn-curated__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    transition: all 0.25s ease;
+  }
+
+  .tstn-curated__video:hover .tstn-curated__play {
+    background: rgba(255, 255, 255, 0.95);
+    color: #0a0a0a;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+
+  .tstn-curated__caption {
+    position: absolute;
+    bottom: 16px;
+    left: 18px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #ffffff;
+    font-weight: 600;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  }
+
+  @media (max-width: 900px) {
+    .tstn-curated__inner {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+    .tstn-curated__play {
+      width: 54px;
+      height: 54px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Curated Video",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "overline",
+      "label": "Overline (small orange)",
+      "default": "CURATED BY SHAUN"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "WHY THIS GEAR MAKES THE CUT"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Every product in this collection earns its place. I personally use this gear in the harshest conditions, and would trust it with my crew, my family, and every mile in between.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Signature"
+    },
+    {
+      "type": "image_picker",
+      "id": "signature_image",
+      "label": "Signature image (PNG with transparent background)"
+    },
+    {
+      "type": "text",
+      "id": "signature_fallback",
+      "label": "Signature text fallback",
+      "default": "Shaun",
+      "info": "Shown if no signature image is uploaded"
+    },
+    {
+      "type": "text",
+      "id": "signature_name",
+      "label": "Signature name label",
+      "default": "SHAUN"
+    },
+    {
+      "type": "header",
+      "content": "Video"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_thumbnail",
+      "label": "Video thumbnail"
+    },
+    {
+      "type": "url",
+      "id": "video_link",
+      "label": "Video link (YouTube, Vimeo, etc.)"
+    },
+    {
+      "type": "text",
+      "id": "video_caption",
+      "label": "Video caption",
+      "default": "WATCH: WHY I STAND BEHIND THIS GEAR"
+    },
+    {
+      "type": "header",
+      "content": "Style"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#ff6a1a"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Curated Video"
+    }
+  ]
+}
+{% endschema %}
