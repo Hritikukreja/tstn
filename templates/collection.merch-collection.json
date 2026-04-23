@@ -148,8 +148,8 @@
       "name": "Curated Video",
       "settings": {
         "overline": "CURATED BY SHAUN",
-        "heading": "WHY THIS GEAR MAKES THE CUT",
-        "description": "<p>Every product in this collection earns its place. I personally use this gear in the harshest conditions, and would trust it with my crew, my family, and every mile in between.</p>",
+        "heading": "Built for Real Use",
+        "description": "<p>🛠️ <strong>Durable materials</strong> that don’t fall apart<br/><br/>🎯 <strong>Minimal design</strong> that actually looks good anywhere<br/><br/>⚙️ <strong>Functional first</strong>, always</p>",
         "signature_fallback": "Shaun",
         "signature_name": "SHAUN",
         "video_thumbnail": "shopify://shop_images/1.webp",
@@ -546,8 +546,8 @@
       "name": "Contact CTA",
       "settings": {
         "background_image": "shopify://shop_images/3.png",
-        "heading": "NEED HELP CHOOSING THE RIGHT SETUP?",
-        "description": "I got you. Reach out and I'll point you in the right direction.",
+        "heading": "For People Who Get It",
+        "description": "If you’re into camping, vans, road trips, or just building a more flexible life, this is for you.If you’re here for hype, you’re in the wrong place.",
         "button_label": "CONTACT THE CREW",
         "button_link": "",
         "overlay_opacity": 65,
