@@ -172,12 +172,9 @@
 .gw-rd-popup-widget-referral-program__reward.svelte-1i38tde:nth-child(1) {
     position: relative;
 }
-{% comment %} .gw-rd-popup-widget-referral-program__reward.svelte-1i38tde:nth-child(1):after {
-    position: absolute;
-    content:'you get 500 points once your friend makes a purchase';
-} {% endcomment %}
 .gw-rd-page-widget-container.svelte-1mnbt6f {
     position: relative;
+    padding-bottom: 50px !important;
 }
 .gw-rd-page-widget-container.svelte-1mnbt6f:after {
     position: absolute;
@@ -190,16 +187,38 @@
     color: #fff;
     font-family: Danger Neue Free Regular!important;
     bottom: 12px;
+    padding: 0 15px;
+    box-sizing: border-box;
+    line-height: 1.2;
 }
 @media (max-width: 767px) {
 .gw-rd-referral-program-page-widget-placeholder.custom_reffreral_blossom {
     position: unset;
-    bottom: 0;
-    right: 14px;
+    bottom: auto;
+    right: auto;
     width: 100%;
+    margin-top: 30px;
+}
+.gw-rd-page-widget-container.svelte-1mnbt6f {
+    width: 100% !important;
+    padding: 20px !important;
+    padding-bottom: 70px !important;
+    box-sizing: border-box;
 }
 .gw-rd-page-widget-container.svelte-1mnbt6f:after {
-    bottom: 3px;
+    bottom: 20px;
+    font-size: 13px;
+    padding: 0 20px;
+}
+.gw-rd-referral-program-page-widget__refer-friend {
+    margin-top: 60px;
+}
+.gw-rd-referral-program-page-widget__refer-friend:after {
+    top: -45px;
+    font-size: 24px;
+}
+.gw-rd-referral-program-page-widget {
+    margin-top: 15px;
 }
 }
 </style>
@@ -358,36 +377,50 @@ li.gw-rd-list__item {
 @media (max-width: 767px) {
 
 li.gw-rd-list__item {
-    flex: unset !important;
-    width: 100% !important;
+    flex: 0 0 calc(50% - 10px) !important;
+    width: calc(50% - 10px) !important;
+    max-width: calc(50% - 10px) !important;
+    height: auto !important;
 }
 .gw-rd-list--page-layout.svelte-13ronxd {
     justify-content: space-between;
-}
-.gw-rd-list--page-layout.svelte-13ronxd {
-    gap: 25px !important;
+    gap: 15px !important;
 }
 .gw-layout-text--variant-secondary.svelte-yjnpd, .gw-rd-page-widget-action-completed.svelte-1klamai {
     font-size: 14px !important;
+    padding: 10px 5px !important;
+    word-break: break-word;
 }
 .gtw_section_heading h2 {
     font-size: 30px;
 }
 .gw-rd-page-widget-card.svelte-3ln76z.svelte-3ln76z {
-    height: 220px !important;
+    height: 240px !important;
     display: flex !important;
     flex-direction: column;
     justify-content: space-between;
-    padding: 10px !important ;
+    padding: 10px !important;
+    box-sizing: border-box;
+}
+.gw-rd-page-widget-card--completed.svelte-3ln76z.svelte-3ln76z {
+    height: 240px !important;
 }
 .gw-rd-page-widget-action-completed.svelte-1klamai {
-    padding: 11px 0px;
+    padding: 10px 5px !important;
+    font-size: 13px !important;
 }
-.gw-layout-text--variant-secondary.svelte-yjnpd {
-    padding: 13px 0px;
+.gw-rd-page-widget-card__icon.svelte-3ln76z.svelte-3ln76z {
+    max-height: 80px !important;
+    height: 80px !important;
+    flex-shrink: 0;
 }
-li.gw-rd-list__item {
-    height: 100%;
+.gw-layout-text--variant-base.svelte-yjnpd {
+    font-size: 12px !important;
+    line-height: 1.3 !important;
+}
+.gw-rd-page-widget-card__title.svelte-3ln76z {
+    font-size: 13px !important;
+    line-height: 1.2 !important;
 }
 
 }
