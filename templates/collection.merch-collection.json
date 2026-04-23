@@ -406,6 +406,7 @@
         "guide_66LBAG",
         "guide_Jgxcti"
       ],
+      "disabled": true,
       "name": "Guides Block",
       "settings": {
         "main_video_thumbnail": "shopify://shop_images/4.png",
