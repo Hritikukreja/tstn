@@ -1,0 +1,321 @@
+<section class="tstn-featured" style="--tstn-accent: {{ section.settings.accent_color }};">
+  <div class="tstn-featured__inner">
+    <div class="tstn-featured__header">
+      <div>
+        {%- if section.settings.overline != blank -%}
+          <p class="tstn-featured__overline">{{ section.settings.overline }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 class="tstn-featured__heading">{{ section.settings.heading }}</h2>
+        {%- endif -%}
+      </div>
+
+      {%- if section.settings.view_all_label != blank -%}
+        <a href="{{ section.settings.view_all_link | default: '#' }}" class="tstn-featured__view-all">
+          {{ section.settings.view_all_label }}
+          <svg width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M1 5H13M13 5L9 1M13 5L9 9"/>
+          </svg>
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="tstn-featured__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'product' -%}
+          <div class="tstn-featured__card" {{ block.shopify_attributes }}>
+            <a href="{{ block.settings.link | default: '#' }}" class="tstn-featured__image-wrap">
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 800
+                  | image_tag:
+                    loading: 'lazy',
+                    sizes: '(min-width: 750px) 25vw, 50vw',
+                    widths: '300, 400, 600, 800',
+                    class: 'tstn-featured__image'
+                }}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'tstn-featured__image' }}
+              {%- endif -%}
+            </a>
+
+            <div class="tstn-featured__body">
+              {%- if block.settings.brand != blank -%}
+                <p class="tstn-featured__brand">{{ block.settings.brand }}</p>
+              {%- endif -%}
+
+              {%- if block.settings.title != blank -%}
+                <h3 class="tstn-featured__title">
+                  <a href="{{ block.settings.link | default: '#' }}">{{ block.settings.title }}</a>
+                </h3>
+              {%- endif -%}
+
+              {%- if block.settings.description != blank -%}
+                <p class="tstn-featured__desc">{{ block.settings.description }}</p>
+              {%- endif -%}
+
+              {%- if block.settings.price != blank -%}
+                <p class="tstn-featured__price">{{ block.settings.price }}</p>
+              {%- endif -%}
+
+              <a href="{{ block.settings.link | default: '#' }}" class="tstn-featured__btn">
+                {{ block.settings.button_label | default: 'VIEW PRODUCT' }}
+              </a>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tstn-featured {
+    background: #0a0a0a;
+    color: #ffffff;
+    padding: clamp(40px, 5vw, 70px) 0;
+  }
+
+  .tstn-featured__inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 6vw, 80px);
+  }
+
+  .tstn-featured__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+
+  .tstn-featured__overline {
+    font-family: 'Danger Neue Free Regular', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--tstn-accent, #ff6a1a);
+    margin: 0 0 10px;
+    font-weight: 500;
+  }
+
+  .tstn-featured__heading {
+    font-family: 'Danger Neue Free Regular', 'Helvetica Neue', Arial, sans-serif;
+    font-size: clamp(26px, 3vw, 40px);
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin: 0;
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .tstn-featured__view-all {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+  }
+
+  .tstn-featured__view-all:hover {
+    color: var(--tstn-accent, #ff6a1a);
+  }
+
+  .tstn-featured__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .tstn-featured__card {
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform 0.25s ease, border-color 0.25s ease;
+  }
+
+  .tstn-featured__card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .tstn-featured__image-wrap {
+    display: block;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #1a1a1a;
+  }
+
+  .tstn-featured__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+
+  .tstn-featured__card:hover .tstn-featured__image {
+    transform: scale(1.04);
+  }
+
+  .tstn-featured__body {
+    padding: 18px 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .tstn-featured__brand {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.45);
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .tstn-featured__title {
+    font-family: 'Danger Neue Free Regular', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 17px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    margin: 0;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .tstn-featured__title a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+
+  .tstn-featured__desc {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.6);
+    margin: 0;
+  }
+
+  .tstn-featured__price {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 15px;
+    color: #ffffff;
+    font-weight: 600;
+    margin: 6px 0 10px;
+  }
+
+  .tstn-featured__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    padding: 10px 20px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    margin-top: auto;
+  }
+
+  .tstn-featured__btn:hover {
+    background: #ffffff;
+    color: #0a0a0a;
+    border-color: #ffffff;
+  }
+
+  @media (max-width: 1024px) {
+    .tstn-featured__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 500px) {
+    .tstn-featured__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "overline",
+      "label": "Overline",
+      "default": "FEATURED"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "GEAR WE RUN"
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "View all link label",
+      "default": "VIEW ALL FEATURED"
+    },
+    {
+      "type": "url",
+      "id": "view_all_link",
+      "label": "View all link"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#ff6a1a"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Product image" },
+        { "type": "text", "id": "brand", "label": "Brand", "default": "BRAND" },
+        { "type": "text", "id": "title", "label": "Product title", "default": "PRODUCT NAME" },
+        { "type": "text", "id": "description", "label": "Short description" },
+        { "type": "text", "id": "price", "label": "Price", "default": "$0.00" },
+        { "type": "text", "id": "button_label", "label": "Button label", "default": "VIEW PRODUCT" },
+        { "type": "url", "id": "link", "label": "Product link" }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Featured Products",
+      "blocks": [
+        { "type": "product", "settings": { "brand": "BLUETTI", "title": "ELITE 30 V2", "description": "Power that goes the distance. Built for off-grid freedom.", "price": "$599.00" } },
+        { "type": "product", "settings": { "brand": "PRINSU", "title": "ROOF RACK PRO", "description": "Robust. Modular. Adventure ready. Built to carry it all.", "price": "$1,299.00" } },
+        { "type": "product", "settings": { "brand": "DIODE DYNAMICS", "title": "SS3 PRO LIGHT POD", "description": "Tiny size. Massive output. Light the trail ahead.", "price": "$249.00" } },
+        { "type": "product", "settings": { "brand": "TSTN", "title": "KINETIC RECOVERY ROPE", "description": "Stronger, lighter, safer. Made for the moments that matter.", "price": "$89.00" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
