@@ -169,6 +169,7 @@
       "blocks": {
         "collective_club_community_feed_QKkDMR": {
           "type": "shopify://apps/collective-club/blocks/community-feed/019afe39-d050-7ff5-8454-0b261632ba15",
+          "disabled": true,
           "settings": {
             "title": "THE SHOP TALK.",
             "description": "No keyboard warriors. Just real advice on suspension, lighting, and recovery setups. Ask questions and get answers from the community that actually wheels.",
@@ -325,6 +326,7 @@
         "message_8YTAHk",
         "message_inQFYe"
       ],
+      "disabled": true,
       "name": "Product Marquee",
       "settings": {
         "class": "",
@@ -447,6 +449,7 @@
         "message_bHJiwM",
         "message_Mtittx"
       ],
+      "disabled": true,
       "name": "Product Marquee",
       "settings": {
         "class": "second-marquee",
