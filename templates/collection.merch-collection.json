@@ -45,11 +45,11 @@
       "settings": {
         "background_image": "shopify://shop_images/1.1.png",
         "overlay_opacity": 55,
-        "overline": "THE COLLECTION",
-        "heading": "GEAR THAT GOES FURTHER",
+        "overline": "MERCH",
+        "heading": "TSTN MERCH",
         "subheading": "<p>Hand-picked gear for real adventures. Tested, trusted, and used out on the trail.</p>",
         "text_alignment": "left",
-        "button_label": "EXPLORE THE GEAR",
+        "button_label": "EXPLORE THE MERCH",
         "button_link": "",
         "height_desktop": 640,
         "height_mobile": 520
@@ -152,7 +152,7 @@
         "description": "<p>Every product in this collection earns its place. I personally use this gear in the harshest conditions, and would trust it with my crew, my family, and every mile in between.</p>",
         "signature_fallback": "Shaun",
         "signature_name": "SHAUN",
-        "video_thumbnail": "shopify://shop_images/2.0.png",
+        "video_thumbnail": "shopify://shop_images/BLUETTI_Elite_30_V2__Shaun.png",
         "video_link": "https://www.youtube.com/watch?v=w4zwJ1fxMPs",
         "video_caption": "WATCH: WHY I STAND BEHIND THIS GEAR",
         "accent_color": "#ff6a1a"
@@ -164,63 +164,63 @@
         "product_d9iLdy": {
           "type": "product",
           "settings": {
-            "image": "shopify://shop_images/BLUETTI_Elite_30_V2__Shaun.png",
-            "brand": "BLUETTI",
-            "title": "ELITE 30 V2",
-            "description": "Power that goes the distance. Built for off-grid freedom.",
-            "price": "$599.00",
-            "button_label": "VIEW PRODUCT",
+            "image": "shopify://shop_images/1.avif",
+            "brand": "",
+            "title": "T-SHIRTS",
+            "description": "Premium quality, cool designs",
+            "price": "Starts at just $29.99",
+            "button_label": "VIEW Collection",
             "link": ""
           }
         },
-        "product_Gq8UJk": {
+        "product_mxmTxU": {
           "type": "product",
           "settings": {
-            "image": "shopify://shop_images/Hulla.png",
-            "brand": "Thule",
-            "title": "Hullavator Pro",
-            "description": "Robust. Modular. Adventure ready. Built to carry it all.",
-            "price": "$1,299.00",
-            "button_label": "VIEW PRODUCT",
+            "image": "shopify://shop_images/5.avif",
+            "brand": "",
+            "title": "CAPS",
+            "description": "Premium quality, cool designs",
+            "price": "Starts at just $39.99",
+            "button_label": "VIEW Collection",
             "link": ""
           }
         },
-        "product_FManUQ": {
+        "product_e4d8n8": {
           "type": "product",
           "settings": {
-            "image": "shopify://shop_images/Crow_Molle_2.png",
-            "brand": "ON x Offroad",
-            "title": "Offroad Trails Membership",
-            "description": "Offroad Trails & Public Lands in the US",
-            "price": "$27.99 Billed Yearly",
-            "button_label": "VIEW PRODUCT",
+            "image": "shopify://shop_images/4.avif",
+            "brand": "",
+            "title": "JACKETS",
+            "description": "Premium quality, cool designs",
+            "price": "Starts at just $49.99",
+            "button_label": "VIEW Collection",
             "link": ""
           }
         },
-        "product_gRpP3F": {
+        "product_z4V3Ww": {
           "type": "product",
           "settings": {
-            "image": "shopify://shop_images/epic.png",
-            "brand": "EPIC Crow",
-            "title": "Molle Panel",
-            "description": "Stronger, lighter, safer. Made for the moments that matter.",
-            "price": "$89.00",
-            "button_label": "VIEW PRODUCT",
+            "image": "shopify://shop_images/6.avif",
+            "brand": "",
+            "title": "BENNIES",
+            "description": "Premium quality, cool designs",
+            "price": "Starts at just $19.99",
+            "button_label": "VIEW Collection",
             "link": ""
           }
         }
       },
       "block_order": [
         "product_d9iLdy",
-        "product_Gq8UJk",
-        "product_FManUQ",
-        "product_gRpP3F"
+        "product_mxmTxU",
+        "product_e4d8n8",
+        "product_z4V3Ww"
       ],
       "name": "Featured Products",
       "settings": {
-        "overline": "FEATURED",
-        "heading": "GEAR WE RUN",
-        "view_all_label": "VIEW ALL FEATURED",
+        "overline": "SHOP MERCH",
+        "heading": "BY COLLECTION",
+        "view_all_label": "VIEW ALL COLLECTION",
         "view_all_link": "",
         "accent_color": "#ff6a1a"
       }
