@@ -1,0 +1,570 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "banner": {
+      "type": "main-collection-banner",
+      "disabled": true,
+      "settings": {
+        "show_collection_description": true,
+        "show_collection_image": false,
+        "color_scheme": "scheme-1"
+      }
+    },
+    "product-grid": {
+      "type": "main-collection-product-grid",
+      "disabled": true,
+      "settings": {
+        "products_per_page": 16,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "quick_add": "none",
+        "enable_filtering": true,
+        "filter_type": "horizontal",
+        "enable_sorting": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "hero_collection_cAz8QC": {
+      "type": "hero-collection",
+      "name": "Hero Collection",
+      "settings": {
+        "background_image": "shopify://shop_images/1.1.png",
+        "overlay_opacity": 55,
+        "overline": "THE COLLECTION",
+        "heading": "GEAR THAT GOES FURTHER",
+        "subheading": "<p>Hand-picked gear for real adventures. Tested, trusted, and used out on the trail.</p>",
+        "text_alignment": "left",
+        "button_label": "EXPLORE THE GEAR",
+        "button_link": "",
+        "height_desktop": 640,
+        "height_mobile": 520
+      }
+    },
+    "collection_filter_bar_qFxfda": {
+      "type": "collection-filter-bar",
+      "blocks": {
+        "tab_ntk3kh": {
+          "type": "tab",
+          "settings": {
+            "label": "ALL",
+            "link": "shopify://collections",
+            "is_active": true
+          }
+        },
+        "tab_3pJpUd": {
+          "type": "tab",
+          "settings": {
+            "label": "POWER",
+            "link": "",
+            "is_active": false
+          }
+        },
+        "tab_BJHEWY": {
+          "type": "tab",
+          "settings": {
+            "label": "STORAGE",
+            "link": "",
+            "is_active": false
+          }
+        },
+        "tab_RmgzUw": {
+          "type": "tab",
+          "settings": {
+            "label": "RECOVERY",
+            "link": "",
+            "is_active": false
+          }
+        },
+        "tab_7QnYFJ": {
+          "type": "tab",
+          "settings": {
+            "label": "SHELTER",
+            "link": "",
+            "is_active": false
+          }
+        },
+        "tab_tAtTFG": {
+          "type": "tab",
+          "settings": {
+            "label": "VEHICLE",
+            "link": "",
+            "is_active": false
+          }
+        },
+        "tab_tPTN3y": {
+          "type": "tab",
+          "settings": {
+            "label": "MERCH",
+            "link": "",
+            "is_active": false
+          }
+        },
+        "tab_FDcDGL": {
+          "type": "tab",
+          "settings": {
+            "label": "ACCESSORIES",
+            "link": "",
+            "is_active": false
+          }
+        }
+      },
+      "block_order": [
+        "tab_ntk3kh",
+        "tab_3pJpUd",
+        "tab_BJHEWY",
+        "tab_RmgzUw",
+        "tab_7QnYFJ",
+        "tab_tAtTFG",
+        "tab_tPTN3y",
+        "tab_FDcDGL"
+      ],
+      "name": "Collection Filter Bar",
+      "settings": {
+        "product_count": "31",
+        "count_label": "PRODUCTS",
+        "filters_label": "FILTERS",
+        "sort_label": "SORT BY",
+        "default_sort": "FEATURED",
+        "accent_color": "#ff6a1a"
+      }
+    },
+    "curated_video_y49Hqq": {
+      "type": "curated-video",
+      "name": "Curated Video",
+      "settings": {
+        "overline": "CURATED BY SHAUN",
+        "heading": "WHY THIS GEAR MAKES THE CUT",
+        "description": "<p>Every product in this collection earns its place. I personally use this gear in the harshest conditions, and would trust it with my crew, my family, and every mile in between.</p>",
+        "signature_fallback": "Shaun",
+        "signature_name": "SHAUN",
+        "video_thumbnail": "shopify://shop_images/2.0.png",
+        "video_link": "https://www.youtube.com/watch?v=w4zwJ1fxMPs",
+        "video_caption": "WATCH: WHY I STAND BEHIND THIS GEAR",
+        "accent_color": "#ff6a1a"
+      }
+    },
+    "featured_products_64ybC3": {
+      "type": "featured-products",
+      "blocks": {
+        "product_d9iLdy": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/BLUETTI_Elite_30_V2__Shaun.png",
+            "brand": "BLUETTI",
+            "title": "ELITE 30 V2",
+            "description": "Power that goes the distance. Built for off-grid freedom.",
+            "price": "$599.00",
+            "button_label": "VIEW PRODUCT",
+            "link": ""
+          }
+        },
+        "product_Gq8UJk": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/Hulla.png",
+            "brand": "Thule",
+            "title": "Hullavator Pro",
+            "description": "Robust. Modular. Adventure ready. Built to carry it all.",
+            "price": "$1,299.00",
+            "button_label": "VIEW PRODUCT",
+            "link": ""
+          }
+        },
+        "product_FManUQ": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/Crow_Molle_2.png",
+            "brand": "ON x Offroad",
+            "title": "Offroad Trails Membership",
+            "description": "Offroad Trails & Public Lands in the US",
+            "price": "$27.99 Billed Yearly",
+            "button_label": "VIEW PRODUCT",
+            "link": ""
+          }
+        },
+        "product_gRpP3F": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/epic.png",
+            "brand": "EPIC Crow",
+            "title": "Molle Panel",
+            "description": "Stronger, lighter, safer. Made for the moments that matter.",
+            "price": "$89.00",
+            "button_label": "VIEW PRODUCT",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_d9iLdy",
+        "product_Gq8UJk",
+        "product_FManUQ",
+        "product_gRpP3F"
+      ],
+      "name": "Featured Products",
+      "settings": {
+        "overline": "FEATURED",
+        "heading": "GEAR WE RUN",
+        "view_all_label": "VIEW ALL FEATURED",
+        "view_all_link": "",
+        "accent_color": "#ff6a1a"
+      }
+    },
+    "product_grid_XgkXBE": {
+      "type": "product-grid",
+      "blocks": {
+        "product_znKNVP": {
+          "type": "product",
+          "disabled": true,
+          "settings": {
+            "image": "shopify://shop_images/BLUETTI_Elite_30_V2_5.webp",
+            "brand": "BLUETTI",
+            "title": "Power Station",
+            "price": "$1,249.00",
+            "compare_price": "",
+            "badge": "new",
+            "link": ""
+          }
+        },
+        "product_7nKzqr": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/1.avif",
+            "brand": "KC",
+            "title": "Hilites Lights",
+            "price": "$109.00",
+            "compare_price": "$129.00",
+            "badge": "sale",
+            "link": ""
+          }
+        },
+        "product_VBFeNz": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/6.avif",
+            "brand": "Sherpa Equipment",
+            "title": "Roof Rack",
+            "price": "$299.00",
+            "compare_price": "",
+            "badge": "none",
+            "link": ""
+          }
+        },
+        "product_azGTKL": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/5.avif",
+            "brand": "Taruca",
+            "title": "Falcon 360 Awning",
+            "price": "$199.00",
+            "compare_price": "",
+            "badge": "none",
+            "link": ""
+          }
+        },
+        "product_nNQfth": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/4.avif",
+            "brand": "67 Designs",
+            "title": "Mounts",
+            "price": "$499.00",
+            "compare_price": "",
+            "badge": "none",
+            "link": ""
+          }
+        },
+        "product_YimfYH": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/3.avif",
+            "brand": "Titan",
+            "title": "Fuel Tanks",
+            "price": "$54.00",
+            "compare_price": "",
+            "badge": "none",
+            "link": ""
+          }
+        },
+        "product_rEjbfp": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/2.avif",
+            "brand": "MetalCloak",
+            "title": "Rocksport Black Shocks",
+            "price": "$199.00",
+            "compare_price": "",
+            "badge": "none",
+            "link": ""
+          }
+        },
+        "product_FDqRpa": {
+          "type": "product",
+          "disabled": true,
+          "settings": {
+            "brand": "FRONT RUNNER",
+            "title": "WOLF PACK PRO",
+            "price": "$349.00",
+            "compare_price": "",
+            "badge": "none",
+            "link": ""
+          }
+        },
+        "product_mRzj89": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/Rewards.avif",
+            "brand": "TSTN",
+            "title": "T Shirt",
+            "price": "$34.00",
+            "compare_price": "",
+            "badge": "none",
+            "link": ""
+          }
+        },
+        "product_976Pma": {
+          "type": "product",
+          "disabled": true,
+          "settings": {
+            "brand": "BLUETTI",
+            "title": "AC200L POWER STATION",
+            "price": "$1,399.00",
+            "compare_price": "",
+            "badge": "none",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_znKNVP",
+        "product_7nKzqr",
+        "product_VBFeNz",
+        "product_azGTKL",
+        "product_nNQfth",
+        "product_YimfYH",
+        "product_rEjbfp",
+        "product_FDqRpa",
+        "product_mRzj89",
+        "product_976Pma"
+      ],
+      "name": "Product Grid",
+      "settings": {
+        "heading": "ALL GEAR",
+        "show_load_more": true,
+        "load_more_label": "LOAD MORE",
+        "accent_color": "#ff6a1a"
+      }
+    },
+    "guides_block_M8N9Gw": {
+      "type": "guides-block",
+      "blocks": {
+        "guide_cKM4BF": {
+          "type": "guide",
+          "settings": {
+            "image": "shopify://shop_images/BLUETTI_Elite_30_V2__Shaun.png",
+            "title": "POWER SETUPS EXPLAINED",
+            "subtitle": "Watch Now",
+            "link": ""
+          }
+        },
+        "guide_66LBAG": {
+          "type": "guide",
+          "settings": {
+            "image": "shopify://shop_images/join-behind-banner.png",
+            "title": "ROOF RACK BUYER'S GUIDE",
+            "subtitle": "Watch Now",
+            "link": ""
+          }
+        },
+        "guide_Jgxcti": {
+          "type": "guide",
+          "settings": {
+            "image": "shopify://shop_images/custom-banner-img.jpg",
+            "title": "RECOVERY GEAR 101",
+            "subtitle": "Watch Now",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "guide_cKM4BF",
+        "guide_66LBAG",
+        "guide_Jgxcti"
+      ],
+      "name": "Guides Block",
+      "settings": {
+        "main_video_thumbnail": "shopify://shop_images/4.png",
+        "main_video_link": "",
+        "main_video_title": "GEAR PUT TO WORK",
+        "main_video_sub": "WATCH ON YOUTUBE",
+        "overline": "BUY WITH CONFIDENCE",
+        "heading": "NOT SURE WHAT YOU NEED?",
+        "description": "<p>Check out my gear guides and walkthroughs to find the right setup for your adventures.</p>",
+        "button_label": "VIEW GEAR GUIDES",
+        "button_link": "",
+        "accent_color": "#ff6a1a"
+      }
+    },
+    "trust_badges_cTdDRX": {
+      "type": "trust-badges",
+      "blocks": {
+        "badge_bfzrxK": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "rewards",
+            "title": "TSTN CLUB REWARDS",
+            "description": "Earn points on every order. Unlock exclusive gear and perks.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        },
+        "badge_gy8myJ": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "financing",
+            "title": "0% APR FINANCING",
+            "description": "Flexible payments. More adventures. Pay over time with Shop Pay.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        },
+        "badge_4Twywc": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "tested",
+            "title": "TESTED & TRUSTED",
+            "description": "We run it, break it in, and only keep what works.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        },
+        "badge_UepHab": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "shipping",
+            "title": "FAST SHIPPING",
+            "description": "Ships quick from our warehouse. Free shipping on orders $99+.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        },
+        "badge_fjnRax": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "returns",
+            "title": "EASY RETURNS",
+            "description": "60-day returns on most items. No hassle. No stress.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "badge_bfzrxK",
+        "badge_gy8myJ",
+        "badge_4Twywc",
+        "badge_UepHab",
+        "badge_fjnRax"
+      ],
+      "name": "Trust Badges",
+      "settings": {
+        "accent_color": "#ff6a1a"
+      }
+    },
+    "community_grid_rt4UaW": {
+      "type": "community-grid",
+      "blocks": {
+        "photo_nNFXKW": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Frame_250.png",
+            "link": ""
+          }
+        },
+        "photo_pwfdRh": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/4.png",
+            "link": ""
+          }
+        },
+        "photo_qQEyUE": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/join_crew_mobile.png",
+            "link": ""
+          }
+        },
+        "photo_wxgXz8": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/unnamed.webp",
+            "link": ""
+          }
+        },
+        "photo_CdbFWc": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/1.webp",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "photo_nNFXKW",
+        "photo_pwfdRh",
+        "photo_qQEyUE",
+        "photo_wxgXz8",
+        "photo_CdbFWc"
+      ],
+      "name": "Community Grid",
+      "settings": {
+        "heading": "BUILT BY THE TSTN COMMUNITY",
+        "description": "Tag @tstn.official to be featured.",
+        "button_label": "VIEW ON INSTAGRAM",
+        "button_link": ""
+      }
+    },
+    "contact_cta_eMqn8p": {
+      "type": "contact-cta",
+      "name": "Contact CTA",
+      "settings": {
+        "background_image": "shopify://shop_images/3.png",
+        "heading": "NEED HELP CHOOSING THE RIGHT SETUP?",
+        "description": "I got you. Reach out and I'll point you in the right direction.",
+        "button_label": "CONTACT THE CREW",
+        "button_link": "",
+        "overlay_opacity": 65,
+        "height": 600
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "product-grid",
+    "hero_collection_cAz8QC",
+    "collection_filter_bar_qFxfda",
+    "curated_video_y49Hqq",
+    "featured_products_64ybC3",
+    "product_grid_XgkXBE",
+    "guides_block_M8N9Gw",
+    "trust_badges_cTdDRX",
+    "community_grid_rt4UaW",
+    "contact_cta_eMqn8p"
+  ]
+}
