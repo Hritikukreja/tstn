@@ -1,0 +1,436 @@
+<section class="tstn-guides" style="--tstn-accent: {{ section.settings.accent_color }};">
+  <div class="tstn-guides__inner">
+    <a
+      href="{{ section.settings.main_video_link | default: '#' }}"
+      class="tstn-guides__video"
+      aria-label="Play video"
+    >
+      {%- if section.settings.main_video_thumbnail != blank -%}
+        {{
+          section.settings.main_video_thumbnail
+          | image_url: width: 1200
+          | image_tag:
+            loading: 'lazy',
+            sizes: '(min-width: 900px) 33vw, 100vw',
+            widths: '600, 900, 1200',
+            class: 'tstn-guides__video-img'
+        }}
+      {%- else -%}
+        <div class="tstn-guides__video-placeholder"></div>
+      {%- endif -%}
+
+      <span class="tstn-guides__play" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+      </span>
+
+      <div class="tstn-guides__video-footer">
+        {%- if section.settings.main_video_title != blank -%}
+          <span class="tstn-guides__video-title">{{ section.settings.main_video_title }}</span>
+        {%- endif -%}
+        {%- if section.settings.main_video_sub != blank -%}
+          <span class="tstn-guides__video-sub">{{ section.settings.main_video_sub }}</span>
+        {%- endif -%}
+      </div>
+    </a>
+
+    <div class="tstn-guides__copy">
+      {%- if section.settings.overline != blank -%}
+        <p class="tstn-guides__overline">{{ section.settings.overline }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h2 class="tstn-guides__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      {%- if section.settings.description != blank -%}
+        <div class="tstn-guides__desc">{{ section.settings.description }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a href="{{ section.settings.button_link | default: '#' }}" class="tstn-guides__btn">
+          {{ section.settings.button_label }}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="tstn-guides__list">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'guide' -%}
+          <a
+            href="{{ block.settings.link | default: '#' }}"
+            class="tstn-guides__item"
+            {{ block.shopify_attributes }}
+          >
+            <div class="tstn-guides__item-thumb">
+              {%- if block.settings.image != blank -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 200
+                  | image_tag: loading: 'lazy', class: 'tstn-guides__item-img'
+                }}
+              {%- else -%}
+                <div class="tstn-guides__item-placeholder"></div>
+              {%- endif -%}
+            </div>
+
+            <div class="tstn-guides__item-text">
+              {%- if block.settings.title != blank -%}
+                <span class="tstn-guides__item-title">{{ block.settings.title }}</span>
+              {%- endif -%}
+              {%- if block.settings.subtitle != blank -%}
+                <span class="tstn-guides__item-sub">{{ block.settings.subtitle }}</span>
+              {%- endif -%}
+            </div>
+
+            <svg class="tstn-guides__item-arrow" width="8" height="12" viewBox="0 0 8 12" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M1 1L7 6L1 11"/>
+            </svg>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tstn-guides {
+    background: #0a0a0a;
+    color: #ffffff;
+    padding: clamp(40px, 5vw, 70px) 0;
+  }
+
+  .tstn-guides__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: clamp(20px, 3vw, 40px);
+    align-items: center;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 clamp(20px, 6vw, 80px);
+  }
+
+  /* Video */
+  .tstn-guides__video {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 10;
+    border-radius: 4px;
+    overflow: hidden;
+    background: #1a1a1a;
+  }
+
+  .tstn-guides__video-img,
+  .tstn-guides__video-placeholder {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .tstn-guides__video-placeholder {
+    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+  }
+
+  .tstn-guides__play {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1.5px solid rgba(255, 255, 255, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    transition: all 0.25s ease;
+  }
+
+  .tstn-guides__video:hover .tstn-guides__play {
+    background: rgba(255, 255, 255, 0.95);
+    color: #0a0a0a;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+
+  .tstn-guides__video-footer {
+    position: absolute;
+    bottom: 14px;
+    left: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+  }
+
+  .tstn-guides__video-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #ffffff;
+  }
+
+  .tstn-guides__video-sub {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  /* Copy */
+  .tstn-guides__copy {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .tstn-guides__overline {
+    font-family: 'Danger Neue Free Regular', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--tstn-accent, #ff6a1a);
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .tstn-guides__heading {
+    font-family: 'Danger Neue Free Regular', 'Helvetica Neue', Arial, sans-serif;
+    font-size: clamp(26px, 2.6vw, 36px);
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.05;
+    font-weight: 400;
+  }
+
+  .tstn-guides__desc {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    max-width: 360px;
+  }
+
+  .tstn-guides__desc p {
+    margin: 0;
+  }
+
+  .tstn-guides__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    padding: 12px 26px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    margin-top: 4px;
+  }
+
+  .tstn-guides__btn:hover {
+    background: #ffffff;
+    color: #0a0a0a;
+    border-color: #ffffff;
+  }
+
+  /* List */
+  .tstn-guides__list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .tstn-guides__item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px;
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    text-decoration: none;
+    color: #ffffff;
+    transition: all 0.2s ease;
+  }
+
+  .tstn-guides__item:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    background: #1a1a1a;
+  }
+
+  .tstn-guides__item-thumb {
+    width: 64px;
+    height: 48px;
+    flex-shrink: 0;
+    overflow: hidden;
+    background: #1a1a1a;
+    border-radius: 2px;
+  }
+
+  .tstn-guides__item-img,
+  .tstn-guides__item-placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .tstn-guides__item-placeholder {
+    background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+  }
+
+  .tstn-guides__item-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .tstn-guides__item-title {
+    font-family: 'Danger Neue Free Regular', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #ffffff;
+    font-weight: 400;
+    line-height: 1.2;
+  }
+
+  .tstn-guides__item-sub {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.5);
+    letter-spacing: 0.02em;
+  }
+
+  .tstn-guides__item-arrow {
+    flex-shrink: 0;
+    color: rgba(255, 255, 255, 0.4);
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .tstn-guides__item:hover .tstn-guides__item-arrow {
+    color: #ffffff;
+    transform: translateX(2px);
+  }
+
+  @media (max-width: 1024px) {
+    .tstn-guides__inner {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Guides Block",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Main video"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_video_thumbnail",
+      "label": "Video thumbnail"
+    },
+    {
+      "type": "url",
+      "id": "main_video_link",
+      "label": "Video link"
+    },
+    {
+      "type": "text",
+      "id": "main_video_title",
+      "label": "Video overlay title",
+      "default": "GEAR PUT TO WORK"
+    },
+    {
+      "type": "text",
+      "id": "main_video_sub",
+      "label": "Video overlay subtitle",
+      "default": "WATCH ON YOUTUBE"
+    },
+    {
+      "type": "header",
+      "content": "Main copy"
+    },
+    {
+      "type": "text",
+      "id": "overline",
+      "label": "Overline",
+      "default": "BUY WITH CONFIDENCE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "NOT SURE WHAT YOU NEED?"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Check out my gear guides and walkthroughs to find the right setup for your adventures.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "VIEW GEAR GUIDES"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#ff6a1a"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "guide",
+      "name": "Guide card",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Thumbnail" },
+        { "type": "text", "id": "title", "label": "Title", "default": "GUIDE TITLE" },
+        { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Watch Now" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Guides Block",
+      "blocks": [
+        { "type": "guide", "settings": { "title": "POWER SETUPS EXPLAINED", "subtitle": "Watch Now" } },
+        { "type": "guide", "settings": { "title": "ROOF RACK BUYER'S GUIDE", "subtitle": "Watch Now" } },
+        { "type": "guide", "settings": { "title": "RECOVERY GEAR 101", "subtitle": "Watch Now" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
