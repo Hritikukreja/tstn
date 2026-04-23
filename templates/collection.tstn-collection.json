@@ -230,6 +230,7 @@
       "blocks": {
         "product_znKNVP": {
           "type": "product",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/BLUETTI_Elite_30_V2_5.webp",
             "brand": "BLUETTI",
@@ -243,6 +244,7 @@
         "product_7nKzqr": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/1.avif",
             "brand": "KC",
             "title": "Hilites Lights",
             "price": "$109.00",
@@ -254,6 +256,7 @@
         "product_VBFeNz": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/6.avif",
             "brand": "Sherpa Equipment",
             "title": "Roof Rack",
             "price": "$299.00",
@@ -265,6 +268,7 @@
         "product_azGTKL": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/5.avif",
             "brand": "Taruca",
             "title": "Falcon 360 Awning",
             "price": "$199.00",
@@ -276,6 +280,7 @@
         "product_nNQfth": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/4.avif",
             "brand": "67 Designs",
             "title": "Mounts",
             "price": "$499.00",
@@ -287,6 +292,7 @@
         "product_YimfYH": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/3.avif",
             "brand": "Titan",
             "title": "Fuel Tanks",
             "price": "$54.00",
@@ -298,6 +304,7 @@
         "product_rEjbfp": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/2.avif",
             "brand": "MetalCloak",
             "title": "Rocksport Black Shocks",
             "price": "$199.00",
@@ -308,6 +315,7 @@
         },
         "product_FDqRpa": {
           "type": "product",
+          "disabled": true,
           "settings": {
             "brand": "FRONT RUNNER",
             "title": "WOLF PACK PRO",
@@ -331,6 +339,7 @@
         },
         "product_976Pma": {
           "type": "product",
+          "disabled": true,
           "settings": {
             "brand": "BLUETTI",
             "title": "AC200L POWER STATION",
