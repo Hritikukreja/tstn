@@ -541,18 +541,11 @@
         "padding_bottom": 68
       }
     },
-    "speed_FkkRkp": {
+    "speed_fnb3Wc": {
       "type": "speed",
-      "name": "Growave Tiers",
+      "name": "Growave Tires",
       "settings": {
         "feat_image": "shopify://shop_images/awnex_offroad.png"
-      }
-    },
-    "speedometer_redesign_RRnKkN": {
-      "type": "speedometer-redesign",
-      "name": "Growave Tiers",
-      "settings": {
-        "feat_image": "shopify://shop_images/4.png"
       }
     }
   },
@@ -568,7 +561,6 @@
     "product_marquee_h4KghV",
     "17769202960fc08a45",
     "custom_multicol_dPrTeX",
-    "speed_FkkRkp",
-    "speedometer_redesign_RRnKkN"
+    "speed_fnb3Wc"
   ]
 }
