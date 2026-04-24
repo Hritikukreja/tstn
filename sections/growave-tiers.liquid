@@ -47,19 +47,10 @@
             {% endif %}
           </div>
         </div>
-
-        <div class="tstn-hero-copy">
-          <p class="tstn-eyebrow">WELCOME TO</p>
-          <h1>TSTN CLUB</h1>
-          <p class="tstn-subtitle">Join the club. Earn points for every lighting or recovery upgrade and level up your journey with TSTN.</p>
-          <div class="tstn-actions"><a href="#tstn-how-it-works" class="tstn-btn tstn-btn-primary">HOW IT WORKS <span>›</span></a><a href="/collections/merch" class="tstn-btn tstn-btn-outline">SHOP MERCH</a></div>
-          <div class="tstn-feature-row"><div class="tstn-feature"><span>✪</span><strong>EARN POINTS</strong><small>For every upgrade</small></div><div class="tstn-feature"><span>◈</span><strong>LEVEL UP</strong><small>Unlock rewards</small></div><div class="tstn-feature"><span>⬡</span><strong>EXCLUSIVE</strong><small>Club benefits</small></div></div>
-        </div>
         <div class="main-content_new">
           <div class="bottom-bar">
             <div class="bottom-bar-inner">
               <div class="bottom-bar-content">
-                <div class="tstn-progress-title"><span>YOUR PROGRESS</span><strong id="tstnTierLabel">BASE CAMP</strong></div>
                 <div class="icons-row">
                   <div class="icon-box">
                     <img
@@ -102,8 +93,6 @@
               </div>
             </div>
           </div>
-          <div class="tstn-points-card"><p>YOUR TSTN POINTS</p><strong id="tstnVisualPoints">0</strong><small>Keep upgrading. Keep earning.</small></div>
-
 
           <div class="meter-info-wrapper">
             <div class="cluster-container">
@@ -200,16 +189,6 @@
             </div>
           </div>
         </div>
-      </div>
-    </div>
-
-    <div id="tstn-how-it-works" class="tstn-how-section">
-      <div class="tstn-how-head"><h2>HOW IT WORKS</h2><a href="/pages/tstn-club" class="tstn-benefits-link">VIEW ALL BENEFITS <span>›</span></a></div>
-      <div class="tstn-steps-grid">
-        <div class="tstn-step"><b>01</b><span class="tstn-step-icon">▢</span><div><strong>SHOP</strong><p>Buy eligible lighting or recovery products.</p></div></div>
-        <div class="tstn-step"><b>02</b><span class="tstn-step-icon">☆</span><div><strong>EARN</strong><p>Earn points for every qualified purchase.</p></div></div>
-        <div class="tstn-step"><b>03</b><span class="tstn-step-icon">♛</span><div><strong>LEVEL UP</strong><p>Climb ranks and unlock exclusive rewards.</p></div></div>
-        <div class="tstn-step"><b>04</b><span class="tstn-step-icon">□</span><div><strong>REDEEM</strong><p>Use your points for merch, discounts & more.</p></div></div>
       </div>
     </div>
 
@@ -561,9 +540,6 @@ function applyTierUI(tierKey) {
   const finalTier = getHigherTier(storedTier, tierKey);
   setStoredTier(finalTier);
   const config = TIER_CONFIG[finalTier];
-  const labelMap = { base: "BASE CAMP", scout: "SCOUT", lead: "LEAD" };
-  const tierLabelEl = document.querySelector("#tstnTierLabel");
-  if (tierLabelEl) tierLabelEl.textContent = labelMap[finalTier] || finalTier.toUpperCase();
   console.log({config})
   setNewTierImgSrc(config.img);
   if (bottomBar) {
@@ -641,8 +617,6 @@ function setValue(newValue) {
   if (valueText) {
     valueText.textContent = newValue;
     value = clamp(newValue, 0, TOTAL_POINTS);
-    const visualPointsEl = document.querySelector("#tstnVisualPoints");
-    if (visualPointsEl) visualPointsEl.textContent = value.toLocaleString();
     const tierApplied = updateFromVipText();
     if (!tierApplied) {
       applyPointsFallback();
@@ -695,81 +669,94 @@ setTimeout(() => {
 </div>
 
 <style>
-#shopify-section-{{ section.id }}{--gold:#c9932d;--text:#f4f1ea;--fontD:"Danger Neue Free Regular","Danger Neue",Impact,"Arial Narrow",sans-serif;--fontB:"ABC Diatype",Arial,sans-serif;background:#111}
-#shopify-section-{{ section.id }} .visibility_hidden,#shopify-section-{{ section.id }} .vip_tier_new_updated{position:absolute!important;left:-9999px!important;opacity:0!important}
-#shopify-section-{{ section.id }} .growave_tiers_wrapper{position:relative;min-height:860px;background:#050606;overflow:hidden;color:var(--text);font-family:var(--fontB)}
-#shopify-section-{{ section.id }} .gtw_image_wrapper{position:absolute;inset:0;z-index:0;overflow:hidden}#shopify-section-{{ section.id }} .gtw_image_wrapper img{width:100%;height:100%;object-fit:cover;opacity:.85;filter:contrast(1.08) saturate(.82) brightness(.62)}#shopify-section-{{ section.id }} .gtw_image_wrapper:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.9),rgba(0,0,0,.72) 34%,rgba(0,0,0,.45) 62%,rgba(0,0,0,.78)),linear-gradient(180deg,rgba(0,0,0,.74),rgba(0,0,0,.15) 44%,#0b0b0b 82%)}
-#shopify-section-{{ section.id }} .gtw_content_wrapper{position:relative;z-index:2;min-height:860px;max-width:1440px;margin:0 auto;padding:0 72px}#shopify-section-{{ section.id }} .dashboard-wrapper,#shopify-section-{{ section.id }} .screen-container{position:relative;min-height:640px}
-#shopify-section-{{ section.id }} .gtw_welcome_wrapper{position:absolute;top:28px;left:0;right:0;display:flex;align-items:center;justify-content:space-between;z-index:10}#shopify-section-{{ section.id }} .main_wrapper_new{display:flex;align-items:center;gap:10px}#shopify-section-{{ section.id }} .main_wrapper_new img{width:32px;height:auto;display:block}#shopify-section-{{ section.id }} .main_wrapper_new p,#shopify-section-{{ section.id }} .customer_name_email{display:none!important}
-#shopify-section-{{ section.id }} .tstn-hero-copy{position:absolute;top:170px;left:0;width:430px;z-index:5}#shopify-section-{{ section.id }} .tstn-eyebrow{margin:0 0 10px;color:var(--gold);font-family:var(--fontD);font-size:24px;line-height:1;letter-spacing:.03em}#shopify-section-{{ section.id }} .tstn-hero-copy h1{margin:0;color:#fff;font-family:var(--fontD);font-size:62px;line-height:.95;letter-spacing:.02em;text-transform:uppercase;text-shadow:0 2px 16px rgba(0,0,0,.55)}#shopify-section-{{ section.id }} .tstn-subtitle{margin:24px 0 28px;max-width:380px;color:rgba(255,255,255,.82);font-size:17px;line-height:1.45}
-#shopify-section-{{ section.id }} .tstn-actions{display:flex;gap:14px;margin-bottom:58px}#shopify-section-{{ section.id }} .tstn-btn{height:56px;padding:0 34px;display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-weight:800;font-size:13px;letter-spacing:.02em;border:1px solid rgba(255,255,255,.18);color:#fff;text-transform:uppercase}#shopify-section-{{ section.id }} .tstn-btn-primary{background:var(--gold);border-color:var(--gold);color:#0b0b0b}#shopify-section-{{ section.id }} .tstn-btn-outline{background:rgba(15,15,15,.55)}#shopify-section-{{ section.id }} .tstn-btn span{font-size:26px;line-height:0;transform:translateY(-1px)}
-#shopify-section-{{ section.id }} .tstn-feature-row{display:flex;gap:22px;align-items:center}#shopify-section-{{ section.id }} .tstn-feature{display:grid;grid-template-columns:38px auto;column-gap:12px;align-items:center;color:#fff;min-width:132px}#shopify-section-{{ section.id }} .tstn-feature span{grid-row:1/3;width:38px;height:38px;border:1px solid rgba(255,255,255,.5);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:17px}#shopify-section-{{ section.id }} .tstn-feature strong{font-family:var(--fontD);font-size:16px;line-height:1;color:var(--gold)}#shopify-section-{{ section.id }} .tstn-feature small{font-size:12px;color:rgba(255,255,255,.73);line-height:1.2}
-#shopify-section-{{ section.id }} .main-content_new{position:absolute;left:430px;right:0;top:160px;height:500px;z-index:4}#shopify-section-{{ section.id }} .gauges-wrapper{position:absolute;left:80px;right:40px;top:0;height:360px;opacity:.85;filter:drop-shadow(0 30px 35px rgba(0,0,0,.6))}#shopify-section-{{ section.id }} .gauge-center{position:absolute;left:50%;top:0;transform:translateX(-50%);width:360px;height:360px;z-index:3}#shopify-section-{{ section.id }} .gauge-left{position:absolute;left:80px;top:88px;width:230px;height:230px;z-index:2}#shopify-section-{{ section.id }} .gauge-right{position:absolute;right:38px;top:82px;width:248px;height:248px;z-index:2}
-#shopify-section-{{ section.id }} .clock-outer,#shopify-section-{{ section.id }} .clock-middle,#shopify-section-{{ section.id }} .clock-inner{width:100%;height:100%;border-radius:50%;background:radial-gradient(circle,#202020 0%,#111 56%,#0a0a0a 100%);border:2px solid rgba(255,255,255,.34);box-shadow:inset 0 0 30px rgba(255,255,255,.06),0 18px 40px rgba(0,0,0,.5)}#shopify-section-{{ section.id }} .clock-middle,#shopify-section-{{ section.id }} .clock-inner{border-color:rgba(255,255,255,.08);box-shadow:none}#shopify-section-{{ section.id }} .gauge-content{width:100%;height:100%;display:flex;align-items:center;justify-content:center}#shopify-section-{{ section.id }} .gauge-svg{width:92%;height:92%;overflow:visible}#shopify-section-{{ section.id }} .scout-img{width:72%;height:72%;object-fit:contain;filter:drop-shadow(0 0 13px rgba(201,147,45,.55))}#shopify-section-{{ section.id }} .custom_icons_wrapper{display:none}
-#shopify-section-{{ section.id }} .meter-info-wrapper{position:absolute;left:235px;right:130px;top:292px;z-index:4;opacity:.9}#shopify-section-{{ section.id }} .cluster-container{position:relative;width:100%;height:42px}#shopify-section-{{ section.id }} .cluster-img{width:100%;height:100%;object-fit:fill;opacity:.85}#shopify-section-{{ section.id }} .cluster-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:23px;color:#d8d4ca;font-size:10px;text-transform:uppercase}
-#shopify-section-{{ section.id }} .air-bag-box{font-size:7px;line-height:1;text-align:center;color:#bbb}#shopify-section-{{ section.id }} .battery-box{display:flex;align-items:center;gap:4px}#shopify-section-{{ section.id }} .flash-svg{width:8px;height:8px}#shopify-section-{{ section.id }} .battery-img{height:12px;width:auto}
-#shopify-section-{{ section.id }} .bottom-bar{position:absolute;right:18px;bottom:-6px;width:760px;min-height:168px;background:rgba(19,19,18,.92);border:1px solid rgba(255,255,255,.24);box-shadow:0 22px 55px rgba(0,0,0,.45);z-index:6}#shopify-section-{{ section.id }} .bottom-bar-inner{height:100%;padding:28px 250px 24px 32px}#shopify-section-{{ section.id }} .tstn-progress-title{margin-bottom:16px;text-transform:uppercase}#shopify-section-{{ section.id }} .tstn-progress-title span{display:block;color:rgba(255,255,255,.62);font-family:var(--fontD);font-size:13px;letter-spacing:.03em}#shopify-section-{{ section.id }} .tstn-progress-title strong{display:block;margin-top:7px;color:var(--gold);font-family:var(--fontD);font-size:24px;letter-spacing:.02em}
-#shopify-section-{{ section.id }} .icons-row{display:flex;justify-content:space-between;align-items:center;margin:0 12px 12px 210px}#shopify-section-{{ section.id }} .icon-box{width:54px;height:54px;display:flex;align-items:center;justify-content:center}#shopify-section-{{ section.id }} .icon-img{max-width:54px;max-height:54px;object-fit:contain}#shopify-section-{{ section.id }} .meter-container{position:relative;height:28px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);overflow:hidden;display:flex}#shopify-section-{{ section.id }} .meter-fill{position:absolute;left:0;top:0;bottom:0;background:var(--gold);z-index:1;transition:width .45s ease}#shopify-section-{{ section.id }} .meter-segment{position:relative;z-index:2;flex:1;border-right:1px solid rgba(255,255,255,.13)}#shopify-section-{{ section.id }} .bottom-bar-content:after{content:"BASE CAMP        SCOUT        LEAD";display:block;white-space:pre;color:var(--gold);font-family:var(--fontD);font-size:15px;margin-top:12px;word-spacing:105px}
-#shopify-section-{{ section.id }} .tstn-points-card{position:absolute;right:18px;bottom:-6px;width:242px;height:168px;z-index:7;border-left:1px solid rgba(255,255,255,.18);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:rgba(12,12,12,.1)}#shopify-section-{{ section.id }} .tstn-points-card p{margin:0 0 12px;color:rgba(255,255,255,.76);font-family:var(--fontD);font-size:15px}#shopify-section-{{ section.id }} .tstn-points-card strong{color:var(--gold);font-family:var(--fontD);font-size:42px;line-height:1;letter-spacing:.03em}#shopify-section-{{ section.id }} .tstn-points-card small{margin-top:12px;color:rgba(255,255,255,.66);font-size:13px;line-height:1.25;max-width:150px}
-#shopify-section-{{ section.id }} .tstn-how-section{position:relative;z-index:3;margin:0 -72px;padding:44px 72px 76px;background:linear-gradient(90deg,#141414,#101010);border-top:1px solid rgba(255,255,255,.04)}#shopify-section-{{ section.id }} .tstn-how-head{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.16);padding-bottom:22px;margin-bottom:26px}#shopify-section-{{ section.id }} .tstn-how-head h2{margin:0;color:#e8e4dc;font-family:var(--fontD);font-size:30px;letter-spacing:.03em}#shopify-section-{{ section.id }} .tstn-benefits-link{color:var(--gold);font-weight:800;text-decoration:none;font-size:14px}#shopify-section-{{ section.id }} .tstn-benefits-link span{font-size:26px;vertical-align:-3px}#shopify-section-{{ section.id }} .tstn-steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}#shopify-section-{{ section.id }} .tstn-step{display:grid;grid-template-columns:64px 54px 1fr;gap:18px;align-items:center;padding:24px 24px 18px 0;border-right:1px solid rgba(255,255,255,.09)}#shopify-section-{{ section.id }} .tstn-step:last-child{border-right:0}#shopify-section-{{ section.id }} .tstn-step b{color:rgba(255,255,255,.34);font-family:var(--fontD);font-size:42px;line-height:1}#shopify-section-{{ section.id }} .tstn-step-icon{color:rgba(255,255,255,.72);font-size:40px;line-height:1;text-align:center}#shopify-section-{{ section.id }} .tstn-step strong{display:block;color:#e9e6de;font-family:var(--fontD);font-size:17px;margin-bottom:8px}#shopify-section-{{ section.id }} .tstn-step p{margin:0;color:rgba(255,255,255,.63);font-size:13px;line-height:1.45}
-@media(max-width:989px){#shopify-section-{{ section.id }} .growave_tiers_wrapper{min-height:980px}#shopify-section-{{ section.id }} .gtw_content_wrapper{min-height:980px;padding:0 22px}#shopify-section-{{ section.id }} .dashboard-wrapper,#shopify-section-{{ section.id }} .screen-container{min-height:740px}#shopify-section-{{ section.id }} .gtw_welcome_wrapper{top:42px}#shopify-section-{{ section.id }} .main_wrapper_new img{width:28px}#shopify-section-{{ section.id }} .tstn-hero-copy{top:130px;left:0;width:100%}#shopify-section-{{ section.id }} .tstn-eyebrow{font-size:20px;margin-bottom:7px}#shopify-section-{{ section.id }} .tstn-hero-copy h1{font-size:48px}#shopify-section-{{ section.id }} .tstn-subtitle{font-size:16px;max-width:330px;margin:16px 0 22px}#shopify-section-{{ section.id }} .tstn-actions{gap:10px;margin-bottom:0}#shopify-section-{{ section.id }} .tstn-btn{height:48px;padding:0 21px;font-size:12px}#shopify-section-{{ section.id }} .tstn-feature-row{display:none}#shopify-section-{{ section.id }} .main-content_new{left:0;right:0;top:330px;height:400px}#shopify-section-{{ section.id }} .gauges-wrapper{left:-10px;right:-10px;top:0;height:190px}#shopify-section-{{ section.id }} .gauge-center{width:190px;height:190px}#shopify-section-{{ section.id }} .gauge-left{left:0;top:52px;width:122px;height:122px}#shopify-section-{{ section.id }} .gauge-right{right:0;top:50px;width:128px;height:128px}#shopify-section-{{ section.id }} .meter-info-wrapper{left:62px;right:58px;top:162px}#shopify-section-{{ section.id }} .cluster-container{height:23px}#shopify-section-{{ section.id }} .cluster-overlay{gap:10px;font-size:5px}#shopify-section-{{ section.id }} .bottom-bar{left:0;right:0;top:245px;bottom:auto;width:auto;min-height:124px;border-radius:6px}#shopify-section-{{ section.id }} .bottom-bar-inner{padding:18px 16px 16px}#shopify-section-{{ section.id }} .tstn-progress-title span{font-size:11px}#shopify-section-{{ section.id }} .tstn-progress-title strong{font-size:18px}#shopify-section-{{ section.id }} .icons-row{position:absolute;right:18px;top:17px;margin:0;width:132px}#shopify-section-{{ section.id }} .icon-box{width:34px;height:34px}#shopify-section-{{ section.id }} .icon-img{max-width:34px;max-height:34px}#shopify-section-{{ section.id }} .meter-container{height:22px;margin-top:15px}#shopify-section-{{ section.id }} .bottom-bar-content:after{font-size:11px;word-spacing:58px;margin-top:8px}#shopify-section-{{ section.id }} .tstn-points-card{left:0;right:0;top:378px;bottom:auto;width:auto;height:94px;border:1px solid rgba(255,255,255,.18);background:rgba(17,17,17,.92);border-radius:6px}#shopify-section-{{ section.id }} .tstn-points-card p{font-size:12px;margin-bottom:8px}#shopify-section-{{ section.id }} .tstn-points-card strong{font-size:34px}#shopify-section-{{ section.id }} .tstn-points-card small{font-size:11px;margin-top:7px;max-width:none}#shopify-section-{{ section.id }} .tstn-how-section{margin:0 -22px;padding:28px 22px 42px}#shopify-section-{{ section.id }} .tstn-how-head{padding-bottom:14px;margin-bottom:14px}#shopify-section-{{ section.id }} .tstn-how-head h2{font-size:23px}#shopify-section-{{ section.id }} .tstn-benefits-link{display:none}#shopify-section-{{ section.id }} .tstn-steps-grid{grid-template-columns:1fr;gap:2px}#shopify-section-{{ section.id }} .tstn-step{grid-template-columns:54px 42px 1fr;padding:18px 14px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.04);border-radius:6px}#shopify-section-{{ section.id }} .tstn-step b{font-size:34px}#shopify-section-{{ section.id }} .tstn-step-icon{font-size:28px}}
+  /* Reduce section height by 25% on desktop and mobile */
+  #shopify-section-{{ section.id }} .growave_tiers_wrapper,
+  #shopify-section-{{ section.id }} .gtw_image_wrapper {
+    height: 75vh !important;
+    min-height: 75vh !important;
+    max-height: 75vh !important;
+  }
+
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .growave_tiers_wrapper,
+    #shopify-section-{{ section.id }} .gtw_image_wrapper {
+      height: 75vh !important;
+      min-height: 75vh !important;
+      max-height: 75vh !important;
+    }
+  }
+
+  /* Ensure inner content scales properly */
+  #shopify-section-{{ section.id }} .gtw_content_wrapper,
+  #shopify-section-{{ section.id }} .dashboard-wrapper,
+  #shopify-section-{{ section.id }} .screen-container {
+    height: 100%;
+  }
+
+  /* Ensure the background image fills the new height */
+  #shopify-section-{{ section.id }} .gtw_image_wrapper img,
+  #shopify-section-{{ section.id }} .none_customer_signup {
+    height: 100% !important;
+  }
+
+  /* ============================================= */
+  /* WELCOME TO TSTN CLUB — sizing & visibility    */
+  /* ============================================= */
+
+  /* Desktop: Increase size of the welcome badge */
+  #shopify-section-{{ section.id }} .main_wrapper_new {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    padding: 14px 28px !important;
+  }
+
+  #shopify-section-{{ section.id }} .main_wrapper_new img {
+    width: 28px !important;
+    height: auto !important;
+  }
+
+  #shopify-section-{{ section.id }} .main_wrapper_new p {
+    font-family: "Danger Neue Free Regular", "Danger Neue", sans-serif !important;
+    font-size: 26px !important;
+    line-height: 1.2 !important;
+    letter-spacing: 1.5px !important;
+    margin: 0 !important;
+    font-weight: 400 !important;
+  }
+
+  /* Mobile: Make the welcome badge visible and properly sized */
+  @media (max-width: 767px) {
+    #shopify-section-{{ section.id }} .gtw_welcome_wrapper,
+    #shopify-section-{{ section.id }} .main_wrapper_new {
+      display: flex !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      padding: 10px 18px !important;
+    }
+
+    #shopify-section-{{ section.id }} .main_wrapper_new img {
+      width: 20px !important;
+      height: auto !important;
+    }
+
+    #shopify-section-{{ section.id }} .main_wrapper_new p {
+      font-family: "Danger Neue Free Regular", "Danger Neue", sans-serif !important;
+      font-size: 18px !important;
+      line-height: 1.2 !important;
+      letter-spacing: 1px !important;
+      margin: 0 !important;
+      font-weight: 400 !important;
+      display: inline-block !important;
+      visibility: visible !important;
+    }
+  }
 </style>
 
-<style>
-/* CRITICAL FIX: reset theme conflicts and force correct layout */
-#shopify-section-{{ section.id }},#shopify-section-{{ section.id }} *{box-sizing:border-box!important}
-#shopify-section-{{ section.id }} .growave_tiers_wrapper{position:relative!important;width:100%!important;min-height:900px!important;height:auto!important;max-height:none!important;overflow:hidden!important;background:#050505!important;color:#fff!important}
-#shopify-section-{{ section.id }} .gtw_image_wrapper,#shopify-section-{{ section.id }} .gtw_image_wrapper img{position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-height:100%!important;max-height:none!important;display:block!important}
-#shopify-section-{{ section.id }} .gtw_image_wrapper img{object-fit:cover!important;opacity:.85!important;filter:brightness(.48) contrast(1.08) saturate(.78)!important}
-#shopify-section-{{ section.id }} .gtw_image_wrapper:after{content:""!important;position:absolute!important;inset:0!important;z-index:1!important;background:radial-gradient(circle at 58% 32%,rgba(0,0,0,.08),rgba(0,0,0,.70) 54%,rgba(0,0,0,.95) 100%),linear-gradient(180deg,rgba(0,0,0,.80) 0%,rgba(0,0,0,.24) 38%,rgba(0,0,0,.96) 76%,#0d0d0d 100%)!important}
-#shopify-section-{{ section.id }} .gtw_content_wrapper,#shopify-section-{{ section.id }} .dashboard-wrapper,#shopify-section-{{ section.id }} .screen-container,#shopify-section-{{ section.id }} .main-content_new{background:transparent!important;border:0!important;box-shadow:none!important;max-width:none!important}
-#shopify-section-{{ section.id }} .gtw_content_wrapper{position:relative!important;z-index:2!important;width:100%!important;max-width:1440px!important;min-height:900px!important;margin:0 auto!important;padding:0 72px!important}
-#shopify-section-{{ section.id }} .dashboard-wrapper,#shopify-section-{{ section.id }} .screen-container{position:relative!important;min-height:690px!important;height:690px!important;padding:0!important;margin:0!important;overflow:visible!important}
-#shopify-section-{{ section.id }} .gtw_welcome_wrapper{position:absolute!important;top:28px!important;left:0!important;right:0!important;height:32px!important;z-index:20!important;display:flex!important;align-items:center!important;justify-content:space-between!important;background:transparent!important}
-#shopify-section-{{ section.id }} .main_wrapper_new{display:flex!important;align-items:center!important;gap:10px!important;padding:0!important;background:transparent!important}
-#shopify-section-{{ section.id }} .main_wrapper_new img{width:32px!important;height:auto!important}#shopify-section-{{ section.id }} .main_wrapper_new p,#shopify-section-{{ section.id }} .customer_name_email{display:none!important}
-#shopify-section-{{ section.id }} .tstn-hero-copy{position:absolute!important;top:172px!important;left:0!important;width:430px!important;z-index:8!important;background:transparent!important;padding:0!important;margin:0!important}
-#shopify-section-{{ section.id }} .main-content_new{position:absolute!important;top:154px!important;left:428px!important;right:0!important;height:510px!important;min-height:0!important;z-index:5!important;overflow:visible!important;transform:none!important;width:auto!important}
-#shopify-section-{{ section.id }} .gauges-wrapper{position:absolute!important;left:45px!important;right:0!important;top:0!important;height:360px!important;z-index:2!important;opacity:.85!important}
-#shopify-section-{{ section.id }} .gauge-center{width:360px!important;height:360px!important;left:48%!important;top:0!important}#shopify-section-{{ section.id }} .gauge-left{width:230px!important;height:230px!important;left:50px!important;top:92px!important}#shopify-section-{{ section.id }} .gauge-right{width:240px!important;height:240px!important;right:60px!important;top:92px!important}
-#shopify-section-{{ section.id }} .meter-info-wrapper{position:absolute!important;left:190px!important;right:178px!important;top:292px!important;z-index:3!important}
-#shopify-section-{{ section.id }} .bottom-bar{position:absolute!important;left:auto!important;right:26px!important;top:336px!important;bottom:auto!important;width:760px!important;min-height:168px!important;z-index:10!important;background:rgba(19,19,18,.94)!important;border:1px solid rgba(255,255,255,.25)!important}
-#shopify-section-{{ section.id }} .bottom-bar-inner{padding:28px 250px 24px 32px!important}
-#shopify-section-{{ section.id }} .tstn-points-card{position:absolute!important;right:26px!important;top:336px!important;bottom:auto!important;width:242px!important;height:168px!important;z-index:11!important;border-left:1px solid rgba(255,255,255,.18)!important}
-#shopify-section-{{ section.id }} .tstn-how-section{position:relative!important;z-index:3!important;margin:0 -72px!important;padding:44px 72px 76px!important;background:linear-gradient(90deg,#151515,#101010)!important}
-#shopify-section-{{ section.id }} .none_customer_signup{display:none!important}
-@media(max-width:989px){#shopify-section-{{ section.id }} .growave_tiers_wrapper{min-height:980px!important}#shopify-section-{{ section.id }} .gtw_content_wrapper{min-height:980px!important;padding:0 22px!important}#shopify-section-{{ section.id }} .dashboard-wrapper,#shopify-section-{{ section.id }} .screen-container{height:740px!important;min-height:740px!important}#shopify-section-{{ section.id }} .gtw_welcome_wrapper{top:42px!important}#shopify-section-{{ section.id }} .main_wrapper_new img{width:28px!important}#shopify-section-{{ section.id }} .tstn-hero-copy{top:130px!important;left:0!important;width:100%!important}#shopify-section-{{ section.id }} .main-content_new{left:0!important;right:0!important;top:330px!important;height:400px!important}#shopify-section-{{ section.id }} .gauges-wrapper{left:-10px!important;right:-10px!important;top:0!important;height:190px!important}#shopify-section-{{ section.id }} .gauge-center{width:190px!important;height:190px!important;left:50%!important}#shopify-section-{{ section.id }} .gauge-left{left:0!important;top:52px!important;width:122px!important;height:122px!important}#shopify-section-{{ section.id }} .gauge-right{right:0!important;top:50px!important;width:128px!important;height:128px!important}#shopify-section-{{ section.id }} .meter-info-wrapper{left:62px!important;right:58px!important;top:162px!important}#shopify-section-{{ section.id }} .bottom-bar{left:0!important;right:0!important;top:245px!important;width:auto!important;min-height:124px!important}#shopify-section-{{ section.id }} .bottom-bar-inner{padding:18px 16px 16px!important}#shopify-section-{{ section.id }} .tstn-points-card{left:0!important;right:0!important;top:378px!important;width:auto!important;height:94px!important;border:1px solid rgba(255,255,255,.18)!important}#shopify-section-{{ section.id }} .tstn-how-section{margin:0 -22px!important;padding:28px 22px 42px!important}}
-</style>
-
-<style>
-/* FINAL VISUAL + POINTS CSS FIX */
-#shopify-section-{{ section.id }} .growave_tiers_wrapper{min-height:900px!important;height:auto!important;background:#050505!important;overflow:hidden!important;}
-#shopify-section-{{ section.id }} .gtw_content_wrapper{max-width:1440px!important;min-height:900px!important;padding:0 72px!important;margin:0 auto!important;}
-#shopify-section-{{ section.id }} .dashboard-wrapper,#shopify-section-{{ section.id }} .screen-container{height:690px!important;min-height:690px!important;overflow:visible!important;position:relative!important;}
-#shopify-section-{{ section.id }} .tstn-hero-copy{top:165px!important;left:0!important;width:430px!important;z-index:9!important;}
-#shopify-section-{{ section.id }} .main-content_new{top:125px!important;left:430px!important;right:0!important;height:535px!important;overflow:visible!important;z-index:5!important;}
-#shopify-section-{{ section.id }} .gauges-wrapper{top:92px!important;left:36px!important;right:12px!important;height:350px!important;opacity:.85!important;z-index:3!important;transform:none!important;}
-#shopify-section-{{ section.id }} .gauge-center{width:350px!important;height:350px!important;left:48%!important;top:0!important;transform:translateX(-50%)!important;}
-#shopify-section-{{ section.id }} .gauge-left{width:220px!important;height:220px!important;left:62px!important;top:92px!important;}
-#shopify-section-{{ section.id }} .gauge-right{width:230px!important;height:230px!important;right:70px!important;top:90px!important;}
-#shopify-section-{{ section.id }} .meter-info-wrapper{top:385px!important;left:205px!important;right:175px!important;z-index:5!important;opacity:.78!important;}
-#shopify-section-{{ section.id }} .bottom-bar{top:405px!important;right:26px!important;width:760px!important;min-height:168px!important;z-index:8!important;border:1px solid rgba(255,255,255,.28)!important;background:rgba(18,18,17,.94)!important;}
-#shopify-section-{{ section.id }} .tstn-points-card{top:405px!important;right:26px!important;width:242px!important;height:168px!important;z-index:9!important;}
-#shopify-section-{{ section.id }} .tstn-how-section{margin:0 -72px!important;padding:44px 72px 76px!important;max-width:none!important;}
-#shopify-section-{{ section.id }} #tstnVisualPoints{min-width:90px!important;display:block!important;color:#c9932d!important;}
-#shopify-section-{{ section.id }} .gw-rd-customer-points-balance-inline-widget-placeholder{display:block!important;min-width:1px!important;min-height:1px!important;}
-@media(max-width:989px){#shopify-section-{{ section.id }} .growave_tiers_wrapper{min-height:1000px!important;}#shopify-section-{{ section.id }} .gtw_content_wrapper{min-height:1000px!important;padding:0 22px!important;}#shopify-section-{{ section.id }} .dashboard-wrapper,#shopify-section-{{ section.id }} .screen-container{height:760px!important;min-height:760px!important;}#shopify-section-{{ section.id }} .tstn-hero-copy{top:128px!important;left:0!important;width:100%!important;}#shopify-section-{{ section.id }} .main-content_new{top:318px!important;left:0!important;right:0!important;height:430px!important;}#shopify-section-{{ section.id }} .gauges-wrapper{top:0!important;left:-8px!important;right:-8px!important;height:205px!important;}#shopify-section-{{ section.id }} .gauge-center{width:205px!important;height:205px!important;left:50%!important;}#shopify-section-{{ section.id }} .gauge-left{width:130px!important;height:130px!important;left:0!important;top:58px!important;}#shopify-section-{{ section.id }} .gauge-right{width:136px!important;height:136px!important;right:0!important;top:56px!important;}#shopify-section-{{ section.id }} .meter-info-wrapper{top:172px!important;left:60px!important;right:60px!important;}#shopify-section-{{ section.id }} .bottom-bar{top:250px!important;left:0!important;right:0!important;width:auto!important;min-height:124px!important;}#shopify-section-{{ section.id }} .tstn-points-card{top:384px!important;left:0!important;right:0!important;width:auto!important;height:96px!important;}#shopify-section-{{ section.id }} .tstn-how-section{margin:0 -22px!important;padding:28px 22px 42px!important;}}
-</style>
-
-<script>
-(function(){
-  function extractPointsFromText(text){var m=String(text||'').replace(/,/g,'').match(/\d+/g);return m&&m.length?Math.max.apply(null,m.map(Number)):null;}
-  function findGrowavePoints(){var s=['.gw-rd-customer-points-balance-inline-widget-placeholder','.gw-rd-customer-points-balance','[class*="points-balance"]','[class*="gw-rd"]'];for(var i=0;i<s.length;i++){var e=document.querySelectorAll(s[i]);for(var j=0;j<e.length;j++){var n=extractPointsFromText(e[j].textContent||e[j].innerText);if(n!==null)return n;}}return null;}
-  function forceSetPoints(n){if(n===null||isNaN(n))return;if(typeof setValue==='function')setValue(Number(n));var v=document.querySelector('#tstnVisualPoints');if(v)v.textContent=Number(n).toLocaleString();var g=document.querySelector('#center_gauge_value');if(g)g.textContent=Number(n).toLocaleString();}
-  var tries=0,t=setInterval(function(){tries++;var n=findGrowavePoints();if(n!==null)forceSetPoints(n);if(tries>80||n!==null)clearInterval(t);},250);
-  document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){forceSetPoints(findGrowavePoints());},700);setTimeout(function(){forceSetPoints(findGrowavePoints());},1800);setTimeout(function(){forceSetPoints(findGrowavePoints());},3500);});
-})();
-</script>
 {% schema %}
 {
   "name": "Growave Tires",
