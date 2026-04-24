@@ -543,6 +543,7 @@
     },
     "speed_fnb3Wc": {
       "type": "speed",
+      "disabled": true,
       "name": "Growave Tires",
       "settings": {
         "feat_image": "shopify://shop_images/awnex_offroad.png"
