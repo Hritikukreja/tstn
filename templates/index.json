@@ -14,7 +14,7 @@
       "name": "Home video",
       "settings": {
         "video_file": "shopify://files/videos/hompage-banner-video.mp4",
-        "hero_height": 1000,
+        "hero_height": 1280,
         "first_heading": "TSTN Starts Here",
         "paragraph": "The stories, the gear, the crew, everything in one place.",
         "button_link": "#",
