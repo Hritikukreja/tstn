@@ -540,6 +540,11 @@
         "padding_top": 56,
         "padding_bottom": 68
       }
+    },
+    "speed_FkkRkp": {
+      "type": "speed",
+      "name": "Growave Tiers",
+      "settings": {}
     }
   },
   "order": [
@@ -553,6 +558,7 @@
     "product_marquee_jKL8Dp",
     "product_marquee_h4KghV",
     "17769202960fc08a45",
-    "custom_multicol_dPrTeX"
+    "custom_multicol_dPrTeX",
+    "speed_FkkRkp"
   ]
 }
