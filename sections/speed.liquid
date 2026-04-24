@@ -770,6 +770,31 @@ setTimeout(() => {
   document.addEventListener('DOMContentLoaded',function(){setTimeout(function(){forceSetPoints(findGrowavePoints());},700);setTimeout(function(){forceSetPoints(findGrowavePoints());},1800);setTimeout(function(){forceSetPoints(findGrowavePoints());},3500);});
 })();
 </script>
+<style>
+/* V3 alignment fix */
+#shopify-section-{{ section.id }} .growave_tiers_wrapper{min-height:940px!important;height:auto!important;}
+#shopify-section-{{ section.id }} .gtw_content_wrapper{min-height:940px!important;max-width:1440px!important;padding-left:72px!important;padding-right:72px!important;}
+#shopify-section-{{ section.id }} .dashboard-wrapper,#shopify-section-{{ section.id }} .screen-container{display:block!important;position:relative!important;height:700px!important;min-height:700px!important;overflow:visible!important;}
+#shopify-section-{{ section.id }} .tstn-hero-copy{top:165px!important;left:0!important;width:420px!important;}
+#shopify-section-{{ section.id }} .tstn-hero-copy h1{font-size:58px!important;}
+#shopify-section-{{ section.id }} .tstn-subtitle{font-size:16px!important;max-width:360px!important;margin-top:22px!important;}
+#shopify-section-{{ section.id }} .main-content_new{top:170px!important;left:420px!important;right:0!important;height:510px!important;overflow:visible!important;}
+#shopify-section-{{ section.id }} .gauges-wrapper{top:0!important;left:50px!important;right:10px!important;height:315px!important;opacity:.88!important;z-index:4!important;}
+#shopify-section-{{ section.id }} .gauge-center{width:318px!important;height:318px!important;left:50%!important;top:0!important;}
+#shopify-section-{{ section.id }} .gauge-left{width:205px!important;height:205px!important;left:84px!important;top:72px!important;}
+#shopify-section-{{ section.id }} .gauge-right{width:214px!important;height:214px!important;right:92px!important;top:70px!important;}
+#shopify-section-{{ section.id }} .meter-info-wrapper{top:276px!important;left:220px!important;right:200px!important;z-index:5!important;}
+#shopify-section-{{ section.id }} .bottom-bar{top:318px!important;right:44px!important;width:690px!important;min-height:150px!important;height:150px!important;z-index:7!important;border:1px solid rgba(255,255,255,.23)!important;background:rgba(18,18,17,.92)!important;}
+#shopify-section-{{ section.id }} .bottom-bar-inner{padding:24px 225px 20px 30px!important;}
+#shopify-section-{{ section.id }} .tstn-points-card{top:318px!important;right:44px!important;width:218px!important;height:150px!important;z-index:8!important;background:rgba(14,14,14,.2)!important;}
+#shopify-section-{{ section.id }} .tstn-points-card strong{font-size:38px!important;}
+#shopify-section-{{ section.id }} .icons-row{margin:8px 0 12px!important;}
+#shopify-section-{{ section.id }} .meter-container{height:26px!important;}
+#shopify-section-{{ section.id }} .bottom-bar-content:after{font-size:12px!important;word-spacing:154px!important;margin-top:10px!important;}
+#shopify-section-{{ section.id }} .tstn-how-section{position:relative!important;z-index:20!important;margin:0 -72px!important;padding:44px 72px 76px!important;clear:both!important;}
+@media (min-width:1500px){#shopify-section-{{ section.id }} .gtw_content_wrapper{max-width:1320px!important;}#shopify-section-{{ section.id }} .main-content_new{left:405px!important;}#shopify-section-{{ section.id }} .bottom-bar{right:20px!important;}#shopify-section-{{ section.id }} .tstn-points-card{right:20px!important;}}
+@media(max-width:989px){#shopify-section-{{ section.id }} .growave_tiers_wrapper{min-height:1040px!important;}#shopify-section-{{ section.id }} .gtw_content_wrapper{min-height:1040px!important;padding:0 22px!important;}#shopify-section-{{ section.id }} .dashboard-wrapper,#shopify-section-{{ section.id }} .screen-container{height:790px!important;min-height:790px!important;}#shopify-section-{{ section.id }} .tstn-hero-copy{top:120px!important;width:100%!important;}#shopify-section-{{ section.id }} .tstn-hero-copy h1{font-size:48px!important;}#shopify-section-{{ section.id }} .main-content_new{top:330px!important;left:0!important;right:0!important;height:440px!important;}#shopify-section-{{ section.id }} .gauges-wrapper{top:0!important;left:-4px!important;right:-4px!important;height:205px!important;}#shopify-section-{{ section.id }} .gauge-center{width:198px!important;height:198px!important;left:50%!important;}#shopify-section-{{ section.id }} .gauge-left{width:128px!important;height:128px!important;left:0!important;top:54px!important;}#shopify-section-{{ section.id }} .gauge-right{width:132px!important;height:132px!important;right:0!important;top:54px!important;}#shopify-section-{{ section.id }} .meter-info-wrapper{top:168px!important;left:58px!important;right:58px!important;}#shopify-section-{{ section.id }} .bottom-bar{top:238px!important;left:0!important;right:0!important;width:auto!important;height:124px!important;min-height:124px!important;}#shopify-section-{{ section.id }} .bottom-bar-inner{padding:18px 16px 16px!important;}#shopify-section-{{ section.id }} .tstn-points-card{top:374px!important;left:0!important;right:0!important;width:auto!important;height:96px!important;}#shopify-section-{{ section.id }} .tstn-how-section{margin:0 -22px!important;padding:28px 22px 42px!important;}}
+</style>
 {% schema %}
 {
   "name": "Growave Tires",
