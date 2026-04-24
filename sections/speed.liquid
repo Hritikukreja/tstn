@@ -16,7 +16,7 @@
 <div class="growave_tiers_wrapper tstn-club-section {% unless customer %} non_customer_class {% endunless %}">
   <div class="gtw_image_wrapper tstn-club-bg">
     {% if section.settings.feat_image != blank %}
-      <img src="{{ section.settings.feat_image | img_url:'master' }}" alt="TSTN Club background">
+      <img src="{{ section.settings.feat_image | image_url: width: 2400 }}" width="2400" height="720" alt="TSTN Club background">
     {% endif %}
   </div>
 
@@ -61,7 +61,7 @@
         <div class="tstn-dashboard-panel">
           <div class="gtw_welcome_wrapper">
             <div class="main_wrapper_new">
-              <img src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/image_1_1_76d32aab-2b4e-4c68-a411-5a2a219321bf.png?v=1770384836" alt="TSTN mark">
+              <img src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/image_1_1_76d32aab-2b4e-4c68-a411-5a2a219321bf.png?v=1770384836" width="28" height="28" alt="TSTN mark">
               <p>WELCOME TO TSTN CLUB</p>
             </div>
             <div class="customer_name_email">
@@ -111,6 +111,8 @@
                         <img
                           id="tier_diagram"
                           src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_1_a6b1bf9c-5113-4864-b2aa-53fb77a68341.png?v=1770810715"
+                          width="112"
+                          height="112"
                           class="scout-img"
                           alt="Current tier badge"
                         >
@@ -125,6 +127,8 @@
               <div class="cluster-container">
                 <img
                   src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Frame_200_2_3d5c4b39-500f-4fc5-8413-13e8b9961403.png?v=1770378141"
+                  width="610"
+                  height="96"
                   alt="Vehicle cluster"
                   class="cluster-img"
                 >
@@ -137,7 +141,7 @@
                   <div class="air-bag-box"><span class="air-bag-text">Air</span><span class="air-bag-text">Bag</span></div>
                   <div class="battery-box">
                     <svg class="flash-svg" viewBox="0 0 512 512" fill="white"><path d="M315.27 33L96 304h128l-31.51 173.23a2.36 2.36 0 002.33 2.77h0a2.36 2.36 0 001.89-.95L416 208H288l31.66-173.25a2.45 2.45 0 00-2.44-2.75h0a2.42 2.42 0 00-1.95 1z"></path></svg>
-                    <div class="battery-inner"><img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726226_1.png?v=1770370899" alt="battery" class="battery-img"></div>
+                    <div class="battery-inner"><img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726226_1.png?v=1770370899" width="28" height="12" alt="battery" class="battery-img"></div>
                   </div>
                 </div>
               </div>
@@ -151,9 +155,9 @@
                     <strong>BASE CAMP</strong>
                   </div>
                   <div class="icons-row">
-                    <div class="icon-box"><img src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Frame_259.png?v=1770378961" alt="base camp" class="icon-img"></div>
-                    <div class="icon-box"><img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726226.png?v=1770370711" alt="scout" class="icon-img"></div>
-                    <div class="icon-box"><img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726227.png?v=1770370813" alt="lead" class="icon-img"></div>
+                    <div class="icon-box"><img src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Frame_259.png?v=1770378961" width="42" height="42" alt="base camp" class="icon-img"></div>
+                    <div class="icon-box"><img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726226.png?v=1770370711" width="42" height="42" alt="scout" class="icon-img"></div>
+                    <div class="icon-box"><img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726227.png?v=1770370813" width="42" height="42" alt="lead" class="icon-img"></div>
                   </div>
                   <div class="meter-row">
                     <div class="meter-container">
@@ -193,12 +197,12 @@
     <div class="none_customer_signup">
       <div class="non_custopmer_class">
         <div class="non_contact_main">
-          <img src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/image_1_1_76d32aab-2b4e-4c68-a411-5a2a219321bf.png?v=1770384836" alt="TSTN mark">
+          <img src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/image_1_1_76d32aab-2b4e-4c68-a411-5a2a219321bf.png?v=1770384836" width="28" height="28" alt="TSTN mark">
           <p>TSTN CLUB</p>
         </div>
         <h2>JOIN THE TRIBE</h2>
         <p class="margin_class_top">Earn Points. Get Featured. Unlock the Inner Circle.</p>
-        <a class="new_main_createaccount" href="/account/register">Create Account</a>
+        <a class="new_main_createaccount" href="{{ routes.account_register_url }}">Create Account</a>
       </div>
     </div>
   {% endunless %}
