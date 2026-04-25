@@ -1,0 +1,1301 @@
+{% if customer %}
+  {% assign vip_tier = customer.metafields["app--144550"]["growave_vip_tier"] %}
+  {% if vip_tier != blank %}
+    <div class="vip_tier_new_updated" style="display:none;">{{ vip_tier }}</div>
+  {% endif %}
+{% endif %}
+
+<div class="visibility_hidden">
+  <span
+    class="gw-rd-customer-points-balance-inline-widget-placeholder"
+    data-gw-enable-points-name="true"
+    style="display: block"
+  ></span>
+</div>
+
+<div class="tstn-section {% unless customer %}tstn-section--guest{% endunless %}">
+
+  <!-- ═══════════════════════════════════════════ HERO ═══════ -->
+  <div class="tstn-hero">
+    {% if section.settings.feat_image != blank %}
+      <div class="tstn-hero__bg">
+        <img src="{{ section.settings.feat_image | img_url:'master' }}" alt="">
+      </div>
+    {% endif %}
+    <div class="tstn-hero__overlay"></div>
+
+    <div class="tstn-hero__inner">
+      <!-- Left: copy -->
+      <div class="tstn-hero__copy">
+        <div class="tstn-hero__logo-row">
+          <img src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/image_1_1_76d32aab-2b4e-4c68-a411-5a2a219321bf.png?v=1770384836" alt="TSTN" class="tstn-hero__logo-icon">
+          <span class="tstn-hero__welcome">WELCOME TO</span>
+        </div>
+        <h1 class="tstn-hero__heading">TSTN CLUB</h1>
+        <p class="tstn-hero__desc">Join the club. Earn points for every lighting or recovery upgrade and level up your journey with TSTN.</p>
+        <div class="tstn-hero__ctas">
+          <a href="#how-it-works" class="tstn-btn tstn-btn--gold">HOW IT WORKS <span class="tstn-btn__arrow">›</span></a>
+          <a href="/collections/merch" class="tstn-btn tstn-btn--outline">SHOP MERCH</a>
+        </div>
+        <!-- Feature badges -->
+        <div class="tstn-badges">
+          <div class="tstn-badge tstn-badge--active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+            <div>
+              <span class="tstn-badge__title tstn-badge__title--gold">EARN POINTS</span>
+              <span class="tstn-badge__sub">For every upgrade</span>
+            </div>
+          </div>
+          <div class="tstn-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <div>
+              <span class="tstn-badge__title">LEVEL UP</span>
+              <span class="tstn-badge__sub">Unlock rewards</span>
+            </div>
+          </div>
+          <div class="tstn-badge">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+            <div>
+              <span class="tstn-badge__title tstn-badge__title--gold">EXCLUSIVE</span>
+              <span class="tstn-badge__sub">Club benefits</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: dashboard -->
+      <div class="tstn-hero__dashboard">
+        <div class="dashboard-wrapper">
+          <div class="screen-container">
+            <div class="main-content_new">
+              <div class="bottom-bar">
+                <div class="bottom-bar-inner">
+                  <div class="bottom-bar-content">
+                    <div class="icons-row">
+                      <div class="icon-box">
+                        <img src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Frame_259.png?v=1770378961" alt="base" class="icon-img">
+                      </div>
+                      <div class="icon-box">
+                        <img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726226.png?v=1770370711" alt="scout" class="icon-img">
+                      </div>
+                      <div class="icon-box">
+                        <img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726227.png?v=1770370813" alt="lead" class="icon-img">
+                      </div>
+                    </div>
+                    <div class="meter-row">
+                      <div class="meter-container">
+                        <div id="meterFill" class="meter-fill" style="width:0%"></div>
+                        <div class="meter-segment"></div><div class="meter-segment"></div>
+                        <div class="meter-segment"></div><div class="meter-segment"></div>
+                        <div class="meter-segment"></div><div class="meter-segment"></div>
+                        <div class="meter-segment"></div><div class="meter-segment"></div>
+                        <div class="meter-segment"></div><div class="meter-segment"></div>
+                        <div class="meter-segment"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="meter-info-wrapper">
+                <div class="cluster-container">
+                  <img src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Frame_200_2_3d5c4b39-500f-4fc5-8413-13e8b9961403.png?v=1770378141" alt="" class="cluster-img">
+                  <div class="cluster-overlay">
+                    <span id="modeText">Comfort</span>
+                    <span id="gearText">P</span>
+                    <span id="tempText">28° C</span>
+                    <span id="timeText">00:00</span>
+                    <span id="engineText">22c</span>
+                    <div class="air-bag-box">
+                      <span class="air-bag-text">Air</span>
+                      <span class="air-bag-text">Bag</span>
+                    </div>
+                    <div class="battery-box">
+                      <svg class="flash-svg" viewBox="0 0 512 512" fill="white">
+                        <path d="M315.27 33L96 304h128l-31.51 173.23a2.36 2.36 0 002.33 2.77h0a2.36 2.36 0 001.89-.95L416 208H288l31.66-173.25a2.45 2.45 0 00-2.44-2.75h0a2.42 2.42 0 00-1.95 1z"/>
+                      </svg>
+                      <div class="battery-inner">
+                        <img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726226_1.png?v=1770370899" alt="" class="battery-img">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="gauges-wrapper">
+                <div class="gauge-left">
+                  <div class="clock-outer clock-outer-small">
+                    <div class="clock-middle">
+                      <div class="clock-inner">
+                        <div class="gauge-content gauge-rotated">
+                          <svg id="leftGauge" viewBox="0 0 200 200" class="gauge-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="gauge-center">
+                  <div class="left_icons_wrapper custom_icons_wrapper">
+                    {{- 'left-icon.svg' | inline_asset_content -}}
+                  </div>
+                  <div class="right_icons_wrapper custom_icons_wrapper">
+                    {{- 'right-icon.svg' | inline_asset_content -}}
+                  </div>
+                  <div class="clock-outer">
+                    <div class="clock-middle">
+                      <div class="clock-inner">
+                        <div class="gauge-content">
+                          <svg id="centerGauge" viewBox="0 0 200 200" class="gauge-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="gauge-right">
+                  <div class="clock-outer clock-outer-small">
+                    <div class="clock-middle">
+                      <div class="clock-inner">
+                        <div class="gauge-content">
+                          <img id="tier_diagram"
+                            src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_1_a6b1bf9c-5113-4864-b2aa-53fb77a68341.png?v=1770810715"
+                            class="scout-img" alt="tier">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><!-- /inner -->
+  </div><!-- /hero -->
+
+  <!-- ═══════════════════════════ PROGRESS + POINTS CARDS ═══ -->
+  {% if customer %}
+  <div class="tstn-cards">
+    <div class="tstn-card tstn-card--progress">
+      <div class="tstn-card__label">YOUR PROGRESS</div>
+      <div class="tstn-card__tier-row">
+        <div class="tstn-card__tier-name" id="display_tier_name">BASE CAMP</div>
+        <div class="tstn-card__tier-icons">
+          <div class="tstn-tier-icon tstn-tier-icon--scout">
+            <img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726226.png?v=1770370711" alt="Scout">
+            <span>SCOUT</span>
+          </div>
+          <div class="tstn-tier-icon tstn-tier-icon--lead">
+            <img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726227.png?v=1770370813" alt="Lead">
+            <span>LEAD</span>
+          </div>
+        </div>
+      </div>
+      <div class="tstn-progress-bar">
+        <div class="tstn-progress-bar__fill" id="cardProgressFill" style="width:0%"></div>
+        <div class="tstn-progress-bar__seg"></div>
+        <div class="tstn-progress-bar__seg"></div>
+        <div class="tstn-progress-bar__seg"></div>
+      </div>
+      <div class="tstn-progress-labels">
+        <span>BASE CAMP</span>
+        <span>SCOUT</span>
+        <span>LEAD</span>
+      </div>
+    </div>
+
+    <div class="tstn-card tstn-card--points">
+      <div class="tstn-card__label">YOUR TSTN POINTS</div>
+      <div class="tstn-card__points" id="display_points">0</div>
+      <div class="tstn-card__tagline">Keep upgrading. Keep earning.</div>
+    </div>
+  </div>
+  {% endif %}
+
+  <!-- ════════════════════════════════════ HOW IT WORKS ═══════ -->
+  <div class="tstn-how" id="how-it-works">
+    <div class="tstn-how__header">
+      <h2 class="tstn-how__heading">HOW IT WORKS</h2>
+      <a href="/pages/tstn-club" class="tstn-how__link">VIEW ALL BENEFITS <span>›</span></a>
+    </div>
+    <div class="tstn-how__steps">
+      <div class="tstn-step">
+        <span class="tstn-step__num">01</span>
+        <svg class="tstn-step__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <div>
+          <strong>SHOP</strong>
+          <p>Buy eligible lighting or recovery products.</p>
+        </div>
+      </div>
+      <div class="tstn-step">
+        <span class="tstn-step__num">02</span>
+        <svg class="tstn-step__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <div>
+          <strong>EARN</strong>
+          <p>Earn points for every qualified purchase.</p>
+        </div>
+      </div>
+      <div class="tstn-step">
+        <span class="tstn-step__num">03</span>
+        <svg class="tstn-step__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+        <div>
+          <strong>LEVEL UP</strong>
+          <p>Climb ranks and unlock exclusive rewards.</p>
+        </div>
+      </div>
+      <div class="tstn-step">
+        <span class="tstn-step__num">04</span>
+        <svg class="tstn-step__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>
+        <div>
+          <strong>REDEEM</strong>
+          <p>Use your points for merch, discounts & more.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Guest signup -->
+  {% unless customer %}
+  <div class="tstn-guest">
+    <div class="tstn-guest__inner">
+      <img src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/image_1_1_76d32aab-2b4e-4c68-a411-5a2a219321bf.png?v=1770384836" alt="TSTN">
+      <p class="tstn-guest__label">TSTN CLUB</p>
+      <h2 class="tstn-guest__heading">JOIN THE TRIBE</h2>
+      <p class="tstn-guest__desc">Earn Points. Get Featured. Unlock the Inner Circle.</p>
+      <a href="/account/register" class="tstn-btn tstn-btn--gold">Create Account</a>
+    </div>
+  </div>
+  {% endunless %}
+
+</div><!-- /tstn-section -->
+
+<div id="points-output"></div>
+
+<!-- ═══════════════════════════════════════════════════════════ STYLES ═══ -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+
+  /* ── Tokens ── */
+  #shopify-section-{{ section.id }} {
+    --gold:    #c8922a;
+    --gold-lt: #e8a93a;
+    --gold-dk: #9a6e1a;
+    --bg:      #0e0e0e;
+    --bg2:     #161616;
+    --bg3:     #1e1d1b;
+    --border:  rgba(200,146,42,0.18);
+    --text:    #e8e4dc;
+    --muted:   #888070;
+    --orange:  #ec5607;
+    --ff-head: "Danger Neue Free Regular", "Danger Neue", Rajdhani, sans-serif;
+    --ff-body: Rajdhani, "ABC Diatype", sans-serif;
+    --radius:  4px;
+  }
+
+  /* ── Reset within section ── */
+  #shopify-section-{{ section.id }} *,
+  #shopify-section-{{ section.id }} *::before,
+  #shopify-section-{{ section.id }} *::after {
+    box-sizing: border-box;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-section {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--ff-body);
+    overflow: hidden;
+  }
+
+  /* ══════════════════════════════════════════════════════ HERO ══ */
+  #shopify-section-{{ section.id }} .tstn-hero {
+    position: relative;
+    min-height: 75vh;
+    display: flex;
+    align-items: stretch;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  #shopify-section-{{ section.id }} .tstn-hero__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.55;
+    filter: brightness(0.6) saturate(0.7);
+  }
+
+  #shopify-section-{{ section.id }} .tstn-hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+      100deg,
+      rgba(10,9,7,0.92) 0%,
+      rgba(10,9,7,0.65) 45%,
+      rgba(10,9,7,0.15) 100%
+    );
+  }
+
+  #shopify-section-{{ section.id }} .tstn-hero__inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 48px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    align-items: center;
+    gap: 40px;
+  }
+
+  /* ── Copy side ── */
+  #shopify-section-{{ section.id }} .tstn-hero__logo-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  #shopify-section-{{ section.id }} .tstn-hero__logo-icon {
+    width: 22px;
+    height: auto;
+  }
+  #shopify-section-{{ section.id }} .tstn-hero__welcome {
+    font-family: var(--ff-head);
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-hero__heading {
+    font-family: var(--ff-head);
+    font-size: clamp(52px, 6vw, 88px);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: 2px;
+    color: #fff;
+    margin: 0 0 20px;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-hero__desc {
+    font-size: 15px;
+    line-height: 1.65;
+    color: rgba(232,228,220,0.75);
+    max-width: 340px;
+    margin: 0 0 28px;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-hero__ctas {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+
+  /* ── Buttons ── */
+  #shopify-section-{{ section.id }} .tstn-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 24px;
+    font-family: var(--ff-body);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: var(--radius);
+  }
+  #shopify-section-{{ section.id }} .tstn-btn--gold {
+    background: var(--gold);
+    color: #111;
+    border: 2px solid var(--gold);
+  }
+  #shopify-section-{{ section.id }} .tstn-btn--gold:hover {
+    background: var(--gold-lt);
+    border-color: var(--gold-lt);
+  }
+  #shopify-section-{{ section.id }} .tstn-btn--outline {
+    background: transparent;
+    color: var(--text);
+    border: 2px solid rgba(232,228,220,0.4);
+  }
+  #shopify-section-{{ section.id }} .tstn-btn--outline:hover {
+    border-color: var(--text);
+  }
+  #shopify-section-{{ section.id }} .tstn-btn__arrow {
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  /* ── Badges ── */
+  #shopify-section-{{ section.id }} .tstn-badges {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  #shopify-section-{{ section.id }} .tstn-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  #shopify-section-{{ section.id }} .tstn-badge svg {
+    width: 20px;
+    height: 20px;
+    color: var(--muted);
+    flex-shrink: 0;
+  }
+  #shopify-section-{{ section.id }} .tstn-badge__title {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--text);
+  }
+  #shopify-section-{{ section.id }} .tstn-badge__title--gold {
+    color: var(--gold);
+  }
+  #shopify-section-{{ section.id }} .tstn-badge__sub {
+    display: block;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  /* ══════════════════════════════════════════ DASHBOARD SIDE ══ */
+  #shopify-section-{{ section.id }} .tstn-hero__dashboard {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── Keep original dashboard structure intact, re-skin ── */
+  #shopify-section-{{ section.id }} .dashboard-wrapper {
+    width: 100%;
+    max-width: 560px;
+  }
+  #shopify-section-{{ section.id }} .screen-container {
+    position: relative;
+  }
+  #shopify-section-{{ section.id }} .main-content_new {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* Progress bar strip */
+  #shopify-section-{{ section.id }} .bottom-bar {
+    margin-bottom: 8px;
+  }
+  #shopify-section-{{ section.id }} .bottom-bar-inner {
+    background: rgba(0,0,0,0.45);
+    border: 1px solid var(--border);
+    border-radius: 6px 6px 0 0;
+    padding: 10px 14px 8px;
+  }
+  #shopify-section-{{ section.id }} .bottom-bar-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  #shopify-section-{{ section.id }} .icons-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 4px;
+  }
+  #shopify-section-{{ section.id }} .icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #shopify-section-{{ section.id }} .icon-img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    filter: brightness(0.9);
+  }
+  #shopify-section-{{ section.id }} .meter-row {
+    padding: 0 2px;
+  }
+  #shopify-section-{{ section.id }} .meter-container {
+    position: relative;
+    height: 8px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+  }
+  #shopify-section-{{ section.id }} .meter-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, var(--gold-dk), var(--gold), var(--gold-lt));
+    border-radius: 4px;
+    transition: width 1.2s cubic-bezier(0.4,0,0.2,1);
+    z-index: 1;
+    box-shadow: 0 0 12px rgba(200,146,42,0.6);
+  }
+  #shopify-section-{{ section.id }} .meter-segment {
+    flex: 1;
+    border-right: 1px solid rgba(0,0,0,0.35);
+    z-index: 2;
+    position: relative;
+  }
+  #shopify-section-{{ section.id }} .meter-segment:last-child {
+    border-right: none;
+  }
+
+  /* Cluster info bar */
+  #shopify-section-{{ section.id }} .meter-info-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+  #shopify-section-{{ section.id }} .cluster-container {
+    position: relative;
+    width: 100%;
+  }
+  #shopify-section-{{ section.id }} .cluster-img {
+    width: 100%;
+    display: block;
+    opacity: 0.85;
+  }
+  #shopify-section-{{ section.id }} .cluster-overlay {
+    position: absolute;
+    bottom: 12%;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.7);
+    font-family: var(--ff-body);
+  }
+  #shopify-section-{{ section.id }} .air-bag-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.1;
+    font-size: 8px;
+    opacity: 0.6;
+  }
+  #shopify-section-{{ section.id }} .battery-box {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+  #shopify-section-{{ section.id }} .flash-svg {
+    width: 10px;
+    height: 10px;
+  }
+  #shopify-section-{{ section.id }} .battery-img {
+    width: 22px;
+    height: auto;
+    opacity: 0.7;
+  }
+
+  /* Gauges row */
+  #shopify-section-{{ section.id }} .gauges-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    padding: 0;
+    margin-top: -4px;
+  }
+  #shopify-section-{{ section.id }} .gauge-left,
+  #shopify-section-{{ section.id }} .gauge-right {
+    flex: 0 0 28%;
+  }
+  #shopify-section-{{ section.id }} .gauge-center {
+    flex: 0 0 44%;
+    position: relative;
+    z-index: 1;
+  }
+
+  #shopify-section-{{ section.id }} .clock-outer {
+    width: 100%;
+    aspect-ratio: 1;
+    background: radial-gradient(circle at 40% 35%, #2a2520, #0f0e0c 75%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+      0 0 0 2px rgba(200,146,42,0.25),
+      0 0 0 4px rgba(0,0,0,0.6),
+      0 8px 40px rgba(0,0,0,0.7),
+      inset 0 2px 4px rgba(255,255,255,0.05);
+  }
+  #shopify-section-{{ section.id }} .clock-outer-small {
+    background: radial-gradient(circle at 40% 35%, #222018, #0c0b09 75%);
+    box-shadow:
+      0 0 0 1px rgba(200,146,42,0.15),
+      0 0 0 3px rgba(0,0,0,0.5),
+      0 6px 24px rgba(0,0,0,0.6),
+      inset 0 1px 3px rgba(255,255,255,0.04);
+  }
+  #shopify-section-{{ section.id }} .clock-middle {
+    width: 88%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 45% 40%, #222018, #0a0908 80%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #shopify-section-{{ section.id }} .clock-inner {
+    width: 86%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 45% 40%, #1e1c16, #080807 80%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  #shopify-section-{{ section.id }} .gauge-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #shopify-section-{{ section.id }} .gauge-svg {
+    width: 100%;
+    height: 100%;
+  }
+  #shopify-section-{{ section.id }} .gauge-rotated .gauge-svg {
+    transform: scaleX(-1);
+  }
+  #shopify-section-{{ section.id }} .scout-img {
+    width: 80%;
+    height: 80%;
+    object-fit: contain;
+    border-radius: 50%;
+  }
+
+  #shopify-section-{{ section.id }} .custom_icons_wrapper {
+    position: absolute;
+    z-index: 10;
+  }
+  #shopify-section-{{ section.id }} .left_icons_wrapper {
+    left: -8%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  #shopify-section-{{ section.id }} .right_icons_wrapper {
+    right: -8%;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  #shopify-section-{{ section.id }} .custom_icons_wrapper svg,
+  #shopify-section-{{ section.id }} .custom_icons_wrapper img {
+    max-width: 28px;
+    max-height: 28px;
+  }
+
+  /* ══════════════════════════════════════════════ CARDS ══════ */
+  #shopify-section-{{ section.id }} .tstn-cards {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px 0;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 20px 24px;
+  }
+  #shopify-section-{{ section.id }} .tstn-card--progress {
+    border-radius: var(--radius) 0 0 var(--radius);
+  }
+  #shopify-section-{{ section.id }} .tstn-card--points {
+    min-width: 200px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    border-left: none;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-card__label {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  #shopify-section-{{ section.id }} .tstn-card__tier-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  #shopify-section-{{ section.id }} .tstn-card__tier-name {
+    font-family: var(--ff-head);
+    font-size: 26px;
+    color: var(--gold);
+    letter-spacing: 1px;
+  }
+  #shopify-section-{{ section.id }} .tstn-card__tier-icons {
+    display: flex;
+    gap: 10px;
+  }
+  #shopify-section-{{ section.id }} .tstn-tier-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    opacity: 0.45;
+    transition: opacity 0.3s;
+  }
+  #shopify-section-{{ section.id }} .tstn-tier-icon img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+  #shopify-section-{{ section.id }} .tstn-tier-icon span {
+    font-size: 8px;
+    letter-spacing: 1px;
+    color: var(--muted);
+  }
+
+  #shopify-section-{{ section.id }} .tstn-progress-bar {
+    position: relative;
+    height: 8px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    margin-bottom: 8px;
+  }
+  #shopify-section-{{ section.id }} .tstn-progress-bar__fill {
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    background: linear-gradient(90deg, var(--gold-dk), var(--gold));
+    border-radius: 4px;
+    transition: width 1.2s ease;
+    z-index: 1;
+    box-shadow: 0 0 10px rgba(200,146,42,0.5);
+  }
+  #shopify-section-{{ section.id }} .tstn-progress-bar__seg {
+    flex: 1;
+    border-right: 1px solid rgba(0,0,0,0.4);
+    z-index: 2;
+    position: relative;
+  }
+  #shopify-section-{{ section.id }} .tstn-progress-bar__seg:last-child {
+    border-right: none;
+  }
+  #shopify-section-{{ section.id }} .tstn-progress-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+    color: var(--muted);
+  }
+
+  #shopify-section-{{ section.id }} .tstn-card__points {
+    font-family: var(--ff-head);
+    font-size: 40px;
+    color: var(--gold);
+    letter-spacing: 1px;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  #shopify-section-{{ section.id }} .tstn-card__tagline {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+  }
+
+  /* ═════════════════════════════════════ HOW IT WORKS ════════ */
+  #shopify-section-{{ section.id }} .tstn-how {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 40px 56px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+  }
+  #shopify-section-{{ section.id }} .tstn-how__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+  }
+  #shopify-section-{{ section.id }} .tstn-how__heading {
+    font-family: var(--ff-head);
+    font-size: 22px;
+    font-weight: 400;
+    letter-spacing: 3px;
+    color: var(--text);
+    margin: 0;
+  }
+  #shopify-section-{{ section.id }} .tstn-how__link {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  #shopify-section-{{ section.id }} .tstn-how__link:hover { color: var(--gold-lt); }
+
+  #shopify-section-{{ section.id }} .tstn-how__steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  #shopify-section-{{ section.id }} .tstn-step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 20px;
+    background: var(--bg2);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: var(--radius);
+    transition: border-color 0.2s;
+  }
+  #shopify-section-{{ section.id }} .tstn-step:hover {
+    border-color: var(--border);
+  }
+  #shopify-section-{{ section.id }} .tstn-step__num {
+    font-family: var(--ff-head);
+    font-size: 32px;
+    color: rgba(255,255,255,0.1);
+    line-height: 1;
+    flex-shrink: 0;
+    letter-spacing: 1px;
+  }
+  #shopify-section-{{ section.id }} .tstn-step__icon {
+    width: 22px;
+    height: 22px;
+    color: var(--muted);
+    flex-shrink: 0;
+    margin-top: 3px;
+  }
+  #shopify-section-{{ section.id }} .tstn-step strong {
+    display: block;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--text);
+    margin-bottom: 4px;
+  }
+  #shopify-section-{{ section.id }} .tstn-step p {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  /* ══════════════════════════════════════════════ GUEST ══════ */
+  #shopify-section-{{ section.id }} .tstn-guest {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 40px;
+    background: var(--bg2);
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+  #shopify-section-{{ section.id }} .tstn-guest__inner {
+    max-width: 480px;
+  }
+  #shopify-section-{{ section.id }} .tstn-guest__inner img {
+    width: 48px;
+    margin-bottom: 12px;
+  }
+  #shopify-section-{{ section.id }} .tstn-guest__label {
+    font-family: var(--ff-head);
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+  #shopify-section-{{ section.id }} .tstn-guest__heading {
+    font-family: var(--ff-head);
+    font-size: 48px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    color: #fff;
+    margin: 0 0 14px;
+  }
+  #shopify-section-{{ section.id }} .tstn-guest__desc {
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  /* ══════════════════════════════════════════ RESPONSIVE ══════ */
+  @media (max-width: 1024px) {
+    #shopify-section-{{ section.id }} .tstn-hero__inner {
+      grid-template-columns: 1fr;
+      padding: 40px 24px;
+    }
+    #shopify-section-{{ section.id }} .tstn-hero__dashboard {
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    #shopify-section-{{ section.id }} .tstn-cards {
+      padding: 0 24px;
+      grid-template-columns: 1fr;
+    }
+    #shopify-section-{{ section.id }} .tstn-card--progress,
+    #shopify-section-{{ section.id }} .tstn-card--points {
+      border-radius: var(--radius);
+      border-left: 1px solid var(--border);
+    }
+    #shopify-section-{{ section.id }} .tstn-how {
+      padding: 32px 24px 40px;
+    }
+    #shopify-section-{{ section.id }} .tstn-how__steps {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    #shopify-section-{{ section.id }} .tstn-hero__heading {
+      font-size: 52px;
+    }
+    #shopify-section-{{ section.id }} .tstn-hero__ctas {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    #shopify-section-{{ section.id }} .tstn-badges {
+      gap: 16px;
+    }
+    #shopify-section-{{ section.id }} .tstn-how__steps {
+      grid-template-columns: 1fr;
+    }
+    #shopify-section-{{ section.id }} .tstn-how__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+  }
+
+  /* VIP tier visibility */
+  #shopify-section-{{ section.id }} .vip_tier_new_updated {
+    display: none !important;
+  }
+  #shopify-section-{{ section.id }} .visibility_hidden {
+    display: none;
+    visibility: hidden;
+    height: 0;
+    overflow: hidden;
+  }
+</style>
+
+<!-- ═════════════════════════════════════════════════════════ SCRIPTS ═══ -->
+<script>
+(function() {
+  /* ── Storage ── */
+  const KEYS = { tier: "tstn_cs_vp_m_t", bar: "tstn_cs_vp_m_b" };
+  const getStoredTier = () => sessionStorage.getItem(KEYS.tier);
+  const setStoredTier = t => sessionStorage.setItem(KEYS.tier, t);
+  const getStoredBar  = () => Number(sessionStorage.getItem(KEYS.bar) || 0);
+  const setStoredBar  = v => sessionStorage.setItem(KEYS.bar, v);
+
+  const TIER_ORDER = ["base", "scout", "lead"];
+  function getHigherTier(t1, t2) {
+    if (!t1) return t2; if (!t2) return t1;
+    return TIER_ORDER.indexOf(t1) > TIER_ORDER.indexOf(t2) ? t1 : t2;
+  }
+
+  const baseTierImage  = "https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_1_a6b1bf9c-5113-4864-b2aa-53fb77a68341.png?v=1770810715";
+  const scoutTierImage = "https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_2_fe25c4de-0871-4b74-8114-8473656bf229.png?v=1770810716";
+  const leadTierImage  = "https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_3_3062b154-429b-4483-939f-042e342cf355.png?v=1770810716";
+
+  const TIER_CONFIG = {
+    base:  { regex: /\b(base|base\s*camp)\b/i, bar: 0,   img: baseTierImage,  name: "BASE CAMP" },
+    scout: { regex: /\b(scout)\b/i,             bar: 50,  img: scoutTierImage, name: "SCOUT" },
+    lead:  { regex: /\b(lead|leader)\b/i,       bar: 100, img: leadTierImage,  name: "LEAD" },
+  };
+
+  const TOTAL_POINTS = 4000;
+  let value = 0;
+  let tier_image_el, cardProgressFill, cardPointsEl, cardTierNameEl, meterFill;
+
+  /* ── Clock ── */
+  function updateTime() {
+    const el = document.getElementById("timeText");
+    if (!el) return;
+    const now = new Date();
+    el.textContent = String(now.getHours()).padStart(2,"0") + ":" + String(now.getMinutes()).padStart(2,"0");
+  }
+  updateTime();
+  setInterval(updateTime, 1000);
+
+  /* ── Speedometer builder ── */
+  function clamp(v, lo, hi) { return Math.min(Math.max(v, lo), hi); }
+
+  function createSpeedometer(svgId, opts) {
+    const svg = document.getElementById(svgId);
+    if (!svg) return;
+    const step      = opts.step  ?? 500;
+    const eMax      = opts.max   ?? 240;
+    const val       = opts.value ?? 0;
+    const minAngle  = opts.minAngle;
+    const maxAngle  = opts.maxAngle;
+    const angleRange = maxAngle - minAngle;
+    const max        = eMax / step;
+    const currentVal = val / step;
+    const angle      = minAngle + (currentVal / max) * angleRange;
+
+    svg.innerHTML = "";
+
+    /* Major ticks + labels */
+    for (let i = 0; i <= max; i++) {
+      const a   = minAngle + (i / max) * angleRange;
+      const rad = a * Math.PI / 180;
+      const g   = document.createElementNS("http://www.w3.org/2000/svg","g");
+      const ln  = document.createElementNS("http://www.w3.org/2000/svg","line");
+      ln.setAttribute("x1", 100 + 75 * Math.cos(rad));
+      ln.setAttribute("y1", 100 + 75 * Math.sin(rad));
+      ln.setAttribute("x2", 100 + 90 * Math.cos(rad));
+      ln.setAttribute("y2", 100 + 90 * Math.sin(rad));
+      ln.setAttribute("stroke","white"); ln.setAttribute("stroke-width","1.5"); ln.setAttribute("stroke-linecap","round");
+      g.appendChild(ln);
+      if (opts.showValue !== false || opts.step) {
+        const tx = 100 + 65 * Math.cos(rad);
+        const ty = 100 + 65 * Math.sin(rad);
+        const t  = document.createElementNS("http://www.w3.org/2000/svg","text");
+        t.setAttribute("x",tx); t.setAttribute("y",ty);
+        t.setAttribute("fill","white"); t.setAttribute("font-size","7px");
+        t.setAttribute("font-weight","normal"); t.setAttribute("text-anchor","middle");
+        t.setAttribute("dominant-baseline","middle");
+        t.setAttribute("transform",`rotate(${a+90} ${tx} ${ty})`);
+        t.textContent = i * step;
+        g.appendChild(t);
+      }
+      svg.appendChild(g);
+    }
+
+    /* Minor ticks */
+    for (let i = 0; i < max * 4; i++) {
+      if (i % 4 === 0) continue;
+      const a   = minAngle + (i / (max * 4)) * angleRange;
+      const rad = a * Math.PI / 180;
+      const ln  = document.createElementNS("http://www.w3.org/2000/svg","line");
+      ln.setAttribute("x1", 100 + 84 * Math.cos(rad));
+      ln.setAttribute("y1", 100 + 84 * Math.sin(rad));
+      ln.setAttribute("x2", 100 + 90 * Math.cos(rad));
+      ln.setAttribute("y2", 100 + 90 * Math.sin(rad));
+      ln.setAttribute("stroke","white"); ln.setAttribute("stroke-width","1"); ln.setAttribute("opacity","0.6"); ln.setAttribute("stroke-linecap","round");
+      svg.appendChild(ln);
+    }
+
+    /* Center value */
+    if (opts.showValue !== false) {
+      const vt = document.createElementNS("http://www.w3.org/2000/svg","text");
+      vt.setAttribute("x","100"); vt.setAttribute("y","70");
+      vt.setAttribute("fill","white"); vt.setAttribute("font-size","18px");
+      vt.setAttribute("font-family","Danger Neue Free Regular, Danger Neue, Rajdhani, sans-serif");
+      vt.setAttribute("text-anchor","middle"); vt.setAttribute("dominant-baseline","middle");
+      vt.setAttribute("id","center_gauge_value");
+      vt.textContent = (currentVal * step).toFixed(0);
+      svg.appendChild(vt);
+    }
+
+    /* Needle */
+    if (opts.showNeedle !== false) {
+      const ng = document.createElementNS("http://www.w3.org/2000/svg","g");
+      ng.setAttribute("class","needle-group");
+      ng.style.transformOrigin = "100px 100px";
+      ng.style.transform = `rotate(${angle}deg)`;
+      ng.dataset.minAngle = minAngle;
+      ng.dataset.maxAngle = maxAngle;
+      ng.dataset.maxValue = eMax;
+      ng.dataset.step     = step;
+
+      const shadowShaft = document.createElementNS("http://www.w3.org/2000/svg","path");
+      shadowShaft.setAttribute("d","M 100 96 L 160 98 L 160 100 L 160 100 L 100 103 Z");
+      shadowShaft.setAttribute("fill","rgba(0,0,0,0.45)");
+      shadowShaft.setAttribute("transform","translate(4,4)");
+
+      const shaft = document.createElementNS("http://www.w3.org/2000/svg","path");
+      shaft.setAttribute("d","M 100 96 L 160 98 L 160 100 L 160 100 L 100 103 Z");
+      shaft.setAttribute("fill","#ec5607");
+
+      const hub = document.createElementNS("http://www.w3.org/2000/svg","circle");
+      hub.setAttribute("cx","100"); hub.setAttribute("cy","100"); hub.setAttribute("r","7");
+      hub.setAttribute("fill","#ec5607");
+
+      ng.appendChild(shadowShaft);
+      ng.appendChild(shaft);
+      ng.appendChild(hub);
+      svg.appendChild(ng);
+    }
+
+    const hubDot = document.createElementNS("http://www.w3.org/2000/svg","circle");
+    hubDot.setAttribute("cx","100"); hubDot.setAttribute("cy","100"); hubDot.setAttribute("r","5");
+    hubDot.setAttribute("fill","#ff7a00");
+    svg.appendChild(hubDot);
+  }
+
+  function updateNeedle(svgId, val) {
+    const svg = document.getElementById(svgId);
+    if (!svg) return;
+    const ng = svg.querySelector(".needle-group");
+    if (!ng) return;
+    const min = +ng.dataset.minAngle, max2 = +ng.dataset.maxAngle;
+    const maxVal = +ng.dataset.maxValue;
+    const clamped = clamp(val, 0, maxVal);
+    ng.style.transform = `rotate(${min + (clamped / maxVal) * (max2 - min)}deg)`;
+  }
+
+  /* ── Tier logic ── */
+  function applyTierUI(tierKey) {
+    if (!tierKey || !TIER_CONFIG[tierKey]) return;
+    const finalTier = getHigherTier(getStoredTier(), tierKey);
+    setStoredTier(finalTier);
+    const cfg = TIER_CONFIG[finalTier];
+
+    if (tier_image_el) tier_image_el.src = cfg.img;
+    if (cardTierNameEl) cardTierNameEl.textContent = cfg.name;
+
+    /* Unlock tier icon opacity */
+    const scoutIcon = document.querySelector(".tstn-tier-icon--scout");
+    const leadIcon  = document.querySelector(".tstn-tier-icon--lead");
+    if (scoutIcon) scoutIcon.style.opacity = (finalTier === "scout" || finalTier === "lead") ? "1" : "0.45";
+    if (leadIcon)  leadIcon.style.opacity  = finalTier === "lead" ? "1" : "0.45";
+
+    const calculated = clamp((value / 3000) * 100, 0, 100);
+    const tierMin    = cfg.bar;
+    const finalBar   = Math.max(Math.max(calculated, tierMin), getStoredBar());
+    setStoredBar(finalBar);
+
+    if (meterFill)        meterFill.style.width        = finalBar + "%";
+    if (cardProgressFill) cardProgressFill.style.width = finalBar + "%";
+  }
+
+  function getTierFromText(text) {
+    if (!text) return null;
+    for (const key in TIER_CONFIG) {
+      if (TIER_CONFIG[key].regex.test(text)) return key;
+    }
+    return null;
+  }
+
+  function updateFromVipText() {
+    const el = document.querySelector(".vip_tier_new_updated");
+    if (!el) return false;
+    const tier = getTierFromText(el.innerText.trim());
+    if (tier) { applyTierUI(tier); return true; }
+    return false;
+  }
+
+  function getDerivedTier() {
+    if (value >= 3000) return "lead";
+    if (value >= 1500) return "scout";
+    return "base";
+  }
+
+  function setValue(newVal) {
+    value = clamp(newVal, 0, TOTAL_POINTS);
+    const vt = document.getElementById("center_gauge_value");
+    if (vt) vt.textContent = value;
+    if (cardPointsEl) {
+      /* Animate counting */
+      const start  = parseInt(cardPointsEl.textContent.replace(/,/g,"")) || 0;
+      const end    = value;
+      const dur    = 1200;
+      const t0     = performance.now();
+      function step(now) {
+        const p = Math.min((now - t0) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        cardPointsEl.textContent = Math.round(start + (end - start) * eased).toLocaleString();
+        if (p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    const rpmVal = clamp((value / TOTAL_POINTS) * 7, 0, 7);
+    updateNeedle("leftGauge", rpmVal);
+    updateNeedle("centerGauge", value);
+
+    if (!updateFromVipText()) applyTierUI(getDerivedTier());
+
+    /* Also sync bar from raw points */
+    const calculated = clamp((value / 3000) * 100, 0, 100);
+    const finalBar   = Math.max(calculated, getStoredBar());
+    setStoredBar(finalBar);
+    if (meterFill)        meterFill.style.width        = finalBar + "%";
+    if (cardProgressFill) cardProgressFill.style.width = finalBar + "%";
+  }
+
+  /* ── Init ── */
+  document.addEventListener("DOMContentLoaded", () => {
+    tier_image_el    = document.getElementById("tier_diagram");
+    meterFill        = document.getElementById("meterFill");
+    cardProgressFill = document.getElementById("cardProgressFill");
+    cardPointsEl     = document.getElementById("display_points");
+    cardTierNameEl   = document.getElementById("display_tier_name");
+
+    createSpeedometer("leftGauge", {
+      step: 1, max: 7, value: 0,
+      showValue: false, showNeedle: true,
+      minAngle: -210, maxAngle: 0,
+    });
+    createSpeedometer("centerGauge", {
+      step: 500, max: TOTAL_POINTS, value: 0,
+      showValue: true, showNeedle: true,
+      minAngle: -200, maxAngle: 20,
+    });
+  });
+
+  /* ── Points observer ── */
+  window.newPoints1 = null;
+  const observer = new MutationObserver(() => {
+    const target = document.querySelector(".gw-rd-customer-points-balance-inline-widget-placeholder");
+    if (!target) return;
+    const match = target.textContent.match(/\d+/);
+    if (!match) return;
+    const pts = Number(match[0]);
+    if (window.newPoints1 !== pts) {
+      window.newPoints1 = pts;
+      setValue(pts);
+    }
+  });
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  setTimeout(() => {
+    if (window.newPoints1 !== null) setValue(window.newPoints1);
+  }, 1000);
+})();
+</script>
+
+{% schema %}
+{
+  "name": "TSTN Club Dashboard",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "feat_image",
+      "label": "Hero Background Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "TSTN Club Dashboard"
+    }
+  ]
+}
+{% endschema %}
