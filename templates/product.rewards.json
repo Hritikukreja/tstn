@@ -548,6 +548,13 @@
       "settings": {
         "feat_image": "shopify://shop_images/awnex_offroad.png"
       }
+    },
+    "speedometer_claude_VPmHLG": {
+      "type": "speedometer-claude",
+      "name": "TSTN Club Dashboard",
+      "settings": {
+        "feat_image": "shopify://shop_images/1.1.png"
+      }
     }
   },
   "order": [
@@ -562,6 +569,7 @@
     "product_marquee_h4KghV",
     "17769202960fc08a45",
     "custom_multicol_dPrTeX",
-    "speed_fnb3Wc"
+    "speed_fnb3Wc",
+    "speedometer_claude_VPmHLG"
   ]
 }
