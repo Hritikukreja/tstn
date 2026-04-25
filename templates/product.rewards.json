@@ -553,7 +553,7 @@
       "type": "speedometer-claude",
       "name": "TSTN Club Dashboard",
       "settings": {
-        "feat_image": "shopify://shop_images/1.1.png"
+        "feat_image": "shopify://shop_images/1.png"
       }
     }
   },
