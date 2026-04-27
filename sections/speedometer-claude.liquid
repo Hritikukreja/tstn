@@ -24,10 +24,10 @@
 
   <div class="gtw_content_wrapper">
 
-    <!-- ══════════════════ HERO OVERLAY LAYOUT ══════════════════ -->
+    <!-- ══════════════════ HERO LAYOUT ══════════════════ -->
     <div class="tstn-hero-layout">
 
-      <!-- LEFT COPY -->
+      <!-- LEFT COPY (hidden for guests so the JOIN THE TRIBE overlay can take focus) -->
       <div class="tstn-copy">
         <div class="tstn-welcome-row">
           <img src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/image_1_1_76d32aab-2b4e-4c68-a411-5a2a219321bf.png?v=1770384836" alt="TSTN" class="tstn-logo-icon">
@@ -64,7 +64,7 @@
         </div>
       </div>
 
-      <!-- RIGHT DASHBOARD — original structure preserved exactly -->
+      <!-- RIGHT DASHBOARD — preserved structure -->
       <div class="tstn-dashboard-wrap">
         <div class="dashboard-wrapper">
           <div class="screen-container">
@@ -206,6 +206,21 @@
         </div><!-- /dashboard-wrapper -->
       </div><!-- /tstn-dashboard-wrap -->
 
+      <!-- ═════ GUEST OVERLAY (only when not logged in) ═════ -->
+      {% unless customer %}
+      <div class="none_customer_signup">
+        <div class="non_custopmer_class">
+          <div class="non_contact_main">
+            <img src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/image_1_1_76d32aab-2b4e-4c68-a411-5a2a219321bf.png?v=1770384836">
+            <p>TSTN CLUB</p>
+          </div>
+          <h2>JOIN THE TRIBE</h2>
+          <p class="margin_class_top">Earn Points. Get Featured. Unlock the Inner Circle.</p>
+          <a class="new_main_createaccount" href="/account/register">Create Account</a>
+        </div>
+      </div>
+      {% endunless %}
+
     </div><!-- /tstn-hero-layout -->
 
     <!-- ══════════════════ PROGRESS + POINTS CARDS ══════════════ -->
@@ -278,21 +293,6 @@
 
   </div><!-- /gtw_content_wrapper -->
 
-  <!-- ══════════════════ GUEST SIGNUP ══════════════════════════ -->
-  {% unless customer %}
-  <div class="none_customer_signup">
-    <div class="non_custopmer_class">
-      <div class="non_contact_main">
-        <img src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/image_1_1_76d32aab-2b4e-4c68-a411-5a2a219321bf.png?v=1770384836">
-        <p>TSTN CLUB</p>
-      </div>
-      <h2>JOIN THE TRIBE</h2>
-      <p class="margin_class_top">Earn Points. Get Featured. Unlock the Inner Circle.</p>
-      <a class="new_main_createaccount" href="/account/register">Create Account</a>
-    </div>
-  </div>
-  {% endunless %}
-
 </div><!-- /growave_tiers_wrapper -->
 
 <div id="points-output"></div>
@@ -304,6 +304,7 @@
     --gold:     #c8922a;
     --gold-lt:  #e8a93a;
     --gold-dk:  #8a6010;
+    --orange-cta: #ec5607;
     --bg:       #0d0c0a;
     --bg2:      #151412;
     --bg3:      #1c1a16;
@@ -315,9 +316,11 @@
     --ff-body:  "Rajdhani","ABC Diatype",sans-serif;
   }
 
-  #shopify-section-{{ section.id }} *, #shopify-section-{{ section.id }} *::before, #shopify-section-{{ section.id }} *::after { box-sizing: border-box; }
+  #shopify-section-{{ section.id }} *,
+  #shopify-section-{{ section.id }} *::before,
+  #shopify-section-{{ section.id }} *::after { box-sizing: border-box; }
 
-  /* ─── Growave wrapper / bg (preserve original structure) ────────────── */
+  /* ─── Growave wrapper / bg ──────────────────────────────────────────── */
   #shopify-section-{{ section.id }} .growave_tiers_wrapper {
     position: relative;
     width: 100%;
@@ -350,6 +353,7 @@
 
   /* ─── HERO LAYOUT ────────────────────────────────────────────────────── */
   #shopify-section-{{ section.id }} .tstn-hero-layout {
+    position: relative;       /* anchor for guest overlay */
     display: grid;
     grid-template-columns: 42% 58%;
     align-items: center;
@@ -357,7 +361,15 @@
     max-width: 1400px;
     margin: 0 auto;
     padding: 60px 48px 40px;
-    gap: 0;
+  }
+
+  /* When guest, hide the left copy so the overlay can take the spotlight */
+  #shopify-section-{{ section.id }} .non_customer_class .tstn-copy {
+    display: none;
+  }
+  #shopify-section-{{ section.id }} .non_customer_class .tstn-hero-layout {
+    grid-template-columns: 1fr;
+    justify-items: center;
   }
 
   /* ─── LEFT COPY ──────────────────────────────────────────────────────── */
@@ -469,9 +481,7 @@
     color: var(--muted);
   }
 
-  /* ─── RIGHT DASHBOARD WRAP ───────────────────────────────────────────── */
-  /* This is the key fix: give the dashboard a fixed size context so the     */
-  /* original gauge/cluster CSS (which uses % sizing) works as intended.     */
+  /* ─── DASHBOARD WRAP ─────────────────────────────────────────────────── */
   #shopify-section-{{ section.id }} .tstn-dashboard-wrap {
     display: flex;
     align-items: center;
@@ -480,16 +490,25 @@
     height: 100%;
   }
 
+  /* When guest, dashboard fills full hero so the overlay sits over it */
+  #shopify-section-{{ section.id }} .non_customer_class .tstn-dashboard-wrap {
+    max-width: 720px;
+    width: 100%;
+  }
+
   #shopify-section-{{ section.id }} .dashboard-wrapper {
     width: 100%;
     max-width: 520px;
+  }
+  #shopify-section-{{ section.id }} .non_customer_class .dashboard-wrapper {
+    max-width: 720px;
   }
   #shopify-section-{{ section.id }} .screen-container {
     width: 100%;
     position: relative;
   }
 
-  /* Progress bar strip at top of dashboard */
+  /* Dashboard top progress strip */
   #shopify-section-{{ section.id }} .bottom-bar {
     width: 100%;
     margin-bottom: 0;
@@ -512,11 +531,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 0 2px;
-  }
-  #shopify-section-{{ section.id }} .icon-box {
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
   #shopify-section-{{ section.id }} .icon-img {
     width: 32px;
@@ -592,7 +606,7 @@
   #shopify-section-{{ section.id }} .flash-svg { width: 9px; height: 9px; }
   #shopify-section-{{ section.id }} .battery-img { width: 20px; height: auto; opacity: 0.65; }
 
-  /* GAUGES — the three circular dials */
+  /* GAUGES */
   #shopify-section-{{ section.id }} .gauges-wrapper {
     display: flex;
     justify-content: center;
@@ -601,16 +615,13 @@
     margin-top: -2px;
   }
   #shopify-section-{{ section.id }} .gauge-left,
-  #shopify-section-{{ section.id }} .gauge-right {
-    flex: 0 0 26%;
-  }
+  #shopify-section-{{ section.id }} .gauge-right { flex: 0 0 26%; }
   #shopify-section-{{ section.id }} .gauge-center {
     flex: 0 0 48%;
     position: relative;
     z-index: 2;
   }
 
-  /* Clock rings — dark concentric circles */
   #shopify-section-{{ section.id }} .clock-outer {
     width: 100%;
     aspect-ratio: 1 / 1;
@@ -686,15 +697,107 @@
     transform: translateY(-50%);
   }
   #shopify-section-{{ section.id }} .custom_icons_wrapper svg,
-  #shopify-section-{{ section.id }} .custom_icons_wrapper img {
-    max-width: 26px;
-  }
+  #shopify-section-{{ section.id }} .custom_icons_wrapper img { max-width: 26px; }
 
-  /* main-content_new layout */
   #shopify-section-{{ section.id }} .main-content_new {
     display: flex;
     flex-direction: column;
     width: 100%;
+  }
+
+  /* ═══════════════ GUEST OVERLAY (JOIN THE TRIBE) ═══════════════════════ */
+  /* Sits ON TOP of the dashboard inside the hero, dimming what's behind.   */
+  /* Replaces original blur/dark-overlay-image approach with CSS gradient.  */
+  #shopify-section-{{ section.id }} .none_customer_signup {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    background:
+      radial-gradient(ellipse at center, rgba(8,7,5,0.65) 0%, rgba(8,7,5,0.92) 70%, rgba(8,7,5,0.98) 100%);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+
+  #shopify-section-{{ section.id }} .non_custopmer_class {
+    max-width: 480px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    animation: tstn-fadeIn 0.6s ease-out;
+  }
+
+  @keyframes tstn-fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  #shopify-section-{{ section.id }} .non_contact_main {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+  }
+  #shopify-section-{{ section.id }} .non_contact_main img {
+    width: 26px;
+    height: auto;
+  }
+  #shopify-section-{{ section.id }} .non_contact_main p {
+    font-family: var(--ff-head);
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    margin: 0;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .non_custopmer_class h2 {
+    font-family: var(--ff-head);
+    font-size: clamp(56px, 7vw, 96px);
+    font-weight: 400;
+    line-height: 0.95;
+    letter-spacing: 3px;
+    color: #fff;
+    margin: 0 0 14px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 30px rgba(0,0,0,0.7);
+  }
+
+  #shopify-section-{{ section.id }} .margin_class_top {
+    font-size: 15px;
+    color: rgba(230,225,214,0.85);
+    margin: 0 0 30px;
+    letter-spacing: 0.5px;
+  }
+
+  /* "Create Account" — bold orange CTA matching screenshot */
+  #shopify-section-{{ section.id }} .new_main_createaccount {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 38px;
+    background: var(--orange-cta);
+    color: #fff;
+    font-family: var(--ff-body);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: none;
+    text-decoration: none;
+    border-radius: 3px;
+    border: 2px solid var(--orange-cta);
+    transition: all 0.2s;
+    box-shadow: 0 6px 24px rgba(236,86,7,0.35);
+  }
+  #shopify-section-{{ section.id }} .new_main_createaccount:hover {
+    background: #ff6618;
+    border-color: #ff6618;
+    transform: translateY(-1px);
+    box-shadow: 0 8px 28px rgba(236,86,7,0.5);
   }
 
   /* ─── PROGRESS + POINTS CARDS ───────────────────────────────────────── */
@@ -715,10 +818,7 @@
     backdrop-filter: blur(10px);
     padding: 20px 24px;
   }
-  #shopify-section-{{ section.id }} .tstn-progress-card {
-    border-right: none;
-    border-radius: 0;
-  }
+  #shopify-section-{{ section.id }} .tstn-progress-card { border-right: none; border-radius: 0; }
   #shopify-section-{{ section.id }} .tstn-points-card {
     display: flex;
     flex-direction: column;
@@ -889,67 +989,6 @@
     margin: 0;
   }
 
-  /* ─── GUEST SIGNUP (preserve original classes) ───────────────────────── */
-  #shopify-section-{{ section.id }} .none_customer_signup {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 80px 40px;
-    background: rgba(10,8,6,0.85);
-    text-align: center;
-    border-top: 1px solid var(--border);
-  }
-  #shopify-section-{{ section.id }} .non_custopmer_class {
-    max-width: 440px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  #shopify-section-{{ section.id }} .non_contact_main {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 16px;
-  }
-  #shopify-section-{{ section.id }} .non_contact_main img { width: 36px; }
-  #shopify-section-{{ section.id }} .non_contact_main p {
-    font-family: var(--ff-head);
-    font-size: 13px;
-    letter-spacing: 3px;
-    color: var(--gold);
-    margin: 0;
-  }
-  #shopify-section-{{ section.id }} .non_custopmer_class h2 {
-    font-family: var(--ff-head);
-    font-size: 48px;
-    font-weight: 400;
-    letter-spacing: 2px;
-    color: #fff;
-    margin: 0 0 12px;
-  }
-  #shopify-section-{{ section.id }} .margin_class_top {
-    font-size: 14px;
-    color: var(--muted);
-    margin: 0 0 24px;
-  }
-  #shopify-section-{{ section.id }} .new_main_createaccount {
-    display: inline-flex;
-    padding: 13px 28px;
-    background: var(--gold);
-    color: #111;
-    font-family: var(--ff-body);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: 2px;
-    transition: background 0.2s;
-  }
-  #shopify-section-{{ section.id }} .new_main_createaccount:hover { background: var(--gold-lt); }
-
   /* ─── Hidden utility ─────────────────────────────────────────────────── */
   #shopify-section-{{ section.id }} .vip_tier_new_updated { display: none !important; }
   #shopify-section-{{ section.id }} .visibility_hidden {
@@ -968,7 +1007,14 @@
       gap: 32px;
     }
     #shopify-section-{{ section.id }} .tstn-copy { padding-right: 0; }
-    #shopify-section-{{ section.id }} .tstn-dashboard-wrap { max-width: 440px; margin: 0 auto; width: 100%; }
+    #shopify-section-{{ section.id }} .tstn-dashboard-wrap {
+      max-width: 440px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    #shopify-section-{{ section.id }} .non_customer_class .tstn-dashboard-wrap {
+      max-width: 520px;
+    }
     #shopify-section-{{ section.id }} .tstn-cards-row {
       grid-template-columns: 1fr;
       padding: 0 24px;
@@ -984,6 +1030,9 @@
     #shopify-section-{{ section.id }} .tstn-badges { gap: 14px; }
     #shopify-section-{{ section.id }} .tstn-steps-grid { grid-template-columns: 1fr; }
     #shopify-section-{{ section.id }} .tstn-how-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+    #shopify-section-{{ section.id }} .non_custopmer_class h2 { font-size: 56px; }
+    #shopify-section-{{ section.id }} .non_contact_main p { font-size: 12px; }
+    #shopify-section-{{ section.id }} .margin_class_top { font-size: 13px; }
   }
 </style>
 
@@ -1005,7 +1054,6 @@
     return TIER_ORDER.indexOf(t1) >= TIER_ORDER.indexOf(t2) ? t1 : t2;
   }
 
-  /* ── Constants ── */
   const IMAGES = {
     base:  'https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_1_a6b1bf9c-5113-4864-b2aa-53fb77a68341.png?v=1770810715',
     scout: 'https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_2_fe25c4de-0871-4b74-8114-8473656bf229.png?v=1770810716',
@@ -1016,30 +1064,23 @@
     scout: { regex: /\b(scout)\b/i,             bar: 50,  name: 'SCOUT'     },
     lead:  { regex: /\b(lead|leader)\b/i,       bar: 100, name: 'LEAD'      },
   };
-  const TOTAL_POINTS       = 4000;
-  const MAX_BAR_POINTS     = 3000;
+  const TOTAL_POINTS   = 4000;
+  const MAX_BAR_POINTS = 3000;
 
   let currentValue = 0;
+  let $tierImg, $meterFill, $cardBar, $cardPoints, $cardTierName, $scoutIcon, $leadIcon;
 
-  /* ── DOM refs (populated after DOMContentLoaded) ── */
-  let $tierImg, $meterFill, $cardBar, $cardPoints, $cardTierName,
-      $scoutIcon, $leadIcon;
-
-  /* ── Clock ── */
   function updateTime() {
     const el = document.getElementById('timeText');
     if (!el) return;
     const n = new Date();
     el.textContent = String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0');
   }
-
-  /* ── Gauge builder (identical logic to original) ── */
   function clamp(v, lo, hi) { return Math.min(Math.max(v, lo), hi); }
 
   function createSpeedometer(svgId, opts) {
     const svg = document.getElementById(svgId);
     if (!svg) return;
-
     const step      = opts.step      ?? 500;
     const eMax      = opts.max       ?? 240;
     const val       = opts.value     ?? 0;
@@ -1051,21 +1092,19 @@
     const max        = eMax / step;
     const curVal     = val  / step;
     const initAngle  = minAngle + (curVal / max) * angleRange;
-
     svg.innerHTML = '';
 
-    /* Major ticks + labels */
     for (let i = 0; i <= max; i++) {
-      const a   = minAngle + (i / max) * angleRange;
+      const a = minAngle + (i / max) * angleRange;
       const rad = a * Math.PI / 180;
-      const g   = document.createElementNS('http://www.w3.org/2000/svg','g');
-      const ln  = document.createElementNS('http://www.w3.org/2000/svg','line');
+      const g = document.createElementNS('http://www.w3.org/2000/svg','g');
+      const ln = document.createElementNS('http://www.w3.org/2000/svg','line');
       ln.setAttribute('x1', 100 + 75 * Math.cos(rad)); ln.setAttribute('y1', 100 + 75 * Math.sin(rad));
       ln.setAttribute('x2', 100 + 90 * Math.cos(rad)); ln.setAttribute('y2', 100 + 90 * Math.sin(rad));
       ln.setAttribute('stroke','white'); ln.setAttribute('stroke-width','1.5'); ln.setAttribute('stroke-linecap','round');
       g.appendChild(ln);
       const tx = 100 + 65 * Math.cos(rad), ty = 100 + 65 * Math.sin(rad);
-      const t  = document.createElementNS('http://www.w3.org/2000/svg','text');
+      const t = document.createElementNS('http://www.w3.org/2000/svg','text');
       t.setAttribute('x',tx); t.setAttribute('y',ty); t.setAttribute('fill','white');
       t.setAttribute('font-size','7px'); t.setAttribute('text-anchor','middle');
       t.setAttribute('dominant-baseline','middle');
@@ -1074,20 +1113,16 @@
       g.appendChild(t);
       svg.appendChild(g);
     }
-
-    /* Minor ticks */
     for (let i = 0; i < max * 4; i++) {
       if (i % 4 === 0) continue;
-      const a   = minAngle + (i / (max * 4)) * angleRange;
+      const a = minAngle + (i / (max * 4)) * angleRange;
       const rad = a * Math.PI / 180;
-      const ln  = document.createElementNS('http://www.w3.org/2000/svg','line');
+      const ln = document.createElementNS('http://www.w3.org/2000/svg','line');
       ln.setAttribute('x1', 100 + 84 * Math.cos(rad)); ln.setAttribute('y1', 100 + 84 * Math.sin(rad));
       ln.setAttribute('x2', 100 + 90 * Math.cos(rad)); ln.setAttribute('y2', 100 + 90 * Math.sin(rad));
       ln.setAttribute('stroke','white'); ln.setAttribute('stroke-width','1'); ln.setAttribute('opacity','0.6'); ln.setAttribute('stroke-linecap','round');
       svg.appendChild(ln);
     }
-
-    /* Value text */
     if (showValue) {
       const vt = document.createElementNS('http://www.w3.org/2000/svg','text');
       vt.setAttribute('id','center_gauge_value'); vt.setAttribute('x','100'); vt.setAttribute('y','70');
@@ -1097,8 +1132,6 @@
       vt.textContent = (curVal * step).toFixed(0);
       svg.appendChild(vt);
     }
-
-    /* Needle */
     if (showNeedle) {
       const ng = document.createElementNS('http://www.w3.org/2000/svg','g');
       ng.setAttribute('class','needle-group');
@@ -1106,7 +1139,6 @@
       ng.style.transform = `rotate(${initAngle}deg)`;
       ng.dataset.minAngle = minAngle; ng.dataset.maxAngle = maxAngle;
       ng.dataset.maxValue = eMax;     ng.dataset.step     = step;
-
       const sShaft = document.createElementNS('http://www.w3.org/2000/svg','path');
       sShaft.setAttribute('d','M 100 96 L 160 98 L 160 100 L 160 100 L 100 103 Z');
       sShaft.setAttribute('fill','rgba(0,0,0,0.45)'); sShaft.setAttribute('transform','translate(4,4)');
@@ -1115,12 +1147,9 @@
       shaft.setAttribute('fill','#ec5607');
       const hub = document.createElementNS('http://www.w3.org/2000/svg','circle');
       hub.setAttribute('cx','100'); hub.setAttribute('cy','100'); hub.setAttribute('r','7'); hub.setAttribute('fill','#ec5607');
-
       ng.appendChild(sShaft); ng.appendChild(shaft); ng.appendChild(hub);
       svg.appendChild(ng);
     }
-
-    /* Orange hub dot */
     const dot = document.createElementNS('http://www.w3.org/2000/svg','circle');
     dot.setAttribute('cx','100'); dot.setAttribute('cy','100'); dot.setAttribute('r','5'); dot.setAttribute('fill','#ff7a00');
     svg.appendChild(dot);
@@ -1135,22 +1164,17 @@
     ng.style.transform = `rotate(${mn + (clamp(val, 0, mv) / mv) * (mx - mn)}deg)`;
   }
 
-  /* ── Tier UI updater ── */
   function applyTierUI(tierKey) {
     if (!tierKey || !TIER_CONFIG[tierKey]) return;
     const final = getHigherTier(getStoredTier(), tierKey);
     setStoredTier(final);
     const cfg = TIER_CONFIG[final];
-
     if ($tierImg) $tierImg.src = IMAGES[final];
     if ($cardTierName) $cardTierName.textContent = cfg.name;
-
     if ($scoutIcon) $scoutIcon.classList.toggle('active', final === 'scout' || final === 'lead');
     if ($leadIcon)  $leadIcon.classList.toggle('active',  final === 'lead');
-
-    const ptsPct  = clamp((currentValue / MAX_BAR_POINTS) * 100, 0, 100);
-    const tierMin = cfg.bar;
-    const finalBar = Math.max(Math.max(ptsPct, tierMin), getStoredBar());
+    const ptsPct = clamp((currentValue / MAX_BAR_POINTS) * 100, 0, 100);
+    const finalBar = Math.max(Math.max(ptsPct, cfg.bar), getStoredBar());
     setStoredBar(finalBar);
     if ($meterFill) $meterFill.style.width = finalBar + '%';
     if ($cardBar)   $cardBar.style.width   = finalBar + '%';
@@ -1173,7 +1197,6 @@
     return 'base';
   }
 
-  /* ── Animated counter ── */
   function animateCount(el, target) {
     if (!el) return;
     const start = parseInt(el.textContent.replace(/,/g,'')) || 0;
@@ -1186,26 +1209,16 @@
     })(t0);
   }
 
-  /* ── Main setValue ── */
   function setValue(v) {
     currentValue = clamp(v, 0, TOTAL_POINTS);
-
-    /* Gauge center display */
     const vt = document.getElementById('center_gauge_value');
     if (vt) vt.textContent = currentValue;
-
-    /* Points card */
     animateCount($cardPoints, currentValue);
-
-    /* Needles */
-    updateNeedle('leftGauge',   clamp((currentValue / TOTAL_POINTS) * 7, 0, 7));
+    updateNeedle('leftGauge', clamp((currentValue / TOTAL_POINTS) * 7, 0, 7));
     updateNeedle('centerGauge', currentValue);
-
-    /* Tier */
     if (!updateFromVipText()) applyTierUI(getDerivedTier());
   }
 
-  /* ── Init on DOM ready ── */
   document.addEventListener('DOMContentLoaded', function() {
     $tierImg      = document.getElementById('tier_diagram');
     $meterFill    = document.getElementById('meterFill');
@@ -1230,7 +1243,6 @@
     });
   });
 
-  /* ── Points observer (identical to original) ── */
   window.newPoints1 = null;
   const observer = new MutationObserver(function() {
     const target = document.querySelector('.gw-rd-customer-points-balance-inline-widget-placeholder');
