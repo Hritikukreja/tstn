@@ -611,6 +611,12 @@
     position: absolute;
     z-index: 10;
     pointer-events: none;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
   #shopify-section-{{ section.id }} .left_icons_wrapper {
     left: -4%;
@@ -623,7 +629,19 @@
     transform: translateY(-50%);
   }
   #shopify-section-{{ section.id }} .custom_icons_wrapper svg,
-  #shopify-section-{{ section.id }} .custom_icons_wrapper img { max-width: 28px; }
+  #shopify-section-{{ section.id }} .custom_icons_wrapper img {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 28px !important;
+    max-height: 28px !important;
+    display: block;
+    background: transparent !important;
+    fill: currentColor;
+    color: var(--gold);
+  }
+  #shopify-section-{{ section.id }} .custom_icons_wrapper svg * {
+    fill: currentColor;
+  }
 
   /* ═══════════════ CLUSTER INFO BAR ═══════════════════════════════════════ */
   #shopify-section-{{ section.id }} .meter-info-wrapper {
@@ -884,11 +902,20 @@
 
   /* ─── Hidden utility ─────────────────────────────────────────────────── */
   #shopify-section-{{ section.id }} .vip_tier_new_updated { display: none !important; }
+  /* IMPORTANT: cannot use display:none here — Growave needs the element to be
+     in the layout to inject the points balance. Use visually-hidden pattern. */
   #shopify-section-{{ section.id }} .visibility_hidden {
-    display: none;
-    visibility: hidden;
-    height: 0;
-    overflow: hidden;
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+    pointer-events: none !important;
+    opacity: 0 !important;
   }
 
   /* ═══════════════════════════ HOW IT WORKS BLOCK ═══════════════════════ */
@@ -1411,6 +1438,28 @@
     }
   });
   observer.observe(document.body, { childList: true, subtree: true });
+
+  /* Polling fallback — in case MutationObserver misses the injection
+     (some apps replace innerHTML in ways that don't fire childList mutations
+     reliably across browsers). Polls every 500ms for 30s, then stops. */
+  let pollCount = 0;
+  const pollInterval = setInterval(() => {
+    pollCount++;
+    if (pollCount > 60) {
+      clearInterval(pollInterval);
+      return;
+    }
+    const target = document.querySelector(".gw-rd-customer-points-balance-inline-widget-placeholder");
+    if (!target) return;
+    const match = target.textContent.match(/\d+/);
+    if (!match) return;
+    const newPoints = Number(match[0]);
+    if (window.newPoints1 !== newPoints) {
+      window.newPoints1 = newPoints;
+      setValue(window.newPoints1);
+      clearInterval(pollInterval); /* stop polling once we have a value */
+    }
+  }, 500);
 
   setTimeout(() => {
     if (window.newPoints1 !== null) setValue(window.newPoints1);
