@@ -101,10 +101,14 @@
 
                 <div class="gauge-center">
                   <div class="left_icons_wrapper custom_icons_wrapper">
-                    {{- 'left-icon.svg' | inline_asset_content -}}
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#c8922a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="15 18 9 12 15 6"/>
+                    </svg>
                   </div>
                   <div class="right_icons_wrapper custom_icons_wrapper">
-                    {{- 'right-icon.svg' | inline_asset_content -}}
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#c8922a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="9 18 15 12 9 6"/>
+                    </svg>
                   </div>
                   <div class="clock-outer">
                     <div class="clock-middle">
@@ -500,6 +504,9 @@
   #shopify-section-{{ section.id }} .dashboard-wrapper {
     width: 100%;
     max-width: 620px;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
   }
   #shopify-section-{{ section.id }} .non_customer_class .dashboard-wrapper {
     max-width: 720px;
@@ -507,12 +514,25 @@
   #shopify-section-{{ section.id }} .screen-container {
     width: 100%;
     position: relative;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
   }
   #shopify-section-{{ section.id }} .main-content_new {
     display: flex;
     flex-direction: column;
     width: 100%;
     gap: 0;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+  #shopify-section-{{ section.id }} .gauges-wrapper,
+  #shopify-section-{{ section.id }} .gauge-left,
+  #shopify-section-{{ section.id }} .gauge-center,
+  #shopify-section-{{ section.id }} .gauge-right {
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
   }
 
   /* ═══════════════ GAUGES ═══════════════════════════════════════════════ */
@@ -602,10 +622,18 @@
   }
   #shopify-section-{{ section.id }} .gauge-rotated .gauge-svg { transform: scaleX(-1); }
   #shopify-section-{{ section.id }} .scout-img {
-    width: 78%;
-    height: 78%;
+    width: 70%;
+    height: 70%;
+    max-width: 70%;
+    max-height: 70%;
     object-fit: contain;
     border-radius: 50%;
+    display: block;
+  }
+  /* The right gauge contains the tier badge — give it slightly more padding
+     so the BASE CAMP / SCOUT / LEAD badge image fits comfortably inside */
+  #shopify-section-{{ section.id }} .gauge-right .clock-inner {
+    padding: 6%;
   }
   #shopify-section-{{ section.id }} .custom_icons_wrapper {
     position: absolute;
@@ -649,17 +677,27 @@
     margin-top: -8%;
     position: relative;
     z-index: 1;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
   }
   #shopify-section-{{ section.id }} .cluster-container {
     width: 100%;
     position: relative;
     max-width: 80%;
     margin: 0 auto;
+    background: transparent !important;
+    border: none !important;
   }
   #shopify-section-{{ section.id }} .cluster-img {
     width: 100%;
+    max-width: 100%;
+    max-height: 80px;
+    height: auto;
     display: block;
     opacity: 0.95;
+    object-fit: contain;
+    background: transparent !important;
   }
   #shopify-section-{{ section.id }} .cluster-overlay {
     position: absolute;
@@ -1073,7 +1111,7 @@
 
   const TIER_CONFIG = {
     base:  { regex: /\b(base|base\s*camp)\b/i, bar: 0,   img: baseTierImage,  name: "BASE CAMP" },
-    scout: { regex: /\b(scout)\b/i,             bar: 50,  img: scoutTierImage, name: "SCOUT" },
+    scout: { regex: /\b(scout)\b/i,             bar: 60,  img: scoutTierImage, name: "SCOUT" },
     lead:  { regex: /\b(lead|leader)\b/i,       bar: 100, img: leadTierImage,  name: "LEAD" },
   };
 
@@ -1275,7 +1313,7 @@
   let cardProgressFill, cardPointsEl, cardTierNameEl, scoutIcon, leadIcon;
 
   const bottomBar = function() { return document.querySelector("#meterFill"); };
-  const maxBottomBarPoints = 3000;
+  const maxBottomBarPoints = 2500;
 
   function getBottomBarFromPoints() {
     return clamp((value / maxBottomBarPoints) * 100, 0, 100);
@@ -1319,7 +1357,7 @@
 
   function updateDerivedValues() {
     let tier;
-    if (value >= 3000) tier = "lead";
+    if (value >= 2500) tier = "lead";
     else if (value >= 1500) tier = "scout";
     else tier = "base";
     applyTierUI(tier);
@@ -1339,7 +1377,7 @@
   }
 
   function updateUIFromPoints() {
-    const calculated = clamp((value / 3000) * 100, 0, 100);
+    const calculated = clamp((value / 2500) * 100, 0, 100);
     const storedBar = getStoredBar();
     const finalBar = Math.max(calculated, storedBar);
     const bb = bottomBar();
