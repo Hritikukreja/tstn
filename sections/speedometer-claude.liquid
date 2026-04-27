@@ -539,7 +539,7 @@
   #shopify-section-{{ section.id }} .gauges-wrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center;     /* vertically center align all 3 gauges */
     width: 100%;
     gap: 0;
     position: relative;
@@ -547,23 +547,26 @@
   }
   /* Slight overlap so the side gauges tuck under the center one */
   #shopify-section-{{ section.id }} .gauge-left {
-    flex: 0 0 30%;
-    margin-right: -3%;
+    flex: 0 0 32%;
+    margin-right: -4%;
     z-index: 1;
   }
   #shopify-section-{{ section.id }} .gauge-right {
-    flex: 0 0 30%;
-    margin-left: -3%;
+    flex: 0 0 32%;
+    margin-left: -4%;
     z-index: 1;
   }
   #shopify-section-{{ section.id }} .gauge-center {
-    flex: 0 0 46%;
+    flex: 0 0 44%;
     position: relative;
     z-index: 3;
+    /* The center is bigger, so its CENTER will sit at the same y-coord
+       as the smaller circles' centers thanks to align-items: center */
   }
 
   /* CRITICAL: clock circles need explicit dimensions, not just aspect-ratio,
-     or the SVG inside collapses to nothing. */
+     or the SVG inside collapses to nothing. We use width:% and aspect-ratio
+     to derive height (NOT height:% which fails in auto-height flex parents) */
   #shopify-section-{{ section.id }} .clock-outer {
     width: 100%;
     aspect-ratio: 1 / 1;
@@ -589,7 +592,6 @@
   }
   #shopify-section-{{ section.id }} .clock-middle {
     width: 92%;
-    height: 92%;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     background: radial-gradient(circle at 44% 40%, #1a1810, #050403 80%);
@@ -599,7 +601,6 @@
   }
   #shopify-section-{{ section.id }} .clock-inner {
     width: 95%;
-    height: 95%;
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     background: radial-gradient(circle at 44% 40%, #14120c, #030302 80%);
@@ -610,15 +611,17 @@
   }
   #shopify-section-{{ section.id }} .gauge-content {
     width: 100%;
-    height: 100%;
+    aspect-ratio: 1 / 1;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
   }
   #shopify-section-{{ section.id }} .gauge-svg {
     width: 100%;
     height: 100%;
     display: block;
+    overflow: visible;
   }
   #shopify-section-{{ section.id }} .gauge-rotated .gauge-svg { transform: scaleX(-1); }
   #shopify-section-{{ section.id }} .scout-img {
@@ -1424,8 +1427,8 @@
     }
   }
 
-  /* Build gauges + cache refs */
-  function init() {
+  /* Cache DOM refs immediately — script is at end of body so all elements exist */
+  function bootGauges() {
     tier_image_el    = document.querySelector("#tier_diagram");
     cardProgressFill = document.getElementById('cardProgressFill');
     cardPointsEl     = document.getElementById('display_points');
@@ -1433,16 +1436,30 @@
     scoutIcon        = document.getElementById('scout-icon-wrap');
     leadIcon         = document.getElementById('lead-icon-wrap');
 
-    createSpeedometer("leftGauge", {
-      step: 1, max: 7, value: 0,
-      showTrip: false, showTotalScore: false, showValue: false,
-      minAngle: -210, maxAngle: 0,
-    });
-    createSpeedometer("centerGauge", {
-      value: 0, max: TOTAL_POINTS, step: 500,
-      showValue: true, showTotalScore: true, showTrip: true, trip: 12,
-      minAngle: -200, maxAngle: 20,
-    });
+    const lg = document.getElementById('leftGauge');
+    const cg = document.getElementById('centerGauge');
+    if (!lg || !cg) {
+      console.warn('[TSTN] Gauge SVG elements not found yet, retrying...');
+      return false;
+    }
+
+    /* Build gauges */
+    try {
+      createSpeedometer("leftGauge", {
+        step: 1, max: 7, value: 0,
+        showTrip: false, showTotalScore: false, showValue: false,
+        minAngle: -210, maxAngle: 0,
+      });
+      createSpeedometer("centerGauge", {
+        value: 0, max: TOTAL_POINTS, step: 500,
+        showValue: true, showTotalScore: true, showTrip: true, trip: 12,
+        minAngle: -200, maxAngle: 20,
+      });
+      console.log('[TSTN] Gauges initialized successfully');
+    } catch(e) {
+      console.error('[TSTN] Gauge init error:', e);
+      return false;
+    }
 
     /* If points already in DOM at boot, push them through immediately */
     const target = document.querySelector(".gw-rd-customer-points-balance-inline-widget-placeholder");
@@ -1454,12 +1471,20 @@
         setValue(newPoints);
       }
     }
+    return true;
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
+  /* Try immediately (for when script runs after DOM is ready) */
+  if (!bootGauges()) {
+    /* Retry on DOMContentLoaded if elements weren't ready */
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', bootGauges);
+    } else {
+      /* Retry shortly in case of timing issues */
+      setTimeout(bootGauges, 50);
+      setTimeout(bootGauges, 250);
+      setTimeout(bootGauges, 500);
+    }
   }
 
   /* Observer (identical pattern to original) */
