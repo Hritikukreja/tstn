@@ -1,5 +1,3 @@
-{{ 'section-hero-collection.css' | asset_url | stylesheet_tag }}
-
 <section
   class="tstn-hero"
   style="
@@ -22,13 +20,9 @@
           class: 'tstn-hero__image'
       }}
     </div>
-  {%- else -%}
-    <div class="tstn-hero__media tstn-hero__media--placeholder">
-      {{ 'lifestyle-1' | placeholder_svg_tag: 'tstn-hero__image' }}
-    </div>
   {%- endif -%}
 
-  <div class="tstn-hero__overlay" aria-hidden="true"></div>
+  <div class="tstn-hero__overlay"></div>
 
   <div class="tstn-hero__inner">
     <div class="tstn-hero__content">
@@ -45,10 +39,7 @@
       {%- endif -%}
 
       {%- if section.settings.button_label != blank -%}
-        <a
-          href="{{ section.settings.button_link | default: '#' }}"
-          class="tstn-hero__button"
-        >
+        <a href="{{ section.settings.button_link }}" class="tstn-hero__button">
           {{ section.settings.button_label }}
         </a>
       {%- endif -%}
@@ -57,207 +48,121 @@
 </section>
 
 <style>
+.tstn-hero {
+  position: relative;
+  width: 100%;
+  min-height: var(--tstn-hero-height-desktop);
+  overflow: hidden;
+  color: #fff;
+}
+
+.tstn-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.tstn-hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 🔥 FIXED OVERLAY */
+.tstn-hero__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.tstn-hero__overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #000;
+  opacity: calc(var(--tstn-hero-overlay-opacity) * 0.6);
+}
+
+.tstn-hero__overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    #000 0%,
+    #000 35%,
+    transparent 75%
+  );
+  opacity: var(--tstn-hero-overlay-opacity);
+}
+
+.tstn-hero__inner {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  min-height: var(--tstn-hero-height-desktop);
+  padding: 60px clamp(20px, 6vw, 80px);
+}
+
+.tstn-hero__content {
+  max-width: 600px;
+  text-align: var(--tstn-hero-text-align);
+}
+
+.tstn-hero__heading {
+  font-size: clamp(42px, 6vw, 88px);
+  line-height: 1;
+}
+
+.tstn-hero__button {
+  margin-top: 20px;
+  padding: 14px 28px;
+  border: 1px solid #fff;
+  text-decoration: none;
+  color: #fff;
+}
+
+/* MOBILE FIX */
+@media (max-width: 749px) {
   .tstn-hero {
-    position: relative;
-    width: 100%;
-    min-height: var(--tstn-hero-height-desktop, 640px);
-    overflow: hidden;
-    background-color: #0a0a0a;
-    color: #ffffff;
-    isolation: isolate;
-  }
-
-  .tstn-hero__media {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-  }
-
-  .tstn-hero__image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    display: block;
-  }
-
-  .tstn-hero__overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 2;
-    background:
-      linear-gradient(
-        90deg,
-        rgba(0, 0, 0, calc(var(--tstn-hero-overlay-opacity, 0.55) + 0.15)) 0%,
-        rgba(0, 0, 0, var(--tstn-hero-overlay-opacity, 0.55)) 35%,
-        rgba(0, 0, 0, 0.25) 65%,
-        rgba(0, 0, 0, 0.1) 100%
-      );
-    pointer-events: none;
+    min-height: var(--tstn-hero-height-mobile);
   }
 
   .tstn-hero__inner {
-    position: relative;
-    z-index: 3;
-    display: flex;
-    align-items: center;
-    min-height: var(--tstn-hero-height-desktop, 640px);
-    padding: 60px clamp(20px, 6vw, 80px);
-    max-width: 1600px;
-    margin: 0 auto;
+    min-height: var(--tstn-hero-height-mobile);
+    align-items: flex-end;
   }
 
-  .tstn-hero__content {
-    max-width: 620px;
-    text-align: var(--tstn-hero-text-align, left);
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+  .tstn-hero__overlay::after {
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      #000 70%,
+      #000 100%
+    );
   }
-
-  .tstn-hero__overline {
-    font-family: 'Danger Neue Free Regular', 'Helvetica Neue', Arial, sans-serif;
-    font-size: 13px;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: #ff6a1a;
-    margin: 0;
-    font-weight: 500;
-  }
-
-  .tstn-hero__heading {
-    font-family: 'Danger Neue Free Regular', 'Helvetica Neue', Arial, sans-serif;
-    font-size: clamp(42px, 6.2vw, 88px);
-    line-height: 0.95;
-    letter-spacing: 0.01em;
-    text-transform: uppercase;
-    color: #ffffff;
-    margin: 0;
-    font-weight: 400;
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
-  }
-
-  .tstn-hero__subheading {
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: clamp(14px, 1.1vw, 17px);
-    line-height: 1.55;
-    color: rgba(255, 255, 255, 0.85);
-    max-width: 440px;
-    margin: 4px 0 0;
-  }
-
-  .tstn-hero__subheading p {
-    margin: 0 0 6px;
-  }
-
-  .tstn-hero__button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    align-self: flex-start;
-    padding: 14px 32px;
-    margin-top: 14px;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: #ffffff;
-    background-color: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.85);
-    text-decoration: none;
-    transition: all 0.25s ease;
-    cursor: pointer;
-    min-width: 180px;
-  }
-
-  .tstn-hero__button:hover {
-    background-color: #ffffff;
-    color: #0a0a0a;
-    border-color: #ffffff;
-  }
-
-  /* Tablet */
-  @media (max-width: 1024px) {
-    .tstn-hero__inner {
-      padding: 50px clamp(20px, 5vw, 60px);
-    }
-    .tstn-hero__content {
-      max-width: 560px;
-    }
-  }
-
-  /* Mobile */
-  @media (max-width: 749px) {
-    .tstn-hero {
-      min-height: var(--tstn-hero-height-mobile, 520px);
-    }
-    .tstn-hero__inner {
-      min-height: var(--tstn-hero-height-mobile, 520px);
-      padding: 40px 20px;
-      align-items: flex-end;
-    }
-    .tstn-hero__content {
-      max-width: 100%;
-      gap: 16px;
-    }
-    .tstn-hero__overlay {
-      background: linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0.2) 0%,
-        rgba(0, 0, 0, 0.4) 50%,
-        rgba(0, 0, 0, 0.75) 100%
-      );
-    }
-    .tstn-hero__heading {
-      font-size: clamp(38px, 10vw, 56px);
-    }
-    .tstn-hero__subheading {
-      font-size: 14px;
-      max-width: 100%;
-    }
-    .tstn-hero__button {
-      width: 100%;
-      align-self: stretch;
-    }
-  }
+}
 </style>
 
 {% schema %}
 {
   "name": "Hero Collection",
-  "tag": "section",
-  "class": "section-tstn-hero",
   "settings": [
-    {
-      "type": "header",
-      "content": "Background"
-    },
     {
       "type": "image_picker",
       "id": "background_image",
-      "label": "Background image",
-      "info": "Recommended: 2400 x 1200px or larger. Use a landscape image with space on the left for text."
+      "label": "Background image"
     },
     {
       "type": "range",
       "id": "overlay_opacity",
       "label": "Left-side overlay darkness",
       "min": 0,
-      "max": 80,
+      "max": 100,
       "step": 5,
-      "default": 55,
-      "unit": "%"
-    },
-    {
-      "type": "header",
-      "content": "Content"
-    },
-    {
-      "type": "text",
-      "id": "overline",
-      "label": "Overline (small orange text)",
-      "default": "THE COLLECTION"
+      "default": 55
     },
     {
       "type": "text",
@@ -266,50 +171,13 @@
       "default": "GEAR THAT GOES FURTHER"
     },
     {
-      "type": "richtext",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "<p>Hand-picked gear for real adventures. Tested, trusted, and used out on the trail.</p>"
-    },
-    {
-      "type": "select",
-      "id": "text_alignment",
-      "label": "Text alignment",
-      "options": [
-        { "value": "left", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right", "label": "Right" }
-      ],
-      "default": "left"
-    },
-    {
-      "type": "header",
-      "content": "Button"
-    },
-    {
-      "type": "text",
-      "id": "button_label",
-      "label": "Button label",
-      "default": "EXPLORE THE GEAR"
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Button link"
-    },
-    {
-      "type": "header",
-      "content": "Layout"
-    },
-    {
       "type": "range",
       "id": "height_desktop",
       "label": "Desktop height",
       "min": 400,
       "max": 900,
       "step": 20,
-      "default": 640,
-      "unit": "px"
+      "default": 640
     },
     {
       "type": "range",
@@ -318,14 +186,11 @@
       "min": 360,
       "max": 800,
       "step": 20,
-      "default": 520,
-      "unit": "px"
+      "default": 520
     }
   ],
   "presets": [
-    {
-      "name": "Hero Collection"
-    }
+    { "name": "Hero Collection" }
   ]
 }
 {% endschema %}
