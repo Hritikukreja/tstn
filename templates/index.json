@@ -204,7 +204,7 @@
         "button_link": "",
         "content_width": 1800,
         "features_width": 1700,
-        "feature_item_min_width": 270,
+        "feature_item_min_width": 250,
         "feature_columns": 3,
         "feature_gap_x": 8,
         "feature_gap_y": 16,
