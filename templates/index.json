@@ -88,6 +88,7 @@
         "block_rHeCXG",
         "block_Qtw3Ux"
       ],
+      "disabled": true,
       "custom_css": [
         "h2 {font-size: 70px;}",
         "h3 {font-size: 30px; color: white;}"
