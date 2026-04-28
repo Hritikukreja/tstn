@@ -21,6 +21,42 @@
         "button_text": "Shop Shaun’s Picks"
       }
     },
+    "pro_hero_TBPtMM": {
+      "type": "pro-hero",
+      "name": "Pro hero",
+      "settings": {
+        "media_type": "video",
+        "hero_video": "shopify://files/videos/hompage-banner-video.mp4",
+        "show_controls": false,
+        "hero_height_desktop": 100,
+        "hero_height_mobile": 90,
+        "tint_color": "#000000",
+        "tint_opacity": 0,
+        "overlay_opacity": 35,
+        "content_position": "bottom",
+        "content_alignment": "left",
+        "kicker": "TSTN",
+        "kicker_color": "#ffffff",
+        "kicker_size": 80,
+        "kicker_weight": 400,
+        "heading": "STARTS HERE",
+        "heading_color": "#ff8a2b",
+        "heading_size": 120,
+        "heading_weight": 400,
+        "button_label": "",
+        "product": "",
+        "button_link": "",
+        "button_bg_color": "#ffffff",
+        "button_hover_color": "#cccccc",
+        "button_text_color": "#000000",
+        "button_font_size": 15,
+        "button_font_weight": 400,
+        "price_text": "",
+        "price_color": "#ffffff",
+        "price_size": 12,
+        "section_bg_color": "#000000"
+      }
+    },
     "home_bg_text_DGXbAx": {
       "type": "home-bg-text",
       "blocks": {
@@ -378,6 +414,7 @@
   },
   "order": [
     "home_video_iEPccR",
+    "pro_hero_TBPtMM",
     "home_bg_text_DGXbAx",
     "join_crew_TyHnLh",
     "join_crew2_emTe7Y",
