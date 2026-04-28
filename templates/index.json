@@ -123,13 +123,84 @@
       "name": "Join Crew",
       "settings": {
         "class": "",
-        "background_image": "shopify://shop_images/TSTN_Club_img.png",
-        "background_image_mobile": "shopify://shop_images/join_crew_mobile.png",
+        "background_image": "shopify://shop_images/TSTN_Club_3fdceb9f-220f-49e8-b106-4c24066c73b6.png",
+        "background_image_mobile": "shopify://shop_images/TSTN_Club_3fdceb9f-220f-49e8-b106-4c24066c73b6.png",
         "main_heading": "Join the Crew",
         "subheading": "",
         "description": "Giveaways, behind-the-scenes content, rewards, and a real community.",
         "button_text": "Learn About the Club",
         "button_link": "#"
+      }
+    },
+    "join_crew2_emTe7Y": {
+      "type": "join-crew2",
+      "blocks": {
+        "feature_qVwGJk": {
+          "type": "feature",
+          "settings": {
+            "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"40\" viewbox=\"0 0 40 40\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"6\" y=\"14\" width=\"28\" height=\"22\" rx=\"1\"></rect><path d=\"M6 14 L20 8 L34 14\"></path><path d=\"M20 14 L20 36\"></path><path d=\"M14 20 Q20 14 26 20\"></path></svg>",
+            "title": "GIVEAWAYS",
+            "description": "Unlock exclusive gear and win epic prizes."
+          }
+        },
+        "feature_V9jaXh": {
+          "type": "feature",
+          "settings": {
+            "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"40\" viewbox=\"0 0 40 40\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M10 10 L10 28 L20 34 L30 28 L30 10 Z\"></path><path d=\"M10 10 L20 16 L30 10\"></path><path d=\"M20 16 L20 34\"></path><path d=\"M16 21 L20 19 L24 21 L22 25 L18 25 Z\"></path></svg>",
+            "title": "MEMBER REWARDS",
+            "description": "Earn rewards for adventure."
+          }
+        },
+        "feature_9zbGmn": {
+          "type": "feature",
+          "settings": {
+            "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"40\" viewbox=\"0 0 40 40\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M8 14 L20 8 L32 14 L32 28 L20 34 L8 28 Z\"></path><path d=\"M8 14 L20 20 L32 14\"></path><path d=\"M20 20 L20 34\"></path><path d=\"M14 11 L26 17\"></path></svg>",
+            "title": "EARLY PRODUCT DROPS",
+            "description": "Get exclusive access to new gear."
+          }
+        },
+        "feature_xYAQEg": {
+          "type": "feature",
+          "settings": {
+            "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"40\" viewbox=\"0 0 40 40\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"20\" cy=\"14\" r=\"5\"></circle><path d=\"M10 32 Q10 24 20 24 Q30 24 30 32\"></path><circle cx=\"10\" cy=\"18\" r=\"3\"></circle><circle cx=\"30\" cy=\"18\" r=\"3\"></circle><path d=\"M4 32 Q4 26 10 26\"></path><path d=\"M36 32 Q36 26 30 26\"></path></svg>",
+            "title": "REAL COMMUNITY",
+            "description": "Join a true community of adventurers."
+          }
+        },
+        "feature_NqeYAj": {
+          "type": "feature",
+          "settings": {
+            "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"40\" viewbox=\"0 0 40 40\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"16\" y=\"8\" width=\"8\" height=\"16\" rx=\"4\"></rect><path d=\"M12 20 Q12 28 20 28 Q28 28 28 20\"></path><path d=\"M20 28 L20 34\"></path><path d=\"M16 34 L24 34\"></path></svg>",
+            "title": "SUPPORT THE CHANNEL",
+            "description": "Help us grow the adventure."
+          }
+        },
+        "feature_4eRFaX": {
+          "type": "feature",
+          "settings": {
+            "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"40\" viewbox=\"0 0 40 40\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><rect x=\"10\" y=\"18\" width=\"20\" height=\"16\" rx=\"1\"></rect><path d=\"M14 18 L14 13 Q14 8 20 8 Q26 8 26 13 L26 18\"></path><circle cx=\"20\" cy=\"25\" r=\"1.5\" fill=\"currentColor\"></circle><path d=\"M20 26 L20 29\"></path></svg>",
+            "title": "BEHIND-THE-SCENES ACCESS",
+            "description": "See the real journey, behind the lens."
+          }
+        }
+      },
+      "block_order": [
+        "feature_qVwGJk",
+        "feature_V9jaXh",
+        "feature_9zbGmn",
+        "feature_xYAQEg",
+        "feature_NqeYAj",
+        "feature_4eRFaX"
+      ],
+      "name": "Join The Crew",
+      "settings": {
+        "accent_color": "#E85D2C",
+        "show_torn_edge": true,
+        "eyebrow": "TSTN CLUB",
+        "heading": "JOIN THE CREW",
+        "subheading": "Giveaways, behind-the-scenes content, rewards, and a real community.",
+        "button_label": "LEARN ABOUT THE CLUB",
+        "button_link": ""
       }
     },
     "custom_coll_tiH4B7": {
@@ -298,6 +369,7 @@
     "home_video_iEPccR",
     "home_bg_text_DGXbAx",
     "join_crew_TyHnLh",
+    "join_crew2_emTe7Y",
     "custom_coll_tiH4B7",
     "custom_video_eecJBr",
     "custom_image_banner_kd9eRA",
