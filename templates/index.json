@@ -531,12 +531,12 @@
       "name": "Hero Collection",
       "settings": {
         "background_image": "shopify://shop_images/6.1.png",
-        "overlay_opacity": 55,
+        "overlay_opacity": 80,
         "overline": "tstn club",
         "heading": "Come Behind the Scenes",
         "subheading": "<p>Members get access to the good stuff.</p>",
         "text_alignment": "left",
-        "button_label": "EXPLORE THE GEAR",
+        "button_label": "JOIN THE CLUB",
         "button_link": "",
         "height_desktop": 640,
         "height_mobile": 520
