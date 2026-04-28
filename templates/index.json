@@ -193,13 +193,13 @@
         "feature_4eRFaX"
       ],
       "custom_css": [
-        "p{font-weight: bold; }"
+        "p {font-weight: bold;}"
       ],
       "name": "Join The Crew",
       "settings": {
         "background_image": "shopify://shop_images/TSTN_Club_3fdceb9f-220f-49e8-b106-4c24066c73b6.png",
         "accent_color": "#e85d2c",
-        "show_torn_edge": true,
+        "show_torn_edge": false,
         "eyebrow": "TSTN CLUB",
         "heading": "JOIN THE CREW",
         "subheading": "Giveaways, behind-the-scenes content, rewards, and a real community.",
