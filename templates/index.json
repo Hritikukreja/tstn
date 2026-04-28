@@ -245,6 +245,73 @@
         "button_link": "#"
       }
     },
+    "featured_products_iWXKkb": {
+      "type": "featured-products",
+      "blocks": {
+        "product_kCJ4zc": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/1.avif",
+            "brand": "TSTN",
+            "title": "T-SHIRT",
+            "description": "Minimal everyday essential. Clean fit, durable fabric, built for comfort on and off the road.",
+            "price": "$39.99",
+            "button_label": "VIEW PRODUCT",
+            "link": ""
+          }
+        },
+        "product_8UVfFN": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/BLUETTI_Elite_30_V2_8.webp",
+            "brand": "BLUETTI",
+            "title": "Portable Power Station",
+            "description": "Reliable off-grid power. Charge your gear anywhere with quiet, efficient energy storage.",
+            "price": "$699.99",
+            "button_label": "VIEW PRODUCT",
+            "link": ""
+          }
+        },
+        "product_U66Mrp": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/4.avif",
+            "brand": "TSTN",
+            "title": "Utility Jacket",
+            "description": "Lightweight protection for unpredictable conditions. Built for movement.",
+            "price": "$79.99",
+            "button_label": "VIEW PRODUCT",
+            "link": ""
+          }
+        },
+        "product_HeAzHd": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/product-sub-img-2.png",
+            "brand": "Thule",
+            "title": "Hullavator Pro",
+            "description": "Effortless loading. Secure transport with assisted lift for heavy watercraft.",
+            "price": "$1099.99",
+            "button_label": "VIEW PRODUCT",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_kCJ4zc",
+        "product_8UVfFN",
+        "product_U66Mrp",
+        "product_HeAzHd"
+      ],
+      "name": "Featured Products",
+      "settings": {
+        "overline": "FEATURED",
+        "heading": "Shaun’s Gear Picks",
+        "view_all_label": "VIEW ALL FEATURED",
+        "view_all_link": "",
+        "accent_color": "#ff6a1a"
+      }
+    },
     "custom_video_eecJBr": {
       "type": "custom-video",
       "blocks": {
@@ -380,6 +447,7 @@
     "join_crew_TyHnLh",
     "join_crew2_emTe7Y",
     "custom_coll_tiH4B7",
+    "featured_products_iWXKkb",
     "custom_video_eecJBr",
     "custom_image_banner_kd9eRA",
     "1776795343af03a339"
