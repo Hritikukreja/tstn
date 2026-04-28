@@ -94,6 +94,13 @@
     width: 100%;
     overflow: hidden;
     background-color: #000000;
+    --eyebrow-size: {{ section.settings.eyebrow_size }}px;
+    --heading-size: {{ section.settings.heading_size }}px;
+    --subheading-size: {{ section.settings.subheading_size }}px;
+    --feature-title-size: {{ section.settings.feature_title_size }}px;
+    --feature-desc-size: {{ section.settings.feature_desc_size }}px;
+    --button-size: {{ section.settings.button_size }}px;
+    --mobile-scale: {{ section.settings.mobile_scale | divided_by: 100.0 }};
   }
 
   #shopify-section-{{ section.id }} .join-crew-bg {
@@ -152,7 +159,7 @@
 
   #shopify-section-{{ section.id }} .eyebrow-text {
     font-family: 'Danger Neue Free Regular', 'Arial Narrow', sans-serif;
-    font-size: clamp(0.875rem, 1.1vw, 1rem);
+    font-size: var(--eyebrow-size);
     letter-spacing: 0.15em;
     color: #ffffff;
     text-transform: uppercase;
@@ -162,7 +169,7 @@
   /* Main heading */
   #shopify-section-{{ section.id }} .join-crew-heading {
     font-family: 'Danger Neue Free Regular', 'Impact', 'Arial Narrow', sans-serif !important;
-    font-size: clamp(3rem, 7vw, 6rem);
+    font-size: var(--heading-size);
     line-height: 0.95;
     letter-spacing: 0.02em;
     color: #ffffff;
@@ -180,7 +187,7 @@
 
   /* Subheading */
   #shopify-section-{{ section.id }} .join-crew-subheading {
-    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    font-size: var(--subheading-size);
     line-height: 1.6;
     color: #d4d4d4;
     margin: 0 0 clamp(2rem, 4vw, 3.5rem) 0;
@@ -242,7 +249,7 @@
 
   #shopify-section-{{ section.id }} .feature-title {
     font-family: 'Danger Neue Free Regular', 'Impact', sans-serif !important;
-    font-size: clamp(0.95rem, 1.1vw, 1.0625rem);
+    font-size: var(--feature-title-size);
     letter-spacing: 0.08em;
     color: #ffffff;
     text-transform: uppercase;
@@ -252,7 +259,7 @@
   }
 
   #shopify-section-{{ section.id }} .feature-description {
-    font-size: clamp(0.875rem, 0.95vw, 0.9375rem);
+    font-size: var(--feature-desc-size);
     line-height: 1.5;
     color: #b8b8b8;
     margin: 0;
@@ -269,7 +276,7 @@
     background-color: transparent;
     color: #ffffff;
     font-family: 'Danger Neue Free Regular', 'Arial Narrow', sans-serif;
-    font-size: clamp(0.875rem, 1.05vw, 1rem);
+    font-size: var(--button-size);
     letter-spacing: 0.12em;
     text-transform: uppercase;
     text-decoration: none;
@@ -344,7 +351,33 @@
     }
   }
 
-  /* Mobile */
+  /* Mobile - apply mobile scale multiplier to all text */
+  @media (max-width: 768px) {
+    #shopify-section-{{ section.id }} .eyebrow-text {
+      font-size: calc(var(--eyebrow-size) * var(--mobile-scale));
+    }
+
+    #shopify-section-{{ section.id }} .join-crew-heading {
+      font-size: calc(var(--heading-size) * var(--mobile-scale));
+    }
+
+    #shopify-section-{{ section.id }} .join-crew-subheading {
+      font-size: calc(var(--subheading-size) * var(--mobile-scale));
+    }
+
+    #shopify-section-{{ section.id }} .feature-title {
+      font-size: calc(var(--feature-title-size) * var(--mobile-scale));
+    }
+
+    #shopify-section-{{ section.id }} .feature-description {
+      font-size: calc(var(--feature-desc-size) * var(--mobile-scale));
+    }
+
+    #shopify-section-{{ section.id }} .join-crew-button {
+      font-size: calc(var(--button-size) * var(--mobile-scale));
+    }
+  }
+
   @media (max-width: 640px) {
     #shopify-section-{{ section.id }} .join-crew-bg {
       min-height: auto;
@@ -447,6 +480,86 @@
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Font Sizes (Desktop)",
+      "info": "All sizes are in pixels. Mobile sizes scale automatically based on the mobile scale below."
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Eyebrow text size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Main heading size",
+      "min": 32,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 84
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 17
+    },
+    {
+      "type": "range",
+      "id": "feature_title_size",
+      "label": "Feature title size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "feature_desc_size",
+      "label": "Feature description size",
+      "min": 11,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "label": "Button text size",
+      "min": 12,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "header",
+      "content": "Mobile Scaling",
+      "info": "Scales all text proportionally on screens under 768px. 100 = same as desktop, 70 = 30% smaller."
+    },
+    {
+      "type": "range",
+      "id": "mobile_scale",
+      "label": "Mobile text scale",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 75
     }
   ],
   "blocks": [
