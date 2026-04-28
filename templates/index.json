@@ -29,7 +29,7 @@
         "media_type": "video",
         "hero_video": "shopify://files/videos/hompage-banner-video.mp4",
         "show_controls": false,
-        "hero_height_desktop": 90,
+        "hero_height_desktop": 95,
         "hero_height_mobile": 80,
         "tint_color": "#000000",
         "tint_opacity": 45,
