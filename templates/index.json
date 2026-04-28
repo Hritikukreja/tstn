@@ -38,7 +38,7 @@
         "content_alignment": "center",
         "kicker": "TSTN STARTS HERE",
         "kicker_color": "#ffffff",
-        "kicker_size": 80,
+        "kicker_size": 70,
         "kicker_weight": 400,
         "heading": "The stories, the gear, the crew, everything in one place.",
         "heading_color": "#ff8a2b",
@@ -88,13 +88,17 @@
         "block_rHeCXG",
         "block_Qtw3Ux"
       ],
+      "custom_css": [
+        "h2 {font-size: 70px;}",
+        "h3 {font-size: 30px; color: white;}"
+      ],
       "name": "Home bg text",
       "settings": {
         "background_image": "shopify://shop_images/5.1.png",
         "background_image_mobile": "shopify://shop_images/5.1.png",
         "main_heading": "Meet Shaun",
-        "subheading": "Builder, storyteller, and the guy behind the wheel.",
-        "description": "<p>Eight years of real-world builds, broken bolts, and back-road lessons.</p><p>I explore extreme environments and share cinematic overlanding adventures, bringing you along for every muddy trail, icy crossing, and heart-stopping moment.</p>"
+        "subheading": "",
+        "description": "<h3>Builder, storyteller, and the guy behind the wheel.</h3><p>Eight years of real-world builds, broken bolts, and back-road lessons. I explore extreme environments and share cinematic overlanding adventures, bringing you along for every muddy trail, icy crossing, and heart-stopping moment.</p>"
       }
     },
     "join_crew_TyHnLh": {
@@ -204,7 +208,7 @@
         "feature_gap_x": 8,
         "feature_gap_y": 16,
         "eyebrow_size": 15,
-        "heading_size": 76,
+        "heading_size": 70,
         "subheading_size": 22,
         "feature_title_size": 16,
         "feature_desc_size": 19,
@@ -304,6 +308,9 @@
         "product_8UVfFN",
         "product_U66Mrp",
         "product_HeAzHd"
+      ],
+      "custom_css": [
+        "h2 {font-size: 70px;}"
       ],
       "name": "Featured Products",
       "settings": {
