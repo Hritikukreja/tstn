@@ -90,8 +90,8 @@
       ],
       "name": "Home bg text",
       "settings": {
-        "background_image": "shopify://shop_images/2.0.png",
-        "background_image_mobile": "shopify://shop_images/meet_shaun_mobile.png",
+        "background_image": "shopify://shop_images/5.1.png",
+        "background_image_mobile": "shopify://shop_images/5.1.png",
         "main_heading": "Meet Shaun",
         "subheading": "Builder, storyteller, and the guy behind the wheel.",
         "description": "<p>Eight years of real-world builds, broken bolts, and back-road lessons.</p><p>I explore extreme environments and share cinematic overlanding adventures, bringing you along for every muddy trail, icy crossing, and heart-stopping moment.</p>"
