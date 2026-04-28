@@ -11,6 +11,7 @@
   "sections": {
     "home_video_iEPccR": {
       "type": "home-video",
+      "disabled": true,
       "name": "Home video",
       "settings": {
         "video_file": "shopify://files/videos/hompage-banner-video.mp4",
@@ -98,6 +99,7 @@
     },
     "join_crew_TyHnLh": {
       "type": "join-crew",
+      "disabled": true,
       "name": "Join Crew",
       "settings": {
         "background_image": "shopify://shop_images/Trail_B_B_Sunset_Kayak_Mountain.webp",
