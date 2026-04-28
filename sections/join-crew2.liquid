@@ -1,22 +1,18 @@
 {% comment %}
   Section: Join The Crew - TSTN Club
-  Premium dark-themed club membership section with adventure aesthetic
+  Full-width cinematic hero section with readable feature cards.
 {% endcomment %}
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
 <section id="shopify-section-{{ section.id }}" class="join-crew-section">
-  <div class="join-crew-bg" style="background-image: url('{{ section.settings.background_image | image_url: width: 2400 }}');">
+  <div class="join-crew-bg">
     <div class="join-crew-overlay"></div>
 
     <div class="join-crew-container">
       <div class="join-crew-content">
-
         {% if section.settings.eyebrow != blank %}
           <div class="join-crew-eyebrow">
             <span class="eyebrow-dash"></span>
-            <span class="eyebrow-text">{{ section.settings.eyebrow }}</span>
+            <span>{{ section.settings.eyebrow }}</span>
           </div>
         {% endif %}
 
@@ -32,23 +28,27 @@
           <div class="join-crew-features">
             {% for block in section.blocks %}
               {% if block.type == 'feature' %}
-                <div class="feature-item" {{ block.shopify_attributes }}>
+                <div class="join-crew-card" {{ block.shopify_attributes }}>
                   {% if block.settings.icon != blank %}
-                    <div class="feature-icon">
-                      {{ block.settings.icon }}
-                    </div>
+                    <div class="join-crew-icon">{{ block.settings.icon }}</div>
                   {% elsif block.settings.icon_image != blank %}
-                    <div class="feature-icon">
-                      <img src="{{ block.settings.icon_image | image_url: width: 80 }}" alt="{{ block.settings.title | escape }}" loading="lazy" width="40" height="40">
+                    <div class="join-crew-icon">
+                      <img
+                        src="{{ block.settings.icon_image | image_url: width: 80 }}"
+                        alt="{{ block.settings.title | escape }}"
+                        loading="lazy"
+                        width="40"
+                        height="40"
+                      >
                     </div>
                   {% endif %}
 
                   {% if block.settings.title != blank %}
-                    <h3 class="feature-title">{{ block.settings.title }}</h3>
+                    <h3 class="join-crew-card-title">{{ block.settings.title }}</h3>
                   {% endif %}
 
                   {% if block.settings.description != blank %}
-                    <p class="feature-description">{{ block.settings.description }}</p>
+                    <p class="join-crew-card-text">{{ block.settings.description }}</p>
                   {% endif %}
                 </div>
               {% endif %}
@@ -59,23 +59,13 @@
         {% if section.settings.button_label != blank %}
           <a href="{{ section.settings.button_link | default: '#' }}" class="join-crew-button">
             <span>{{ section.settings.button_label }}</span>
-            <svg class="button-arrow" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <svg width="18" height="18" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
         {% endif %}
-
       </div>
     </div>
-
-    {% if section.settings.show_torn_edge %}
-      <div class="join-crew-torn-edge">
-        <svg viewBox="0 0 1920 80" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0,80 L0,40 L40,30 L120,45 L200,25 L280,40 L360,20 L440,35 L520,15 L600,30 L680,10 L760,25 L840,5 L920,20 L1000,0 L1080,15 L1160,5 L1240,20 L1320,10 L1400,25 L1480,15 L1560,30 L1640,20 L1720,35 L1800,25 L1880,40 L1920,30 L1920,80 Z" fill="#000000"/>
-          <path d="M0,42 L40,32 L120,47 L200,27 L280,42 L360,22 L440,37 L520,17 L600,32 L680,12 L760,27 L840,7 L920,22 L1000,2 L1080,17 L1160,7 L1240,22 L1320,12 L1400,27 L1480,17 L1560,32 L1640,22 L1720,37 L1800,27 L1880,42 L1920,32" stroke="{{ section.settings.accent_color }}" stroke-width="2" fill="none"/>
-        </svg>
-      </div>
-    {% endif %}
   </div>
 </section>
 
@@ -88,328 +78,271 @@
     font-display: swap;
   }
 
+  #shopify-section-{{ section.id }}.section-join-crew,
+  #shopify-section-{{ section.id }} .join-crew-section {
+    width: 100%;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #000;
+    overflow: hidden;
+  }
+
   #shopify-section-{{ section.id }} .join-crew-section {
     position: relative;
-    width: 100%;
-    overflow: hidden;
-    background-color: #000000;
-    --eyebrow-size: {{ section.settings.eyebrow_size }}px;
-    --heading-size: {{ section.settings.heading_size }}px;
-    --subheading-size: {{ section.settings.subheading_size }}px;
-    --feature-title-size: {{ section.settings.feature_title_size }}px;
-    --feature-desc-size: {{ section.settings.feature_desc_size }}px;
-    --button-size: {{ section.settings.button_size }}px;
-    --mobile-scale: {{ section.settings.mobile_scale | divided_by: 100.0 }};
-    --content-width: {{ section.settings.content_width }}px;
-    --features-width: {{ section.settings.features_width }}px;
-    --feature-item-min: {{ section.settings.feature_item_min_width }}px;
-    --feature-gap-x: {{ section.settings.feature_gap_x }}px;
-    --feature-gap-y: {{ section.settings.feature_gap_y }}px;
-    --feature-columns: {{ section.settings.feature_columns }};
-    --card-padding: {{ section.settings.card_padding }}px;
-    --card-radius: {{ section.settings.card_radius }}px;
-    --card-bg-opacity: {{ section.settings.card_bg_opacity | divided_by: 100.0 }};
-    --card-border-opacity: {{ section.settings.card_border_opacity | divided_by: 100.0 }};
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+    width: 100vw;
   }
 
   #shopify-section-{{ section.id }} .join-crew-bg {
     position: relative;
     width: 100%;
-    min-height: clamp(600px, 90vh, 900px);
+    min-height: {{ section.settings.section_height }}vh;
+    background-image: url('{{ section.settings.background_image | image_url: width: 3000 }}');
     background-size: cover;
-    background-position: center right;
     background-repeat: no-repeat;
+    background-position: {{ section.settings.background_position_x }}% {{ section.settings.background_position_y }}%;
     display: flex;
-    align-items: center;
+    align-items: {{ section.settings.vertical_alignment }};
   }
 
   #shopify-section-{{ section.id }} .join-crew-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(
-      90deg,
-      rgba(0, 0, 0, 0.95) 0%,
-      rgba(0, 0, 0, 0.85) 25%,
-      rgba(0, 0, 0, 0.5) 45%,
-      rgba(0, 0, 0, 0.2) 65%,
-      rgba(0, 0, 0, 0) 85%
-    );
     z-index: 1;
+    pointer-events: none;
+    background:
+      linear-gradient(
+        90deg,
+        rgba(0,0,0,{{ section.settings.overlay_left_opacity | divided_by: 100.0 }}) 0%,
+        rgba(0,0,0,{{ section.settings.overlay_mid_opacity | divided_by: 100.0 }}) 42%,
+        rgba(0,0,0,{{ section.settings.overlay_right_opacity | divided_by: 100.0 }}) 100%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(0,0,0,{{ section.settings.overlay_top_opacity | divided_by: 100.0 }}) 0%,
+        rgba(0,0,0,0) 38%,
+        rgba(0,0,0,{{ section.settings.overlay_bottom_opacity | divided_by: 100.0 }}) 100%
+      );
   }
 
   #shopify-section-{{ section.id }} .join-crew-container {
     position: relative;
     z-index: 2;
     width: 100%;
-    max-width: 1800px;
+    max-width: {{ section.settings.container_width }}px;
     margin: 0 auto;
-    padding: clamp(3rem, 6vw, 6rem) clamp(1.5rem, 4vw, 5rem);
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    padding-left: {{ section.settings.padding_x }}px;
+    padding-right: {{ section.settings.padding_x }}px;
   }
 
   #shopify-section-{{ section.id }} .join-crew-content {
-    max-width: var(--content-width);
-    color: #ffffff;
+    width: 100%;
+    max-width: {{ section.settings.content_width }}px;
+    margin-left: {% if section.settings.content_alignment == 'left' %}0{% elsif section.settings.content_alignment == 'center' %}auto{% else %}auto{% endif %};
+    margin-right: {% if section.settings.content_alignment == 'left' %}auto{% elsif section.settings.content_alignment == 'center' %}auto{% else %}0{% endif %};
+    color: #fff;
   }
 
-  /* Eyebrow */
   #shopify-section-{{ section.id }} .join-crew-eyebrow {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin-bottom: clamp(1rem, 2vw, 1.5rem);
+    gap: 10px;
+    margin-bottom: 14px;
+    font-family: 'Danger Neue Free Regular', Impact, sans-serif;
+    font-size: {{ section.settings.eyebrow_size }}px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #fff;
   }
 
   #shopify-section-{{ section.id }} .eyebrow-dash {
-    display: inline-block;
-    width: 28px;
+    display: block;
+    width: 30px;
     height: 3px;
-    background-color: {{ section.settings.accent_color }};
+    background: {{ section.settings.accent_color }};
   }
 
-  #shopify-section-{{ section.id }} .eyebrow-text {
-    font-family: 'Danger Neue Free Regular', 'Arial Narrow', sans-serif;
-    font-size: var(--eyebrow-size);
-    letter-spacing: 0.15em;
-    color: #ffffff;
-    text-transform: uppercase;
-    font-weight: 400;
-  }
-
-  /* Main heading */
   #shopify-section-{{ section.id }} .join-crew-heading {
-    font-family: 'Danger Neue Free Regular', 'Impact', 'Arial Narrow', sans-serif !important;
-    font-size: var(--heading-size);
-    line-height: 0.95;
-    letter-spacing: 0.02em;
-    color: #ffffff;
+    font-family: 'Danger Neue Free Regular', Impact, 'Arial Narrow', sans-serif !important;
+    font-size: {{ section.settings.heading_size }}px;
+    line-height: 0.92;
+    letter-spacing: 0.025em;
     text-transform: uppercase;
-    margin: 0 0 clamp(1.25rem, 2vw, 2rem) 0;
+    color: #fff;
+    margin: 0 0 22px;
     font-weight: 400;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.55);
   }
 
-  /* Subheading */
   #shopify-section-{{ section.id }} .join-crew-subheading {
-    font-size: var(--subheading-size);
-    line-height: 1.6;
-    color: #d4d4d4;
-    margin: 0 0 clamp(2rem, 4vw, 3.5rem) 0;
-    max-width: 480px;
-    font-family: inherit;
+    max-width: {{ section.settings.subheading_width }}px;
+    margin: 0 0 42px;
+    font-size: {{ section.settings.subheading_size }}px;
+    line-height: 1.55;
+    font-weight: 600;
+    color: rgba(255,255,255,0.86);
+    text-shadow: 0 3px 16px rgba(0,0,0,0.65);
   }
 
-  /* Features Grid */
   #shopify-section-{{ section.id }} .join-crew-features {
+    width: 100%;
+    max-width: {{ section.settings.features_width }}px;
     display: grid;
-    grid-template-columns: repeat(var(--feature-columns), minmax(var(--feature-item-min), 1fr));
-    column-gap: var(--feature-gap-x);
-    row-gap: var(--feature-gap-y);
-    margin-bottom: clamp(2rem, 4vw, 3.5rem);
-    max-width: var(--features-width);
-    position: relative;
+    grid-template-columns: repeat({{ section.settings.feature_columns }}, minmax(0, 1fr));
+    gap: {{ section.settings.feature_gap }}px;
+    margin-bottom: 34px;
   }
 
-  /* Individual feature card */
-  #shopify-section-{{ section.id }} .feature-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
-    position: relative;
-    padding: var(--card-padding);
-    min-width: 0;
-    background-color: rgba(15, 15, 15, var(--card-bg-opacity));
-    border: 1px solid rgba(255, 255, 255, var(--card-border-opacity));
-    border-radius: var(--card-radius);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  #shopify-section-{{ section.id }} .join-crew-card {
+    min-height: {{ section.settings.card_min_height }}px;
+    padding: {{ section.settings.card_padding }}px;
+    border-radius: {{ section.settings.card_radius }}px;
+    background: rgba(8,8,8,{{ section.settings.card_bg_opacity | divided_by: 100.0 }});
+    border: 1px solid rgba(255,255,255,{{ section.settings.card_border_opacity | divided_by: 100.0 }});
+    box-shadow: 0 18px 45px rgba(0,0,0,{{ section.settings.card_shadow_opacity | divided_by: 100.0 }});
+    backdrop-filter: blur({{ section.settings.card_blur }}px);
+    -webkit-backdrop-filter: blur({{ section.settings.card_blur }}px);
+    transition: transform .25s ease, border-color .25s ease, background .25s ease;
   }
 
-  #shopify-section-{{ section.id }} .feature-item:hover {
-    background-color: rgba(20, 20, 20, calc(var(--card-bg-opacity) + 0.1));
-    border-color: rgba(255, 255, 255, calc(var(--card-border-opacity) + 0.05));
-    transform: translateY(-2px);
+  #shopify-section-{{ section.id }} .join-crew-card:hover {
+    transform: translateY(-3px);
+    background: rgba(12,12,12,0.78);
+    border-color: rgba(232,93,44,0.55);
   }
 
-  #shopify-section-{{ section.id }} .feature-icon {
-    width: 40px;
-    height: 40px;
+  #shopify-section-{{ section.id }} .join-crew-icon {
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    margin-bottom: 0.5rem;
+    margin-bottom: 14px;
+    color: #fff;
   }
 
-  #shopify-section-{{ section.id }} .feature-icon svg,
-  #shopify-section-{{ section.id }} .feature-icon img {
-    width: 40px;
-    height: 40px;
+  #shopify-section-{{ section.id }} .join-crew-icon svg,
+  #shopify-section-{{ section.id }} .join-crew-icon img {
+    width: {{ section.settings.icon_size }}px;
+    height: {{ section.settings.icon_size }}px;
     object-fit: contain;
-    color: #ffffff;
-    stroke: #ffffff;
+    color: #fff;
+    stroke: currentColor;
   }
 
-  #shopify-section-{{ section.id }} .feature-title {
-    font-family: 'Danger Neue Free Regular', 'Impact', sans-serif !important;
-    font-size: var(--feature-title-size);
+  #shopify-section-{{ section.id }} .join-crew-card-title {
+    font-family: 'Danger Neue Free Regular', Impact, 'Arial Narrow', sans-serif !important;
+    font-size: {{ section.settings.feature_title_size }}px;
+    line-height: 1.05;
     letter-spacing: 0.08em;
-    color: #ffffff;
     text-transform: uppercase;
-    margin: 0;
+    color: #fff;
+    margin: 0 0 10px;
     font-weight: 400;
-    line-height: 1.2;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
   }
 
-  #shopify-section-{{ section.id }} .feature-description {
-    font-size: var(--feature-desc-size);
-    line-height: 1.5;
-    color: #b8b8b8;
+  #shopify-section-{{ section.id }} .join-crew-card-text {
     margin: 0;
-    font-family: inherit;
+    font-size: {{ section.settings.feature_desc_size }}px;
+    line-height: 1.5;
+    font-weight: 600;
+    color: rgba(255,255,255,0.82);
+    text-shadow: 0 2px 10px rgba(0,0,0,0.75);
   }
 
-  /* CTA Button */
   #shopify-section-{{ section.id }} .join-crew-button {
     display: inline-flex;
     align-items: center;
-    gap: 0.875rem;
-    padding: clamp(0.875rem, 1.4vw, 1.125rem) clamp(1.5rem, 2.5vw, 2.25rem);
-    border: 2px solid {{ section.settings.accent_color }};
-    background-color: transparent;
-    color: #ffffff;
-    font-family: 'Danger Neue Free Regular', 'Arial Narrow', sans-serif;
-    font-size: var(--button-size);
-    letter-spacing: 0.12em;
+    justify-content: center;
+    gap: 14px;
+    min-width: {{ section.settings.button_min_width }}px;
+    padding: 17px 30px;
+    border: 1px solid {{ section.settings.accent_color }};
+    background: rgba(0,0,0,0.30);
+    color: #fff;
+    font-family: 'Danger Neue Free Regular', Impact, sans-serif;
+    font-size: {{ section.settings.button_size }}px;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
     text-decoration: none;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    font-weight: 400;
-  }
-
-  #shopify-section-{{ section.id }} .join-crew-button::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-color: {{ section.settings.accent_color }};
-    transform: translateX(-100%);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: -1;
-  }
-
-  #shopify-section-{{ section.id }} .join-crew-button:hover::before {
-    transform: translateX(0);
+    transition: background .25s ease, color .25s ease, transform .25s ease;
   }
 
   #shopify-section-{{ section.id }} .join-crew-button:hover {
-    color: #000000;
+    background: {{ section.settings.accent_color }};
+    color: #000;
+    transform: translateY(-2px);
   }
 
-  #shopify-section-{{ section.id }} .join-crew-button .button-arrow {
-    transition: transform 0.3s ease;
+  #shopify-section-{{ section.id }} .join-crew-button svg {
+    transition: transform .25s ease;
   }
 
-  #shopify-section-{{ section.id }} .join-crew-button:hover .button-arrow {
-    transform: translateX(4px);
+  #shopify-section-{{ section.id }} .join-crew-button:hover svg {
+    transform: translateX(5px);
   }
 
-  /* Torn Edge */
-  #shopify-section-{{ section.id }} .join-crew-torn-edge {
-    position: absolute;
-    bottom: -1px;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: clamp(40px, 5vw, 80px);
-    z-index: 3;
-    pointer-events: none;
-  }
+  @media screen and (max-width: 990px) {
+    #shopify-section-{{ section.id }} .join-crew-bg {
+      min-height: {{ section.settings.mobile_section_height }}vh;
+      background-position: {{ section.settings.mobile_background_position_x }}% {{ section.settings.mobile_background_position_y }}%;
+      align-items: flex-end;
+    }
 
-  #shopify-section-{{ section.id }} .join-crew-torn-edge svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-
-  /* Tablet & smaller laptops - lowered breakpoint to 900px so custom widths apply on most desktops */
-  @media (max-width: 900px) {
     #shopify-section-{{ section.id }} .join-crew-overlay {
-      background: linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0.5) 0%,
-        rgba(0, 0, 0, 0.85) 50%,
-        rgba(0, 0, 0, 0.95) 100%
-      );
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.86) 52%, rgba(0,0,0,0.98) 100%),
+        linear-gradient(90deg, rgba(0,0,0,0.6), rgba(0,0,0,0.25));
+    }
+
+    #shopify-section-{{ section.id }} .join-crew-container {
+      padding-left: 24px;
+      padding-right: 24px;
+      padding-top: 70px;
+      padding-bottom: 46px;
     }
 
     #shopify-section-{{ section.id }} .join-crew-content {
       max-width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    #shopify-section-{{ section.id }} .join-crew-heading {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+    }
+
+    #shopify-section-{{ section.id }} .join-crew-subheading {
+      font-size: {{ section.settings.mobile_subheading_size }}px;
+      margin-bottom: 28px;
     }
 
     #shopify-section-{{ section.id }} .join-crew-features {
       max-width: 100%;
-      grid-template-columns: repeat(var(--feature-columns), 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
     }
   }
 
-  /* Mobile - apply mobile scale multiplier to all text */
-  @media (max-width: 768px) {
-    #shopify-section-{{ section.id }} .eyebrow-text {
-      font-size: calc(var(--eyebrow-size) * var(--mobile-scale));
-    }
-
-    #shopify-section-{{ section.id }} .join-crew-heading {
-      font-size: calc(var(--heading-size) * var(--mobile-scale));
-    }
-
-    #shopify-section-{{ section.id }} .join-crew-subheading {
-      font-size: calc(var(--subheading-size) * var(--mobile-scale));
-    }
-
-    #shopify-section-{{ section.id }} .feature-title {
-      font-size: calc(var(--feature-title-size) * var(--mobile-scale));
-    }
-
-    #shopify-section-{{ section.id }} .feature-description {
-      font-size: calc(var(--feature-desc-size) * var(--mobile-scale));
-    }
-
-    #shopify-section-{{ section.id }} .join-crew-button {
-      font-size: calc(var(--button-size) * var(--mobile-scale));
-    }
-  }
-
-  @media (max-width: 640px) {
-    #shopify-section-{{ section.id }} .join-crew-bg {
-      min-height: auto;
-      padding: 0;
-      background-position: center top;
-    }
-
-    #shopify-section-{{ section.id }} .join-crew-overlay {
-      background: linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0.4) 0%,
-        rgba(0, 0, 0, 0.75) 30%,
-        rgba(0, 0, 0, 0.95) 60%
-      );
-    }
-
+  @media screen and (max-width: 560px) {
     #shopify-section-{{ section.id }} .join-crew-features {
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1rem;
+      grid-template-columns: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .join-crew-card {
+      min-height: auto;
     }
 
     #shopify-section-{{ section.id }} .join-crew-button {
       width: 100%;
-      justify-content: center;
-    }
-  }
-
-  @media (max-width: 400px) {
-    #shopify-section-{{ section.id }} .join-crew-features {
-      grid-template-columns: 1fr;
+      min-width: 0;
     }
   }
 {% endstyle %}
@@ -427,8 +360,7 @@
     {
       "type": "image_picker",
       "id": "background_image",
-      "label": "Background image",
-      "info": "Recommended: 2400x1200px. Upload a wide cinematic image (truck, adventure scene, etc.)"
+      "label": "Background image"
     },
     {
       "type": "color",
@@ -437,10 +369,99 @@
       "default": "#E85D2C"
     },
     {
-      "type": "checkbox",
-      "id": "show_torn_edge",
-      "label": "Show torn edge at bottom",
-      "default": true
+      "type": "range",
+      "id": "section_height",
+      "label": "Desktop section height",
+      "min": 60,
+      "max": 110,
+      "step": 5,
+      "unit": "vh",
+      "default": 90
+    },
+    {
+      "type": "range",
+      "id": "background_position_x",
+      "label": "Background position horizontal",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "background_position_y",
+      "label": "Background position vertical",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "select",
+      "id": "vertical_alignment",
+      "label": "Content vertical alignment",
+      "default": "center",
+      "options": [
+        { "value": "flex-start", "label": "Top" },
+        { "value": "center", "label": "Middle" },
+        { "value": "flex-end", "label": "Bottom" }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "range",
+      "id": "overlay_left_opacity",
+      "label": "Overlay opacity left",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 85
+    },
+    {
+      "type": "range",
+      "id": "overlay_mid_opacity",
+      "label": "Overlay opacity middle",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "overlay_right_opacity",
+      "label": "Overlay opacity right",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "overlay_top_opacity",
+      "label": "Overlay opacity top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "overlay_bottom_opacity",
+      "label": "Overlay opacity bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 45
     },
     {
       "type": "header",
@@ -449,7 +470,7 @@
     {
       "type": "text",
       "id": "eyebrow",
-      "label": "Eyebrow text",
+      "label": "Eyebrow",
       "default": "TSTN CLUB"
     },
     {
@@ -465,10 +486,6 @@
       "default": "Giveaways, behind-the-scenes content, rewards, and a real community."
     },
     {
-      "type": "header",
-      "content": "Call To Action"
-    },
-    {
       "type": "text",
       "id": "button_label",
       "label": "Button label",
@@ -481,101 +498,157 @@
     },
     {
       "type": "header",
-      "content": "Layout & Width",
-      "info": "Control how wide the content and feature grid are on desktop."
+      "content": "Desktop Layout"
+    },
+    {
+      "type": "range",
+      "id": "container_width",
+      "label": "Container width",
+      "min": 1000,
+      "max": 1800,
+      "step": 20,
+      "unit": "px",
+      "default": 1500
     },
     {
       "type": "range",
       "id": "content_width",
-      "label": "Overall content width",
-      "info": "Max width of the entire left content column.",
+      "label": "Content block width",
       "min": 500,
-      "max": 1800,
+      "max": 1100,
       "step": 20,
       "unit": "px",
-      "default": 900
+      "default": 760
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content horizontal alignment",
+      "default": "left",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "padding_x",
+      "label": "Side padding",
+      "min": 20,
+      "max": 140,
+      "step": 4,
+      "unit": "px",
+      "default": 72
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Top padding",
+      "min": 40,
+      "max": 180,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Bottom padding",
+      "min": 40,
+      "max": 180,
+      "step": 4,
+      "unit": "px",
+      "default": 96
+    },
+    {
+      "type": "header",
+      "content": "Feature Cards"
     },
     {
       "type": "range",
       "id": "features_width",
-      "label": "Features grid width",
-      "info": "Max width of the icon/title/description grid.",
-      "min": 400,
-      "max": 1700,
+      "label": "Feature grid width",
+      "min": 500,
+      "max": 1100,
       "step": 20,
       "unit": "px",
-      "default": 1000
+      "default": 740
     },
     {
-      "type": "range",
-      "id": "feature_item_min_width",
-      "label": "Per-feature minimum width",
-      "info": "Minimum width of each individual feature card.",
-      "min": 140,
-      "max": 360,
-      "step": 10,
-      "unit": "px",
-      "default": 220
-    },
-    {
-      "type": "range",
+      "type": "select",
       "id": "feature_columns",
-      "label": "Number of columns",
-      "min": 2,
-      "max": 4,
-      "step": 1,
-      "default": 3
+      "label": "Desktop columns",
+      "default": "3",
+      "options": [
+        { "value": "2", "label": "2 columns" },
+        { "value": "3", "label": "3 columns" }
+      ]
     },
     {
       "type": "range",
-      "id": "feature_gap_x",
-      "label": "Horizontal gap between cards",
+      "id": "feature_gap",
+      "label": "Card gap",
       "min": 8,
-      "max": 80,
+      "max": 32,
       "step": 2,
       "unit": "px",
-      "default": 20
+      "default": 14
     },
     {
       "type": "range",
-      "id": "feature_gap_y",
-      "label": "Vertical gap between card rows",
-      "min": 8,
-      "max": 80,
-      "step": 2,
+      "id": "card_min_height",
+      "label": "Card minimum height",
+      "min": 130,
+      "max": 240,
+      "step": 5,
       "unit": "px",
-      "default": 20
-    },
-    {
-      "type": "header",
-      "content": "Feature Card Style",
-      "info": "Customize the look of each individual feature card."
+      "default": 160
     },
     {
       "type": "range",
       "id": "card_padding",
-      "label": "Card padding (inner space)",
-      "min": 12,
-      "max": 48,
+      "label": "Card padding",
+      "min": 14,
+      "max": 36,
       "step": 2,
       "unit": "px",
-      "default": 24
+      "default": 22
     },
     {
       "type": "range",
       "id": "card_radius",
-      "label": "Card corner radius",
+      "label": "Card radius",
       "min": 0,
-      "max": 32,
+      "max": 20,
       "step": 1,
       "unit": "px",
-      "default": 8
+      "default": 6
     },
     {
       "type": "range",
       "id": "card_bg_opacity",
       "label": "Card background opacity",
-      "info": "How dark/visible the card background is. 0 = transparent, 100 = solid black.",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 55
+    },
+    {
+      "type": "range",
+      "id": "card_border_opacity",
+      "label": "Card border opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 25
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_opacity",
+      "label": "Card shadow opacity",
       "min": 0,
       "max": 100,
       "step": 5,
@@ -584,65 +657,93 @@
     },
     {
       "type": "range",
-      "id": "card_border_opacity",
-      "label": "Card border opacity",
-      "info": "How visible the white border around each card is. 0 = no border, 100 = solid white.",
+      "id": "card_blur",
+      "label": "Card background blur",
       "min": 0,
-      "max": 50,
+      "max": 24,
       "step": 1,
-      "unit": "%",
-      "default": 8
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Icon size",
+      "min": 24,
+      "max": 52,
+      "step": 2,
+      "unit": "px",
+      "default": 34
     },
     {
       "type": "header",
-      "content": "Font Sizes (Desktop)",
-      "info": "All sizes are in pixels. Mobile sizes scale automatically based on the mobile scale below."
+      "content": "Typography"
     },
     {
       "type": "range",
       "id": "eyebrow_size",
-      "label": "Eyebrow text size",
+      "label": "Eyebrow size",
       "min": 10,
       "max": 24,
       "step": 1,
       "unit": "px",
-      "default": 14
+      "default": 13
     },
     {
       "type": "range",
       "id": "heading_size",
-      "label": "Main heading size",
-      "min": 32,
+      "label": "Heading size",
+      "min": 44,
       "max": 120,
       "step": 2,
       "unit": "px",
-      "default": 84
+      "default": 76
     },
     {
       "type": "range",
       "id": "subheading_size",
       "label": "Subheading size",
-      "min": 12,
-      "max": 28,
+      "min": 13,
+      "max": 26,
       "step": 1,
       "unit": "px",
-      "default": 17
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "subheading_width",
+      "label": "Subheading width",
+      "min": 300,
+      "max": 760,
+      "step": 20,
+      "unit": "px",
+      "default": 520
     },
     {
       "type": "range",
       "id": "feature_title_size",
       "label": "Feature title size",
       "min": 12,
-      "max": 28,
+      "max": 24,
       "step": 1,
       "unit": "px",
-      "default": 16
+      "default": 17
     },
     {
       "type": "range",
       "id": "feature_desc_size",
       "label": "Feature description size",
-      "min": 11,
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "label": "Button size",
+      "min": 12,
       "max": 22,
       "step": 1,
       "unit": "px",
@@ -650,28 +751,67 @@
     },
     {
       "type": "range",
-      "id": "button_size",
-      "label": "Button text size",
-      "min": 12,
-      "max": 22,
-      "step": 1,
+      "id": "button_min_width",
+      "label": "Button minimum width",
+      "min": 180,
+      "max": 420,
+      "step": 10,
       "unit": "px",
-      "default": 15
+      "default": 300
     },
     {
       "type": "header",
-      "content": "Mobile Scaling",
-      "info": "Scales all text proportionally on screens under 768px. 100 = same as desktop, 70 = 30% smaller."
+      "content": "Mobile"
     },
     {
       "type": "range",
-      "id": "mobile_scale",
-      "label": "Mobile text scale",
-      "min": 50,
-      "max": 100,
+      "id": "mobile_section_height",
+      "label": "Mobile section height",
+      "min": 70,
+      "max": 130,
       "step": 5,
+      "unit": "vh",
+      "default": 110
+    },
+    {
+      "type": "range",
+      "id": "mobile_background_position_x",
+      "label": "Mobile background position horizontal",
+      "min": 0,
+      "max": 100,
+      "step": 1,
       "unit": "%",
-      "default": 75
+      "default": 65
+    },
+    {
+      "type": "range",
+      "id": "mobile_background_position_y",
+      "label": "Mobile background position vertical",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "%",
+      "default": 50
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 34,
+      "max": 78,
+      "step": 2,
+      "unit": "px",
+      "default": 52
+    },
+    {
+      "type": "range",
+      "id": "mobile_subheading_size",
+      "label": "Mobile subheading size",
+      "min": 13,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
     }
   ],
   "blocks": [
@@ -681,24 +821,14 @@
       "limit": 6,
       "settings": [
         {
-          "type": "header",
-          "content": "Icon"
-        },
-        {
           "type": "textarea",
           "id": "icon",
-          "label": "Custom SVG icon",
-          "info": "Paste inline SVG code. Leave blank to use icon image instead."
+          "label": "Custom SVG icon"
         },
         {
           "type": "image_picker",
           "id": "icon_image",
-          "label": "Icon image (alternative)",
-          "info": "Used if no SVG is provided. Recommended: 80x80px PNG with transparent background."
-        },
-        {
-          "type": "header",
-          "content": "Content"
+          "label": "Icon image"
         },
         {
           "type": "text",
@@ -722,7 +852,7 @@
         {
           "type": "feature",
           "settings": {
-            "icon": "<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><rect x='6' y='14' width='28' height='22' rx='1'/><path d='M6 14 L20 8 L34 14'/><path d='M20 14 L20 36'/><path d='M14 20 Q20 14 26 20'/></svg>",
+            "icon": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><rect x='7' y='15' width='26' height='20' rx='2'/><path d='M20 15v20M7 22h26'/><path d='M15 15c-3-4 0-8 5-2 5-6 8-2 5 2'/></svg>",
             "title": "GIVEAWAYS",
             "description": "Unlock exclusive gear and win epic prizes."
           }
@@ -730,7 +860,7 @@
         {
           "type": "feature",
           "settings": {
-            "icon": "<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M10 10 L10 28 L20 34 L30 28 L30 10 Z'/><path d='M10 10 L20 16 L30 10'/><path d='M20 16 L20 34'/><path d='M16 21 L20 19 L24 21 L22 25 L18 25 Z'/></svg>",
+            "icon": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M20 5l12 7v14l-12 7-12-7V12l12-7z'/><path d='M8 12l12 7 12-7M20 19v14'/><path d='M15 23l5-3 5 3-2 6h-6l-2-6z'/></svg>",
             "title": "MEMBER REWARDS",
             "description": "Earn rewards for adventure."
           }
@@ -738,7 +868,7 @@
         {
           "type": "feature",
           "settings": {
-            "icon": "<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><path d='M8 14 L20 8 L32 14 L32 28 L20 34 L8 28 Z'/><path d='M8 14 L20 20 L32 14'/><path d='M20 20 L20 34'/><path d='M14 11 L26 17'/></svg>",
+            "icon": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M8 13l12-7 12 7-12 7-12-7z'/><path d='M8 13v14l12 7 12-7V13'/><path d='M20 20v14'/></svg>",
             "title": "EARLY PRODUCT DROPS",
             "description": "Get exclusive access to new gear."
           }
@@ -746,7 +876,7 @@
         {
           "type": "feature",
           "settings": {
-            "icon": "<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><circle cx='20' cy='14' r='5'/><path d='M10 32 Q10 24 20 24 Q30 24 30 32'/><circle cx='10' cy='18' r='3'/><circle cx='30' cy='18' r='3'/><path d='M4 32 Q4 26 10 26'/><path d='M36 32 Q36 26 30 26'/></svg>",
+            "icon": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><circle cx='20' cy='14' r='5'/><path d='M10 34c0-7 4-11 10-11s10 4 10 11'/><circle cx='10' cy='20' r='3'/><circle cx='30' cy='20' r='3'/><path d='M4 34c0-5 2-8 6-8M36 34c0-5-2-8-6-8'/></svg>",
             "title": "REAL COMMUNITY",
             "description": "Join a true community of adventurers."
           }
@@ -754,7 +884,7 @@
         {
           "type": "feature",
           "settings": {
-            "icon": "<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><rect x='16' y='8' width='8' height='16' rx='4'/><path d='M12 20 Q12 28 20 28 Q28 28 28 20'/><path d='M20 28 L20 34'/><path d='M16 34 L24 34'/></svg>",
+            "icon": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><rect x='16' y='7' width='8' height='17' rx='4'/><path d='M12 19c0 6 3 10 8 10s8-4 8-10M20 29v6M15 35h10'/></svg>",
             "title": "SUPPORT THE CHANNEL",
             "description": "Help us grow the adventure."
           }
@@ -762,7 +892,7 @@
         {
           "type": "feature",
           "settings": {
-            "icon": "<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 40 40' fill='none' stroke='currentColor' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'><rect x='10' y='18' width='20' height='16' rx='1'/><path d='M14 18 L14 13 Q14 8 20 8 Q26 8 26 13 L26 18'/><circle cx='20' cy='25' r='1.5' fill='currentColor'/><path d='M20 26 L20 29'/></svg>",
+            "icon": "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' fill='none' stroke='currentColor' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><rect x='10' y='18' width='20' height='16' rx='2'/><path d='M14 18v-5a6 6 0 0112 0v5'/><circle cx='20' cy='26' r='1.5'/><path d='M20 28v3'/></svg>",
             "title": "BEHIND-THE-SCENES ACCESS",
             "description": "See the real journey, behind the lens."
           }
