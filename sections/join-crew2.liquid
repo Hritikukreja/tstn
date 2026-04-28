@@ -101,6 +101,11 @@
     --feature-desc-size: {{ section.settings.feature_desc_size }}px;
     --button-size: {{ section.settings.button_size }}px;
     --mobile-scale: {{ section.settings.mobile_scale | divided_by: 100.0 }};
+    --content-width: {{ section.settings.content_width }}px;
+    --features-width: {{ section.settings.features_width }}px;
+    --feature-gap-x: {{ section.settings.feature_gap_x }}px;
+    --feature-gap-y: {{ section.settings.feature_gap_y }}px;
+    --feature-columns: {{ section.settings.feature_columns }};
   }
 
   #shopify-section-{{ section.id }} .join-crew-bg {
@@ -138,7 +143,7 @@
   }
 
   #shopify-section-{{ section.id }} .join-crew-content {
-    max-width: 720px;
+    max-width: var(--content-width);
     color: #ffffff;
   }
 
@@ -198,10 +203,11 @@
   /* Features Grid */
   #shopify-section-{{ section.id }} .join-crew-features {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: clamp(1.5rem, 3vw, 2.5rem) clamp(1rem, 2.5vw, 2.5rem);
+    grid-template-columns: repeat(var(--feature-columns), 1fr);
+    column-gap: var(--feature-gap-x);
+    row-gap: var(--feature-gap-y);
     margin-bottom: clamp(2rem, 4vw, 3.5rem);
-    max-width: 680px;
+    max-width: var(--features-width);
     position: relative;
   }
 
@@ -480,6 +486,62 @@
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout & Width",
+      "info": "Control how wide the content and feature grid are on desktop. Increase if titles are wrapping awkwardly."
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Overall content width",
+      "info": "Max width of the entire left content column (eyebrow, heading, subheading, features, button).",
+      "min": 500,
+      "max": 1200,
+      "step": 20,
+      "unit": "px",
+      "default": 720
+    },
+    {
+      "type": "range",
+      "id": "features_width",
+      "label": "Features grid width",
+      "info": "Max width of the icon/title/description grid. Increase to give titles more room.",
+      "min": 400,
+      "max": 1100,
+      "step": 20,
+      "unit": "px",
+      "default": 800
+    },
+    {
+      "type": "range",
+      "id": "feature_columns",
+      "label": "Number of columns",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "feature_gap_x",
+      "label": "Horizontal gap between features",
+      "min": 8,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "feature_gap_y",
+      "label": "Vertical gap between feature rows",
+      "min": 16,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 36
     },
     {
       "type": "header",
