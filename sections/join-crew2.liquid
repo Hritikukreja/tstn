@@ -147,6 +147,7 @@
     margin-left: {% if section.settings.content_alignment == 'left' %}0{% elsif section.settings.content_alignment == 'center' %}auto{% else %}auto{% endif %};
     margin-right: {% if section.settings.content_alignment == 'left' %}auto{% elsif section.settings.content_alignment == 'center' %}auto{% else %}0{% endif %};
     color: #fff;
+    transform: translateX(-{{ section.settings.content_shift_left }}px);
   }
 
   #shopify-section-{{ section.id }} .join-crew-eyebrow {
@@ -313,6 +314,7 @@
       max-width: 100%;
       margin-left: 0;
       margin-right: 0;
+      transform: none;
     }
 
     #shopify-section-{{ section.id }} .join-crew-heading {
@@ -524,12 +526,23 @@
       "type": "select",
       "id": "content_alignment",
       "label": "Content horizontal alignment",
-      "default": "left",
+      "default": "center",
       "options": [
         { "value": "left", "label": "Left" },
         { "value": "center", "label": "Center" },
         { "value": "right", "label": "Right" }
       ]
+    },
+    {
+      "type": "range",
+      "id": "content_shift_left",
+      "label": "Move content left",
+      "info": "Use this when the content feels too centered. 0 = no shift, higher = further left.",
+      "min": 0,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "default": 120
     },
     {
       "type": "range",
