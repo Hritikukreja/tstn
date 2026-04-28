@@ -213,6 +213,7 @@
     },
     "custom_coll_tiH4B7": {
       "type": "custom-coll",
+      "disabled": true,
       "name": "Custom Coll",
       "settings": {
         "collection": "frontpage",
