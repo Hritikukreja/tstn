@@ -103,6 +103,7 @@
     --mobile-scale: {{ section.settings.mobile_scale | divided_by: 100.0 }};
     --content-width: {{ section.settings.content_width }}px;
     --features-width: {{ section.settings.features_width }}px;
+    --feature-item-min: {{ section.settings.feature_item_min_width }}px;
     --feature-gap-x: {{ section.settings.feature_gap_x }}px;
     --feature-gap-y: {{ section.settings.feature_gap_y }}px;
     --feature-columns: {{ section.settings.feature_columns }};
@@ -137,7 +138,7 @@
     position: relative;
     z-index: 2;
     width: 100%;
-    max-width: 1600px;
+    max-width: 1800px;
     margin: 0 auto;
     padding: clamp(3rem, 6vw, 6rem) clamp(1.5rem, 4vw, 5rem);
   }
@@ -203,7 +204,7 @@
   /* Features Grid */
   #shopify-section-{{ section.id }} .join-crew-features {
     display: grid;
-    grid-template-columns: repeat(var(--feature-columns), 1fr);
+    grid-template-columns: repeat(var(--feature-columns), minmax(var(--feature-item-min), 1fr));
     column-gap: var(--feature-gap-x);
     row-gap: var(--feature-gap-y);
     margin-bottom: clamp(2rem, 4vw, 3.5rem);
@@ -233,6 +234,7 @@
     gap: 0.625rem;
     position: relative;
     padding: 0.5rem 0;
+    min-width: 0;
   }
 
   #shopify-section-{{ section.id }} .feature-icon {
@@ -354,6 +356,7 @@
 
     #shopify-section-{{ section.id }} .join-crew-features {
       max-width: 100%;
+      grid-template-columns: repeat(var(--feature-columns), 1fr);
     }
   }
 
@@ -490,29 +493,40 @@
     {
       "type": "header",
       "content": "Layout & Width",
-      "info": "Control how wide the content and feature grid are on desktop. Increase if titles are wrapping awkwardly."
+      "info": "Control how wide the content and feature grid are on desktop. If descriptions are wrapping awkwardly inside each card, increase the 'Per-feature minimum width'."
     },
     {
       "type": "range",
       "id": "content_width",
       "label": "Overall content width",
-      "info": "Max width of the entire left content column (eyebrow, heading, subheading, features, button).",
+      "info": "Max width of the entire left content column.",
       "min": 500,
-      "max": 1200,
+      "max": 1800,
       "step": 20,
       "unit": "px",
-      "default": 720
+      "default": 900
     },
     {
       "type": "range",
       "id": "features_width",
       "label": "Features grid width",
-      "info": "Max width of the icon/title/description grid. Increase to give titles more room.",
+      "info": "Max width of the icon/title/description grid.",
       "min": 400,
-      "max": 1100,
+      "max": 1700,
       "step": 20,
       "unit": "px",
-      "default": 800
+      "default": 1000
+    },
+    {
+      "type": "range",
+      "id": "feature_item_min_width",
+      "label": "Per-feature minimum width",
+      "info": "Minimum width of each individual feature card. Increase this to give descriptions enough room so they don't wrap into tall narrow columns.",
+      "min": 140,
+      "max": 360,
+      "step": 10,
+      "unit": "px",
+      "default": 200
     },
     {
       "type": "range",
