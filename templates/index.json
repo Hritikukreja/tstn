@@ -123,7 +123,7 @@
       "name": "Join Crew",
       "settings": {
         "class": "",
-        "background_image": "shopify://shop_images/TSTN_Club_3fdceb9f-220f-49e8-b106-4c24066c73b6.png",
+        "background_image": "shopify://shop_images/Trail_B_B_Sunset_Kayak_Mountain.webp",
         "background_image_mobile": "shopify://shop_images/TSTN_Club_3fdceb9f-220f-49e8-b106-4c24066c73b6.png",
         "main_heading": "Join the Crew",
         "subheading": "",
@@ -194,6 +194,7 @@
       ],
       "name": "Join The Crew",
       "settings": {
+        "background_image": "shopify://shop_images/TSTN_Club_3fdceb9f-220f-49e8-b106-4c24066c73b6.png",
         "accent_color": "#E85D2C",
         "show_torn_edge": true,
         "eyebrow": "TSTN CLUB",
