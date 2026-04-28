@@ -367,10 +367,87 @@
         "text_tKeTtU",
         "text_FeWRFL"
       ],
+      "disabled": true,
       "name": "Custom Video",
       "settings": {
         "main_heading": "LATEST FROM THE TRAIL",
         "description": "Fresh drops every week."
+      }
+    },
+    "video_section_bXXf4b": {
+      "type": "video-section",
+      "blocks": {
+        "stat_FQeaHG": {
+          "type": "stat",
+          "settings": {
+            "icon": "youtube",
+            "value": "325K+",
+            "label": "YouTube Subscribers"
+          }
+        },
+        "stat_WUzk9G": {
+          "type": "stat",
+          "settings": {
+            "icon": "eye",
+            "value": "1.2M",
+            "label": "Monthly Views"
+          }
+        },
+        "stat_6grzaa": {
+          "type": "stat",
+          "settings": {
+            "icon": "instagram",
+            "value": "90K",
+            "label": "Instagram Followers"
+          }
+        },
+        "video_jWbdQK": {
+          "type": "video",
+          "settings": {
+            "thumbnail": "shopify://shop_images/4.png",
+            "episode": "EP. 42",
+            "title": "Cold Mornings & Clear Lakes",
+            "video_url": ""
+          }
+        },
+        "video_hK7MPb": {
+          "type": "video",
+          "settings": {
+            "thumbnail": "shopify://shop_images/1.1.png",
+            "episode": "EP. 41",
+            "title": "Testing Gear Where It Matters",
+            "video_url": ""
+          }
+        },
+        "video_j4CTAa": {
+          "type": "video",
+          "settings": {
+            "thumbnail": "shopify://shop_images/2.0.png",
+            "episode": "EP. 40",
+            "title": "Basecamp Setup & Breakdown",
+            "video_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "stat_FQeaHG",
+        "stat_WUzk9G",
+        "stat_6grzaa",
+        "video_jWbdQK",
+        "video_hK7MPb",
+        "video_j4CTAa"
+      ],
+      "name": "Latest From Trail",
+      "settings": {
+        "eyebrow": "Latest From The Trail",
+        "heading": "Fresh Drops Every Week.",
+        "subheading": "Real adventures. Real gear. Real world-tested.",
+        "featured_image": "shopify://shop_images/unnamed.webp",
+        "featured_label": "Latest Video",
+        "featured_title": "Conquering an Unexpected Snowstorm in My Full-Size RAM!",
+        "featured_video_url": "",
+        "cta_text": "View All Videos",
+        "cta_url": ""
       }
     },
     "custom_image_banner_kd9eRA": {
@@ -450,6 +527,7 @@
     "custom_coll_tiH4B7",
     "featured_products_iWXKkb",
     "custom_video_eecJBr",
+    "video_section_bXXf4b",
     "custom_image_banner_kd9eRA",
     "1776795343af03a339"
   ]
