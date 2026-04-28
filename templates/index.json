@@ -35,13 +35,13 @@
         "overlay_opacity": 35,
         "content_position": "bottom",
         "content_alignment": "left",
-        "kicker": "TSTN",
+        "kicker": "TSTN STARTS HERE",
         "kicker_color": "#ffffff",
         "kicker_size": 80,
         "kicker_weight": 400,
-        "heading": "STARTS HERE",
+        "heading": "The stories, the gear, the crew, everything in one place.",
         "heading_color": "#ff8a2b",
-        "heading_size": 120,
+        "heading_size": 32,
         "heading_weight": 400,
         "button_label": "",
         "product": "",
@@ -98,74 +98,28 @@
     },
     "join_crew_TyHnLh": {
       "type": "join-crew",
-      "blocks": {
-        "block_bqYhGX": {
-          "type": "block",
-          "settings": {
-            "icon": "shopify://shop_images/giveawayyy.svg",
-            "title": "Giveaways",
-            "description": "Unlock exclusive gear and win epic prizes."
-          }
-        },
-        "block_hWhAbU": {
-          "type": "block",
-          "settings": {
-            "icon": "shopify://shop_images/member.svg",
-            "title": "Member rewards",
-            "description": "Earn rewards for adventure."
-          }
-        },
-        "block_4rJXKp": {
-          "type": "block",
-          "settings": {
-            "icon": "shopify://shop_images/Early_product_drops.svg",
-            "title": "Early product drops",
-            "description": "Get exclusive access to new gear."
-          }
-        },
-        "block_GrBtXJ": {
-          "type": "block",
-          "settings": {
-            "icon": "shopify://shop_images/Real_community.svg",
-            "title": "Real community",
-            "description": "Join a true community of adventurers."
-          }
-        },
-        "block_abhjjE": {
-          "type": "block",
-          "settings": {
-            "icon": "shopify://shop_images/support_the_channel.svg",
-            "title": "Support the channel",
-            "description": "Help us grow the adventure."
-          }
-        },
-        "block_XemUFE": {
-          "type": "block",
-          "settings": {
-            "icon": "shopify://shop_images/behind_seen.svg",
-            "title": "Behind-the-scenes access",
-            "description": "See the real journey, behind the lens."
-          }
-        }
-      },
-      "block_order": [
-        "block_bqYhGX",
-        "block_hWhAbU",
-        "block_4rJXKp",
-        "block_GrBtXJ",
-        "block_abhjjE",
-        "block_XemUFE"
-      ],
       "name": "Join Crew",
       "settings": {
-        "class": "",
         "background_image": "shopify://shop_images/Trail_B_B_Sunset_Kayak_Mountain.webp",
-        "background_image_mobile": "shopify://shop_images/TSTN_Club_3fdceb9f-220f-49e8-b106-4c24066c73b6.png",
-        "main_heading": "Join the Crew",
+        "accent_color": "#e85d2c",
+        "show_torn_edge": true,
+        "eyebrow": "TSTN CLUB",
+        "heading": "JOIN THE CREW",
         "subheading": "",
-        "description": "Giveaways, behind-the-scenes content, rewards, and a real community.",
-        "button_text": "Learn About the Club",
-        "button_link": "#"
+        "button_label": "LEARN ABOUT THE CLUB",
+        "button_link": "#",
+        "content_width": 720,
+        "features_width": 800,
+        "feature_columns": 3,
+        "feature_gap_x": 32,
+        "feature_gap_y": 36,
+        "eyebrow_size": 14,
+        "heading_size": 84,
+        "subheading_size": 17,
+        "feature_title_size": 16,
+        "feature_desc_size": 14,
+        "button_size": 15,
+        "mobile_scale": 75
       }
     },
     "join_crew2_emTe7Y": {
