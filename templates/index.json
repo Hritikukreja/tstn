@@ -459,6 +459,22 @@
         "cta_url": ""
       }
     },
+    "hero_collection_rUEVmk": {
+      "type": "hero-collection",
+      "name": "Hero Collection",
+      "settings": {
+        "background_image": "shopify://shop_images/6.1.png",
+        "overlay_opacity": 80,
+        "overline": "tstn club",
+        "heading": "Come Behind the Scenes",
+        "subheading": "<p>Members get access to the good stuff.</p>",
+        "text_alignment": "left",
+        "button_label": "JOIN THE CLUB",
+        "button_link": "",
+        "height_desktop": 640,
+        "height_mobile": 520
+      }
+    },
     "custom_image_banner_kd9eRA": {
       "type": "custom-image-banner",
       "blocks": {
@@ -525,22 +541,6 @@
       "settings": {
         "include_margins": true
       }
-    },
-    "hero_collection_rUEVmk": {
-      "type": "hero-collection",
-      "name": "Hero Collection",
-      "settings": {
-        "background_image": "shopify://shop_images/6.1.png",
-        "overlay_opacity": 80,
-        "overline": "tstn club",
-        "heading": "Come Behind the Scenes",
-        "subheading": "<p>Members get access to the good stuff.</p>",
-        "text_alignment": "left",
-        "button_label": "JOIN THE CLUB",
-        "button_link": "",
-        "height_desktop": 640,
-        "height_mobile": 520
-      }
     }
   },
   "order": [
@@ -553,8 +553,8 @@
     "featured_products_iWXKkb",
     "custom_video_eecJBr",
     "video_section_bXXf4b",
+    "hero_collection_rUEVmk",
     "custom_image_banner_kd9eRA",
-    "1776795343af03a339",
-    "hero_collection_rUEVmk"
+    "1776795343af03a339"
   ]
 }
