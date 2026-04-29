@@ -352,6 +352,18 @@
     "product_grid_tQbJbL": {
       "type": "product-grid",
       "blocks": {
+        "product_dMmnwz": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/2.avif",
+            "brand": "TSTN",
+            "title": "COOL T-SHIRT",
+            "price": "$39.99",
+            "compare_price": "",
+            "badge": "none",
+            "link": ""
+          }
+        },
         "product_aFJYyi": {
           "type": "product",
           "settings": {
@@ -402,6 +414,7 @@
         }
       },
       "block_order": [
+        "product_dMmnwz",
         "product_aFJYyi",
         "product_bKpjy6",
         "product_6J3LFB",
