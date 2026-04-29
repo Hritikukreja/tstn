@@ -562,7 +562,15 @@
         "featured_title": "Conquering an Unexpected Snowstorm in My Full-Size RAM!",
         "featured_video_url": "",
         "cta_text": "View All Videos",
-        "cta_url": ""
+        "cta_url": "",
+        "section_padding_y": 56,
+        "featured_aspect": 185,
+        "card_aspect": 180,
+        "heading_size": 80,
+        "subheading_size": 17,
+        "featured_title_size": 36,
+        "stat_value_size": 48,
+        "card_title_size": 14
       }
     },
     "hero_collection_rUEVmk": {
