@@ -551,10 +551,10 @@
     },
     "speedometer_claude_VPmHLG": {
       "type": "speedometer-claude",
+      "disabled": true,
       "name": "TSTN Club Dashboard",
       "settings": {
-        "feat_image": "shopify://shop_images/Crow_Molle_2.png",
-        "hero_height": 65,
+        "hero_height": 50,
         "cta_primary_url": "",
         "cta_secondary_url": "",
         "benefits_url": ""
