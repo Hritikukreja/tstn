@@ -7,67 +7,135 @@
 
 <style>
   /* ===================================================
-     FULLSCREEN MOBILE DRAWER FIX
+     FULLSCREEN MOBILE DRAWER — overrides Dawn's defaults
      ================================================= */
 
+  /* Lock body scroll when drawer is open */
   body:has(#Details-menu-drawer-container[open]) {
     overflow: hidden !important;
   }
 
+  /* The <details> wrapper itself becomes the fullscreen overlay */
   #Details-menu-drawer-container[open] {
     position: fixed !important;
-    inset: 0 !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
     width: 100vw !important;
+    height: 100vh !important;
     height: 100dvh !important;
     z-index: 99999 !important;
     background: rgb(18, 18, 18) !important;
     overflow: hidden !important;
   }
 
+  /* Hamburger summary (the X icon when drawer is open) — fix it to top-left */
   #Details-menu-drawer-container[open] > summary {
     position: fixed !important;
-    top: 1.2rem !important;
-    left: 1.2rem !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 5rem !important;
+    height: 5rem !important;
     z-index: 100000 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
 
-  #Details-menu-drawer-container[open] #menu-drawer {
-    position: fixed !important;
-    inset: 0 !important;
-    width: 100vw !important;
-    max-width: none !important;
-    height: 100dvh !important;
-    min-height: 100dvh !important;
+  /* Kill the dark backdrop that Dawn adds via summary::before */
+  #Details-menu-drawer-container[open] > summary::before,
+  .js menu-drawer > details > summary::before,
+  .js menu-drawer > details[open]:not(.menu-opening) > summary::before,
+  menu-drawer > details[open] > summary::before {
+    display: none !important;
+    content: none !important;
+    background: transparent !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+  }
+
+  /* Kill Dawn's transform: translateX(-100%) and absolute positioning.
+     The drawer panel must fill the entire fixed parent. */
+  #Details-menu-drawer-container[open] #menu-drawer,
+  #Details-menu-drawer-container[open] > #menu-drawer,
+  header-drawer details[open] > .menu-drawer,
+  header-drawer details[open].menu-opening > .menu-drawer,
+  .js header-drawer details[open] > .menu-drawer {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100% !important;
+    min-height: 100% !important;
     transform: none !important;
+    -webkit-transform: none !important;
     visibility: visible !important;
     opacity: 1 !important;
     background: rgb(18, 18, 18) !important;
+    background-color: rgb(18, 18, 18) !important;
     background-image: none !important;
+    border: none !important;
+    filter: none !important;
+    -webkit-filter: none !important;
+    overflow: hidden !important;
+    z-index: 1 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  /* Override Dawn's `.js .menu-drawer { height: calc(100vh - 100%) }` */
+  .js #Details-menu-drawer-container[open] #menu-drawer {
+    height: 100% !important;
+  }
+
+  /* Override the desktop @media (min-width: 750px) width: 40rem rule */
+  @media screen and (min-width: 750px) {
+    #Details-menu-drawer-container[open] #menu-drawer {
+      width: 100% !important;
+      max-width: 100% !important;
+      border: none !important;
+    }
+  }
+
+  /* Inner container fills the panel, scrolls vertically */
+  #Details-menu-drawer-container[open] .menu-drawer__inner-container {
+    width: 100% !important;
+    height: 100% !important;
+    background: rgb(18, 18, 18) !important;
     overflow-y: auto !important;
     overflow-x: hidden !important;
-    z-index: 99998 !important;
+    -webkit-overflow-scrolling: touch;
   }
 
-  #Details-menu-drawer-container[open] .menu-drawer__inner-container,
   #Details-menu-drawer-container[open] .menu-drawer__navigation-container {
     width: 100% !important;
-    min-height: 100dvh !important;
+    min-height: 100% !important;
     background: rgb(18, 18, 18) !important;
+    grid-template-rows: 1fr auto !important;
   }
 
+  /* Top padding so first menu item clears the X button */
   #Details-menu-drawer-container[open] .menu-drawer__navigation {
-    padding-top: 7rem !important;
+    padding-top: 6rem !important;
+    padding-bottom: 2rem !important;
+    background: transparent !important;
   }
 
   /* ===================================================
-     NUCLEAR OVAL REMOVAL — kills every decorative shape
+     OVAL/DECORATIVE SHAPE REMOVAL
      ================================================= */
 
   .menu-drawer,
   .menu-drawer__inner-container,
   .menu-drawer__navigation-container,
   .menu-drawer__navigation,
-  .menu-drawer__utility-links,
   .menu-drawer__submenu,
   .menu-drawer__inner-submenu {
     background: rgb(18, 18, 18) !important;
@@ -76,100 +144,175 @@
   }
 
   .menu-drawer *::before,
-  .menu-drawer *::after,
-  .menu-drawer::before,
-  .menu-drawer::after,
-  .menu-drawer__inner-container::before,
-  .menu-drawer__inner-container::after,
-  .menu-drawer__navigation-container::before,
-  .menu-drawer__navigation-container::after,
-  .menu-drawer__navigation::before,
-  .menu-drawer__navigation::after,
-  .menu-drawer__utility-links::before,
-  .menu-drawer__utility-links::after,
-  .menu-drawer__submenu::before,
-  .menu-drawer__submenu::after {
-    background: transparent !important;
+  .menu-drawer *::after {
     background-image: none !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
   }
 
   .menu-drawer > svg,
   .menu-drawer__inner-container > svg,
-  .menu-drawer__navigation-container > svg,
-  .menu-drawer__utility-links > svg {
+  .menu-drawer__navigation-container > svg {
     display: none !important;
   }
 
-  #menu-drawer,
-  #menu-drawer.gradient {
-    background: rgb(18, 18, 18) !important;
-    background-image: none !important;
-  }
-
-  .menu-drawer {
-    overflow: hidden !important;
-  }
+  /* ===================================================
+     MENU ITEMS — UPPERCASE, Danger Neue
+     ================================================= */
 
   .menu-drawer__menu-item,
   .menu-drawer__menu-item.link,
-  .menu-drawer__close-button {
-    color: rgba(245, 245, 247, 0.85) !important;
-    font-size: 1.6rem;
-    font-weight: 400;
-    letter-spacing: -0.01em;
+  a.menu-drawer__menu-item,
+  summary.menu-drawer__menu-item {
+    color: rgba(245, 245, 247, 0.9) !important;
+    font-family: 'Danger Neue', sans-serif !important;
+    font-size: 1.6rem !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+    background-color: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    padding: 1.4rem 2rem !important;
+    text-decoration: none !important;
+    pointer-events: auto !important;
+    cursor: pointer !important;
   }
 
   .menu-drawer__menu-item:hover,
-  .menu-drawer__close-button:hover {
+  .menu-drawer__menu-item:focus,
+  .menu-drawer__menu-item:active {
     color: rgba(245, 245, 247, 1) !important;
-    background-color: rgba(245, 245, 247, 0.04) !important;
+    background-color: rgba(255, 255, 255, 0.04) !important;
   }
 
   .menu-drawer__menu-item--active {
     color: rgba(245, 245, 247, 1) !important;
+    background-color: rgba(255, 255, 255, 0.06) !important;
   }
 
+  /* Submenu nested items */
+  .menu-drawer__submenu {
+    background: rgb(18, 18, 18) !important;
+  }
+
+  .menu-drawer__submenu .menu-drawer__menu-item {
+    font-size: 1.4rem !important;
+    color: rgba(245, 245, 247, 0.75) !important;
+  }
+
+  /* Caret/arrow icons inside menu items */
+  .menu-drawer__menu-item .svg-wrapper svg,
+  .menu-drawer__menu-item .icon-caret,
+  .menu-drawer__menu-item .icon-arrow {
+    fill: rgba(245, 245, 247, 0.6) !important;
+    color: rgba(245, 245, 247, 0.6) !important;
+  }
+
+  /* Close button (back arrow on submenus) */
+  .menu-drawer__close-button {
+    color: rgba(245, 245, 247, 0.85) !important;
+    font-family: 'Danger Neue', sans-serif !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+    font-size: 1.4rem !important;
+    background: transparent !important;
+  }
+
+  .menu-drawer__close-button:hover {
+    color: rgba(245, 245, 247, 1) !important;
+    background-color: rgba(255, 255, 255, 0.04) !important;
+  }
+
+  .menu-drawer__close-button .svg-wrapper svg {
+    fill: rgba(245, 245, 247, 0.85) !important;
+  }
+
+  /* Hamburger / close icon styling in summary */
+  .header__icon--menu svg {
+    width: 2.2rem !important;
+    height: 2.2rem !important;
+    fill: rgba(245, 245, 247, 0.9) !important;
+    color: rgba(245, 245, 247, 0.9) !important;
+  }
+
+  /* ===================================================
+     UTILITY LINKS (account, social, localization)
+     ================================================= */
+
   .menu-drawer__utility-links {
-    border-top: 0.5px solid rgba(245, 245, 247, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background-color: rgba(0, 0, 0, 0.25) !important;
+    padding: 1.5rem 2rem !important;
   }
 
   .menu-drawer__account {
-    color: rgba(245, 245, 247, 0.7) !important;
+    color: rgba(245, 245, 247, 0.85) !important;
+    font-family: 'Danger Neue', sans-serif !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
   }
 
-  .list-social__link svg {
-    fill: rgba(245, 245, 247, 0.6) !important;
+  .menu-drawer__account .svg-wrapper svg {
+    fill: rgba(245, 245, 247, 0.85) !important;
   }
 
-  .list-social__link:hover svg {
-    fill: rgba(245, 245, 247, 1) !important;
-  }
-
-  .menu-drawer .list-social__item,
-  .menu-drawer .list-social__item .list-social__link {
-    border: none !important;
-    border-radius: 0 !important;
-    border-bottom: none !important;
-  }
-
+  /* Social icons row */
   .menu-drawer .list-social {
     border: none !important;
     gap: 0.4rem;
+    margin-left: -1rem;
+  }
+
+  .menu-drawer .list-social__item,
+  .menu-drawer .list-social__link {
+    border: none !important;
+    border-bottom: none !important;
+    border-radius: 0 !important;
+    background: transparent !important;
   }
 
   .menu-drawer .list-social__link {
-    background: transparent !important;
     padding: 1rem !important;
-    border: none !important;
   }
 
   .menu-drawer .list-social__link svg {
     width: 1.8rem;
     height: 1.8rem;
     fill: rgba(245, 245, 247, 0.7) !important;
+  }
+
+  .menu-drawer .list-social__link:hover svg {
+    fill: rgba(245, 245, 247, 1) !important;
+  }
+
+  /* Localization (country/language selector) inside drawer */
+  .menu-drawer__localization {
+    margin: 1rem 0;
+  }
+
+  .menu-drawer .disclosure__button,
+  .menu-drawer .disclosure__list {
+    color: rgba(245, 245, 247, 0.85) !important;
+    background: transparent !important;
+  }
+
+  /* ===================================================
+     DESKTOP — restore Dawn's defaults (only mobile drawer changed)
+     If menu_type_desktop is "drawer" on desktop, keep the original
+     side-panel behavior at 990px+
+     ================================================= */
+  @media screen and (min-width: 990px) {
+    header-drawer[data-breakpoint="desktop"] #Details-menu-drawer-container[open] {
+      position: relative !important;
+      width: auto !important;
+      height: auto !important;
+      background: transparent !important;
+      z-index: auto !important;
+    }
+
+    header-drawer[data-breakpoint="desktop"] #Details-menu-drawer-container[open] > summary {
+      position: relative !important;
+      width: auto !important;
+      height: auto !important;
+    }
   }
 </style>
 
