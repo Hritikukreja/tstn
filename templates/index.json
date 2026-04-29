@@ -104,7 +104,6 @@
     },
     "join_crew_TyHnLh": {
       "type": "join-crew",
-      "disabled": true,
       "name": "Join Crew",
       "settings": {
         "background_image": "shopify://shop_images/Trail_B_B_Sunset_Kayak_Mountain.webp",
@@ -245,7 +244,6 @@
     },
     "custom_coll_tiH4B7": {
       "type": "custom-coll",
-      "disabled": true,
       "name": "Custom Coll",
       "settings": {
         "collection": "frontpage",
@@ -336,7 +334,6 @@
         "product_U66Mrp",
         "product_HeAzHd"
       ],
-      "disabled": true,
       "custom_css": [
         "h2 {font-size: 70px;}"
       ],
