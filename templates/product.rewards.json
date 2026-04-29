@@ -551,7 +551,6 @@
     },
     "speedometer_claude_VPmHLG": {
       "type": "speedometer-claude",
-      "disabled": true,
       "name": "TSTN Club Dashboard",
       "settings": {
         "hero_height": 50,
