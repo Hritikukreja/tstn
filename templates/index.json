@@ -104,6 +104,7 @@
     },
     "join_crew_TyHnLh": {
       "type": "join-crew",
+      "disabled": true,
       "name": "Join Crew",
       "settings": {
         "background_image": "shopify://shop_images/Trail_B_B_Sunset_Kayak_Mountain.webp",
@@ -481,6 +482,7 @@
         "text_tKeTtU",
         "text_FeWRFL"
       ],
+      "disabled": true,
       "name": "Custom Video",
       "settings": {
         "main_heading": "LATEST FROM THE TRAIL",
