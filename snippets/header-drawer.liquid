@@ -7,6 +7,59 @@
 
 <style>
   /* ===================================================
+     FULLSCREEN MOBILE DRAWER FIX
+     ================================================= */
+
+  body:has(#Details-menu-drawer-container[open]) {
+    overflow: hidden !important;
+  }
+
+  #Details-menu-drawer-container[open] {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    z-index: 99999 !important;
+    background: rgb(18, 18, 18) !important;
+    overflow: hidden !important;
+  }
+
+  #Details-menu-drawer-container[open] > summary {
+    position: fixed !important;
+    top: 1.2rem !important;
+    left: 1.2rem !important;
+    z-index: 100000 !important;
+  }
+
+  #Details-menu-drawer-container[open] #menu-drawer {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    max-width: none !important;
+    height: 100dvh !important;
+    min-height: 100dvh !important;
+    transform: none !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    background: rgb(18, 18, 18) !important;
+    background-image: none !important;
+    overflow-y: auto !important;
+    overflow-x: hidden !important;
+    z-index: 99998 !important;
+  }
+
+  #Details-menu-drawer-container[open] .menu-drawer__inner-container,
+  #Details-menu-drawer-container[open] .menu-drawer__navigation-container {
+    width: 100% !important;
+    min-height: 100dvh !important;
+    background: rgb(18, 18, 18) !important;
+  }
+
+  #Details-menu-drawer-container[open] .menu-drawer__navigation {
+    padding-top: 7rem !important;
+  }
+
+  /* ===================================================
      NUCLEAR OVAL REMOVAL — kills every decorative shape
      ================================================= */
 
@@ -43,7 +96,6 @@
     box-shadow: none !important;
   }
 
-  /* Remove any stray SVG decorations in drawer that aren't icons */
   .menu-drawer > svg,
   .menu-drawer__inner-container > svg,
   .menu-drawer__navigation-container > svg,
@@ -51,7 +103,6 @@
     display: none !important;
   }
 
-  /* Kill the hamburger toggle gradient too */
   #menu-drawer,
   #menu-drawer.gradient {
     background: rgb(18, 18, 18) !important;
@@ -62,7 +113,6 @@
     overflow: hidden !important;
   }
 
-  /* ── Drawer text styling to match dark theme ── */
   .menu-drawer__menu-item,
   .menu-drawer__menu-item.link,
   .menu-drawer__close-button {
@@ -98,7 +148,6 @@
     fill: rgba(245, 245, 247, 1) !important;
   }
 
-  /* ── Fix social list ovals (these were the culprit) ── */
   .menu-drawer .list-social__item,
   .menu-drawer .list-social__item .list-social__link {
     border: none !important;
@@ -117,7 +166,6 @@
     border: none !important;
   }
 
-  /* Ensure social icons render visibly */
   .menu-drawer .list-social__link svg {
     width: 1.8rem;
     height: 1.8rem;
