@@ -348,6 +348,72 @@
         "accent_color": "#ff6a1a"
       }
     },
+    "product_grid_tQbJbL": {
+      "type": "product-grid",
+      "blocks": {
+        "product_aFJYyi": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/1.avif",
+            "brand": "TSTN",
+            "title": "T-SHIRT",
+            "price": "$49.00",
+            "compare_price": "",
+            "badge": "new",
+            "link": ""
+          }
+        },
+        "product_bKpjy6": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/product-sub-img-2.png",
+            "brand": "THULE",
+            "title": "Hullavator Pro",
+            "price": "$1099.99",
+            "compare_price": "",
+            "badge": "none",
+            "link": ""
+          }
+        },
+        "product_6J3LFB": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/BLUETTI_Elite_30_V2_8.webp",
+            "brand": "BLUETTI",
+            "title": "Portable Power Station",
+            "price": "$499.00",
+            "compare_price": "",
+            "badge": "none",
+            "link": ""
+          }
+        },
+        "product_WCFHid": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/4.avif",
+            "brand": "TSTN",
+            "title": "Utility Jacket",
+            "price": "$99.00",
+            "compare_price": "",
+            "badge": "none",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_aFJYyi",
+        "product_bKpjy6",
+        "product_6J3LFB",
+        "product_WCFHid"
+      ],
+      "name": "Product Grid",
+      "settings": {
+        "heading": "ALL GEAR",
+        "show_load_more": true,
+        "load_more_label": "LOAD MORE",
+        "accent_color": "#ff6a1a"
+      }
+    },
     "custom_video_eecJBr": {
       "type": "custom-video",
       "blocks": {
@@ -491,7 +557,12 @@
       "settings": {
         "background_image": "shopify://shop_images/6.1.png",
         "overlay_opacity": 80,
+        "overline": "THE COLLECTION",
         "heading": "Come Behind the Scenes",
+        "subheading": "<p>Hand-picked gear for real adventures. Tested, trusted, and used out on the trail.</p>",
+        "text_alignment": "left",
+        "button_label": "EXPLORE THE GEAR",
+        "button_link": "",
         "height_desktop": 640,
         "height_mobile": 520
       }
@@ -573,6 +644,7 @@
     "join_crew2_emTe7Y",
     "custom_coll_tiH4B7",
     "featured_products_iWXKkb",
+    "product_grid_tQbJbL",
     "custom_video_eecJBr",
     "video_section_bXXf4b",
     "hero_collection_rUEVmk",
