@@ -4,7 +4,23 @@
   Uses Danger Neue Free Regular for headings
 {% endcomment %}
 
-<section id="shopify-section-{{ section.id }}" class="trail-videos">
+{%- assign featured_aspect = section.settings.featured_aspect | times: 1.0 | divided_by: 100.0 -%}
+{%- assign card_aspect = section.settings.card_aspect | times: 1.0 | divided_by: 100.0 -%}
+
+<section
+  id="shopify-section-{{ section.id }}"
+  class="trail-videos"
+  style="
+    --tv-section-pad-y: {{ section.settings.section_padding_y }}px;
+    --tv-heading-size: {{ section.settings.heading_size }}px;
+    --tv-subheading-size: {{ section.settings.subheading_size }}px;
+    --tv-featured-title-size: {{ section.settings.featured_title_size }}px;
+    --tv-featured-aspect: {{ featured_aspect }};
+    --tv-stat-value-size: {{ section.settings.stat_value_size }}px;
+    --tv-card-title-size: {{ section.settings.card_title_size }}px;
+    --tv-card-aspect: {{ card_aspect }};
+  "
+>
   <div class="trail-videos__container">
 
     {%- comment -%} Header {%- endcomment -%}
@@ -208,29 +224,37 @@
     --tv-surface: #141414;
     --tv-surface-2: #1a1a1a;
     --tv-border: rgba(255, 255, 255, 0.08);
-    --tv-border-hover: rgba(255, 95, 31, 0.4);
+    --tv-border-hover: rgba(255, 106, 26, 0.4);
     --tv-text: #ffffff;
     --tv-text-muted: rgba(255, 255, 255, 0.65);
     --tv-text-dim: rgba(255, 255, 255, 0.45);
-    --tv-accent: #ff5f1f;
-    --tv-accent-glow: rgba(255, 95, 31, 0.2);
+    --tv-accent: #ff6a1a;
+    --tv-accent-glow: rgba(255, 106, 26, 0.2);
+
+    --tv-section-pad-y: 100px;
+    --tv-heading-size: 80px;
+    --tv-subheading-size: 17px;
+    --tv-featured-title-size: 36px;
+    --tv-featured-aspect: 1.78;
+    --tv-stat-value-size: 48px;
+    --tv-card-title-size: 14px;
+    --tv-card-aspect: 1.78;
 
     position: relative;
     background: var(--tv-bg);
     color: var(--tv-text);
-    padding: clamp(60px, 8vw, 120px) 0;
+    padding: var(--tv-section-pad-y) 0;
     overflow: hidden;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Danger Neue Free', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
-  /* Subtle topographic texture overlay */
   .trail-videos::before {
     content: '';
     position: absolute;
     inset: 0;
     background-image:
-      radial-gradient(circle at 15% 30%, rgba(255, 95, 31, 0.04) 0%, transparent 40%),
-      radial-gradient(circle at 85% 70%, rgba(255, 95, 31, 0.03) 0%, transparent 40%);
+      radial-gradient(circle at 15% 30%, rgba(255, 106, 26, 0.04) 0%, transparent 40%),
+      radial-gradient(circle at 85% 70%, rgba(255, 106, 26, 0.03) 0%, transparent 40%);
     pointer-events: none;
     z-index: 0;
   }
@@ -243,7 +267,6 @@
     padding: 0 clamp(20px, 4vw, 60px);
   }
 
-  /* === Header === */
   .trail-videos__header {
     margin-bottom: clamp(32px, 4vw, 56px);
   }
@@ -263,8 +286,9 @@
   }
 
   .trail-videos__eyebrow-text {
-    font-size: clamp(11px, 1vw, 13px);
-    font-weight: 700;
+    font-family: 'Danger Neue Free', 'Impact', 'Bebas Neue', sans-serif !important;
+    font-size: clamp(14px, 1.2vw, 16px);
+    font-weight: 400;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--tv-accent);
@@ -272,7 +296,7 @@
 
   .trail-videos__heading {
     font-family: 'Danger Neue Free', 'Impact', 'Bebas Neue', sans-serif !important;
-    font-size: clamp(36px, 6vw, 80px);
+    font-size: var(--tv-heading-size);
     line-height: 0.95;
     letter-spacing: 0.01em;
     text-transform: uppercase;
@@ -282,14 +306,16 @@
   }
 
   .trail-videos__subheading {
-    font-size: clamp(14px, 1.2vw, 17px);
+    font-family: 'Danger Neue Free', 'Impact', 'Bebas Neue', sans-serif !important;
+    font-size: var(--tv-subheading-size);
     line-height: 1.5;
     color: var(--tv-text-muted);
     margin: 0;
     max-width: 600px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
   }
 
-  /* === Main layout === */
   .trail-videos__main {
     display: grid;
     grid-template-columns: 1fr;
@@ -304,7 +330,6 @@
     }
   }
 
-  /* === Featured video === */
   .trail-videos__featured {
     position: relative;
   }
@@ -318,7 +343,7 @@
 
   .trail-videos__featured-media {
     position: relative;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: var(--tv-featured-aspect);
     border-radius: clamp(8px, 1vw, 14px);
     overflow: hidden;
     background: var(--tv-surface);
@@ -365,8 +390,9 @@
 
   .trail-videos__featured-label {
     display: inline-block;
-    font-size: clamp(11px, 1vw, 13px);
-    font-weight: 700;
+    font-family: 'Danger Neue Free', 'Impact', 'Bebas Neue', sans-serif !important;
+    font-size: clamp(13px, 1.1vw, 15px);
+    font-weight: 400;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--tv-accent);
@@ -375,7 +401,7 @@
 
   .trail-videos__featured-title {
     font-family: 'Danger Neue Free', 'Impact', 'Bebas Neue', sans-serif !important;
-    font-size: clamp(20px, 2.6vw, 36px);
+    font-size: var(--tv-featured-title-size);
     line-height: 1.05;
     letter-spacing: 0.01em;
     text-transform: uppercase;
@@ -385,7 +411,6 @@
     font-weight: 400;
   }
 
-  /* === Play button === */
   .trail-videos__play {
     position: absolute;
     top: 50%;
@@ -422,7 +447,6 @@
     transform: translate(-50%, -50%) scale(1.08);
   }
 
-  /* === Stats sidebar === */
   .trail-videos__stats {
     display: flex;
     flex-direction: column;
@@ -477,7 +501,7 @@
 
   .trail-videos__stat-value {
     font-family: 'Danger Neue Free', 'Impact', 'Bebas Neue', sans-serif !important;
-    font-size: clamp(28px, 3.5vw, 48px);
+    font-size: var(--tv-stat-value-size);
     line-height: 1;
     letter-spacing: 0.01em;
     color: var(--tv-accent);
@@ -486,14 +510,14 @@
   }
 
   .trail-videos__stat-label {
-    font-size: clamp(10px, 0.9vw, 12px);
-    font-weight: 700;
+    font-family: 'Danger Neue Free', 'Impact', 'Bebas Neue', sans-serif !important;
+    font-size: clamp(12px, 1vw, 14px);
+    font-weight: 400;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--tv-text-muted);
   }
 
-  /* === Video card grid === */
   .trail-videos__grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -531,7 +555,7 @@
 
   .trail-videos__card-media {
     position: relative;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: var(--tv-card-aspect);
     overflow: hidden;
     background: var(--tv-surface-2);
   }
@@ -557,8 +581,9 @@
   }
 
   .trail-videos__card-episode {
-    font-size: clamp(10px, 0.9vw, 12px);
-    font-weight: 700;
+    font-family: 'Danger Neue Free', 'Impact', 'Bebas Neue', sans-serif !important;
+    font-size: clamp(12px, 1vw, 14px);
+    font-weight: 400;
     letter-spacing: 0.16em;
     text-transform: uppercase;
     color: var(--tv-accent);
@@ -566,8 +591,9 @@
   }
 
   .trail-videos__card-title {
-    font-size: clamp(12px, 1vw, 14px);
-    font-weight: 700;
+    font-family: 'Danger Neue Free', 'Impact', 'Bebas Neue', sans-serif !important;
+    font-size: var(--tv-card-title-size);
+    font-weight: 400;
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--tv-text);
@@ -596,13 +622,11 @@
     color: var(--tv-accent);
   }
 
-  /* Card play button override */
   .trail-videos__card .trail-videos__play {
     color: var(--tv-text);
     opacity: 0.95;
   }
 
-  /* === CTA === */
   .trail-videos__cta-wrap {
     margin-top: clamp(32px, 4vw, 56px);
     display: flex;
@@ -620,8 +644,9 @@
     background: transparent;
     color: var(--tv-accent);
     text-decoration: none;
-    font-size: clamp(11px, 1vw, 13px);
-    font-weight: 700;
+    font-family: 'Danger Neue Free', 'Impact', 'Bebas Neue', sans-serif !important;
+    font-size: clamp(14px, 1.2vw, 16px);
+    font-weight: 400;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     transition: background 0.3s ease, color 0.3s ease, transform 0.3s ease;
@@ -635,15 +660,36 @@
   }
 
   .trail-videos__cta:hover {
-    background: var(--tv-accent);
+    background: #ffffff;
     color: var(--tv-bg);
+    border-color: #ffffff;
   }
 
   .trail-videos__cta:hover svg {
     transform: translateX(4px);
   }
 
-  /* === Reduced motion === */
+  @media (max-width: 749px) {
+    .trail-videos {
+      padding: calc(var(--tv-section-pad-y) * 0.6) 0;
+    }
+    .trail-videos__heading {
+      font-size: calc(var(--tv-heading-size) * 0.55);
+    }
+    .trail-videos__subheading {
+      font-size: calc(var(--tv-subheading-size) * 0.9);
+    }
+    .trail-videos__featured-title {
+      font-size: calc(var(--tv-featured-title-size) * 0.6);
+    }
+    .trail-videos__stat-value {
+      font-size: calc(var(--tv-stat-value-size) * 0.7);
+    }
+    .trail-videos__card-title {
+      font-size: calc(var(--tv-card-title-size) * 0.92);
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .trail-videos *,
     .trail-videos *::before,
@@ -722,6 +768,95 @@
       "type": "url",
       "id": "cta_url",
       "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Section Sizing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding_y",
+      "label": "Section vertical padding",
+      "min": 20,
+      "max": 200,
+      "step": 4,
+      "unit": "px",
+      "default": 100,
+      "info": "Top & bottom padding (auto-reduced on mobile)"
+    },
+    {
+      "type": "range",
+      "id": "featured_aspect",
+      "label": "Featured video aspect ratio (×100)",
+      "min": 100,
+      "max": 250,
+      "step": 5,
+      "default": 180,
+      "info": "Width ÷ height × 100. 180 ≈ 16:9, 200 = wider, 150 = taller"
+    },
+    {
+      "type": "range",
+      "id": "card_aspect",
+      "label": "Video card aspect ratio (×100)",
+      "min": 100,
+      "max": 250,
+      "step": 5,
+      "default": 180,
+      "info": "Width ÷ height × 100. 180 ≈ 16:9"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Main heading size",
+      "min": 32,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 17
+    },
+    {
+      "type": "range",
+      "id": "featured_title_size",
+      "label": "Featured video title size",
+      "min": 18,
+      "max": 60,
+      "step": 1,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "stat_value_size",
+      "label": "Stat number size",
+      "min": 24,
+      "max": 80,
+      "step": 1,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "label": "Video card title size",
+      "min": 11,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 14
     }
   ],
   "blocks": [
