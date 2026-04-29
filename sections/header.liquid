@@ -17,7 +17,7 @@
 {%- endif -%}
 
 <style>
-  /* ── Danger Neue font for logo ── */
+  /* ── Danger Neue font for logo & headings ── */
   @font-face {
     font-family: 'Danger Neue';
     src: url('{{ "Danger_Neue_Regular.ttf" | asset_url }}') format('truetype');
@@ -168,7 +168,8 @@
     color: rgba(245, 245, 247, 0.85);
     font-size: 1.2rem;
     font-weight: 400;
-    letter-spacing: -0.01em;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
     padding: 0 1.05rem;
     white-space: nowrap;
     transition: color 0.15s ease;
@@ -246,6 +247,8 @@
     color: rgba(245, 245, 247, 0.85) !important;
     font-size: 1.2rem;
     font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
     transition: color 0.15s ease;
   }
 
@@ -260,7 +263,7 @@
   }
 
   /* =============================================
-     MOBILE — fully reworked
+     MOBILE
      ============================================= */
   @media screen and (max-width: 989px) {
     .header {
@@ -278,6 +281,7 @@
       display: flex !important;
       align-items: center;
       margin: 0;
+      position: static;
     }
 
     .header__icon--menu {
@@ -343,13 +347,9 @@
       display: flex !important;
     }
 
-    /* Cart icon visibility — controlled by Liquid */
+    /* Cart icon visibility */
     #cart-icon-bubble {
       display: flex;
-    }
-
-    .mobile-cart-hidden {
-      display: none !important;
     }
 
     /* Hide localization on mobile header bar */
@@ -403,35 +403,110 @@
     line-height: 1;
   }
 
-  /* ── Remove Dawn drawer decorative ovals ── */
+  /* =============================================
+     MENU DRAWER (mobile slide-out menu) — FIXED
+     ============================================= */
+
+  /* Remove Dawn drawer decorative ovals */
   .menu-drawer__utility-links::before,
   .menu-drawer__utility-links::after,
-  .menu-drawer__inner-container::before,
-  .menu-drawer__inner-container::after,
   .menu-drawer::before,
   .menu-drawer::after,
   header-drawer::before,
-  header-drawer::after,
-  .drawer::before,
-  .drawer::after {
+  header-drawer::after {
     display: none !important;
     content: none !important;
   }
 
+  /* Drawer container — dark theme */
   .menu-drawer {
     background-color: rgb(18, 18, 18) !important;
     border-right: none !important;
+    z-index: 101;
   }
 
+  /* IMPORTANT: do not hide overflow on the inner container — that breaks scroll & taps */
   .menu-drawer__inner-container {
-    overflow: hidden !important;
+    background-color: rgb(18, 18, 18) !important;
   }
 
-  /* Menu drawer text colors for dark theme */
+  .menu-drawer__navigation {
+    padding: 2rem 0;
+  }
+
+  /* Top-level menu items — UPPERCASE matching desktop */
   .menu-drawer__menu-item,
+  .menu-drawer__menu-item--summary,
+  .menu-drawer__menu-item--button,
+  summary.menu-drawer__menu-item {
+    color: rgba(245, 245, 247, 0.9) !important;
+    font-family: 'Danger Neue', sans-serif !important;
+    font-size: 1.6rem !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.04em !important;
+    text-transform: uppercase !important;
+    background-color: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1.4rem 2rem !important;
+  }
+
   .menu-drawer__menu-item:hover,
+  .menu-drawer__menu-item--summary:hover,
+  summary.menu-drawer__menu-item:hover {
+    color: rgba(245, 245, 247, 1) !important;
+    background-color: rgba(255, 255, 255, 0.04) !important;
+  }
+
+  /* Submenu items inside drawer */
+  .menu-drawer__submenu .menu-drawer__menu-item {
+    font-size: 1.4rem !important;
+    color: rgba(245, 245, 247, 0.75) !important;
+    padding: 1.2rem 2rem 1.2rem 3.5rem !important;
+  }
+
+  .menu-drawer__submenu {
+    background-color: rgba(0, 0, 0, 0.25) !important;
+  }
+
+  /* Caret/arrow icons */
+  .menu-drawer__menu-item .icon-caret,
+  .menu-drawer__menu-item .icon-arrow {
+    fill: rgba(245, 245, 247, 0.6) !important;
+    color: rgba(245, 245, 247, 0.6) !important;
+  }
+
+  /* Close button */
   .menu-drawer__close-button {
     color: rgba(245, 245, 247, 0.9) !important;
+    font-family: 'Danger Neue', sans-serif !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+  }
+
+  .menu-drawer__close-button svg {
+    fill: rgba(245, 245, 247, 0.9) !important;
+  }
+
+  /* Utility links section at bottom of drawer */
+  .menu-drawer__utility-links {
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .menu-drawer__utility-links .menu-drawer__account,
+  .menu-drawer__utility-links .list-social__link {
+    color: rgba(245, 245, 247, 0.85) !important;
+  }
+
+  .menu-drawer__utility-links .list-social__link svg {
+    fill: rgba(245, 245, 247, 0.85) !important;
+  }
+
+  /* Localization in drawer */
+  .menu-drawer .disclosure__button,
+  .menu-drawer .disclosure__list {
+    color: rgba(245, 245, 247, 0.85) !important;
+    background-color: transparent !important;
   }
 </style>
 
@@ -797,23 +872,27 @@
   }
 
   document.addEventListener('DOMContentLoaded', function() {
-    var searchBtns = document.querySelectorAll('.header__icon--search');
     var overlay = document.getElementById('mobile-search-overlay');
     var input = document.getElementById('mobile-search-input');
     var closeBtn = document.getElementById('mobile-search-close');
 
-    searchBtns.forEach(function(btn) {
-      btn.addEventListener('click', function(e) {
-        if (window.innerWidth <= 989) {
-          e.preventDefault();
-          e.stopPropagation();
-          if (overlay) {
-            overlay.classList.add('active');
-            setTimeout(function() { input && input.focus(); }, 100);
+    // Only attach mobile search to icons inside .header__icons (NOT inside the drawer)
+    var headerIcons = document.querySelector('.header__icons');
+    if (headerIcons) {
+      var searchTriggers = headerIcons.querySelectorAll('details-modal summary, .header__icon--search');
+      searchTriggers.forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+          if (window.innerWidth <= 989) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (overlay) {
+              overlay.classList.add('active');
+              setTimeout(function() { input && input.focus(); }, 100);
+            }
           }
-        }
+        });
       });
-    });
+    }
 
     if (closeBtn && overlay) {
       closeBtn.addEventListener('click', function() {
