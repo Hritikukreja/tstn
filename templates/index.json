@@ -236,10 +236,10 @@
         "feature_desc_size": 13,
         "button_size": 15,
         "button_min_width": 300,
-        "mobile_section_height": 110,
-        "mobile_background_position_x": 65,
-        "mobile_background_position_y": 50,
-        "mobile_heading_size": 52,
+        "mobile_section_height": 100,
+        "mobile_background_position_x": 35,
+        "mobile_background_position_y": 48,
+        "mobile_heading_size": 48,
         "mobile_subheading_size": 15
       }
     },
