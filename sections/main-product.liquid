@@ -76,6 +76,26 @@
   {%- endif -%}
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
+  {% if template.name == 'product' and section.id == 'product_banner_XPWEW8' %}
+  <nav class="tstn-breadcrumb page-width" role="navigation" aria-label="Breadcrumb">
+    <a href="{{ routes.root_url }}">Home</a>
+
+    {% assign breadcrumb_collection = collection %}
+
+    {% if breadcrumb_collection == blank and product.collections.size > 0 %}
+      {% assign breadcrumb_collection = product.collections.first %}
+    {% endif %}
+
+    {% if breadcrumb_collection != blank %}
+      <span class="tstn-breadcrumb__separator">/</span>
+      <a href="{{ breadcrumb_collection.url }}">{{ breadcrumb_collection.title }}</a>
+    {% endif %}
+
+    <span class="tstn-breadcrumb__separator">/</span>
+    <span aria-current="page">{{ product.title }}</span>
+  </nav>
+{% endif %}
+
   <div class="page-width">
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
       <div class="grid__item product__media-wrapper">
