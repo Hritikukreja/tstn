@@ -657,6 +657,60 @@
       "settings": {
         "include_margins": true
       }
+    },
+    "community_grid_nbhTUh": {
+      "type": "community-grid",
+      "blocks": {
+        "photo_hEAEDh": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Frame_250.png",
+            "link": ""
+          }
+        },
+        "photo_Fmbxzt": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/4.png",
+            "link": ""
+          }
+        },
+        "photo_GYk499": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/join_crew_mobile.png",
+            "link": ""
+          }
+        },
+        "photo_KBCkBB": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/unnamed.webp",
+            "link": ""
+          }
+        },
+        "photo_YdQULa": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/1.webp",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "photo_hEAEDh",
+        "photo_Fmbxzt",
+        "photo_GYk499",
+        "photo_KBCkBB",
+        "photo_YdQULa"
+      ],
+      "name": "Community Grid",
+      "settings": {
+        "heading": "BUILT BY THE TSTN COMMUNITY",
+        "description": "Tag @tstn.official to be featured.",
+        "button_label": "VIEW ON INSTAGRAM",
+        "button_link": ""
+      }
     }
   },
   "order": [
@@ -672,6 +726,7 @@
     "video_section_bXXf4b",
     "hero_collection_rUEVmk",
     "custom_image_banner_kd9eRA",
-    "1776795343af03a339"
+    "1776795343af03a339",
+    "community_grid_nbhTUh"
   ]
 }
