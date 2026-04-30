@@ -167,7 +167,11 @@
   #{{ section_id }} .pro-hero__kicker {
     margin: 0 0 0.5rem;
     font-family: 'Danger Neue', sans-serif;
-    font-size: {{ section.settings.kicker_size }}px;
+    font-size: clamp(
+      calc({{ section.settings.kicker_size }}px * 0.45),
+      2.2vw,
+      {{ section.settings.kicker_size }}px
+    );
     font-weight: {{ section.settings.kicker_weight }};
     line-height: 1;
     color: {{ section.settings.kicker_color }};
@@ -369,7 +373,7 @@
     {
       "type": "range",
       "id": "kicker_size",
-      "label": "Kicker font size",
+      "label": "Kicker font size (desktop max)",
       "min": 12,
       "max": 80,
       "step": 2,
