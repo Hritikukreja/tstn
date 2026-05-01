@@ -293,15 +293,16 @@
   /* ============================================= */
   @media (max-width: 767px) {
 
-    /* Allow the section to grow on mobile so nothing clips */
+    /* Section grows naturally on mobile but with a healthy minimum */
     #shopify-section-{{ section_id }} .growave_tiers_wrapper {
       height: auto !important;
       min-height: 100vh !important;
       max-height: none !important;
       position: relative !important;
+      overflow: hidden !important;
     }
 
-    /* Background image: cover the entire section */
+    /* Background image: cover the entire section as a fixed underlay */
     #shopify-section-{{ section_id }} .gtw_image_wrapper {
       position: absolute !important;
       top: 0 !important;
@@ -320,21 +321,138 @@
       width: 100% !important;
       height: 100% !important;
       object-fit: cover !important;
+      display: block !important;
     }
 
-    /* Position content above background */
-    #shopify-section-{{ section_id }} .gtw_content_wrapper {
-      position: relative !important;
-      z-index: 2 !important;
-      height: auto !important;
-      padding: 16px 0 !important;
+    /* ===== LOGGED-OUT STATE (non_customer_class) on mobile ===== */
+    /* Hide the dashboard content entirely; only show the signup CTA */
+    #shopify-section-{{ section_id }} .growave_tiers_wrapper.non_customer_class .gtw_content_wrapper {
+      display: none !important;
     }
 
-    #shopify-section-{{ section_id }} .dashboard-wrapper,
-    #shopify-section-{{ section_id }} .screen-container {
-      height: auto !important;
+    /* Blur the background and make it dim, matching desktop behaviour */
+    #shopify-section-{{ section_id }} .growave_tiers_wrapper.non_customer_class .gtw_image_wrapper::after {
+      content: '' !important;
+      position: absolute !important;
+      inset: 0 !important;
+      background: rgba(0, 0, 0, 0.55) !important;
+      z-index: 1 !important;
+      pointer-events: none !important;
+    }
+
+    #shopify-section-{{ section_id }} .growave_tiers_wrapper.non_customer_class .gtw_image_wrapper img {
+      filter: blur(8px) !important;
+      transform: scale(1.05) !important; /* hide blur edges */
+    }
+
+    /* Signup CTA — full overlay, centered */
+    #shopify-section-{{ section_id }} .none_customer_signup {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      min-height: 100vh !important;
+      z-index: 5 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 24px !important;
+      background: transparent !important;
+    }
+
+    #shopify-section-{{ section_id }} .non_custopmer_class {
       display: flex !important;
       flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      gap: 14px !important;
+      width: 100% !important;
+      max-width: 360px !important;
+    }
+
+    #shopify-section-{{ section_id }} .non_contact_main {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+    }
+
+    #shopify-section-{{ section_id }} .non_contact_main img {
+      width: 48px !important;
+      height: auto !important;
+    }
+
+    #shopify-section-{{ section_id }} .non_contact_main p {
+      font-family: "Danger Neue Free Regular", "Danger Neue", sans-serif !important;
+      font-size: 18px !important;
+      letter-spacing: 1.2px !important;
+      color: #fff !important;
+      margin: 0 !important;
+    }
+
+    #shopify-section-{{ section_id }} .none_customer_signup h2 {
+      font-family: "Danger Neue Free Regular", "Danger Neue", sans-serif !important;
+      font-size: 32px !important;
+      line-height: 1.1 !important;
+      letter-spacing: 1.5px !important;
+      color: #fff !important;
+      margin: 8px 0 0 !important;
+    }
+
+    #shopify-section-{{ section_id }} .none_customer_signup .margin_class_top {
+      font-size: 14px !important;
+      line-height: 1.5 !important;
+      color: rgba(255, 255, 255, 0.85) !important;
+      margin: 4px 0 12px !important;
+      max-width: 280px !important;
+    }
+
+    #shopify-section-{{ section_id }} .new_main_createaccount {
+      display: inline-block !important;
+      padding: 14px 32px !important;
+      font-family: "Danger Neue Free Regular", "Danger Neue", sans-serif !important;
+      font-size: 15px !important;
+      letter-spacing: 1.2px !important;
+      color: #fff !important;
+      background: transparent !important;
+      border: 1.5px solid #fff !important;
+      border-radius: 999px !important;
+      text-decoration: none !important;
+      transition: background 0.25s ease, color 0.25s ease !important;
+    }
+
+    #shopify-section-{{ section_id }} .new_main_createaccount:hover,
+    #shopify-section-{{ section_id }} .new_main_createaccount:active {
+      background: #fff !important;
+      color: #0a0a0a !important;
+    }
+
+    /* ===== LOGGED-IN STATE on mobile ===== */
+    /* Center everything vertically so the gauge sits in the middle */
+    #shopify-section-{{ section_id }} .growave_tiers_wrapper:not(.non_customer_class) .gtw_content_wrapper {
+      position: relative !important;
+      z-index: 2 !important;
+      min-height: 100vh !important;
+      height: auto !important;
+      padding: 16px 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+
+    #shopify-section-{{ section_id }} .growave_tiers_wrapper:not(.non_customer_class) .dashboard-wrapper,
+    #shopify-section-{{ section_id }} .growave_tiers_wrapper:not(.non_customer_class) .screen-container {
+      height: auto !important;
+      width: 100% !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
     }
 
     /* ----- Welcome header on mobile ----- */
@@ -380,17 +498,23 @@
       visibility: visible !important;
     }
 
+    /* Hide the customer name/email block on mobile to save space */
+    #shopify-section-{{ section_id }} .customer_name_email {
+      display: none !important;
+    }
+
     /* ----- Main dashboard panel on mobile ----- */
     #shopify-section-{{ section_id }} .main-content_new {
       display: flex !important;
       flex-direction: column !important;
       align-items: center !important;
+      justify-content: center !important;
       width: 100% !important;
       padding: 0 12px !important;
       gap: 12px !important;
     }
 
-    /* ----- Gauges row: keep horizontal, scale down ----- */
+    /* ----- Gauges row: keep horizontal, centered & properly sized ----- */
     #shopify-section-{{ section_id }} .gauges-wrapper {
       display: flex !important;
       flex-direction: row !important;
@@ -399,10 +523,8 @@
       width: 100% !important;
       gap: 4px !important;
       transform: scale(var(--mobile-gauge-scale)) !important;
-      transform-origin: center top !important;
+      transform-origin: center center !important;
       order: 1 !important;
-      /* Compensate for the scale so the row doesn't leave a big gap below */
-      margin-bottom: calc((var(--mobile-gauge-scale) - 1) * 100px) !important;
     }
 
     /* Make sure all three gauges remain visible & don't overflow */
@@ -519,13 +641,6 @@
     #shopify-section-{{ section_id }} .meter-row {
       padding: 0 12px 10px !important;
     }
-
-    /* Non-customer signup on mobile */
-    #shopify-section-{{ section_id }} .none_customer_signup {
-      position: relative !important;
-      z-index: 2 !important;
-      height: auto !important;
-    }
   }
 
   /* Extra-small phones */
@@ -544,6 +659,10 @@
     #shopify-section-{{ section_id }} .main_wrapper_new p {
       font-size: 14px !important;
       letter-spacing: 0.6px !important;
+    }
+
+    #shopify-section-{{ section_id }} .none_customer_signup h2 {
+      font-size: 28px !important;
     }
   }
 </style>
