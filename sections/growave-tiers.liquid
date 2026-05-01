@@ -1,104 +1,110 @@
+{%- comment -%}
+  ============================================================
+  TSTN Club — Growave Tires Dashboard Section
+  ------------------------------------------------------------
+  Renders the car-dashboard style loyalty UI:
+    • Left gauge   → RPM-style points indicator
+    • Center gauge → Total points speedometer
+    • Right gauge  → Static VIP tier badge image
+    • Bottom bar   → Tier progression meter (Base → Scout → Lead)
+
+  Powered by Growave loyalty (points injected via hidden
+  placeholder, watched by a MutationObserver).
+  ============================================================
+{%- endcomment -%}
+
+{%- liquid
+  assign section_id    = section.id
+  assign bg_image      = section.settings.feat_image
+  assign gauge_scale   = section.settings.gauge_scale | default: 100
+  assign gauge_opacity = section.settings.gauge_opacity | default: 100
+  assign welcome_logo  = 'https://cdn.shopify.com/s/files/1/0686/9486/8103/files/image_1_1_76d32aab-2b4e-4c68-a411-5a2a219321bf.png?v=1770384836'
+-%}
+
+{%- comment -%} VIP tier metafield (read by JS to set tier UI) {%- endcomment -%}
 {% if customer %}
   {% assign vip_tier = customer.metafields["app--144550"]["growave_vip_tier"] %}
-  
   {% if vip_tier != blank %}
-    
-    <div class="vip_tier_new_updated">
-       {{ vip_tier }}
-    </div>
+    <div class="vip_tier_new_updated">{{ vip_tier }}</div>
   {% endif %}
 {% endif %}
 
-
-
-{% comment %} 
-/************ Main Widget ************/ {% endcomment %}
+{%- comment -%} Hidden Growave points placeholder {%- endcomment -%}
 <div class="visibility_hidden">
   <span
     class="gw-rd-customer-points-balance-inline-widget-placeholder"
     data-gw-enable-points-name="true"
-    style="display: block"
-></span>
-  </div>
-<div class="growave_tiers_wrapper {% unless customer %} non_customer_class {% endunless %}">
+    style="display: block;"
+  ></span>
+</div>
+
+<div class="growave_tiers_wrapper {% unless customer %}non_customer_class{% endunless %}">
+
+  {%- comment -%} Background image {%- endcomment -%}
   <div class="gtw_image_wrapper">
-    {% if section.settings.feat_image != block %}
-      <img src="{{ section.settings.feat_image | img_url:'master' }}">
+    {% if bg_image != blank %}
+      <img src="{{ bg_image | img_url: 'master' }}" alt="">
     {% endif %}
   </div>
+
+  {%- comment -%} Main dashboard content {%- endcomment -%}
   <div class="gtw_content_wrapper">
     <div class="dashboard-wrapper">
       <div class="screen-container">
+
+        {%- comment -%} Welcome header {%- endcomment -%}
         <div class="gtw_welcome_wrapper">
           <div class="main_wrapper_new">
-            <img src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/image_1_1_76d32aab-2b4e-4c68-a411-5a2a219321bf.png?v=1770384836">
+            <img src="{{ welcome_logo }}" alt="TSTN Club">
             <p>WELCOME TO TSTN CLUB</p>
           </div>
           <div class="customer_name_email">
             {% if customer %}
               {% if customer.first_name or customer.last_name %}
-                <h1>
-                  {{ customer.first_name }}
-                  {{ customer.last_name }}
-                </h1>
+                <h1>{{ customer.first_name }} {{ customer.last_name }}</h1>
               {% elsif customer.email %}
                 {{ customer.email }}
               {% endif %}
             {% endif %}
           </div>
         </div>
+
+        {%- comment -%} Main dashboard panel {%- endcomment -%}
         <div class="main-content_new">
+
+          {%- comment -%} Bottom progression bar {%- endcomment -%}
           <div class="bottom-bar">
             <div class="bottom-bar-inner">
               <div class="bottom-bar-content">
                 <div class="icons-row">
                   <div class="icon-box">
-                    <img
-                      src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Frame_259.png?v=1770378961"
-                      alt="base-image-icon"
-                      class="icon-img"
-                    >
+                    <img src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Frame_259.png?v=1770378961" alt="Base Camp" class="icon-img">
                   </div>
                   <div class="icon-box">
-                    <img
-                      src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726226.png?v=1770370711"
-                      alt="scout-image-icon"
-                      class="icon-img"
-                    >
+                    <img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726226.png?v=1770370711" alt="Scout" class="icon-img">
                   </div>
                   <div class="icon-box">
-                    <img
-                      src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726227.png?v=1770370813"
-                      alt="lead-image-icon"
-                      class="icon-img"
-                    >
+                    <img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726227.png?v=1770370813" alt="Lead" class="icon-img">
                   </div>
                 </div>
                 <div class="meter-row">
                   <div class="meter-container">
                     <div id="meterFill" class="meter-fill" style="width: 0%;"></div>
-                    <div class="meter-segment"></div>
-                    <div class="meter-segment"></div>
-                    <div class="meter-segment"></div>
-                    <div class="meter-segment"></div>
-                    <div class="meter-segment"></div>
-                    <div class="meter-segment"></div>
-                    <div class="meter-segment"></div>
-                    <div class="meter-segment"></div>
-                    <div class="meter-segment"></div>
-                    <div class="meter-segment"></div>
-                    <div class="meter-segment"></div>
+                    {% for i in (1..11) %}
+                      <div class="meter-segment"></div>
+                    {% endfor %}
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
+          {%- comment -%} Cluster info strip (mode/gear/temp/time/etc.) {%- endcomment -%}
           <div class="meter-info-wrapper">
             <div class="cluster-container">
               <img
                 src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Frame_200_2_3d5c4b39-500f-4fc5-8413-13e8b9961403.png?v=1770378141"
-                alt="image"
+                alt=""
                 class="cluster-img"
               >
               <div class="cluster-overlay">
@@ -113,41 +119,33 @@
                 </div>
                 <div class="battery-box">
                   <svg class="flash-svg" viewBox="0 0 512 512" fill="white">
-                    <path
-                        d="M315.27 33L96 304h128l-31.51 173.23a2.36 2.36 0 002.33 2.77h0a2.36 2.36 0 001.89-.95L416 208H288l31.66-173.25a2.45 2.45 0 00-2.44-2.75h0a2.42 2.42 0 00-1.95 1z">
-                    </path>
+                    <path d="M315.27 33L96 304h128l-31.51 173.23a2.36 2.36 0 002.33 2.77h0a2.36 2.36 0 001.89-.95L416 208H288l31.66-173.25a2.45 2.45 0 00-2.44-2.75h0a2.42 2.42 0 00-1.95 1z"></path>
                   </svg>
                   <div class="battery-inner">
-                    <img
-                      src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726226_1.png?v=1770370899"
-                      alt="battery"
-                      class="battery-img"
-                    >
+                    <img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726226_1.png?v=1770370899" alt="" class="battery-img">
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
+          {%- comment -%} Three gauges {%- endcomment -%}
           <div class="gauges-wrapper">
+
+            {%- comment -%} Left gauge — RPM {%- endcomment -%}
             <div class="gauge-left">
               <div class="clock-outer clock-outer-small">
                 <div class="clock-middle">
                   <div class="clock-inner">
                     <div class="gauge-content gauge-rotated">
-                      <svg
-                        id="leftGauge"
-                        viewBox="0 0 200 200"
-                        class="gauge-svg"
-                        xmlns="http://www.w3.org/2000/svg"
-                      ></svg>
+                      <svg id="leftGauge" viewBox="0 0 200 200" class="gauge-svg" xmlns="http://www.w3.org/2000/svg"></svg>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- Center Gauge -->
+            {%- comment -%} Center gauge — Points {%- endcomment -%}
             <div class="gauge-center">
               <div class="left_icons_wrapper custom_icons_wrapper">
                 {{- 'left-icon.svg' | inline_asset_content -}}
@@ -159,18 +157,14 @@
                 <div class="clock-middle">
                   <div class="clock-inner">
                     <div class="gauge-content">
-                      <svg
-                        id="centerGauge"
-                        viewBox="0 0 200 200"
-                        class="gauge-svg"
-                        xmlns="http://www.w3.org/2000/svg"
-                      ></svg>
+                      <svg id="centerGauge" viewBox="0 0 200 200" class="gauge-svg" xmlns="http://www.w3.org/2000/svg"></svg>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
+            {%- comment -%} Right gauge — Tier badge {%- endcomment -%}
             <div class="gauge-right">
               <div class="clock-outer clock-outer-small">
                 <div class="clock-middle">
@@ -180,531 +174,86 @@
                         id="tier_diagram"
                         src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_1_a6b1bf9c-5113-4864-b2aa-53fb77a68341.png?v=1770810715"
                         class="scout-img"
-                        alt="img"
+                        alt="Tier badge"
                       >
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
+
+          </div>{%- comment -%} /.gauges-wrapper {%- endcomment -%}
+
+        </div>{%- comment -%} /.main-content_new {%- endcomment -%}
+      </div>{%- comment -%} /.screen-container {%- endcomment -%}
+    </div>{%- comment -%} /.dashboard-wrapper {%- endcomment -%}
+
+    <div id="points-output"></div>
+  </div>{%- comment -%} /.gtw_content_wrapper {%- endcomment -%}
+
+  {%- comment -%} Non-logged-in CTA {%- endcomment -%}
+  {% unless customer %}
+    <div class="none_customer_signup">
+      <div class="non_custopmer_class">
+        <div class="non_contact_main">
+          <img src="{{ welcome_logo }}" alt="TSTN Club">
+          <p>TSTN CLUB</p>
         </div>
+        <h2>JOIN THE TRIBE</h2>
+        <p class="margin_class_top">Earn Points. Get Featured. Unlock the Inner Circle.</p>
+        <a class="new_main_createaccount" href="/account/register">Create Account</a>
       </div>
     </div>
+  {% endunless %}
+
+</div>{%- comment -%} /.growave_tiers_wrapper {%- endcomment -%}
 
 
-<div id="points-output"></div>
-
-<script>
-  // make it global
-  
-</script>
-
-<script>
-  // storage helpers
-const STORAGE_KEYS = {
-  tier: "tstn_cs_vp_m_t", 
-  bar: "tstn_cs_vp_m_b", 
-};
-function getStoredTier() {
-  return sessionStorage.getItem(STORAGE_KEYS.tier);
-}
-
-function setStoredTier(tier) {
-  sessionStorage.setItem(STORAGE_KEYS.tier, tier);
-}
-
-function getStoredBar() {
-  return Number(sessionStorage.getItem(STORAGE_KEYS.bar) || 0);
-}
-
-function setStoredBar(value) {
-  sessionStorage.setItem(STORAGE_KEYS.bar, value);
-}
-const TIER_ORDER = ["base", "scout", "lead"];
-function getHigherTier(t1, t2) {
-  if (!t1) return t2;
-  if (!t2) return t1;
-  const i1 = TIER_ORDER.indexOf(t1);
-  const i2 = TIER_ORDER.indexOf(t2);
-  return i1 > i2 ? t1 : t2;
-}
-// constants
-const baseTierImage =
-  "https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_1_a6b1bf9c-5113-4864-b2aa-53fb77a68341.png?v=1770810715";
-const scoutTierImage =
-  "https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_2_fe25c4de-0871-4b74-8114-8473656bf229.png?v=1770810716";
-const leadTierImage =
-  "https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_3_3062b154-429b-4483-939f-042e342cf355.png?v=1770810716";
-const TIER_CONFIG = {
-  base: {
-    regex: /\b(base|base\s*camp)\b/i,
-    bar: 0,
-    img: baseTierImage,
-  },
-  scout: {
-    regex: /\b(scout)\b/i,
-    bar: 50,
-    img: scoutTierImage,
-  },
-  lead: {
-    regex: /\b(lead|leader)\b/i,
-    bar: 100,
-    img: leadTierImage,
-  },
-};
-function updateTime() {
-  const now = new Date();
-  const hours = String(now.getHours()).padStart(2, "0");
-  const minutes = String(now.getMinutes()).padStart(2, "0");
-  document.getElementById("timeText").textContent = hours + ":" + minutes;
-}
-updateTime();
-setInterval(updateTime, 1000);
-function createSpeedometer(svgId, options) {
-  const value = options.value !== undefined ? options.value : 200;
-  const eMax = options.max !== undefined ? options.max : 240;
-  const step = options.step !== undefined ? options.step : 500;
-  const showValue = options.showValue !== undefined ? options.showValue : true;
-  const showTotalScore =
-    options.showTotalScore !== undefined ? options.showTotalScore : true;
-  const showTrip = options.showTrip !== undefined ? options.showTrip : true;
-  const showHub = options.showHub !== undefined ? options.showHub : false;
-  const showNeedle =
-    options.showNeedle !== undefined ? options.showNeedle : true;
-  const trip = options.trip !== undefined ? options.trip : 12;
-  const svg = document.getElementById(svgId);
-  const max = eMax / step;
-  const currentValue = value / step;
-  const minAngle = options.minAngle;
-  const maxAngle = options.maxAngle;
-  const angleRange = maxAngle - minAngle;
-  const angle = minAngle + (currentValue / max) * angleRange;
-  svg.innerHTML = "";
-  for (let i = 0; i <= max; i++) {
-    const tickAngle = minAngle + (i / max) * angleRange;
-    const radians = (tickAngle * Math.PI) / 180;
-    const r1 = 75;
-    const r2 = 90;
-    const x1 = 100 + r1 * Math.cos(radians);
-    const y1 = 100 + r1 * Math.sin(radians);
-    const x2 = 100 + r2 * Math.cos(radians);
-    const y2 = 100 + r2 * Math.sin(radians);
-    const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    line.setAttribute("x1", x1);
-    line.setAttribute("y1", y1);
-    line.setAttribute("x2", x2);
-    line.setAttribute("y2", y2);
-    line.setAttribute("stroke", "white");
-    line.setAttribute("stroke-width", "1.5");
-    line.setAttribute("stroke-linecap", "round");
-    g.appendChild(line);
-    const textRadius = 65;
-    const tx = 100 + textRadius * Math.cos(radians);
-    const ty = 100 + textRadius * Math.sin(radians);
-    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    text.setAttribute("x", tx);
-    text.setAttribute("y", ty);
-    text.setAttribute("fill", "white");
-    text.setAttribute("font-size", "7px");
-    text.setAttribute("letter-spacing", "normal");
-    text.setAttribute("font-weight", "normal");
-    text.setAttribute("text-anchor", "middle");
-    text.setAttribute("dominant-baseline", "middle");
-    text.setAttribute(
-      "transform",
-      "rotate(" + (tickAngle + 90) + " " + tx + " " + ty + ")",
-    );
-    text.textContent = i * step;
-    g.appendChild(text);
-    svg.appendChild(g);
-  }
-  for (let i = 0; i < max * 4; i++) {
-    if (i % 4 === 0) continue;
-    const tickAngle = minAngle + (i / (max * 4)) * angleRange;
-    const radians = (tickAngle * Math.PI) / 180;
-    const r1 = 84;
-    const r2 = 90;
-    const x1 = 100 + r1 * Math.cos(radians);
-    const y1 = 100 + r1 * Math.sin(radians);
-    const x2 = 100 + r2 * Math.cos(radians);
-    const y2 = 100 + r2 * Math.sin(radians);
-    const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    line.setAttribute("x1", x1);
-    line.setAttribute("y1", y1);
-    line.setAttribute("x2", x2);
-    line.setAttribute("y2", y2);
-    line.setAttribute("stroke", "white");
-    line.setAttribute("stroke-width", "1");
-    line.setAttribute("stroke-linecap", "round");
-    line.setAttribute("opacity", "0.6");
-    svg.appendChild(line);
-  }
-  if (showValue) {
-    const valueText = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "text",
-    );
-    valueText.setAttribute("x", "100");
-    valueText.setAttribute("y", "70");
-    valueText.setAttribute("fill", "white");
-    valueText.setAttribute("font-size", "18px");
-    valueText.setAttribute("font-weight", "normal");
-    valueText.setAttribute("font-family", "Danger Neue Free Regular");
-    valueText.setAttribute("text-anchor", "middle");
-    valueText.setAttribute("id", "center_gauge_value");
-    valueText.setAttribute("dominant-baseline", "middle");
-    valueText.textContent = (currentValue * step).toFixed(0);
-    svg.appendChild(valueText);
-  }
-  if (showTotalScore) {
-    const totalText = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "text",
-    );
-    totalText.setAttribute("x", "80");
-    totalText.setAttribute("y", "130");
-    totalText.setAttribute("fill", "white");
-    totalText.setAttribute("font-size", "6px");
-    totalText.setAttribute("font-family", "ABC Diatype");
-    totalText.setAttribute("letter-spacing", "normal");
-    totalText.setAttribute("font-weight", "bold");
-    totalText.setAttribute("text-anchor", "middle");
-    totalText.setAttribute("dominant-baseline", "middle");
-    svg.appendChild(totalText);
-  }
-  if (showTrip) {
-    const tripText = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "text",
-    );
-    tripText.setAttribute("x", "130");
-    tripText.setAttribute("y", "130");
-    tripText.setAttribute("fill", "white");
-    tripText.setAttribute("font-size", "6px");
-    tripText.setAttribute("font-family", "ABC Diatype");
-    tripText.setAttribute("font-weight", "bold");
-    tripText.setAttribute("text-anchor", "middle");
-    tripText.setAttribute("dominant-baseline", "middle");
-    svg.appendChild(tripText);
-  }
-  if (showNeedle) {
-    const needleGroup = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "g",
-    );
-    needleGroup.setAttribute("class", "needle-group");
-    needleGroup.style.transformOrigin = "100px 100px";
-    needleGroup.style.transform = `rotate(${angle}deg)`;
-    needleGroup.dataset.minAngle = minAngle;
-    needleGroup.dataset.maxAngle = maxAngle;
-    needleGroup.dataset.maxValue = eMax;
-    needleGroup.dataset.step = step;
-    const shadow = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "line",
-    );
-    shadow.setAttribute("x1", "100");
-    shadow.setAttribute("y1", "100");
-    shadow.setAttribute("x2", "164");
-    shadow.setAttribute("y2", "100");
-    shadow.setAttribute("stroke", "rgba(0,0,0,0.3)");
-    shadow.setAttribute("stroke-width", "5");
-    shadow.setAttribute("stroke-linecap", "round");
-    shadow.setAttribute("transform", "translate(2, 2)");
-    needleGroup.appendChild(shadow);
-    const needleShadow = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "g",
-    );
-    const shadowShaft = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "path",
-    );
-    shadowShaft.setAttribute(
-      "d",
-      `M 100 96 L 160 98 L 160 100 L 160 100 L 100 103 Z`,
-    );
-    shadowShaft.setAttribute("fill", "rgba(0,0,0,0.45)");
-    shadowShaft.setAttribute("transform", "translate(4,4)");
-    const shadowHub = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "circle",
-    );
-    shadowHub.setAttribute("cx", "100");
-    shadowHub.setAttribute("cy", "100");
-    shadowHub.setAttribute("r", "7");
-    shadowHub.setAttribute("fill", "rgba(0,0,0,0.45)");
-    shadowHub.setAttribute("transform", "translate(4,4)");
-    needleShadow.appendChild(shadowShaft);
-    needleShadow.appendChild(shadowHub);
-    const needleMain = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "g",
-    );
-    const shaft = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "path",
-    );
-    shaft.setAttribute(
-      "d",
-      `M 100 96 L 160 98 L 160 100 L 160 100 L 100 103 Z`,
-    );
-    shaft.setAttribute("fill", "#ec5607");
-    const hub = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "circle",
-    );
-    hub.setAttribute("cx", "100");
-    hub.setAttribute("cy", "100");
-    hub.setAttribute("r", "7");
-    hub.setAttribute("fill", "#ec5607");
-    needleMain.appendChild(shaft);
-    needleMain.appendChild(hub);
-    needleGroup.appendChild(needleShadow);
-    needleGroup.appendChild(needleMain);
-    svg.appendChild(needleGroup);
-  }
-  const hub = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-  hub.setAttribute("cx", "100");
-  hub.setAttribute("cy", "100");
-  hub.setAttribute("r", "5");
-  hub.setAttribute("fill", "#ff7a00");
-  svg.appendChild(hub);
-  if (showHub) {
-    const innerHub = document.createElementNS(
-      "http://www.w3.org/2000/svg",
-      "circle",
-    );
-    innerHub.setAttribute("cx", "100");
-    innerHub.setAttribute("cy", "100");
-    innerHub.setAttribute("r", "3");
-    innerHub.setAttribute("fill", "#1c1c1c");
-    svg.appendChild(innerHub);
-  }
-}
-const TOTAL_POINTS = 4000;
-let value = 0;
-function clamp(val, min, max) {
-  return Math.min(Math.max(val, min), max);
-}
-
-function getTierFromText(text) {
-  if (!text) return null;
-  for (const key in TIER_CONFIG) {
-    if (TIER_CONFIG[key].regex.test(text)) {
-      return key;
-    }
-  }
-  return null;
-}
-
-function updateFromVipText() {
-  const vipEl = document.querySelector(".vip_tier_new_updated");
-  if (!vipEl) return false;
-  const vipText = vipEl.innerText.trim();
-  const tier = getTierFromText(vipText);
-  if (tier) {
-    applyTierUI(tier);
-    return true;
-  }
-  return false;
-}
-let tier_image_el;
-
-window.addEventListener("DOMContentLoaded", () => {
-  tier_image_el = document.querySelector("#tier_diagram");
-});
-
-const bottomBar = document.querySelector("#meterFill");
-const maxBottomBarPoints = 3000;
-function getBottomBarFromPoints() {
-  return clamp((value / maxBottomBarPoints) * 100, 0, 100);
-}
-function getBottomBarWithTierFloor(tierKey) {
-  const progress = getBottomBarFromPoints();
-  if (!tierKey || !TIER_CONFIG[tierKey]) return progress;
-  const tierMin = TIER_CONFIG[tierKey].bar;
-  if (tierMin === 100) return 100;
-  return Math.max(progress, tierMin);
-}
-function setNewTierImgSrc(newSrc) {
-  if (tier_image_el) {
-    tier_image_el.src = newSrc;
-  }
-}
-function applyTierUI(tierKey) {
-  if (!tierKey || !TIER_CONFIG[tierKey]) return;
-  const storedTier = getStoredTier();
-  const finalTier = getHigherTier(storedTier, tierKey);
-  setStoredTier(finalTier);
-  const config = TIER_CONFIG[finalTier];
-  console.log({config})
-  setNewTierImgSrc(config.img);
-  if (bottomBar) {
-    const calculatedBar = getBottomBarWithTierFloor(finalTier);
-    const storedBar = getStoredBar();
-    console.log({
-      calculatedBar,storedBar,storedTier,finalTier
-    })
-    const finalBar = Math.max(calculatedBar, storedBar);
-    bottomBar.style.width = finalBar + "%";
-    setStoredBar(finalBar);
-  }
-}
-createSpeedometer("leftGauge", {
-  step: 1,
-  max: 7,
-  value: 0,
-  showTrip: false,
-  showTotalScore: false,
-  showValue: false,
-  minAngle: -210,
-  maxAngle: 0,
-});
-createSpeedometer("centerGauge", {
-  value: 0,
-  max: TOTAL_POINTS,
-  step: 500,
-  showValue: true,
-  showTotalScore: true,
-  showTrip: true,
-  trip: 12,
-  minAngle: -200,
-  maxAngle: 20,
-});
-function updateDerivedValues() {
-  let tier;
-  if (value >= 3000) tier = "lead";
-  else if (value >= 1500) tier = "scout";
-  else tier = "base";
-  applyTierUI(tier);
-}
-
-function updateNeedle(svgId, value) {
-  const svg = document.getElementById(svgId);
-  const needleGroup = svg.querySelector(".needle-group");
-  if (!needleGroup) return;
-  const minAngle = Number(needleGroup.dataset.minAngle);
-  const maxAngle = Number(needleGroup.dataset.maxAngle);
-  const maxValue = Number(needleGroup.dataset.maxValue);
-  const clampedValue = clamp(value, 0, maxValue);
-  const angle = minAngle + (clampedValue / maxValue) * (maxAngle - minAngle);
-  needleGroup.style.transform = `rotate(${angle}deg)`;
-}
-function updateUIFromPoints() {
-  const calculated = clamp((value / 3000) * 100, 0, 100);
-  const storedBar = getStoredBar();
-  console.log({calculated, storedBar})
-  const finalBar = Math.max(calculated, storedBar);
-  if (bottomBar) {
-    bottomBar.style.width = finalBar + "%";
-  }
-  setStoredBar(finalBar);
-}
-function updateGauges() {
-  const rpmMeterValue = clamp((value / TOTAL_POINTS) * 7, 0, 7);
-  updateNeedle("leftGauge", rpmMeterValue);
-  updateNeedle("centerGauge", value);
-}
-function applyPointsFallback() {
-  updateDerivedValues();
-  updateUIFromPoints();
-}
-function setValue(newValue) {
-  const valueText = document.querySelector("#center_gauge_value");
-  if (valueText) {
-    valueText.textContent = newValue;
-    value = clamp(newValue, 0, TOTAL_POINTS);
-    const tierApplied = updateFromVipText();
-    if (!tierApplied) {
-      applyPointsFallback();
-    }
-    updateGauges();
-  } else {
-    console.log("Unable to find the svg to add the value text into");
-  }
-}
-window.newPoints1 = null;
-const observer = new MutationObserver(() => {
-  const target = document.querySelector(
-    ".gw-rd-customer-points-balance-inline-widget-placeholder",
-  );
-  if (!target) return;
-  const match = target.textContent.match(/\d+/);
-  if (!match) return;
-  const newPoints = Number(match[0]);
-  if (window.newPoints1 !== newPoints) {
-    window.newPoints1 = newPoints;
-    setValue(window.newPoints1);
-  }
-});
-observer.observe(document.body, {
-  childList: true,
-  subtree: true,
-});
-const newPoints = window.newPoints1;
-console.log({ newPoints });
-setTimeout(() => {
-  if (newPoints !== null) {
-    setValue(newPoints);
-  }
-}, 1000);
-</script>
-  </div>
- {% unless customer %}
-<div class="none_customer_signup">
-  <div class="non_custopmer_class">
-    <div class="non_contact_main">
- <img src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/image_1_1_76d32aab-2b4e-4c68-a411-5a2a219321bf.png?v=1770384836">
-            <p>TSTN ClUBE</p>
-  </div>
-  <h2>JOIN THE TRIBE</h2>
-  <p class="margin_class_top">Earn Points. Get Featured. Unlock the Inner Circle.</p>
-  <a class="new_main_createaccount" href="/account/register">Create Account</a>
-</div>
-</div>
- {% endunless %}
-</div>
-
+{%- comment -%}
+  ============================================================
+  STYLES — section-scoped via #shopify-section-{{ section.id }}
+  ============================================================
+{%- endcomment -%}
 <style>
-  /* Reduce section height by 25% on desktop and mobile */
-  #shopify-section-{{ section.id }} .growave_tiers_wrapper,
-  #shopify-section-{{ section.id }} .gtw_image_wrapper {
+  /* ---------- CSS custom properties (tweak via theme editor) ---------- */
+  #shopify-section-{{ section_id }} {
+    --gauge-scale: {{ gauge_scale | divided_by: 100.0 }};
+    --gauge-opacity: {{ gauge_opacity | divided_by: 100.0 }};
+    --tstn-orange: #ff6a1a;
+    --tstn-needle: #ec5607;
+    --tstn-bg: #0a0a0a;
+  }
+
+  /* ---------- Section height ---------- */
+  #shopify-section-{{ section_id }} .growave_tiers_wrapper,
+  #shopify-section-{{ section_id }} .gtw_image_wrapper {
     height: 75vh !important;
     min-height: 75vh !important;
     max-height: 75vh !important;
   }
 
   @media (max-width: 767px) {
-    #shopify-section-{{ section.id }} .growave_tiers_wrapper,
-    #shopify-section-{{ section.id }} .gtw_image_wrapper {
+    #shopify-section-{{ section_id }} .growave_tiers_wrapper,
+    #shopify-section-{{ section_id }} .gtw_image_wrapper {
       height: 75vh !important;
       min-height: 75vh !important;
       max-height: 75vh !important;
     }
   }
 
-  /* Ensure inner content scales properly */
-  #shopify-section-{{ section.id }} .gtw_content_wrapper,
-  #shopify-section-{{ section.id }} .dashboard-wrapper,
-  #shopify-section-{{ section.id }} .screen-container {
+  #shopify-section-{{ section_id }} .gtw_content_wrapper,
+  #shopify-section-{{ section_id }} .dashboard-wrapper,
+  #shopify-section-{{ section_id }} .screen-container {
     height: 100%;
   }
 
-  /* Ensure the background image fills the new height */
-  #shopify-section-{{ section.id }} .gtw_image_wrapper img,
-  #shopify-section-{{ section.id }} .none_customer_signup {
+  #shopify-section-{{ section_id }} .gtw_image_wrapper img,
+  #shopify-section-{{ section_id }} .none_customer_signup {
     height: 100% !important;
   }
 
-  /* ============================================= */
-  /* WELCOME TO TSTN CLUB — sizing & visibility    */
-  /* ============================================= */
-
-  /* Desktop: Increase size of the welcome badge */
-  #shopify-section-{{ section.id }} .main_wrapper_new {
+  /* ---------- Welcome badge ---------- */
+  #shopify-section-{{ section_id }} .main_wrapper_new {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -712,12 +261,12 @@ setTimeout(() => {
     padding: 14px 28px !important;
   }
 
-  #shopify-section-{{ section.id }} .main_wrapper_new img {
+  #shopify-section-{{ section_id }} .main_wrapper_new img {
     width: 28px !important;
     height: auto !important;
   }
 
-  #shopify-section-{{ section.id }} .main_wrapper_new p {
+  #shopify-section-{{ section_id }} .main_wrapper_new p {
     font-family: "Danger Neue Free Regular", "Danger Neue", sans-serif !important;
     font-size: 26px !important;
     line-height: 1.2 !important;
@@ -726,10 +275,9 @@ setTimeout(() => {
     font-weight: 400 !important;
   }
 
-  /* Mobile: Make the welcome badge visible and properly sized */
   @media (max-width: 767px) {
-    #shopify-section-{{ section.id }} .gtw_welcome_wrapper,
-    #shopify-section-{{ section.id }} .main_wrapper_new {
+    #shopify-section-{{ section_id }} .gtw_welcome_wrapper,
+    #shopify-section-{{ section_id }} .main_wrapper_new {
       display: flex !important;
       visibility: visible !important;
       opacity: 1 !important;
@@ -739,12 +287,12 @@ setTimeout(() => {
       padding: 10px 18px !important;
     }
 
-    #shopify-section-{{ section.id }} .main_wrapper_new img {
+    #shopify-section-{{ section_id }} .main_wrapper_new img {
       width: 20px !important;
       height: auto !important;
     }
 
-    #shopify-section-{{ section.id }} .main_wrapper_new p {
+    #shopify-section-{{ section_id }} .main_wrapper_new p {
       font-family: "Danger Neue Free Regular", "Danger Neue", sans-serif !important;
       font-size: 18px !important;
       line-height: 1.2 !important;
@@ -755,7 +303,456 @@ setTimeout(() => {
       visibility: visible !important;
     }
   }
+
+  /* ---------- GAUGE SIZE & OPACITY CONTROLS ---------- */
+  /* The whole gauges row scales together via --gauge-scale,
+     and fades together via --gauge-opacity. */
+  #shopify-section-{{ section_id }} .gauges-wrapper {
+    transform: scale(var(--gauge-scale)) !important;
+    transform-origin: center center !important;
+    opacity: var(--gauge-opacity) !important;
+    transition: transform 0.3s ease, opacity 0.3s ease !important;
+  }
+
+  /* Center gauge value uses the brand heading font */
+  #shopify-section-{{ section_id }} #center_gauge_value {
+    font-family: "Danger Neue Free Regular", "Danger Neue", sans-serif !important;
+  }
+
+  /* The cluster info strip and bottom bar follow the gauge opacity
+     so the whole "instrument cluster" fades together. */
+  #shopify-section-{{ section_id }} .meter-info-wrapper,
+  #shopify-section-{{ section_id }} .bottom-bar {
+    opacity: var(--gauge-opacity) !important;
+    transition: opacity 0.3s ease !important;
+  }
 </style>
+
+
+{%- comment -%}
+  ============================================================
+  SCRIPT — points + tier logic
+  Refactored into clearly-named modules:
+    1. Storage helpers
+    2. Tier helpers
+    3. Speedometer renderer
+    4. Time clock
+    5. UI updaters
+    6. Growave observer
+  ============================================================
+{%- endcomment -%}
+<script>
+(function () {
+  'use strict';
+
+  /* ===== 1. Storage helpers ===== */
+  const STORAGE_KEYS = {
+    tier: 'tstn_cs_vp_m_t',
+    bar:  'tstn_cs_vp_m_b'
+  };
+
+  const Storage = {
+    getTier()        { return sessionStorage.getItem(STORAGE_KEYS.tier); },
+    setTier(tier)    { sessionStorage.setItem(STORAGE_KEYS.tier, tier); },
+    getBar()         { return Number(sessionStorage.getItem(STORAGE_KEYS.bar) || 0); },
+    setBar(value)    { sessionStorage.setItem(STORAGE_KEYS.bar, value); }
+  };
+
+  /* ===== 2. Tier configuration & helpers ===== */
+  const TIER_ORDER = ['base', 'scout', 'lead'];
+
+  const TIER_CONFIG = {
+    base: {
+      regex: /\b(base|base\s*camp)\b/i,
+      bar: 0,
+      img: 'https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_1_a6b1bf9c-5113-4864-b2aa-53fb77a68341.png?v=1770810715'
+    },
+    scout: {
+      regex: /\b(scout)\b/i,
+      bar: 50,
+      img: 'https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_2_fe25c4de-0871-4b74-8114-8473656bf229.png?v=1770810716'
+    },
+    lead: {
+      regex: /\b(lead|leader)\b/i,
+      bar: 100,
+      img: 'https://cdn.shopify.com/s/files/1/0686/9486/8103/files/ChatGPT_Image_Jan_22_2026_05_29_18_PM_3_3062b154-429b-4483-939f-042e342cf355.png?v=1770810716'
+    }
+  };
+
+  const TOTAL_POINTS    = 4000;
+  const SCOUT_THRESHOLD = 1500;
+  const LEAD_THRESHOLD  = 3000;
+
+  function clamp(val, min, max) {
+    return Math.min(Math.max(val, min), max);
+  }
+
+  function getHigherTier(t1, t2) {
+    if (!t1) return t2;
+    if (!t2) return t1;
+    return TIER_ORDER.indexOf(t1) > TIER_ORDER.indexOf(t2) ? t1 : t2;
+  }
+
+  function getTierFromText(text) {
+    if (!text) return null;
+    for (const key in TIER_CONFIG) {
+      if (TIER_CONFIG[key].regex.test(text)) return key;
+    }
+    return null;
+  }
+
+  function getTierFromPoints(points) {
+    if (points >= LEAD_THRESHOLD)  return 'lead';
+    if (points >= SCOUT_THRESHOLD) return 'scout';
+    return 'base';
+  }
+
+  /* ===== 3. Speedometer SVG renderer ===== */
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+
+  function el(name, attrs = {}) {
+    const node = document.createElementNS(SVG_NS, name);
+    for (const key in attrs) node.setAttribute(key, attrs[key]);
+    return node;
+  }
+
+  function createSpeedometer(svgId, opts) {
+    const svg = document.getElementById(svgId);
+    if (!svg) return;
+
+    const value          = opts.value !== undefined ? opts.value : 0;
+    const eMax           = opts.max !== undefined ? opts.max : 240;
+    const step           = opts.step !== undefined ? opts.step : 500;
+    const showValue      = opts.showValue !== false;
+    const showTotalScore = opts.showTotalScore !== false;
+    const showTrip       = opts.showTrip !== false;
+    const showHub        = opts.showHub === true;
+    const showNeedle     = opts.showNeedle !== false;
+    const minAngle       = opts.minAngle;
+    const maxAngle       = opts.maxAngle;
+    const angleRange     = maxAngle - minAngle;
+    const max            = eMax / step;
+    const currentValue   = value / step;
+    const angle          = minAngle + (currentValue / max) * angleRange;
+
+    svg.innerHTML = '';
+
+    /* Major ticks + numeric labels */
+    for (let i = 0; i <= max; i++) {
+      const tickAngle = minAngle + (i / max) * angleRange;
+      const radians   = (tickAngle * Math.PI) / 180;
+      const r1 = 75, r2 = 90;
+      const x1 = 100 + r1 * Math.cos(radians);
+      const y1 = 100 + r1 * Math.sin(radians);
+      const x2 = 100 + r2 * Math.cos(radians);
+      const y2 = 100 + r2 * Math.sin(radians);
+
+      const g = el('g');
+      g.appendChild(el('line', {
+        x1, y1, x2, y2,
+        stroke: 'white',
+        'stroke-width': '1.5',
+        'stroke-linecap': 'round'
+      }));
+
+      const textRadius = 65;
+      const tx = 100 + textRadius * Math.cos(radians);
+      const ty = 100 + textRadius * Math.sin(radians);
+
+      const text = el('text', {
+        x: tx, y: ty,
+        fill: 'white',
+        'font-size': '7px',
+        'font-weight': 'normal',
+        'text-anchor': 'middle',
+        'dominant-baseline': 'middle',
+        transform: `rotate(${tickAngle + 90} ${tx} ${ty})`
+      });
+      text.textContent = i * step;
+      g.appendChild(text);
+      svg.appendChild(g);
+    }
+
+    /* Minor ticks */
+    for (let i = 0; i < max * 4; i++) {
+      if (i % 4 === 0) continue;
+      const tickAngle = minAngle + (i / (max * 4)) * angleRange;
+      const radians   = (tickAngle * Math.PI) / 180;
+      const r1 = 84, r2 = 90;
+      svg.appendChild(el('line', {
+        x1: 100 + r1 * Math.cos(radians),
+        y1: 100 + r1 * Math.sin(radians),
+        x2: 100 + r2 * Math.cos(radians),
+        y2: 100 + r2 * Math.sin(radians),
+        stroke: 'white',
+        'stroke-width': '1',
+        'stroke-linecap': 'round',
+        opacity: '0.6'
+      }));
+    }
+
+    /* Center value text */
+    if (showValue) {
+      const valueText = el('text', {
+        x: 100, y: 70,
+        fill: 'white',
+        'font-size': '18px',
+        'font-weight': 'normal',
+        'font-family': 'Danger Neue Free Regular',
+        'text-anchor': 'middle',
+        id: 'center_gauge_value',
+        'dominant-baseline': 'middle'
+      });
+      valueText.textContent = (currentValue * step).toFixed(0);
+      svg.appendChild(valueText);
+    }
+
+    if (showTotalScore) {
+      svg.appendChild(el('text', {
+        x: 80, y: 130,
+        fill: 'white',
+        'font-size': '6px',
+        'font-family': 'ABC Diatype',
+        'font-weight': 'bold',
+        'text-anchor': 'middle',
+        'dominant-baseline': 'middle'
+      }));
+    }
+
+    if (showTrip) {
+      svg.appendChild(el('text', {
+        x: 130, y: 130,
+        fill: 'white',
+        'font-size': '6px',
+        'font-family': 'ABC Diatype',
+        'font-weight': 'bold',
+        'text-anchor': 'middle',
+        'dominant-baseline': 'middle'
+      }));
+    }
+
+    /* Needle */
+    if (showNeedle) {
+      const needleGroup = el('g');
+      needleGroup.setAttribute('class', 'needle-group');
+      needleGroup.style.transformOrigin = '100px 100px';
+      needleGroup.style.transform       = `rotate(${angle}deg)`;
+      needleGroup.dataset.minAngle      = minAngle;
+      needleGroup.dataset.maxAngle      = maxAngle;
+      needleGroup.dataset.maxValue      = eMax;
+      needleGroup.dataset.step          = step;
+
+      /* Drop shadow line */
+      needleGroup.appendChild(el('line', {
+        x1: 100, y1: 100, x2: 164, y2: 100,
+        stroke: 'rgba(0,0,0,0.3)',
+        'stroke-width': '5',
+        'stroke-linecap': 'round',
+        transform: 'translate(2, 2)'
+      }));
+
+      /* Shadow shape */
+      const shadowGroup = el('g');
+      shadowGroup.appendChild(el('path', {
+        d: 'M 100 96 L 160 98 L 160 100 L 160 100 L 100 103 Z',
+        fill: 'rgba(0,0,0,0.45)',
+        transform: 'translate(4,4)'
+      }));
+      shadowGroup.appendChild(el('circle', {
+        cx: 100, cy: 100, r: 7,
+        fill: 'rgba(0,0,0,0.45)',
+        transform: 'translate(4,4)'
+      }));
+
+      /* Main needle */
+      const mainGroup = el('g');
+      mainGroup.appendChild(el('path', {
+        d: 'M 100 96 L 160 98 L 160 100 L 160 100 L 100 103 Z',
+        fill: '#ec5607'
+      }));
+      mainGroup.appendChild(el('circle', {
+        cx: 100, cy: 100, r: 7,
+        fill: '#ec5607'
+      }));
+
+      needleGroup.appendChild(shadowGroup);
+      needleGroup.appendChild(mainGroup);
+      svg.appendChild(needleGroup);
+    }
+
+    /* Center hub */
+    svg.appendChild(el('circle', {
+      cx: 100, cy: 100, r: 5, fill: '#ff7a00'
+    }));
+
+    if (showHub) {
+      svg.appendChild(el('circle', {
+        cx: 100, cy: 100, r: 3, fill: '#1c1c1c'
+      }));
+    }
+  }
+
+  function updateNeedle(svgId, value) {
+    const svg = document.getElementById(svgId);
+    if (!svg) return;
+    const needleGroup = svg.querySelector('.needle-group');
+    if (!needleGroup) return;
+
+    const minAngle = Number(needleGroup.dataset.minAngle);
+    const maxAngle = Number(needleGroup.dataset.maxAngle);
+    const maxValue = Number(needleGroup.dataset.maxValue);
+    const clamped  = clamp(value, 0, maxValue);
+    const angle    = minAngle + (clamped / maxValue) * (maxAngle - minAngle);
+    needleGroup.style.transform = `rotate(${angle}deg)`;
+  }
+
+  /* ===== 4. Time clock ===== */
+  function updateTime() {
+    const now     = new Date();
+    const hours   = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const el      = document.getElementById('timeText');
+    if (el) el.textContent = hours + ':' + minutes;
+  }
+
+  /* ===== 5. UI state + updaters ===== */
+  let currentPoints  = 0;
+  let tierImageEl    = null;
+  let bottomBarEl    = null;
+
+  function getBottomBarFromPoints() {
+    return clamp((currentPoints / LEAD_THRESHOLD) * 100, 0, 100);
+  }
+
+  function getBottomBarWithTierFloor(tierKey) {
+    const progress = getBottomBarFromPoints();
+    if (!tierKey || !TIER_CONFIG[tierKey]) return progress;
+    const tierMin = TIER_CONFIG[tierKey].bar;
+    if (tierMin === 100) return 100;
+    return Math.max(progress, tierMin);
+  }
+
+  function applyTierUI(tierKey) {
+    if (!tierKey || !TIER_CONFIG[tierKey]) return;
+
+    const storedTier = Storage.getTier();
+    const finalTier  = getHigherTier(storedTier, tierKey);
+    Storage.setTier(finalTier);
+
+    const config = TIER_CONFIG[finalTier];
+    if (tierImageEl) tierImageEl.src = config.img;
+
+    if (bottomBarEl) {
+      const calculatedBar = getBottomBarWithTierFloor(finalTier);
+      const storedBar     = Storage.getBar();
+      const finalBar      = Math.max(calculatedBar, storedBar);
+      bottomBarEl.style.width = finalBar + '%';
+      Storage.setBar(finalBar);
+    }
+  }
+
+  function updateUIFromPoints() {
+    const calculated = clamp((currentPoints / LEAD_THRESHOLD) * 100, 0, 100);
+    const storedBar  = Storage.getBar();
+    const finalBar   = Math.max(calculated, storedBar);
+    if (bottomBarEl) bottomBarEl.style.width = finalBar + '%';
+    Storage.setBar(finalBar);
+  }
+
+  function updateGauges() {
+    const rpmValue = clamp((currentPoints / TOTAL_POINTS) * 7, 0, 7);
+    updateNeedle('leftGauge', rpmValue);
+    updateNeedle('centerGauge', currentPoints);
+  }
+
+  function updateFromVipText() {
+    const vipEl = document.querySelector('.vip_tier_new_updated');
+    if (!vipEl) return false;
+    const tier = getTierFromText(vipEl.innerText.trim());
+    if (tier) {
+      applyTierUI(tier);
+      return true;
+    }
+    return false;
+  }
+
+  function applyPointsFallback() {
+    applyTierUI(getTierFromPoints(currentPoints));
+    updateUIFromPoints();
+  }
+
+  function setValue(newValue) {
+    const valueText = document.querySelector('#center_gauge_value');
+    if (!valueText) {
+      console.log('Unable to find #center_gauge_value to update');
+      return;
+    }
+    valueText.textContent = newValue;
+    currentPoints = clamp(newValue, 0, TOTAL_POINTS);
+
+    const tierApplied = updateFromVipText();
+    if (!tierApplied) applyPointsFallback();
+
+    updateGauges();
+  }
+
+  /* ===== 6. Growave observer ===== */
+  function watchGrowavePoints() {
+    window.newPoints1 = null;
+
+    const observer = new MutationObserver(() => {
+      const target = document.querySelector(
+        '.gw-rd-customer-points-balance-inline-widget-placeholder'
+      );
+      if (!target) return;
+      const match = target.textContent.match(/\d+/);
+      if (!match) return;
+      const newPoints = Number(match[0]);
+      if (window.newPoints1 !== newPoints) {
+        window.newPoints1 = newPoints;
+        setValue(newPoints);
+      }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    /* Fallback re-check */
+    setTimeout(() => {
+      if (window.newPoints1 !== null) setValue(window.newPoints1);
+    }, 1000);
+  }
+
+  /* ===== Init ===== */
+  function init() {
+    tierImageEl = document.querySelector('#tier_diagram');
+    bottomBarEl = document.querySelector('#meterFill');
+
+    createSpeedometer('leftGauge', {
+      step: 1, max: 7, value: 0,
+      showTrip: false, showTotalScore: false, showValue: false,
+      minAngle: -210, maxAngle: 0
+    });
+
+    createSpeedometer('centerGauge', {
+      value: 0, max: TOTAL_POINTS, step: 500,
+      showValue: true, showTotalScore: true, showTrip: true,
+      trip: 12, minAngle: -200, maxAngle: 20
+    });
+
+    updateTime();
+    setInterval(updateTime, 1000);
+
+    watchGrowavePoints();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
 
 {% schema %}
 {
@@ -765,6 +762,32 @@ setTimeout(() => {
       "type": "image_picker",
       "id": "feat_image",
       "label": "Background Image"
+    },
+    {
+      "type": "header",
+      "content": "Gauge Display"
+    },
+    {
+      "type": "range",
+      "id": "gauge_scale",
+      "label": "Gauge size",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 80,
+      "info": "Scale the entire gauge cluster down (50%) or up (100%)."
+    },
+    {
+      "type": "range",
+      "id": "gauge_opacity",
+      "label": "Gauge opacity",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100,
+      "info": "Fade the gauges, cluster strip and bottom bar."
     }
   ],
   "presets": [
