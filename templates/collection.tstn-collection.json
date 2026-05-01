@@ -534,9 +534,9 @@
       ],
       "name": "Community Grid",
       "settings": {
-        "heading": "BUILT BY THE TSTN COMMUNITY",
-        "description": "Tag @tstn.official to be featured.",
-        "button_label": "VIEW ON INSTAGRAM",
+        "heading": "SPOTTED: TSTN",
+        "description": "No polished ads here, just real setups from the community. Tag @tstn to be added to the grid.",
+        "button_label": "VIEW THE FEED",
         "button_link": ""
       }
     },
