@@ -10,45 +10,44 @@
 {
   "sections": {
     "main": {
-      "type": "main-article",
+      "type": "tstn-article",
       "blocks": {
-        "featured_image": {
-          "type": "featured_image",
+        "equipment": {
+          "type": "equipment",
           "settings": {
-            "image_height": "adapt"
+            "heading": "EQUIPMENT USED",
+            "footer_text": "View full equipment list"
           }
         },
-        "title": {
-          "type": "title",
+        "gear": {
+          "type": "gear",
           "settings": {
-            "blog_show_date": true,
-            "blog_show_author": true
+            "heading": "GEAR USED",
+            "footer_text": "Explore all gear"
           }
         },
-        "share": {
-          "type": "share",
+        "locations": {
+          "type": "locations",
           "settings": {
-            "share_label": "Share"
+            "heading": "LOCATIONS VISITED",
+            "footer_text": "View all locations"
           }
         },
-        "content": {
-          "type": "content",
-          "settings": {}
+        "community_cta": {
+          "type": "community_cta",
+          "settings": {
+            "heading": "More Than Content. It's a Community.",
+            "bullet_1": "Real conversations",
+            "bullet_2": "Exclusive content",
+            "bullet_3": "Live sessions",
+            "bullet_4": "Member perks & discounts",
+            "button_text": "Join TSTN Club Today"
+          }
         }
       },
-      "block_order": [
-        "featured_image",
-        "title",
-        "share",
-        "content"
-      ],
-      "custom_css": [
-        "p, h1, h2,h3,h4,h5,h6{color: white; }"
-      ],
+      "block_order": ["equipment", "gear", "locations", "community_cta"],
       "settings": {}
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }
