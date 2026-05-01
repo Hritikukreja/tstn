@@ -291,8 +291,8 @@
       "settings": {
         "feat_image": "shopify://shop_images/6.1.png",
         "hero_height": 50,
-        "welcome_text": "Your Account",
-        "hero_heading": "TSTN CLUB",
+        "welcome_text": "WELCOME",
+        "hero_heading": "TO YOUR ACCOUNT",
         "hero_description": "Join the club. Earn points for every lighting or recovery upgrade and level up your journey with TSTN.",
         "cta_primary_label": "HOW IT WORKS",
         "cta_primary_url": "",
