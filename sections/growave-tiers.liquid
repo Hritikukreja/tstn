@@ -18,7 +18,6 @@
   assign bg_image      = section.settings.feat_image
   assign gauge_scale   = section.settings.gauge_scale | default: 100
   assign gauge_opacity = section.settings.gauge_opacity | default: 100
-  assign mobile_scale  = section.settings.mobile_gauge_scale | default: 70
   assign welcome_logo  = 'https://cdn.shopify.com/s/files/1/0686/9486/8103/files/image_1_1_76d32aab-2b4e-4c68-a411-5a2a219321bf.png?v=1770384836'
 -%}
 
@@ -72,6 +71,63 @@
 
         {%- comment -%} Main dashboard panel {%- endcomment -%}
         <div class="main-content_new">
+
+          {%- comment -%} Bottom progression bar {%- endcomment -%}
+          <div class="bottom-bar">
+            <div class="bottom-bar-inner">
+              <div class="bottom-bar-content">
+                <div class="icons-row">
+                  <div class="icon-box">
+                    <img src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Frame_259.png?v=1770378961" alt="Base Camp" class="icon-img">
+                  </div>
+                  <div class="icon-box">
+                    <img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726226.png?v=1770370711" alt="Scout" class="icon-img">
+                  </div>
+                  <div class="icon-box">
+                    <img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726227.png?v=1770370813" alt="Lead" class="icon-img">
+                  </div>
+                </div>
+                <div class="meter-row">
+                  <div class="meter-container">
+                    <div id="meterFill" class="meter-fill" style="width: 0%;"></div>
+                    {% for i in (1..11) %}
+                      <div class="meter-segment"></div>
+                    {% endfor %}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {%- comment -%} Cluster info strip (mode/gear/temp/time/etc.) {%- endcomment -%}
+          <div class="meter-info-wrapper">
+            <div class="cluster-container">
+              <img
+                src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Frame_200_2_3d5c4b39-500f-4fc5-8413-13e8b9961403.png?v=1770378141"
+                alt=""
+                class="cluster-img"
+              >
+              <div class="cluster-overlay">
+                <span id="modeText">Comfort</span>
+                <span id="gearText">P</span>
+                <span id="tempText">28° C</span>
+                <span id="timeText">00:00</span>
+                <span id="engineText">22c</span>
+                <div class="air-bag-box">
+                  <span class="air-bag-text">Air</span>
+                  <span class="air-bag-text">Bag</span>
+                </div>
+                <div class="battery-box">
+                  <svg class="flash-svg" viewBox="0 0 512 512" fill="white">
+                    <path d="M315.27 33L96 304h128l-31.51 173.23a2.36 2.36 0 002.33 2.77h0a2.36 2.36 0 001.89-.95L416 208H288l31.66-173.25a2.45 2.45 0 00-2.44-2.75h0a2.42 2.42 0 00-1.95 1z"></path>
+                  </svg>
+                  <div class="battery-inner">
+                    <img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726226_1.png?v=1770370899" alt="" class="battery-img">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
           {%- comment -%} Three gauges {%- endcomment -%}
           <div class="gauges-wrapper">
@@ -128,63 +184,6 @@
 
           </div>{%- comment -%} /.gauges-wrapper {%- endcomment -%}
 
-          {%- comment -%} Cluster info strip (mode/gear/temp/time/etc.) {%- endcomment -%}
-          <div class="meter-info-wrapper">
-            <div class="cluster-container">
-              <img
-                src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Frame_200_2_3d5c4b39-500f-4fc5-8413-13e8b9961403.png?v=1770378141"
-                alt=""
-                class="cluster-img"
-              >
-              <div class="cluster-overlay">
-                <span id="modeText">Comfort</span>
-                <span id="gearText">P</span>
-                <span id="tempText">28° C</span>
-                <span id="timeText">00:00</span>
-                <span id="engineText">22c</span>
-                <div class="air-bag-box">
-                  <span class="air-bag-text">Air</span>
-                  <span class="air-bag-text">Bag</span>
-                </div>
-                <div class="battery-box">
-                  <svg class="flash-svg" viewBox="0 0 512 512" fill="white">
-                    <path d="M315.27 33L96 304h128l-31.51 173.23a2.36 2.36 0 002.33 2.77h0a2.36 2.36 0 001.89-.95L416 208H288l31.66-173.25a2.45 2.45 0 00-2.44-2.75h0a2.42 2.42 0 00-1.95 1z"></path>
-                  </svg>
-                  <div class="battery-inner">
-                    <img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726226_1.png?v=1770370899" alt="" class="battery-img">
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {%- comment -%} Bottom progression bar {%- endcomment -%}
-          <div class="bottom-bar">
-            <div class="bottom-bar-inner">
-              <div class="bottom-bar-content">
-                <div class="icons-row">
-                  <div class="icon-box">
-                    <img src="https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Frame_259.png?v=1770378961" alt="Base Camp" class="icon-img">
-                  </div>
-                  <div class="icon-box">
-                    <img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726226.png?v=1770370711" alt="Scout" class="icon-img">
-                  </div>
-                  <div class="icon-box">
-                    <img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726227.png?v=1770370813" alt="Lead" class="icon-img">
-                  </div>
-                </div>
-                <div class="meter-row">
-                  <div class="meter-container">
-                    <div id="meterFill" class="meter-fill" style="width: 0%;"></div>
-                    {% for i in (1..11) %}
-                      <div class="meter-segment"></div>
-                    {% endfor %}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>{%- comment -%} /.main-content_new {%- endcomment -%}
       </div>{%- comment -%} /.screen-container {%- endcomment -%}
     </div>{%- comment -%} /.dashboard-wrapper {%- endcomment -%}
@@ -198,7 +197,7 @@
       <div class="non_custopmer_class">
         <div class="non_contact_main">
           <img src="{{ welcome_logo }}" alt="TSTN Club">
-          <p>TSTN CLUB</p>
+          <p>TSTN ClUBE</p>
         </div>
         <h2>JOIN THE TRIBE</h2>
         <p class="margin_class_top">Earn Points. Get Featured. Unlock the Inner Circle.</p>
@@ -213,6 +212,8 @@
 {%- comment -%}
   ============================================================
   STYLES — section-scoped via #shopify-section-{{ section.id }}
+  Original behaviour preserved; only desktop gauge size/opacity
+  added on top.
   ============================================================
 {%- endcomment -%}
 <style>
@@ -220,13 +221,9 @@
   #shopify-section-{{ section_id }} {
     --gauge-scale: {{ gauge_scale | divided_by: 100.0 }};
     --gauge-opacity: {{ gauge_opacity | divided_by: 100.0 }};
-    --mobile-gauge-scale: {{ mobile_scale | divided_by: 100.0 }};
-    --tstn-orange: #ff6a1a;
-    --tstn-needle: #ec5607;
-    --tstn-bg: #0a0a0a;
   }
 
-  /* ---------- Section height (Desktop) ---------- */
+  /* Section height — 75vh on desktop and mobile (original behaviour) */
   #shopify-section-{{ section_id }} .growave_tiers_wrapper,
   #shopify-section-{{ section_id }} .gtw_image_wrapper {
     height: 75vh !important;
@@ -234,18 +231,33 @@
     max-height: 75vh !important;
   }
 
+  @media (max-width: 767px) {
+    #shopify-section-{{ section_id }} .growave_tiers_wrapper,
+    #shopify-section-{{ section_id }} .gtw_image_wrapper {
+      height: 75vh !important;
+      min-height: 75vh !important;
+      max-height: 75vh !important;
+    }
+  }
+
+  /* Ensure inner content scales properly */
   #shopify-section-{{ section_id }} .gtw_content_wrapper,
   #shopify-section-{{ section_id }} .dashboard-wrapper,
   #shopify-section-{{ section_id }} .screen-container {
     height: 100%;
   }
 
+  /* Ensure the background image fills the height */
   #shopify-section-{{ section_id }} .gtw_image_wrapper img,
   #shopify-section-{{ section_id }} .none_customer_signup {
     height: 100% !important;
   }
 
-  /* ---------- Welcome badge (Desktop) ---------- */
+  /* ============================================= */
+  /* WELCOME TO TSTN CLUB — sizing & visibility    */
+  /* ============================================= */
+
+  /* Desktop: Increase size of the welcome badge */
   #shopify-section-{{ section_id }} .main_wrapper_new {
     display: flex !important;
     align-items: center !important;
@@ -268,533 +280,58 @@
     font-weight: 400 !important;
   }
 
-  /* ---------- DESKTOP GAUGE SIZE & OPACITY ---------- */
-  #shopify-section-{{ section_id }} .gauges-wrapper {
-    transform: scale(var(--gauge-scale)) !important;
-    transform-origin: center center !important;
-    opacity: var(--gauge-opacity) !important;
-    transition: transform 0.3s ease, opacity 0.3s ease !important;
+  /* Mobile: Make the welcome badge visible and properly sized */
+  @media (max-width: 767px) {
+    #shopify-section-{{ section_id }} .gtw_welcome_wrapper,
+    #shopify-section-{{ section_id }} .main_wrapper_new {
+      display: flex !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      padding: 10px 18px !important;
+    }
+
+    #shopify-section-{{ section_id }} .main_wrapper_new img {
+      width: 20px !important;
+      height: auto !important;
+    }
+
+    #shopify-section-{{ section_id }} .main_wrapper_new p {
+      font-family: "Danger Neue Free Regular", "Danger Neue", sans-serif !important;
+      font-size: 18px !important;
+      line-height: 1.2 !important;
+      letter-spacing: 1px !important;
+      margin: 0 !important;
+      font-weight: 400 !important;
+      display: inline-block !important;
+      visibility: visible !important;
+    }
+  }
+
+  /* ============================================= */
+  /* DESKTOP-ONLY gauge size & opacity controls    */
+  /* ============================================= */
+  @media (min-width: 768px) {
+    #shopify-section-{{ section_id }} .gauges-wrapper {
+      transform: scale(var(--gauge-scale)) !important;
+      transform-origin: center center !important;
+      opacity: var(--gauge-opacity) !important;
+      transition: transform 0.3s ease, opacity 0.3s ease !important;
+    }
+
+    /* Cluster info strip + bottom bar fade with gauges on desktop */
+    #shopify-section-{{ section_id }} .meter-info-wrapper,
+    #shopify-section-{{ section_id }} .bottom-bar {
+      opacity: var(--gauge-opacity) !important;
+      transition: opacity 0.3s ease !important;
+    }
   }
 
   /* Center gauge value uses the brand heading font */
   #shopify-section-{{ section_id }} #center_gauge_value {
     font-family: "Danger Neue Free Regular", "Danger Neue", sans-serif !important;
-  }
-
-  /* Cluster info strip + bottom bar fade with gauges */
-  #shopify-section-{{ section_id }} .meter-info-wrapper,
-  #shopify-section-{{ section_id }} .bottom-bar {
-    opacity: var(--gauge-opacity) !important;
-    transition: opacity 0.3s ease !important;
-  }
-
-  /* ============================================= */
-  /*  MOBILE FIX — proper layout below 767px       */
-  /* ============================================= */
-  @media (max-width: 767px) {
-
-    /* ---------- Section frame ---------- */
-    /* IMPORTANT: NO overflow:hidden here — it was clipping the gauges */
-    #shopify-section-{{ section_id }} .growave_tiers_wrapper {
-      height: auto !important;
-      min-height: 100vh !important;
-      max-height: none !important;
-      position: relative !important;
-      overflow: visible !important;
-    }
-
-    /* Background image: cover the entire section as an underlay */
-    #shopify-section-{{ section_id }} .gtw_image_wrapper {
-      position: absolute !important;
-      top: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      bottom: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-      min-height: 100% !important;
-      max-height: none !important;
-      z-index: 0 !important;
-      overflow: hidden !important;
-    }
-
-    #shopify-section-{{ section_id }} .gtw_image_wrapper img {
-      width: 100% !important;
-      height: 100% !important;
-      object-fit: cover !important;
-      display: block !important;
-    }
-
-    /* ============================================ */
-    /*  LOGGED-OUT (.non_customer_class)           */
-    /* ============================================ */
-    #shopify-section-{{ section_id }} .growave_tiers_wrapper.non_customer_class .gtw_content_wrapper {
-      display: none !important;
-    }
-
-    #shopify-section-{{ section_id }} .growave_tiers_wrapper.non_customer_class .gtw_image_wrapper::after {
-      content: '' !important;
-      position: absolute !important;
-      inset: 0 !important;
-      background: rgba(0, 0, 0, 0.55) !important;
-      z-index: 1 !important;
-      pointer-events: none !important;
-    }
-
-    #shopify-section-{{ section_id }} .growave_tiers_wrapper.non_customer_class .gtw_image_wrapper img {
-      filter: blur(8px) !important;
-      transform: scale(1.05) !important;
-    }
-
-    #shopify-section-{{ section_id }} .none_customer_signup {
-      position: absolute !important;
-      top: 0 !important;
-      left: 0 !important;
-      right: 0 !important;
-      bottom: 0 !important;
-      width: 100% !important;
-      height: 100% !important;
-      min-height: 100vh !important;
-      z-index: 5 !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      padding: 24px !important;
-      background: transparent !important;
-    }
-
-    #shopify-section-{{ section_id }} .non_custopmer_class {
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: center !important;
-      justify-content: center !important;
-      text-align: center !important;
-      gap: 14px !important;
-      width: 100% !important;
-      max-width: 360px !important;
-    }
-
-    #shopify-section-{{ section_id }} .non_contact_main {
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: center !important;
-      justify-content: center !important;
-      gap: 8px !important;
-    }
-
-    #shopify-section-{{ section_id }} .non_contact_main img {
-      width: 48px !important;
-      height: auto !important;
-    }
-
-    #shopify-section-{{ section_id }} .non_contact_main p {
-      font-family: "Danger Neue Free Regular", "Danger Neue", sans-serif !important;
-      font-size: 18px !important;
-      letter-spacing: 1.2px !important;
-      color: #fff !important;
-      margin: 0 !important;
-    }
-
-    #shopify-section-{{ section_id }} .none_customer_signup h2 {
-      font-family: "Danger Neue Free Regular", "Danger Neue", sans-serif !important;
-      font-size: 32px !important;
-      line-height: 1.1 !important;
-      letter-spacing: 1.5px !important;
-      color: #fff !important;
-      margin: 8px 0 0 !important;
-    }
-
-    #shopify-section-{{ section_id }} .none_customer_signup .margin_class_top {
-      font-size: 14px !important;
-      line-height: 1.5 !important;
-      color: rgba(255, 255, 255, 0.85) !important;
-      margin: 4px 0 12px !important;
-      max-width: 280px !important;
-    }
-
-    #shopify-section-{{ section_id }} .new_main_createaccount {
-      display: inline-block !important;
-      padding: 14px 32px !important;
-      font-family: "Danger Neue Free Regular", "Danger Neue", sans-serif !important;
-      font-size: 15px !important;
-      letter-spacing: 1.2px !important;
-      color: #fff !important;
-      background: transparent !important;
-      border: 1.5px solid #fff !important;
-      border-radius: 999px !important;
-      text-decoration: none !important;
-      transition: background 0.25s ease, color 0.25s ease !important;
-    }
-
-    #shopify-section-{{ section_id }} .new_main_createaccount:hover,
-    #shopify-section-{{ section_id }} .new_main_createaccount:active {
-      background: #fff !important;
-      color: #0a0a0a !important;
-    }
-
-    /* ============================================ */
-    /*  LOGGED-IN — full dashboard, centered       */
-    /* ============================================ */
-
-    /* Content wrapper — natural flow, no flex centering that breaks children */
-    #shopify-section-{{ section_id }} .growave_tiers_wrapper:not(.non_customer_class) .gtw_content_wrapper {
-      position: relative !important;
-      z-index: 2 !important;
-      width: 100% !important;
-      min-height: 100vh !important;
-      height: auto !important;
-      padding: 30px 0 40px !important;
-      display: block !important;
-      box-sizing: border-box !important;
-    }
-
-    #shopify-section-{{ section_id }} .growave_tiers_wrapper:not(.non_customer_class) .dashboard-wrapper {
-      width: 100% !important;
-      height: auto !important;
-      display: block !important;
-    }
-
-    #shopify-section-{{ section_id }} .growave_tiers_wrapper:not(.non_customer_class) .screen-container {
-      width: 100% !important;
-      height: auto !important;
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: center !important;
-      justify-content: flex-start !important;
-      gap: 18px !important;
-    }
-
-    /* ----- Welcome header ----- */
-    #shopify-section-{{ section_id }} .gtw_welcome_wrapper {
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: center !important;
-      justify-content: center !important;
-      width: 100% !important;
-      padding: 0 16px !important;
-      margin: 0 !important;
-      position: relative !important;
-      z-index: 3 !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-    }
-
-    /* Welcome badge — solid dark pill so the white text is readable */
-    #shopify-section-{{ section_id }} .main_wrapper_new {
-      display: inline-flex !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      align-items: center !important;
-      justify-content: center !important;
-      gap: 8px !important;
-      padding: 10px 20px !important;
-      width: auto !important;
-      max-width: 90% !important;
-      background: rgba(10, 10, 10, 0.75) !important;
-      border: 1px solid rgba(255, 255, 255, 0.3) !important;
-      border-radius: 999px !important;
-      backdrop-filter: blur(6px) !important;
-      -webkit-backdrop-filter: blur(6px) !important;
-    }
-
-    #shopify-section-{{ section_id }} .main_wrapper_new img {
-      width: 18px !important;
-      height: auto !important;
-      flex-shrink: 0 !important;
-    }
-
-    #shopify-section-{{ section_id }} .main_wrapper_new p {
-      font-family: "Danger Neue Free Regular", "Danger Neue", sans-serif !important;
-      font-size: 15px !important;
-      line-height: 1.2 !important;
-      letter-spacing: 0.8px !important;
-      margin: 0 !important;
-      font-weight: 400 !important;
-      white-space: nowrap !important;
-      display: inline-block !important;
-      visibility: visible !important;
-      color: #fff !important;
-    }
-
-    /* Hide customer name/email block on mobile */
-    #shopify-section-{{ section_id }} .customer_name_email {
-      display: none !important;
-    }
-
-    /* ----- Main dashboard content stack ----- */
-    #shopify-section-{{ section_id }} .main-content_new {
-      display: flex !important;
-      flex-direction: column !important;
-      align-items: center !important;
-      justify-content: flex-start !important;
-      width: 100% !important;
-      height: auto !important;
-      padding: 0 12px !important;
-      gap: 16px !important;
-      position: relative !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      box-sizing: border-box !important;
-    }
-
-    /* ----- Gauges row — full reset + dark backing for visibility ----- */
-    #shopify-section-{{ section_id }} .gauges-wrapper {
-      display: flex !important;
-      flex-direction: row !important;
-      align-items: center !important;
-      justify-content: center !important;
-      width: 100% !important;
-      height: auto !important;
-      gap: 6px !important;
-      /* No transform scale — set sizes directly on each gauge instead so
-         the layout doesn't get visual gaps from CSS scaling */
-      transform: none !important;
-      transform-origin: center center !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      position: relative !important;
-      top: auto !important;
-      left: auto !important;
-      right: auto !important;
-      bottom: auto !important;
-      margin: 0 !important;
-      padding: 0 !important;
-    }
-
-    /* Each gauge slot */
-    #shopify-section-{{ section_id }} .gauge-left,
-    #shopify-section-{{ section_id }} .gauge-center,
-    #shopify-section-{{ section_id }} .gauge-right {
-      display: flex !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      flex: 0 0 auto !important;
-      align-items: center !important;
-      justify-content: center !important;
-      position: relative !important;
-      width: auto !important;
-      height: auto !important;
-      top: auto !important;
-      left: auto !important;
-      right: auto !important;
-      bottom: auto !important;
-      transform: none !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      background: transparent !important;
-    }
-
-    /* Outer clock containers — fixed size + DARK BACKGROUND so SVG ticks
-       are visible against the photo background */
-    #shopify-section-{{ section_id }} .gauge-left .clock-outer,
-    #shopify-section-{{ section_id }} .gauge-right .clock-outer {
-      width: 100px !important;
-      height: 100px !important;
-      max-width: 100px !important;
-      max-height: 100px !important;
-      min-width: 100px !important;
-      min-height: 100px !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      position: relative !important;
-      background: rgba(15, 15, 15, 0.92) !important;
-      border: 2px solid #fff !important;
-      border-radius: 50% !important;
-      box-sizing: border-box !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      overflow: hidden !important;
-    }
-
-    #shopify-section-{{ section_id }} .gauge-center .clock-outer {
-      width: 160px !important;
-      height: 160px !important;
-      max-width: 160px !important;
-      max-height: 160px !important;
-      min-width: 160px !important;
-      min-height: 160px !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      position: relative !important;
-      background: rgba(15, 15, 15, 0.92) !important;
-      border: 2px solid #fff !important;
-      border-radius: 50% !important;
-      box-sizing: border-box !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      overflow: hidden !important;
-    }
-
-    /* Inner clock layers fill their parent */
-    #shopify-section-{{ section_id }} .clock-middle,
-    #shopify-section-{{ section_id }} .clock-inner,
-    #shopify-section-{{ section_id }} .gauge-content {
-      width: 100% !important;
-      height: 100% !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      position: relative !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      background: transparent !important;
-      border: none !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      box-sizing: border-box !important;
-    }
-
-    /* SVG fills its container */
-    #shopify-section-{{ section_id }} .gauge-svg {
-      width: 100% !important;
-      height: 100% !important;
-      display: block !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-    }
-
-    /* Right-side tier badge image */
-    #shopify-section-{{ section_id }} #tier_diagram,
-    #shopify-section-{{ section_id }} .scout-img {
-      width: 75% !important;
-      height: auto !important;
-      max-width: 75px !important;
-      object-fit: contain !important;
-      display: block !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-    }
-
-    /* Hide decorative side arrows on mobile */
-    #shopify-section-{{ section_id }} .left_icons_wrapper,
-    #shopify-section-{{ section_id }} .right_icons_wrapper {
-      display: none !important;
-    }
-
-    /* ----- Cluster info strip ----- */
-    #shopify-section-{{ section_id }} .meter-info-wrapper {
-      width: 100% !important;
-      display: block !important;
-      visibility: visible !important;
-      opacity: var(--gauge-opacity) !important;
-      padding: 0 8px !important;
-      box-sizing: border-box !important;
-      position: relative !important;
-      top: auto !important;
-      left: auto !important;
-      right: auto !important;
-      bottom: auto !important;
-      margin: 0 !important;
-    }
-
-    #shopify-section-{{ section_id }} .cluster-container {
-      width: 100% !important;
-      max-width: 100% !important;
-      position: relative !important;
-      display: block !important;
-    }
-
-    #shopify-section-{{ section_id }} .cluster-img {
-      width: 100% !important;
-      height: auto !important;
-      max-height: 36px !important;
-      object-fit: cover !important;
-      display: block !important;
-    }
-
-    #shopify-section-{{ section_id }} .cluster-overlay {
-      font-size: 10px !important;
-      gap: 6px !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-    }
-
-    #shopify-section-{{ section_id }} .cluster-overlay span,
-    #shopify-section-{{ section_id }} .air-bag-text {
-      font-size: 10px !important;
-    }
-
-    /* ----- Bottom progression bar ----- */
-    #shopify-section-{{ section_id }} .bottom-bar {
-      width: 100% !important;
-      max-width: calc(100% - 16px) !important;
-      margin: 0 auto !important;
-      display: block !important;
-      visibility: visible !important;
-      opacity: var(--gauge-opacity) !important;
-      position: relative !important;
-      top: auto !important;
-      left: auto !important;
-      right: auto !important;
-      bottom: auto !important;
-    }
-
-    #shopify-section-{{ section_id }} .bottom-bar-inner,
-    #shopify-section-{{ section_id }} .bottom-bar-content {
-      width: 100% !important;
-      display: block !important;
-    }
-
-    #shopify-section-{{ section_id }} .icons-row {
-      padding: 8px 12px !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: space-between !important;
-    }
-
-    #shopify-section-{{ section_id }} .icon-box img {
-      max-height: 36px !important;
-      width: auto !important;
-      display: block !important;
-    }
-
-    #shopify-section-{{ section_id }} .meter-row {
-      padding: 0 12px 10px !important;
-      display: block !important;
-    }
-
-    #shopify-section-{{ section_id }} .meter-container {
-      display: flex !important;
-      width: 100% !important;
-      position: relative !important;
-    }
-  }
-
-  /* ----- Extra-small phones ----- */
-  @media (max-width: 380px) {
-    #shopify-section-{{ section_id }} .gauge-left .clock-outer,
-    #shopify-section-{{ section_id }} .gauge-right .clock-outer {
-      width: 88px !important;
-      height: 88px !important;
-      max-width: 88px !important;
-      max-height: 88px !important;
-      min-width: 88px !important;
-      min-height: 88px !important;
-    }
-
-    #shopify-section-{{ section_id }} .gauge-center .clock-outer {
-      width: 140px !important;
-      height: 140px !important;
-      max-width: 140px !important;
-      max-height: 140px !important;
-      min-width: 140px !important;
-      min-height: 140px !important;
-    }
-
-    #shopify-section-{{ section_id }} .main_wrapper_new p {
-      font-size: 13px !important;
-      letter-spacing: 0.6px !important;
-    }
-
-    #shopify-section-{{ section_id }} .none_customer_signup h2 {
-      font-size: 28px !important;
-    }
   }
 </style>
 
@@ -1235,18 +772,18 @@
     },
     {
       "type": "header",
-      "content": "Gauge Display — Desktop"
+      "content": "Gauge Display (Desktop only)"
     },
     {
       "type": "range",
       "id": "gauge_scale",
-      "label": "Gauge size (desktop)",
+      "label": "Gauge size",
       "min": 50,
       "max": 100,
       "step": 5,
       "unit": "%",
       "default": 80,
-      "info": "Scale the entire gauge cluster down (50%) or up (100%)."
+      "info": "Scale the entire gauge cluster down (50%) or up (100%). Desktop only."
     },
     {
       "type": "range",
@@ -1257,22 +794,7 @@
       "step": 5,
       "unit": "%",
       "default": 100,
-      "info": "Fade the gauges, cluster strip and bottom bar."
-    },
-    {
-      "type": "header",
-      "content": "Gauge Display — Mobile"
-    },
-    {
-      "type": "range",
-      "id": "mobile_gauge_scale",
-      "label": "Gauge size (mobile)",
-      "min": 50,
-      "max": 100,
-      "step": 5,
-      "unit": "%",
-      "default": 70,
-      "info": "Independent mobile scale (currently affects desktop only — mobile uses fixed pixel sizes for reliability)."
+      "info": "Fade the gauges, cluster strip and bottom bar. Desktop only."
     }
   ],
   "presets": [
