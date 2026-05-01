@@ -16,21 +16,67 @@
           "type": "equipment",
           "settings": {
             "heading": "EQUIPMENT USED",
-            "footer_text": "View full equipment list"
+            "item_1_image": "shopify://shop_images/camer.png",
+            "item_1_name": "Canon Mark 2",
+            "item_1_description": "This is what I use in an indoor Setting",
+            "item_1_link": "shopify://products/epic-crow-molle",
+            "item_1_cta": "View More",
+            "item_2_image": "shopify://shop_images/a-black-microphone-mounted-on-a-stand.jpg",
+            "item_2_name": "DJI Pro Mic",
+            "item_2_description": "This is what I use for recording in studio",
+            "item_2_link": "",
+            "item_2_cta": "View More",
+            "item_3_name": "",
+            "item_3_description": "",
+            "item_3_link": "",
+            "item_3_cta": "View Setup",
+            "item_4_name": "",
+            "item_4_description": "",
+            "item_4_link": "",
+            "item_4_cta": "View Setup",
+            "footer_text": "View full equipment list",
+            "footer_link": ""
           }
         },
         "gear": {
           "type": "gear",
           "settings": {
             "heading": "GEAR USED",
-            "footer_text": "Explore all gear"
+            "item_1_name": "",
+            "item_1_description": "",
+            "item_1_link": "",
+            "item_1_cta": "Shop Now",
+            "item_2_name": "",
+            "item_2_description": "",
+            "item_2_link": "",
+            "item_2_cta": "Shop Now",
+            "item_3_name": "",
+            "item_3_description": "",
+            "item_3_link": "",
+            "item_3_cta": "Shop Now",
+            "item_4_name": "",
+            "item_4_description": "",
+            "item_4_link": "",
+            "item_4_cta": "Shop Now",
+            "footer_text": "Explore all gear",
+            "footer_link": ""
           }
         },
         "locations": {
           "type": "locations",
           "settings": {
             "heading": "LOCATIONS VISITED",
-            "footer_text": "View all locations"
+            "loc_1_name": "",
+            "loc_1_description": "",
+            "loc_1_link": "",
+            "loc_2_name": "",
+            "loc_2_description": "",
+            "loc_2_link": "",
+            "loc_3_name": "",
+            "loc_3_description": "",
+            "loc_3_link": "",
+            "footer_text": "View all locations",
+            "footer_link": ""
           }
         },
         "community_cta": {
@@ -41,13 +87,24 @@
             "bullet_2": "Exclusive content",
             "bullet_3": "Live sessions",
             "bullet_4": "Member perks & discounts",
-            "button_text": "Join TSTN Club Today"
+            "button_text": "Join TSTN Club Today",
+            "button_link": ""
           }
         }
       },
-      "block_order": ["equipment", "gear", "locations", "community_cta"],
-      "settings": {}
+      "block_order": [
+        "equipment",
+        "gear",
+        "locations",
+        "community_cta"
+      ],
+      "settings": {
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }
