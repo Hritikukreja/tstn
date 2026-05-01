@@ -152,7 +152,7 @@
       "settings": {
         "feat_image": "shopify://shop_images/awnex_offroad.png",
         "gauge_scale": 80,
-        "gauge_opacity": 75
+        "gauge_opacity": 100
       }
     },
     "growave_ways_earn_8V88RL": {
