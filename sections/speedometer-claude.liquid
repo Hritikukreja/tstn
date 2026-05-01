@@ -77,7 +77,69 @@
             </div>
           {% endif %}
         </div>
-      </div>
+
+        <!-- ══════════════════ STATUS + POINTS CARDS (left-aligned, inside copy column) ══════════════ -->
+        {% if customer %}
+        <div class="tstn-cards-row">
+          <div class="tstn-status-card">
+            {% if section.settings.status_card_label != blank %}
+              <div class="tstn-card-label">{{ section.settings.status_card_label }}</div>
+            {% endif %}
+            <div class="tstn-status-tier">
+              <span
+                class="tstn-current-tier-name"
+                id="display_tier_name"
+                data-tier-base="{{ section.settings.tier_base_name | default: 'BASE CAMP' }}"
+                data-tier-scout="{{ section.settings.tier_scout_name | default: 'SCOUT' }}"
+                data-tier-lead="{{ section.settings.tier_lead_name | default: 'LEAD' }}"
+              >{{ section.settings.tier_base_name | default: 'BASE CAMP' }}</span>
+            </div>
+            <div class="tstn-status-icons">
+              <div class="tstn-tier-icon" id="base-icon-wrap">
+                {% if section.settings.tier_base_icon != blank %}
+                  <img src="{{ section.settings.tier_base_icon | img_url:'master' }}" alt="{{ section.settings.tier_base_name | default: 'Base Camp' }}">
+                {% else %}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 22h20L12 2z"/><path d="M12 8v6"/></svg>
+                {% endif %}
+                <span>{{ section.settings.tier_base_name | default: 'BASE CAMP' }}</span>
+              </div>
+              <div class="tstn-tier-icon" id="scout-icon-wrap">
+                {% if section.settings.tier_scout_icon != blank %}
+                  <img src="{{ section.settings.tier_scout_icon | img_url:'master' }}" alt="{{ section.settings.tier_scout_name | default: 'Scout' }}">
+                {% else %}
+                  <img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726226.png?v=1770370711" alt="Scout">
+                {% endif %}
+                <span>{{ section.settings.tier_scout_name | default: 'SCOUT' }}</span>
+              </div>
+              <div class="tstn-tier-icon" id="lead-icon-wrap">
+                {% if section.settings.tier_lead_icon != blank %}
+                  <img src="{{ section.settings.tier_lead_icon | img_url:'master' }}" alt="{{ section.settings.tier_lead_name | default: 'Lead' }}">
+                {% else %}
+                  <img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726227.png?v=1770370813" alt="Lead">
+                {% endif %}
+                <span>{{ section.settings.tier_lead_name | default: 'LEAD' }}</span>
+              </div>
+            </div>
+            <div
+              class="tstn-tier-thresholds"
+              data-scout-min="{{ section.settings.scout_min_points | default: 1500 }}"
+              data-lead-min="{{ section.settings.lead_min_points | default: 2500 }}"
+              style="display:none;"
+            ></div>
+          </div>
+          <div class="tstn-points-card">
+            {% if section.settings.points_card_label != blank %}
+              <div class="tstn-card-label">{{ section.settings.points_card_label }}</div>
+            {% endif %}
+            <div class="tstn-points-value" id="display_points">0</div>
+            {% if section.settings.points_card_sub != blank %}
+              <div class="tstn-points-sub">{{ section.settings.points_card_sub }}</div>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+
+      </div><!-- /tstn-copy -->
 
       <!-- ═════ GUEST OVERLAY ═════ -->
       {% unless customer %}
@@ -105,66 +167,6 @@
       {% endunless %}
 
     </div><!-- /tstn-hero-layout -->
-
-    <!-- ══════════════════ PROGRESS + POINTS CARDS ══════════════ -->
-    {% if customer %}
-    <div class="tstn-cards-row">
-      <div class="tstn-progress-card">
-        {% if section.settings.progress_card_label != blank %}
-          <div class="tstn-card-label">{{ section.settings.progress_card_label }}</div>
-        {% endif %}
-        <div class="tstn-tier-header">
-          <span class="tstn-current-tier-name" id="display_tier_name" data-tier-base="{{ section.settings.tier_base_name | default: 'BASE CAMP' }}" data-tier-scout="{{ section.settings.tier_scout_name | default: 'SCOUT' }}" data-tier-lead="{{ section.settings.tier_lead_name | default: 'LEAD' }}">{{ section.settings.tier_base_name | default: 'BASE CAMP' }}</span>
-          <div class="tstn-tier-icons-right">
-            <div class="tstn-tier-icon" id="scout-icon-wrap">
-              {% if section.settings.tier_scout_icon != blank %}
-                <img src="{{ section.settings.tier_scout_icon | img_url:'master' }}" alt="{{ section.settings.tier_scout_name | default: 'Scout' }}">
-              {% else %}
-                <img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726226.png?v=1770370711" alt="Scout">
-              {% endif %}
-              <span>{{ section.settings.tier_scout_name | default: 'SCOUT' }}</span>
-            </div>
-            <div class="tstn-tier-icon" id="lead-icon-wrap">
-              {% if section.settings.tier_lead_icon != blank %}
-                <img src="{{ section.settings.tier_lead_icon | img_url:'master' }}" alt="{{ section.settings.tier_lead_name | default: 'Lead' }}">
-              {% else %}
-                <img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726227.png?v=1770370813" alt="Lead">
-              {% endif %}
-              <span>{{ section.settings.tier_lead_name | default: 'LEAD' }}</span>
-            </div>
-          </div>
-        </div>
-        <div class="tstn-bar-wrap">
-          <div class="tstn-bar-track">
-            <div class="tstn-bar-fill" id="cardProgressFill" style="width:0%"></div>
-            <div class="tstn-bar-seg"></div>
-            <div class="tstn-bar-seg"></div>
-            <div class="tstn-bar-seg"></div>
-          </div>
-        </div>
-        <div class="tstn-bar-labels">
-          <span>{{ section.settings.tier_base_name | default: 'BASE CAMP' }}</span>
-          <span>{{ section.settings.tier_scout_name | default: 'SCOUT' }}</span>
-          <span>{{ section.settings.tier_lead_name | default: 'LEAD' }}</span>
-        </div>
-        <div
-          class="tstn-tier-thresholds"
-          data-scout-min="{{ section.settings.scout_min_points | default: 1500 }}"
-          data-lead-min="{{ section.settings.lead_min_points | default: 2500 }}"
-          style="display:none;"
-        ></div>
-      </div>
-      <div class="tstn-points-card">
-        {% if section.settings.points_card_label != blank %}
-          <div class="tstn-card-label">{{ section.settings.points_card_label }}</div>
-        {% endif %}
-        <div class="tstn-points-value" id="display_points">0</div>
-        {% if section.settings.points_card_sub != blank %}
-          <div class="tstn-points-sub">{{ section.settings.points_card_sub }}</div>
-        {% endif %}
-      </div>
-    </div>
-    {% endif %}
 
   </div><!-- /gtw_content_wrapper -->
 
@@ -228,8 +230,8 @@
     --bg:       #0d0c0a;
     --bg2:      #0a0a0a;
     --bg3:      #1c1a16;
-    --card-bg:  #1d1d1d;
-    --border:   rgba(255,255,255,0.06);
+    --card-bg:  rgba(20, 20, 20, 0.85);
+    --border:   rgba(255,255,255,0.08);
     --border-gold: rgba(200,146,42,0.25);
     --text:     #e6e1d6;
     --muted:    #7a7060;
@@ -237,7 +239,6 @@
     --orange:   #ec5607;
     --ff-head:  "Danger Neue Free Regular","Danger Neue",sans-serif;
     --ff-body:  "Rajdhani","ABC Diatype",sans-serif;
-    /* User-tunable hero height (from schema) */
     --hero-min-height: {{ section.settings.hero_height | default: 75 }}vh;
   }
 
@@ -269,7 +270,6 @@
     opacity: 0.65;
     filter: brightness(0.7) saturate(0.8);
   }
-  /* Vignette to ensure copy is readable */
   #shopify-section-{{ section.id }} .gtw_image_wrapper::after {
     content: "";
     position: absolute;
@@ -287,7 +287,7 @@
     width: 100%;
   }
 
-  /* ─── HERO LAYOUT (no dashboard — single column copy) ─────────────────── */
+  /* ─── HERO LAYOUT ─────────────────────────────────────────────────────── */
   #shopify-section-{{ section.id }} .tstn-hero-layout {
     position: relative;
     display: flex;
@@ -299,18 +299,19 @@
     padding: 60px 48px;
   }
 
-  /* Guest override: hide left copy, center sign-up overlay */
+  /* Guest override */
   #shopify-section-{{ section.id }} .non_customer_class .tstn-copy { display: none; }
   #shopify-section-{{ section.id }} .non_customer_class .tstn-hero-layout {
     justify-content: center;
   }
 
-  /* ─── LEFT COPY ──────────────────────────────────────────────────────── */
+  /* ─── LEFT COPY (now contains the cards too) ─────────────────────────── */
   #shopify-section-{{ section.id }} .tstn-copy {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    max-width: 560px;
+    max-width: 720px;
+    width: 100%;
   }
 
   #shopify-section-{{ section.id }} .tstn-welcome-row {
@@ -386,6 +387,7 @@
     display: flex;
     gap: 22px;
     flex-wrap: wrap;
+    margin-bottom: 36px;
   }
   #shopify-section-{{ section.id }} .tstn-badge {
     display: flex;
@@ -493,31 +495,34 @@
     box-shadow: 0 8px 28px rgba(236,86,7,0.5);
   }
 
-  /* ═══════════════ PROGRESS + POINTS CARDS ═══════════════════════════════ */
+  /* ═══════════════ STATUS + POINTS CARDS ═══════════════════════════════ */
+  /* Inside .tstn-copy so they naturally left-align with the WELCOME / TSTN
+     CLUB heading above. No more absolute positioning, no centered layout. */
   #shopify-section-{{ section.id }} .tstn-cards-row {
     display: grid;
-    grid-template-columns: 1fr 240px;
-    max-width: 920px;
-    margin: 0 auto;
-    padding: 0 48px 60px;
-    position: relative;
-    z-index: 2;
-    margin-top: -40px;
+    grid-template-columns: minmax(0, 1fr) 220px;
+    gap: 0;
+    width: 100%;
+    max-width: 640px;
+    margin: 0;
   }
-  #shopify-section-{{ section.id }} .tstn-progress-card,
+  #shopify-section-{{ section.id }} .tstn-status-card,
   #shopify-section-{{ section.id }} .tstn-points-card {
     background: var(--card-bg);
     border: 1px solid var(--border);
-    padding: 24px 28px;
+    padding: 22px 26px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
   }
-  #shopify-section-{{ section.id }} .tstn-progress-card { border-right: 1px solid rgba(255,255,255,0.04); }
+  #shopify-section-{{ section.id }} .tstn-status-card {
+    border-right: none;
+  }
   #shopify-section-{{ section.id }} .tstn-points-card {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    border-left: none;
   }
 
   #shopify-section-{{ section.id }} .tstn-card-label {
@@ -525,80 +530,59 @@
     letter-spacing: 2px;
     color: var(--muted);
     text-transform: uppercase;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     font-weight: 600;
   }
 
-  #shopify-section-{{ section.id }} .tstn-tier-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  /* Status (current tier) display */
+  #shopify-section-{{ section.id }} .tstn-status-tier {
     margin-bottom: 16px;
   }
   #shopify-section-{{ section.id }} .tstn-current-tier-name {
     font-family: var(--ff-head);
-    font-size: 26px;
+    font-size: 30px;
     color: var(--gold);
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
+    line-height: 1;
+    text-transform: uppercase;
   }
-  #shopify-section-{{ section.id }} .tstn-tier-icons-right {
+
+  /* Tier track icons */
+  #shopify-section-{{ section.id }} .tstn-status-icons {
     display: flex;
-    gap: 16px;
+    align-items: center;
+    gap: 18px;
   }
   #shopify-section-{{ section.id }} .tstn-tier-icon {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3px;
-    opacity: 0.4;
+    gap: 4px;
+    opacity: 0.35;
     transition: opacity 0.4s;
   }
   #shopify-section-{{ section.id }} .tstn-tier-icon.active { opacity: 1; }
-  #shopify-section-{{ section.id }} .tstn-tier-icon img { width: 36px; height: 36px; object-fit: contain; }
+  #shopify-section-{{ section.id }} .tstn-tier-icon img,
+  #shopify-section-{{ section.id }} .tstn-tier-icon svg {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    color: var(--gold);
+  }
   #shopify-section-{{ section.id }} .tstn-tier-icon span {
-    font-size: 8px;
-    letter-spacing: 1px;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
-
-  #shopify-section-{{ section.id }} .tstn-bar-wrap { margin-bottom: 8px; }
-  #shopify-section-{{ section.id }} .tstn-bar-track {
-    position: relative;
-    height: 8px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 2px;
-    overflow: hidden;
-    display: flex;
-  }
-  #shopify-section-{{ section.id }} .tstn-bar-fill {
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    background: linear-gradient(90deg, var(--gold-dk), var(--gold));
-    border-radius: 2px;
-    transition: width 1.4s ease;
-    z-index: 1;
-    box-shadow: 0 0 10px rgba(200,146,42,0.5);
-  }
-  #shopify-section-{{ section.id }} .tstn-bar-seg {
-    flex: 1;
-    border-right: 1px solid rgba(0,0,0,0.55);
-    z-index: 2;
-    position: relative;
-  }
-  #shopify-section-{{ section.id }} .tstn-bar-seg:last-child { border-right: none; }
-  #shopify-section-{{ section.id }} .tstn-bar-labels {
-    display: flex;
-    justify-content: space-between;
     font-size: 9px;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.2px;
     color: var(--muted);
     text-transform: uppercase;
+    font-weight: 600;
+  }
+  #shopify-section-{{ section.id }} .tstn-tier-icon.active span {
+    color: var(--gold);
   }
 
   #shopify-section-{{ section.id }} .tstn-points-value {
     font-family: var(--ff-head);
-    font-size: 42px;
+    font-size: 44px;
     color: var(--gold);
     line-height: 1;
     letter-spacing: 1px;
@@ -613,8 +597,6 @@
 
   /* ─── Hidden utility ─────────────────────────────────────────────────── */
   #shopify-section-{{ section.id }} .vip_tier_new_updated { display: none !important; }
-  /* IMPORTANT: cannot use display:none here — Growave needs the element to be
-     in the layout to inject the points balance. Use visually-hidden pattern. */
   #shopify-section-{{ section.id }} .visibility_hidden {
     position: absolute !important;
     width: 1px !important;
@@ -722,12 +704,6 @@
       min-height: auto;
       padding: 48px 24px 40px;
     }
-    #shopify-section-{{ section.id }} .tstn-cards-row {
-      grid-template-columns: 1fr;
-      padding: 0 24px 48px;
-      max-width: 600px;
-    }
-    #shopify-section-{{ section.id }} .tstn-progress-card { border-right: 1px solid var(--border); border-bottom: none; }
     #shopify-section-{{ section.id }} .tstn-howworks-inner { padding: 0 24px; }
     #shopify-section-{{ section.id }} .tstn-steps-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
   }
@@ -737,9 +713,17 @@
     #shopify-section-{{ section.id }} .tstn-ctas { flex-direction: column; align-items: stretch; }
     #shopify-section-{{ section.id }} .tstn-ctas .tstn-btn { justify-content: center; }
     #shopify-section-{{ section.id }} .tstn-badges { gap: 16px; }
+    #shopify-section-{{ section.id }} .tstn-cards-row {
+      grid-template-columns: 1fr;
+      max-width: 100%;
+    }
+    #shopify-section-{{ section.id }} .tstn-status-card { border-right: 1px solid var(--border); border-bottom: none; }
     #shopify-section-{{ section.id }} .tstn-steps-grid { grid-template-columns: 1fr; }
     #shopify-section-{{ section.id }} .tstn-how-header { flex-direction: column; align-items: flex-start; gap: 8px; }
     #shopify-section-{{ section.id }} .non_custopmer_class h2 { font-size: 56px; }
+    #shopify-section-{{ section.id }} .tstn-status-icons { gap: 12px; }
+    #shopify-section-{{ section.id }} .tstn-current-tier-name { font-size: 24px; }
+    #shopify-section-{{ section.id }} .tstn-points-value { font-size: 38px; }
   }
 </style>
 
@@ -751,12 +735,9 @@
   /* ───────── storage helpers ───────── */
   const STORAGE_KEYS = {
     tier: "tstn_cs_vp_m_t",
-    bar:  "tstn_cs_vp_m_b",
   };
   function getStoredTier() { return sessionStorage.getItem(STORAGE_KEYS.tier); }
   function setStoredTier(tier) { sessionStorage.setItem(STORAGE_KEYS.tier, tier); }
-  function getStoredBar() { return Number(sessionStorage.getItem(STORAGE_KEYS.bar) || 0); }
-  function setStoredBar(value) { sessionStorage.setItem(STORAGE_KEYS.bar, value); }
 
   const TIER_ORDER = ["base", "scout", "lead"];
   function getHigherTier(t1, t2) {
@@ -768,18 +749,18 @@
   }
 
   /* ───────── DOM refs (lazy-resolved) ───────── */
-  let cardProgressFill, cardPointsEl, cardTierNameEl, scoutIcon, leadIcon, thresholdsEl;
+  let cardPointsEl, cardTierNameEl, baseIcon, scoutIcon, leadIcon, thresholdsEl;
 
   function resolveDom() {
-    cardProgressFill = document.getElementById('cardProgressFill');
     cardPointsEl     = document.getElementById('display_points');
     cardTierNameEl   = document.getElementById('display_tier_name');
+    baseIcon         = document.getElementById('base-icon-wrap');
     scoutIcon        = document.getElementById('scout-icon-wrap');
     leadIcon         = document.getElementById('lead-icon-wrap');
     thresholdsEl     = document.querySelector('.tstn-tier-thresholds');
   }
 
-  /* ───────── Tier configuration (reads thresholds + names from DOM) ───── */
+  /* ───────── Tier configuration ───────── */
   function getTierConfig() {
     const scoutMin = thresholdsEl ? Number(thresholdsEl.dataset.scoutMin) || 1500 : 1500;
     const leadMin  = thresholdsEl ? Number(thresholdsEl.dataset.leadMin)  || 2500 : 2500;
@@ -795,27 +776,6 @@
       scout: { regex: /\b(scout)\b/i,             name: scoutName },
       lead:  { regex: /\b(lead|leader)\b/i,       name: leadName  },
     };
-  }
-
-  /* ───────── Progress bar math ─────────
-     The bar is divided into 3 equal segments:
-        0 → 33.33%   = within Base Camp (filling toward Scout)
-        33.33 → 66.66% = within Scout (filling toward Lead)
-        66.66 → 100% = within Lead (capped at 100%)
-     This produces a working visual of progress that always lines up
-     with the BASE CAMP / SCOUT / LEAD labels under the bar. */
-  function computeBarPercent(points, cfg) {
-    if (points >= cfg.leadMin) return 100;
-    if (points >= cfg.scoutMin) {
-      // Scout segment: 33.33 → 66.66
-      const range = cfg.leadMin - cfg.scoutMin;
-      const frac  = range > 0 ? (points - cfg.scoutMin) / range : 0;
-      return 33.33 + (frac * 33.33);
-    }
-    // Base camp segment: 0 → 33.33
-    const range = cfg.scoutMin > 0 ? cfg.scoutMin : 1;
-    const frac  = points / range;
-    return Math.max(0, Math.min(33.33, frac * 33.33));
   }
 
   function getTierFromPoints(points, cfg) {
@@ -855,6 +815,8 @@
     if (cardTierNameEl) {
       cardTierNameEl.textContent = cfg[finalTier].name;
     }
+    /* Highlight icons up to (and including) the user's current tier */
+    if (baseIcon)  baseIcon.classList.add('active'); /* base always active when logged-in */
     if (scoutIcon) scoutIcon.classList.toggle('active', finalTier === 'scout' || finalTier === 'lead');
     if (leadIcon)  leadIcon.classList.toggle('active',  finalTier === 'lead');
   }
@@ -864,10 +826,8 @@
     const cfg = getTierConfig();
     const points = Math.max(0, Number(newValue) || 0);
 
-    // Animate the points number
     animateCount(cardPointsEl, points);
 
-    // Determine tier — prefer Growave VIP text if present, else derive from points
     let tier = null;
     const vipEl = document.querySelector(".vip_tier_new_updated");
     if (vipEl) {
@@ -877,20 +837,12 @@
       tier = getTierFromPoints(points, cfg);
     }
     applyTierUI(tier, cfg);
-
-    // Compute bar fill — based on actual points relative to thresholds
-    const calculated = computeBarPercent(points, cfg);
-    const storedBar  = getStoredBar();
-    const finalBar   = Math.max(calculated, storedBar);
-    if (cardProgressFill) cardProgressFill.style.width = finalBar + "%";
-    setStoredBar(finalBar);
   }
 
   /* ───────── Boot ───────── */
   function boot() {
     resolveDom();
 
-    // If points already in DOM at boot, push them through immediately
     const target = document.querySelector(".gw-rd-customer-points-balance-inline-widget-placeholder");
     if (target) {
       const match = target.textContent.match(/\d+/);
@@ -901,20 +853,16 @@
       }
     }
 
-    // Fallback: if there's a VIP tier but no points yet, still apply the tier styling
     const vipEl = document.querySelector(".vip_tier_new_updated");
     if (vipEl && (window.newPoints1 == null)) {
       const cfg = getTierConfig();
       const tier = getTierFromText(vipEl.innerText.trim(), cfg);
       if (tier) {
         applyTierUI(tier, cfg);
-        // For tier-only (no points yet), set bar to the start of that segment
-        let pct = 0;
-        if (tier === 'scout') pct = 33.33;
-        else if (tier === 'lead') pct = 100;
-        if (cardProgressFill) cardProgressFill.style.width = pct + "%";
       }
     }
+
+    if (baseIcon) baseIcon.classList.add('active');
   }
 
   if (document.readyState === 'loading') {
@@ -1113,13 +1061,13 @@
     },
     {
       "type": "header",
-      "content": "Progress Card"
+      "content": "Status Card"
     },
     {
       "type": "text",
-      "id": "progress_card_label",
-      "label": "Progress card label",
-      "default": "YOUR PROGRESS"
+      "id": "status_card_label",
+      "label": "Status card label",
+      "default": "YOUR STATUS"
     },
     {
       "type": "text",
@@ -1138,6 +1086,11 @@
       "id": "tier_lead_name",
       "label": "Tier 3 name (highest)",
       "default": "LEAD"
+    },
+    {
+      "type": "image_picker",
+      "id": "tier_base_icon",
+      "label": "Base Camp tier icon"
     },
     {
       "type": "image_picker",
