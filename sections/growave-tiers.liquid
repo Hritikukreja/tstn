@@ -18,6 +18,7 @@
   assign bg_image      = section.settings.feat_image
   assign gauge_scale   = section.settings.gauge_scale | default: 100
   assign gauge_opacity = section.settings.gauge_opacity | default: 100
+  assign mobile_scale  = section.settings.mobile_gauge_scale | default: 70
   assign welcome_logo  = 'https://cdn.shopify.com/s/files/1/0686/9486/8103/files/image_1_1_76d32aab-2b4e-4c68-a411-5a2a219321bf.png?v=1770384836'
 -%}
 
@@ -219,26 +220,18 @@
   #shopify-section-{{ section_id }} {
     --gauge-scale: {{ gauge_scale | divided_by: 100.0 }};
     --gauge-opacity: {{ gauge_opacity | divided_by: 100.0 }};
+    --mobile-gauge-scale: {{ mobile_scale | divided_by: 100.0 }};
     --tstn-orange: #ff6a1a;
     --tstn-needle: #ec5607;
     --tstn-bg: #0a0a0a;
   }
 
-  /* ---------- Section height ---------- */
+  /* ---------- Section height (Desktop) ---------- */
   #shopify-section-{{ section_id }} .growave_tiers_wrapper,
   #shopify-section-{{ section_id }} .gtw_image_wrapper {
     height: 75vh !important;
     min-height: 75vh !important;
     max-height: 75vh !important;
-  }
-
-  @media (max-width: 767px) {
-    #shopify-section-{{ section_id }} .growave_tiers_wrapper,
-    #shopify-section-{{ section_id }} .gtw_image_wrapper {
-      height: 75vh !important;
-      min-height: 75vh !important;
-      max-height: 75vh !important;
-    }
   }
 
   #shopify-section-{{ section_id }} .gtw_content_wrapper,
@@ -252,7 +245,7 @@
     height: 100% !important;
   }
 
-  /* ---------- Welcome badge ---------- */
+  /* ---------- Welcome badge (Desktop) ---------- */
   #shopify-section-{{ section_id }} .main_wrapper_new {
     display: flex !important;
     align-items: center !important;
@@ -275,38 +268,7 @@
     font-weight: 400 !important;
   }
 
-  @media (max-width: 767px) {
-    #shopify-section-{{ section_id }} .gtw_welcome_wrapper,
-    #shopify-section-{{ section_id }} .main_wrapper_new {
-      display: flex !important;
-      visibility: visible !important;
-      opacity: 1 !important;
-      align-items: center !important;
-      justify-content: center !important;
-      gap: 8px !important;
-      padding: 10px 18px !important;
-    }
-
-    #shopify-section-{{ section_id }} .main_wrapper_new img {
-      width: 20px !important;
-      height: auto !important;
-    }
-
-    #shopify-section-{{ section_id }} .main_wrapper_new p {
-      font-family: "Danger Neue Free Regular", "Danger Neue", sans-serif !important;
-      font-size: 18px !important;
-      line-height: 1.2 !important;
-      letter-spacing: 1px !important;
-      margin: 0 !important;
-      font-weight: 400 !important;
-      display: inline-block !important;
-      visibility: visible !important;
-    }
-  }
-
-  /* ---------- GAUGE SIZE & OPACITY CONTROLS ---------- */
-  /* The whole gauges row scales together via --gauge-scale,
-     and fades together via --gauge-opacity. */
+  /* ---------- DESKTOP GAUGE SIZE & OPACITY ---------- */
   #shopify-section-{{ section_id }} .gauges-wrapper {
     transform: scale(var(--gauge-scale)) !important;
     transform-origin: center center !important;
@@ -319,12 +281,270 @@
     font-family: "Danger Neue Free Regular", "Danger Neue", sans-serif !important;
   }
 
-  /* The cluster info strip and bottom bar follow the gauge opacity
-     so the whole "instrument cluster" fades together. */
+  /* Cluster info strip + bottom bar fade with gauges */
   #shopify-section-{{ section_id }} .meter-info-wrapper,
   #shopify-section-{{ section_id }} .bottom-bar {
     opacity: var(--gauge-opacity) !important;
     transition: opacity 0.3s ease !important;
+  }
+
+  /* ============================================= */
+  /*  MOBILE FIX — proper layout below 767px       */
+  /* ============================================= */
+  @media (max-width: 767px) {
+
+    /* Allow the section to grow on mobile so nothing clips */
+    #shopify-section-{{ section_id }} .growave_tiers_wrapper {
+      height: auto !important;
+      min-height: 100vh !important;
+      max-height: none !important;
+      position: relative !important;
+    }
+
+    /* Background image: cover the entire section */
+    #shopify-section-{{ section_id }} .gtw_image_wrapper {
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      min-height: 100% !important;
+      max-height: none !important;
+      z-index: 0 !important;
+      overflow: hidden !important;
+    }
+
+    #shopify-section-{{ section_id }} .gtw_image_wrapper img {
+      width: 100% !important;
+      height: 100% !important;
+      object-fit: cover !important;
+    }
+
+    /* Position content above background */
+    #shopify-section-{{ section_id }} .gtw_content_wrapper {
+      position: relative !important;
+      z-index: 2 !important;
+      height: auto !important;
+      padding: 16px 0 !important;
+    }
+
+    #shopify-section-{{ section_id }} .dashboard-wrapper,
+    #shopify-section-{{ section_id }} .screen-container {
+      height: auto !important;
+      display: flex !important;
+      flex-direction: column !important;
+    }
+
+    /* ----- Welcome header on mobile ----- */
+    #shopify-section-{{ section_id }} .gtw_welcome_wrapper {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      padding: 12px 16px !important;
+      margin-bottom: 8px !important;
+      position: relative !important;
+      z-index: 3 !important;
+    }
+
+    #shopify-section-{{ section_id }} .main_wrapper_new {
+      display: inline-flex !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 8px !important;
+      padding: 8px 16px !important;
+      width: auto !important;
+      max-width: 90% !important;
+    }
+
+    #shopify-section-{{ section_id }} .main_wrapper_new img {
+      width: 18px !important;
+      height: auto !important;
+      flex-shrink: 0 !important;
+    }
+
+    #shopify-section-{{ section_id }} .main_wrapper_new p {
+      font-family: "Danger Neue Free Regular", "Danger Neue", sans-serif !important;
+      font-size: 16px !important;
+      line-height: 1.2 !important;
+      letter-spacing: 0.8px !important;
+      margin: 0 !important;
+      font-weight: 400 !important;
+      white-space: nowrap !important;
+      display: inline-block !important;
+      visibility: visible !important;
+    }
+
+    /* ----- Main dashboard panel on mobile ----- */
+    #shopify-section-{{ section_id }} .main-content_new {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      width: 100% !important;
+      padding: 0 12px !important;
+      gap: 12px !important;
+    }
+
+    /* ----- Gauges row: keep horizontal, scale down ----- */
+    #shopify-section-{{ section_id }} .gauges-wrapper {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      gap: 4px !important;
+      transform: scale(var(--mobile-gauge-scale)) !important;
+      transform-origin: center top !important;
+      order: 1 !important;
+      /* Compensate for the scale so the row doesn't leave a big gap below */
+      margin-bottom: calc((var(--mobile-gauge-scale) - 1) * 100px) !important;
+    }
+
+    /* Make sure all three gauges remain visible & don't overflow */
+    #shopify-section-{{ section_id }} .gauge-left,
+    #shopify-section-{{ section_id }} .gauge-center,
+    #shopify-section-{{ section_id }} .gauge-right {
+      display: flex !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      flex: 0 0 auto !important;
+      align-items: center !important;
+      justify-content: center !important;
+      position: relative !important;
+    }
+
+    /* Constrain the outer clock containers so they fit on a phone */
+    #shopify-section-{{ section_id }} .gauge-left .clock-outer,
+    #shopify-section-{{ section_id }} .gauge-right .clock-outer {
+      width: 110px !important;
+      height: 110px !important;
+      max-width: 110px !important;
+      max-height: 110px !important;
+    }
+
+    #shopify-section-{{ section_id }} .gauge-center .clock-outer {
+      width: 170px !important;
+      height: 170px !important;
+      max-width: 170px !important;
+      max-height: 170px !important;
+    }
+
+    #shopify-section-{{ section_id }} .clock-middle,
+    #shopify-section-{{ section_id }} .clock-inner,
+    #shopify-section-{{ section_id }} .gauge-content {
+      width: 100% !important;
+      height: 100% !important;
+    }
+
+    #shopify-section-{{ section_id }} .gauge-svg {
+      width: 100% !important;
+      height: 100% !important;
+      display: block !important;
+    }
+
+    #shopify-section-{{ section_id }} #tier_diagram,
+    #shopify-section-{{ section_id }} .scout-img {
+      width: 70% !important;
+      height: auto !important;
+      max-width: 80px !important;
+      object-fit: contain !important;
+    }
+
+    /* Hide the small left/right decorative arrow icons on mobile —
+       they collide with the smaller gauges */
+    #shopify-section-{{ section_id }} .left_icons_wrapper,
+    #shopify-section-{{ section_id }} .right_icons_wrapper {
+      display: none !important;
+    }
+
+    /* ----- Cluster info strip on mobile ----- */
+    #shopify-section-{{ section_id }} .meter-info-wrapper {
+      width: 100% !important;
+      order: 2 !important;
+      padding: 0 8px !important;
+      opacity: var(--gauge-opacity) !important;
+    }
+
+    #shopify-section-{{ section_id }} .cluster-container {
+      width: 100% !important;
+      max-width: 100% !important;
+      position: relative !important;
+    }
+
+    #shopify-section-{{ section_id }} .cluster-img {
+      width: 100% !important;
+      height: auto !important;
+      max-height: 32px !important;
+      object-fit: cover !important;
+    }
+
+    #shopify-section-{{ section_id }} .cluster-overlay {
+      font-size: 10px !important;
+      gap: 6px !important;
+    }
+
+    #shopify-section-{{ section_id }} .cluster-overlay span,
+    #shopify-section-{{ section_id }} .air-bag-text {
+      font-size: 10px !important;
+    }
+
+    /* ----- Bottom bar on mobile ----- */
+    #shopify-section-{{ section_id }} .bottom-bar {
+      width: 100% !important;
+      max-width: calc(100% - 16px) !important;
+      margin: 0 auto !important;
+      order: 3 !important;
+      opacity: var(--gauge-opacity) !important;
+    }
+
+    #shopify-section-{{ section_id }} .bottom-bar-inner,
+    #shopify-section-{{ section_id }} .bottom-bar-content {
+      width: 100% !important;
+    }
+
+    #shopify-section-{{ section_id }} .icons-row {
+      padding: 8px 12px !important;
+    }
+
+    #shopify-section-{{ section_id }} .icon-box img {
+      max-height: 36px !important;
+      width: auto !important;
+    }
+
+    #shopify-section-{{ section_id }} .meter-row {
+      padding: 0 12px 10px !important;
+    }
+
+    /* Non-customer signup on mobile */
+    #shopify-section-{{ section_id }} .none_customer_signup {
+      position: relative !important;
+      z-index: 2 !important;
+      height: auto !important;
+    }
+  }
+
+  /* Extra-small phones */
+  @media (max-width: 380px) {
+    #shopify-section-{{ section_id }} .gauge-left .clock-outer,
+    #shopify-section-{{ section_id }} .gauge-right .clock-outer {
+      width: 95px !important;
+      height: 95px !important;
+    }
+
+    #shopify-section-{{ section_id }} .gauge-center .clock-outer {
+      width: 145px !important;
+      height: 145px !important;
+    }
+
+    #shopify-section-{{ section_id }} .main_wrapper_new p {
+      font-size: 14px !important;
+      letter-spacing: 0.6px !important;
+    }
   }
 </style>
 
@@ -765,12 +985,12 @@
     },
     {
       "type": "header",
-      "content": "Gauge Display"
+      "content": "Gauge Display — Desktop"
     },
     {
       "type": "range",
       "id": "gauge_scale",
-      "label": "Gauge size",
+      "label": "Gauge size (desktop)",
       "min": 50,
       "max": 100,
       "step": 5,
@@ -788,6 +1008,21 @@
       "unit": "%",
       "default": 100,
       "info": "Fade the gauges, cluster strip and bottom bar."
+    },
+    {
+      "type": "header",
+      "content": "Gauge Display — Mobile"
+    },
+    {
+      "type": "range",
+      "id": "mobile_gauge_scale",
+      "label": "Gauge size (mobile)",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 70,
+      "info": "Independent mobile scale. Lower values = smaller gauges on phones."
     }
   ],
   "presets": [
