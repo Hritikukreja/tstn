@@ -151,7 +151,7 @@
       "name": "Growave Tires",
       "settings": {
         "feat_image": "shopify://shop_images/awnex_offroad.png",
-        "gauge_scale": 80,
+        "gauge_scale": 70,
         "gauge_opacity": 100
       }
     },
