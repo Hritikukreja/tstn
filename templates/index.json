@@ -9,19 +9,6 @@
  */
 {
   "sections": {
-    "home_video_iEPccR": {
-      "type": "home-video",
-      "disabled": true,
-      "name": "Home video",
-      "settings": {
-        "video_file": "shopify://files/videos/hompage-banner-video.mp4",
-        "hero_height": 700,
-        "first_heading": "TSTN Starts Here",
-        "paragraph": "The stories, the gear, the crew, everything in one place.",
-        "button_link": "#",
-        "button_text": "Shop Shaun’s Picks"
-      }
-    },
     "pro_hero_TBPtMM": {
       "type": "pro-hero",
       "name": "Pro hero",
@@ -56,77 +43,6 @@
         "price_color": "#ffffff",
         "price_size": 12,
         "section_bg_color": "#000000"
-      }
-    },
-    "home_bg_text_DGXbAx": {
-      "type": "home-bg-text",
-      "blocks": {
-        "block_JTzcmT": {
-          "type": "Block",
-          "settings": {
-            "stat_number": "325K+",
-            "stat_label": "YouTube Subscribers"
-          }
-        },
-        "block_rHeCXG": {
-          "type": "Block",
-          "settings": {
-            "stat_number": "1.2M",
-            "stat_label": "Monthly Views"
-          }
-        },
-        "block_Qtw3Ux": {
-          "type": "Block",
-          "settings": {
-            "stat_number": "90",
-            "stat_label": "Instagram Followers"
-          }
-        }
-      },
-      "block_order": [
-        "block_JTzcmT",
-        "block_rHeCXG",
-        "block_Qtw3Ux"
-      ],
-      "disabled": true,
-      "custom_css": [
-        "h2 {font-size: 70px;}",
-        "h3 {font-size: 30px; color: white;}"
-      ],
-      "name": "Home bg text",
-      "settings": {
-        "background_image": "shopify://shop_images/5.1.png",
-        "background_image_mobile": "shopify://shop_images/5.1.png",
-        "main_heading": "Meet Shaun",
-        "subheading": "",
-        "description": "<h3>Builder, storyteller, and the guy behind the wheel.</h3><p>Eight years of real-world builds, broken bolts, and back-road lessons. I explore extreme environments and share cinematic overlanding adventures, bringing you along for every muddy trail, icy crossing, and heart-stopping moment.</p>"
-      }
-    },
-    "join_crew_TyHnLh": {
-      "type": "join-crew",
-      "disabled": true,
-      "name": "Join Crew",
-      "settings": {
-        "background_image": "shopify://shop_images/Trail_B_B_Sunset_Kayak_Mountain.webp",
-        "accent_color": "#e85d2c",
-        "show_torn_edge": true,
-        "eyebrow": "TSTN CLUB",
-        "heading": "JOIN THE CREW",
-        "subheading": "",
-        "button_label": "LEARN ABOUT THE CLUB",
-        "button_link": "#",
-        "content_width": 720,
-        "features_width": 800,
-        "feature_columns": 3,
-        "feature_gap_x": 32,
-        "feature_gap_y": 36,
-        "eyebrow_size": 14,
-        "heading_size": 84,
-        "subheading_size": 17,
-        "feature_title_size": 16,
-        "feature_desc_size": 14,
-        "button_size": 15,
-        "mobile_scale": 75
       }
     },
     "join_crew2_emTe7Y": {
@@ -243,112 +159,6 @@
         "mobile_subheading_size": 15
       }
     },
-    "custom_coll_tiH4B7": {
-      "type": "custom-coll",
-      "disabled": true,
-      "name": "Custom Coll",
-      "settings": {
-        "collection": "frontpage",
-        "background_image": "shopify://shop_images/shaun_gear_img.png",
-        "products_to_show": 3,
-        "title": "Shaun’s Gear Picks",
-        "main_heading_color": "",
-        "heading_size": "h1",
-        "description": "<p>The gear Shaun actually uses.</p>",
-        "description_color": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 3,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": false,
-        "view_all_style": "link",
-        "color_scheme": "",
-        "image_ratio": "portrait",
-        "image_shape": "default",
-        "show_secondary_image": false,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "button_text": "Explore More Gear",
-        "button_link": "#"
-      }
-    },
-    "featured_products_iWXKkb": {
-      "type": "featured-products",
-      "blocks": {
-        "product_kCJ4zc": {
-          "type": "product",
-          "settings": {
-            "image": "shopify://shop_images/1.avif",
-            "brand": "TSTN",
-            "title": "T-SHIRT",
-            "description": "Minimal everyday essential. Clean fit, durable fabric, built for comfort on and off the road.",
-            "price": "$39.99",
-            "button_label": "VIEW PRODUCT",
-            "link": ""
-          }
-        },
-        "product_8UVfFN": {
-          "type": "product",
-          "settings": {
-            "image": "shopify://shop_images/BLUETTI_Elite_30_V2_8.webp",
-            "brand": "BLUETTI",
-            "title": "Portable Power Station",
-            "description": "Reliable off-grid power. Charge your gear anywhere with quiet, efficient energy storage.",
-            "price": "$699.99",
-            "button_label": "VIEW PRODUCT",
-            "link": ""
-          }
-        },
-        "product_U66Mrp": {
-          "type": "product",
-          "settings": {
-            "image": "shopify://shop_images/4.avif",
-            "brand": "TSTN",
-            "title": "Utility Jacket",
-            "description": "Lightweight protection for unpredictable conditions. Built for movement.",
-            "price": "$79.99",
-            "button_label": "VIEW PRODUCT",
-            "link": ""
-          }
-        },
-        "product_HeAzHd": {
-          "type": "product",
-          "settings": {
-            "image": "shopify://shop_images/product-sub-img-2.png",
-            "brand": "Thule",
-            "title": "Hullavator Pro",
-            "description": "Effortless loading. Secure transport with assisted lift for heavy watercraft.",
-            "price": "$1099.99",
-            "button_label": "VIEW PRODUCT",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "product_kCJ4zc",
-        "product_8UVfFN",
-        "product_U66Mrp",
-        "product_HeAzHd"
-      ],
-      "disabled": true,
-      "custom_css": [
-        "h2 {font-size: 70px;}"
-      ],
-      "name": "Featured Products",
-      "settings": {
-        "overline": "FEATURED",
-        "heading": "Shaun’s Gear Picks",
-        "view_all_label": "VIEW ALL FEATURED",
-        "view_all_link": "",
-        "accent_color": "#ff6a1a"
-      }
-    },
     "product_grid_tQbJbL": {
       "type": "product-grid",
       "blocks": {
@@ -426,67 +236,6 @@
         "show_load_more": true,
         "load_more_label": "VIEW ALL",
         "accent_color": "#ff6a1a"
-      }
-    },
-    "custom_video_eecJBr": {
-      "type": "custom-video",
-      "blocks": {
-        "video_zK9DxE": {
-          "type": "video",
-          "settings": {
-            "video": "shopify://files/videos/TSTN Hullavator w:title.mp4",
-            "bottom_text": "CONQUERING an Unexpected SNOWSTORM in My Full-Size Ram!"
-          }
-        },
-        "video_ygABc6": {
-          "type": "video",
-          "settings": {
-            "video": "shopify://files/videos/hompage-banner-video.mp4",
-            "bottom_text": "Watch the full adventure"
-          }
-        },
-        "video_QbwCPe": {
-          "type": "video",
-          "settings": {
-            "video": "shopify://files/videos/Thule - Made with Clipchamp Full Width.mp4",
-            "bottom_text": "CONQUERING an Unexpected SNOWSTORM in My Full-Size Ram!"
-          }
-        },
-        "text_x8UzEp": {
-          "type": "text",
-          "settings": {
-            "stat_title": "325K+",
-            "stat_desc": "YouTube Subscribers"
-          }
-        },
-        "text_tKeTtU": {
-          "type": "text",
-          "settings": {
-            "stat_title": "1.2M",
-            "stat_desc": "Monthly Views"
-          }
-        },
-        "text_FeWRFL": {
-          "type": "text",
-          "settings": {
-            "stat_title": "90K",
-            "stat_desc": "Instagram Followers"
-          }
-        }
-      },
-      "block_order": [
-        "video_zK9DxE",
-        "video_ygABc6",
-        "video_QbwCPe",
-        "text_x8UzEp",
-        "text_tKeTtU",
-        "text_FeWRFL"
-      ],
-      "disabled": true,
-      "name": "Custom Video",
-      "settings": {
-        "main_heading": "LATEST FROM THE TRAIL",
-        "description": "Fresh drops every week."
       }
     },
     "video_section_bXXf4b": {
@@ -589,75 +338,6 @@
         "height_mobile": 520
       }
     },
-    "custom_image_banner_kd9eRA": {
-      "type": "custom-image-banner",
-      "blocks": {
-        "heading_FeybPH": {
-          "type": "heading",
-          "settings": {
-            "heading": "Come Behind the Scenes",
-            "heading_size": "h1"
-          }
-        },
-        "text_P9yptC": {
-          "type": "text",
-          "settings": {
-            "text": "Members get access to the good stuff.",
-            "text_style": "body"
-          }
-        },
-        "buttons_VBzcna": {
-          "type": "buttons",
-          "settings": {
-            "button_label_1": "Join The Club",
-            "button_link_1": "#",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
-          }
-        }
-      },
-      "block_order": [
-        "heading_FeybPH",
-        "text_P9yptC",
-        "buttons_VBzcna"
-      ],
-      "disabled": true,
-      "name": "Custom image banner",
-      "settings": {
-        "image": "shopify://shop_images/6.1.png",
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "image_behavior": "none",
-        "desktop_content_position": "bottom-left",
-        "desktop_content_alignment": "left",
-        "show_text_box": false,
-        "color_scheme": "scheme-4",
-        "stack_images_on_mobile": false,
-        "mobile_content_alignment": "center",
-        "show_text_below": false
-      }
-    },
-    "1776795343af03a339": {
-      "type": "apps",
-      "blocks": {
-        "growave_loyalty_wishlist_block_index_instagram_T7djkk": {
-          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.index.instagram/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
-          "settings": {
-            "option_galleries_id": "1",
-            "option_galleries_layout": "0"
-          }
-        }
-      },
-      "block_order": [
-        "growave_loyalty_wishlist_block_index_instagram_T7djkk"
-      ],
-      "disabled": true,
-      "settings": {
-        "include_margins": true
-      }
-    },
     "community_grid_nbhTUh": {
       "type": "community-grid",
       "blocks": {
@@ -714,19 +394,11 @@
     }
   },
   "order": [
-    "home_video_iEPccR",
     "pro_hero_TBPtMM",
-    "home_bg_text_DGXbAx",
-    "join_crew_TyHnLh",
     "join_crew2_emTe7Y",
-    "custom_coll_tiH4B7",
-    "featured_products_iWXKkb",
     "product_grid_tQbJbL",
-    "custom_video_eecJBr",
     "video_section_bXXf4b",
     "hero_collection_rUEVmk",
-    "custom_image_banner_kd9eRA",
-    "1776795343af03a339",
     "community_grid_nbhTUh"
   ]
 }
