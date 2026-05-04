@@ -1,0 +1,436 @@
+{% comment %}
+  TSTN Club Hero
+  - Left column: WELCOME TO pill, big "TSTN CLUB" headline (white + orange italic),
+    tagline, description, two CTAs, member rating
+  - Right column: stacked tilted image cards + "GROW LEARN INSPIRE" circular badge
+{% endcomment %}
+
+<style>
+  @font-face {
+    font-family: 'Danger Neue Free Regular';
+    src: url('https://cdn.shopify.com/s/files/1/0000/0000/files/danger-neue-free-regular.woff2?v=1') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  #shopify-section-{{ section.id }} {
+    --tstn-orange: #F56300;
+    --tstn-orange-hover: #ff7a1f;
+    --tstn-bg: #0a0a0a;
+    --tstn-text: #ffffff;
+    --tstn-muted: #b0b0b0;
+    --tstn-border: rgba(255,255,255,0.12);
+    --tstn-font-display: "Danger Neue Free Regular", "Inter", sans-serif;
+  }
+
+  .tstn-hero {
+    background: var(--tstn-bg);
+    color: var(--tstn-text);
+    padding: clamp(40px, 6vw, 80px) clamp(16px, 4vw, 40px) clamp(40px, 6vw, 70px);
+    position: relative;
+    overflow: hidden;
+  }
+  .tstn-hero__inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(30px, 5vw, 60px);
+    align-items: center;
+  }
+
+  /* Left content */
+  .tstn-hero__pill {
+    display: inline-block;
+    border: 1px solid rgba(255,255,255,0.4);
+    color: var(--tstn-text);
+    padding: 6px 16px;
+    border-radius: 999px;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: clamp(20px, 3vw, 28px);
+  }
+  .tstn-hero__title {
+    font-family: var(--tstn-font-display);
+    font-weight: 400;
+    font-size: clamp(56px, 9vw, 124px);
+    line-height: 0.95;
+    margin: 0 0 clamp(20px, 3vw, 32px);
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: clamp(8px, 1.5vw, 18px);
+  }
+  .tstn-hero__title-tstn { color: var(--tstn-text); }
+  .tstn-hero__title-club {
+    color: var(--tstn-orange);
+    font-style: italic;
+    transform: skewX(-4deg);
+    display: inline-block;
+  }
+
+  .tstn-hero__tagline {
+    font-size: clamp(20px, 2.4vw, 28px);
+    font-weight: 600;
+    margin: 0 0 16px;
+    color: var(--tstn-text);
+  }
+  .tstn-hero__desc {
+    font-size: clamp(15px, 1.4vw, 16px);
+    color: var(--tstn-muted);
+    line-height: 1.6;
+    margin: 0 0 clamp(28px, 4vw, 36px);
+    max-width: 460px;
+  }
+
+  .tstn-hero__ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: clamp(28px, 4vw, 36px);
+  }
+  .tstn-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 28px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
+    line-height: 1;
+  }
+  .tstn-btn--primary { background: var(--tstn-orange); color: #fff; }
+  .tstn-btn--primary:hover { background: var(--tstn-orange-hover); transform: translateY(-2px); }
+  .tstn-btn--ghost {
+    background: transparent;
+    color: var(--tstn-text);
+    border-color: rgba(255,255,255,0.4);
+  }
+  .tstn-btn--ghost:hover { background: var(--tstn-text); color: var(--tstn-bg); }
+  .tstn-btn svg { transition: transform 0.25s ease; }
+  .tstn-btn:hover svg { transform: translateX(4px); }
+
+  /* Member rating row */
+  .tstn-hero__rating {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .tstn-hero__avatars {
+    display: flex;
+  }
+  .tstn-hero__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--tstn-bg);
+    background-size: cover;
+    background-position: center;
+    margin-left: -10px;
+    background-color: #333;
+  }
+  .tstn-hero__avatar:first-child { margin-left: 0; }
+  .tstn-hero__rating-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .tstn-hero__rating-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  .tstn-hero__stars { color: var(--tstn-orange); letter-spacing: 1px; }
+  .tstn-hero__rating-sub {
+    font-size: 12px;
+    color: var(--tstn-muted);
+  }
+
+  /* Right side - image cards */
+  .tstn-hero__visual {
+    position: relative;
+    min-height: clamp(380px, 45vw, 520px);
+  }
+
+  .tstn-hero__card {
+    position: absolute;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
+  .tstn-hero__card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .tstn-hero__card--main {
+    width: 58%;
+    aspect-ratio: 4/5;
+    left: 0;
+    top: 5%;
+    transform: rotate(-4deg);
+    border: 2px solid var(--tstn-orange);
+    z-index: 2;
+  }
+  .tstn-hero__card--top {
+    width: 50%;
+    aspect-ratio: 16/10;
+    right: 0;
+    top: 0;
+    transform: rotate(3deg);
+    z-index: 3;
+  }
+  .tstn-hero__card--bottom {
+    width: 46%;
+    aspect-ratio: 16/10;
+    right: 4%;
+    bottom: 8%;
+    transform: rotate(-3deg);
+    z-index: 3;
+  }
+
+  .tstn-hero__card-quote {
+    position: absolute;
+    bottom: 14px;
+    left: 18px;
+    color: #fff;
+    font-family: 'Brush Script MT', cursive;
+    font-size: clamp(16px, 2vw, 22px);
+    line-height: 1.2;
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  }
+
+  /* Decorative arrow */
+  .tstn-hero__arrow {
+    position: absolute;
+    left: -2%;
+    top: 38%;
+    width: 80px;
+    height: 80px;
+    color: var(--tstn-orange);
+    z-index: 4;
+    opacity: 0.9;
+  }
+
+  /* Decorative splatter */
+  .tstn-hero__splatter {
+    position: absolute;
+    bottom: -2%;
+    right: -3%;
+    width: 120px;
+    height: 60px;
+    color: var(--tstn-orange);
+    opacity: 0.85;
+    z-index: 1;
+  }
+
+  /* Circular badge */
+  .tstn-hero__badge {
+    position: absolute;
+    width: clamp(80px, 9vw, 110px);
+    height: clamp(80px, 9vw, 110px);
+    background: var(--tstn-orange);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 800;
+    font-size: clamp(11px, 1vw, 13px);
+    text-align: center;
+    line-height: 1.2;
+    right: 18%;
+    bottom: 4%;
+    z-index: 5;
+    box-shadow: 0 10px 25px rgba(245,99,0,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .tstn-hero__badge-heart {
+    margin-top: 4px;
+    font-size: 10px;
+  }
+
+  /* Mobile */
+  @media (max-width: 900px) {
+    .tstn-hero__inner {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+    .tstn-hero__visual {
+      min-height: 420px;
+      order: 2;
+    }
+  }
+  @media (max-width: 540px) {
+    .tstn-hero__title { font-size: clamp(46px, 14vw, 72px); }
+    .tstn-hero__visual { min-height: 360px; }
+    .tstn-hero__arrow { width: 60px; height: 60px; }
+    .tstn-hero__rating { flex-wrap: wrap; }
+  }
+</style>
+
+<section class="tstn-hero">
+  <div class="tstn-hero__inner">
+
+    <div class="tstn-hero__content">
+      <span class="tstn-hero__pill">{{ section.settings.pill_text | default: 'WELCOME TO' }}</span>
+
+      <h1 class="tstn-hero__title">
+        <span class="tstn-hero__title-tstn">{{ section.settings.title_one | default: 'TSTN' }}</span>
+        <span class="tstn-hero__title-club">{{ section.settings.title_two | default: 'CLUB' }}</span>
+      </h1>
+
+      <p class="tstn-hero__tagline">{{ section.settings.tagline | default: 'For the Driven. By the Real.' }}</p>
+      <p class="tstn-hero__desc">{{ section.settings.description | default: 'Your hub for real talks, expert insights, inspiring stories and a community that grows together.' }}</p>
+
+      <div class="tstn-hero__ctas">
+        <a href="{{ section.settings.cta1_link | default: '#' }}" class="tstn-btn tstn-btn--primary">
+          {{ section.settings.cta1_text | default: 'Join the Club' }}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+        <a href="{{ section.settings.cta2_link | default: '#' }}" class="tstn-btn tstn-btn--ghost">
+          {{ section.settings.cta2_text | default: 'Explore Now' }}
+        </a>
+      </div>
+
+      <div class="tstn-hero__rating">
+        <div class="tstn-hero__avatars">
+          {% for block in section.blocks %}
+            {% if block.type == 'avatar' %}
+              <div class="tstn-hero__avatar" style="background-image: url('{{ block.settings.avatar | image_url: width: 100 }}');" {{ block.shopify_attributes }}></div>
+            {% endif %}
+          {% endfor %}
+        </div>
+        <div class="tstn-hero__rating-text">
+          <div class="tstn-hero__rating-top">
+            <span>{{ section.settings.rating | default: '4.8/5' }}</span>
+            <span class="tstn-hero__stars">★★★★★</span>
+          </div>
+          <span class="tstn-hero__rating-sub">{{ section.settings.rating_sub | default: 'From 2,000+ Members' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="tstn-hero__visual">
+      <div class="tstn-hero__card tstn-hero__card--main">
+        {% if section.settings.image_main %}
+          <img src="{{ section.settings.image_main | image_url: width: 800 }}" alt="{{ section.settings.image_main.alt | default: 'TSTN Member' }}">
+        {% else %}
+          <div style="background: linear-gradient(135deg, #2a2a2a, #1a1a1a); width:100%; height:100%;"></div>
+        {% endif %}
+        {% if section.settings.image_main_quote != blank %}
+          <div class="tstn-hero__card-quote">{{ section.settings.image_main_quote }}</div>
+        {% endif %}
+      </div>
+
+      <div class="tstn-hero__card tstn-hero__card--top">
+        {% if section.settings.image_top %}
+          <img src="{{ section.settings.image_top | image_url: width: 600 }}" alt="TSTN Group">
+        {% else %}
+          <div style="background: linear-gradient(135deg, #333, #222); width:100%; height:100%;"></div>
+        {% endif %}
+      </div>
+
+      <div class="tstn-hero__card tstn-hero__card--bottom">
+        {% if section.settings.image_bottom %}
+          <img src="{{ section.settings.image_bottom | image_url: width: 600 }}" alt="TSTN Event">
+        {% else %}
+          <div style="background: linear-gradient(135deg, #2a2a2a, #1a1a1a); width:100%; height:100%;"></div>
+        {% endif %}
+      </div>
+
+      <!-- Decorative curved arrow -->
+      <svg class="tstn-hero__arrow" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M10 30 Q 30 5, 60 25 Q 80 40, 70 70" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
+        <path d="M62 65 L 70 72 L 78 62" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+
+      <!-- Splatter -->
+      <svg class="tstn-hero__splatter" viewBox="0 0 120 60" fill="currentColor" aria-hidden="true">
+        <circle cx="10" cy="30" r="3"/>
+        <circle cx="22" cy="20" r="5"/>
+        <circle cx="38" cy="35" r="4"/>
+        <circle cx="55" cy="22" r="6"/>
+        <circle cx="72" cy="38" r="3"/>
+        <circle cx="88" cy="28" r="5"/>
+        <circle cx="105" cy="40" r="4"/>
+        <circle cx="48" cy="50" r="2"/>
+        <circle cx="80" cy="12" r="2"/>
+      </svg>
+
+      <!-- Circular badge -->
+      <div class="tstn-hero__badge">
+        <span>{{ section.settings.badge_text | default: 'GROW LEARN INSPIRE' }}</span>
+        <span class="tstn-hero__badge-heart">♥</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TSTN Club Hero",
+  "settings": [
+    { "type": "header", "content": "Headline" },
+    { "type": "text", "id": "pill_text", "label": "Pill Label", "default": "WELCOME TO" },
+    { "type": "text", "id": "title_one", "label": "Title — White", "default": "TSTN" },
+    { "type": "text", "id": "title_two", "label": "Title — Orange Italic", "default": "CLUB" },
+    { "type": "text", "id": "tagline", "label": "Tagline", "default": "For the Driven. By the Real." },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Your hub for real talks, expert insights, inspiring stories and a community that grows together." },
+    { "type": "header", "content": "CTAs" },
+    { "type": "text", "id": "cta1_text", "label": "Primary CTA", "default": "Join the Club" },
+    { "type": "url", "id": "cta1_link", "label": "Primary CTA Link" },
+    { "type": "text", "id": "cta2_text", "label": "Secondary CTA", "default": "Explore Now" },
+    { "type": "url", "id": "cta2_link", "label": "Secondary CTA Link" },
+    { "type": "header", "content": "Rating" },
+    { "type": "text", "id": "rating", "label": "Rating Score", "default": "4.8/5" },
+    { "type": "text", "id": "rating_sub", "label": "Rating Subtitle", "default": "From 2,000+ Members" },
+    { "type": "header", "content": "Images" },
+    { "type": "image_picker", "id": "image_main", "label": "Main Image (large card)" },
+    { "type": "text", "id": "image_main_quote", "label": "Main Image Quote (script overlay)", "default": "Real People. Real Stories." },
+    { "type": "image_picker", "id": "image_top", "label": "Top Right Image" },
+    { "type": "image_picker", "id": "image_bottom", "label": "Bottom Right Image" },
+    { "type": "header", "content": "Badge" },
+    { "type": "text", "id": "badge_text", "label": "Badge Text", "default": "GROW LEARN INSPIRE" }
+  ],
+  "blocks": [
+    {
+      "type": "avatar",
+      "name": "Member Avatar",
+      "settings": [
+        { "type": "image_picker", "id": "avatar", "label": "Avatar Image" }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "TSTN Club Hero",
+      "blocks": [
+        { "type": "avatar" },
+        { "type": "avatar" },
+        { "type": "avatar" },
+        { "type": "avatar" }
+      ]
+    }
+  ]
+}
+{% endschema %}
