@@ -220,6 +220,7 @@
       "block_order": [
         "growave_loyalty_wishlist_block_index_instagram_fcp7hF"
       ],
+      "disabled": true,
       "settings": {
         "include_margins": true
       }
