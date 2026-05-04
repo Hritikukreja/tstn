@@ -11,13 +11,273 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "tstn_club_hero_bR43kc": {
+      "type": "tstn-club-hero",
+      "blocks": {
+        "avatar_y3XCcH": {
+          "type": "avatar",
+          "settings": {}
+        },
+        "avatar_MH7BMw": {
+          "type": "avatar",
+          "settings": {}
+        },
+        "avatar_DfTpnB": {
+          "type": "avatar",
+          "settings": {}
+        },
+        "avatar_EdaDyH": {
+          "type": "avatar",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "avatar_y3XCcH",
+        "avatar_MH7BMw",
+        "avatar_DfTpnB",
+        "avatar_EdaDyH"
+      ],
+      "name": "TSTN Club Hero",
+      "settings": {
+        "pill_text": "WELCOME TO",
+        "title_one": "TSTN",
+        "title_two": "CLUB",
+        "tagline": "For the Driven. By the Real.",
+        "description": "Your hub for real talks, expert insights, inspiring stories and a community that grows together.",
+        "cta1_text": "Join the Club",
+        "cta1_link": "",
+        "cta2_text": "Explore Now",
+        "cta2_link": "",
+        "rating": "4.8/5",
+        "rating_sub": "From 2,000+ Members",
+        "image_main": "shopify://shop_images/6.1.png",
+        "image_main_quote": "Real People. Real Stories.",
+        "image_top": "shopify://shop_images/5.1.png",
+        "image_bottom": "shopify://shop_images/2.0.png",
+        "badge_text": "GROW LEARN INSPIRE"
+      }
+    },
+    "tstn_featured_videos_DRAEaX": {
+      "type": "tstn-featured-videos",
+      "blocks": {
+        "video_item_3bQX7M": {
+          "type": "video_item",
+          "settings": {
+            "title": "Building Discipline That Lasts",
+            "author": "Pratham Mittal",
+            "time": "10:32",
+            "duration": "10:32",
+            "link": ""
+          }
+        },
+        "video_item_eTMzKr": {
+          "type": "video_item",
+          "settings": {
+            "title": "Nutrition Myths Busted!",
+            "author": "Nitika Choudhary",
+            "time": "08:15",
+            "duration": "08:15",
+            "link": ""
+          }
+        },
+        "video_item_D3XrKU": {
+          "type": "video_item",
+          "settings": {
+            "title": "From Setbacks to Comebacks",
+            "author": "Real Member Story",
+            "time": "07:28",
+            "duration": "07:28",
+            "link": ""
+          }
+        },
+        "perk_KjwDjb": {
+          "type": "perk",
+          "settings": {
+            "text": "Exclusive Videos"
+          }
+        },
+        "perk_iWjfUq": {
+          "type": "perk",
+          "settings": {
+            "text": "In-depth Blogs"
+          }
+        },
+        "perk_m9thFg": {
+          "type": "perk",
+          "settings": {
+            "text": "Live Sessions"
+          }
+        },
+        "perk_qkdjRi": {
+          "type": "perk",
+          "settings": {
+            "text": "Member Discounts"
+          }
+        },
+        "perk_YigMxP": {
+          "type": "perk",
+          "settings": {
+            "text": "Early Access to Events"
+          }
+        }
+      },
+      "block_order": [
+        "video_item_3bQX7M",
+        "video_item_eTMzKr",
+        "video_item_D3XrKU",
+        "perk_KjwDjb",
+        "perk_iWjfUq",
+        "perk_m9thFg",
+        "perk_qkdjRi",
+        "perk_YigMxP"
+      ],
+      "name": "TSTN Featured Videos",
+      "settings": {
+        "heading": "Featured Videos",
+        "viewall_text": "View all videos",
+        "viewall_link": "",
+        "main_image": "shopify://shop_images/6.1.png",
+        "main_title": "The Mindset That Changes Everything",
+        "main_author": "By Pratham Mittal",
+        "main_duration": "12:45",
+        "main_link": "",
+        "mo_pill": "MEMBERS ONLY",
+        "mo_title": "Unlock Exclusive Content & Perks",
+        "mo_cta_text": "Join TSTN Club",
+        "mo_cta_link": ""
+      }
+    },
+    "tstn_blog_testimonial_CGmbDD": {
+      "type": "tstn-blog-testimonial",
+      "blocks": {
+        "post_FceJWL": {
+          "type": "post",
+          "settings": {
+            "category": "MINDSET",
+            "title": "Consistency Over Motivation",
+            "excerpt": "Why showing up every day matters more than feeling ready.",
+            "read_time": "5 min read",
+            "link": ""
+          }
+        },
+        "post_RBLFyP": {
+          "type": "post",
+          "settings": {
+            "category": "NUTRITION",
+            "title": "Protein: How Much Do You Really Need?",
+            "excerpt": "Simple guide to hitting your protein goals without overthinking.",
+            "read_time": "6 min read",
+            "link": ""
+          }
+        },
+        "post_qc6knC": {
+          "type": "post",
+          "settings": {
+            "category": "TRAINING",
+            "title": "Progressive Overload Made Simple",
+            "excerpt": "The key to getting stronger, without getting confused.",
+            "read_time": "4 min read",
+            "link": ""
+          }
+        },
+        "post_p7iGq9": {
+          "type": "post",
+          "settings": {
+            "category": "LIFESTYLE",
+            "title": "Balance Is the New Hustle",
+            "excerpt": "How to build a life you don’t need a vacation from.",
+            "read_time": "5 min read",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "post_FceJWL",
+        "post_RBLFyP",
+        "post_qc6knC",
+        "post_p7iGq9"
+      ],
+      "name": "TSTN Blog & Testimonial",
+      "settings": {
+        "heading": "From the Blog",
+        "viewall_text": "View all blogs",
+        "viewall_link": "",
+        "testimonial_text": "TSTN Club isn’t just content, it’s a community that pushes you to be better.",
+        "testimonial_name": "Rohit Verma",
+        "testimonial_role": "Member"
+      }
+    },
+    "tstn_community_features_CgHfHH": {
+      "type": "tstn-community-features",
+      "blocks": {
+        "feature_mUeeh8": {
+          "type": "feature",
+          "settings": {
+            "icon": "chat",
+            "title": "Real Conversations",
+            "text": "Connect and grow with like-minded people."
+          }
+        },
+        "feature_yCUmeA": {
+          "type": "feature",
+          "settings": {
+            "icon": "heart",
+            "title": "Challenges & Events",
+            "text": "Participate in fun challenges and exclusive events."
+          }
+        },
+        "feature_3i6E4G": {
+          "type": "feature",
+          "settings": {
+            "icon": "star",
+            "title": "Support & Motivation",
+            "text": "Get support, share wins, and stay accountable."
+          }
+        },
+        "feature_wcqHcm": {
+          "type": "feature",
+          "settings": {
+            "icon": "users",
+            "title": "Grow Together",
+            "text": "We rise by lifting each other."
+          }
+        }
+      },
+      "block_order": [
+        "feature_mUeeh8",
+        "feature_yCUmeA",
+        "feature_3i6E4G",
+        "feature_wcqHcm"
+      ],
+      "name": "TSTN Community Features",
+      "settings": {
+        "heading": "More Than Content. It's a Community."
+      }
+    },
+    "tstn_journey_cta_adCRhC": {
+      "type": "tstn-journey-cta",
+      "name": "TSTN Journey CTA",
+      "settings": {
+        "heading": "Your Journey. Our Support. Let's Build the Best Version of You.",
+        "sub": "Join thousands of members already growing with TSTN Club.",
+        "cta_text": "Join TSTN Club Today",
+        "cta_link": "",
+        "script_text": "StrongerTogether"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "tstn_club_hero_bR43kc",
+    "tstn_featured_videos_DRAEaX",
+    "tstn_blog_testimonial_CGmbDD",
+    "tstn_community_features_CgHfHH",
+    "tstn_journey_cta_adCRhC"
   ]
 }
