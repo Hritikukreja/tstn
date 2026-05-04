@@ -223,6 +223,24 @@
         "testimonial_role": "Member"
       }
     },
+    "1777934112a409e8e2": {
+      "type": "apps",
+      "blocks": {
+        "growave_loyalty_wishlist_block_index_instagram_zKbLUA": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.index.instagram/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "option_galleries_id": "1",
+            "option_galleries_layout": "0"
+          }
+        }
+      },
+      "block_order": [
+        "growave_loyalty_wishlist_block_index_instagram_zKbLUA"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
     "tstn_community_features_CgHfHH": {
       "type": "tstn-community-features",
       "blocks": {
@@ -294,6 +312,7 @@
     "tstn_club_hero_bR43kc",
     "tstn_featured_videos_DRAEaX",
     "tstn_blog_testimonial_CGmbDD",
+    "1777934112a409e8e2",
     "tstn_community_features_CgHfHH",
     "tstn_journey_cta_adCRhC"
   ]
