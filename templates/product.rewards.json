@@ -334,6 +334,60 @@
         "step_4_title": "REDEEM",
         "step_4_desc": "Use your points for merch, discounts & more."
       }
+    },
+    "community_grid_xTzb6M": {
+      "type": "community-grid",
+      "blocks": {
+        "photo_mTwDA9": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Frame_250.png",
+            "link": ""
+          }
+        },
+        "photo_cF9BMV": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/4.png",
+            "link": ""
+          }
+        },
+        "photo_JddKy4": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/join_crew_mobile.png",
+            "link": ""
+          }
+        },
+        "photo_Wt4qEB": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/unnamed.webp",
+            "link": ""
+          }
+        },
+        "photo_7HGRCz": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/1.webp",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "photo_mTwDA9",
+        "photo_cF9BMV",
+        "photo_JddKy4",
+        "photo_Wt4qEB",
+        "photo_7HGRCz"
+      ],
+      "name": "Community Grid",
+      "settings": {
+        "heading": "THE TSTN CIRCLE",
+        "description": "Just a collection of rigs from the people who get it. Tag @tstn to drop your photo into the mix.",
+        "button_label": "VIEW COLLECTION",
+        "button_link": ""
+      }
     }
   },
   "order": [
@@ -345,6 +399,7 @@
     "1776469809e2eb7715",
     "17769202960fc08a45",
     "custom_multicol_dPrTeX",
-    "speedometer_claude_VPmHLG"
+    "speedometer_claude_VPmHLG",
+    "community_grid_xTzb6M"
   ]
 }
