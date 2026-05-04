@@ -140,6 +140,9 @@
         "perk_qkdjRi",
         "perk_YigMxP"
       ],
+      "custom_css": [
+        "h2,h3 {color: white;}"
+      ],
       "name": "TSTN Featured Videos",
       "settings": {
         "heading": "Featured Videos",
