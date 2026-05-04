@@ -56,10 +56,10 @@
         "cta2_link": "",
         "rating": "4.8/5",
         "rating_sub": "4.8/5 from 2,000+ explorers",
-        "image_main": "shopify://shop_images/6.1.png",
+        "image_main": "shopify://shop_images/1.webp",
         "image_main_quote": "Real People. Real Stories.",
-        "image_top": "shopify://shop_images/5.1.png",
-        "image_bottom": "shopify://shop_images/2.0.png",
+        "image_top": "shopify://shop_images/5.png",
+        "image_bottom": "shopify://shop_images/6.png",
         "badge_text": "DRIVE, BUILD, EXPLORE"
       }
     },
@@ -149,8 +149,8 @@
         "viewall_text": "View all videos",
         "viewall_link": "",
         "main_image": "shopify://shop_images/1_ca459672-715a-4b89-a702-86b5b1a43cfd.png",
-        "main_title": "",
-        "main_author": "",
+        "main_title": "Full-Size Overlanding: Lessons From the Road",
+        "main_author": "Shaun Walford with Clay Croft",
         "main_duration": "",
         "main_link": "",
         "mo_pill": "MEMBERS ONLY",
@@ -165,9 +165,10 @@
         "post_FceJWL": {
           "type": "post",
           "settings": {
-            "category": "MINDSET",
-            "title": "Consistency Over Motivation",
-            "excerpt": "Why showing up every day matters more than feeling ready.",
+            "image": "shopify://shop_images/Blog1.png",
+            "category": "OVERLANDING",
+            "title": "When The Trail Turns Against You",
+            "excerpt": "Preparation matters most when conditions change fast.",
             "read_time": "5 min read",
             "link": ""
           }
@@ -175,9 +176,10 @@
         "post_RBLFyP": {
           "type": "post",
           "settings": {
-            "category": "NUTRITION",
-            "title": "Protein: How Much Do You Really Need?",
-            "excerpt": "Simple guide to hitting your protein goals without overthinking.",
+            "image": "shopify://shop_images/Blog_2.png",
+            "category": "Gear",
+            "title": "The Gear That Actually Earns Its Space",
+            "excerpt": "Only the gear that solves real problems stays in the truck.",
             "read_time": "6 min read",
             "link": ""
           }
@@ -185,9 +187,10 @@
         "post_qc6knC": {
           "type": "post",
           "settings": {
-            "category": "TRAINING",
-            "title": "Progressive Overload Made Simple",
-            "excerpt": "The key to getting stronger, without getting confused.",
+            "image": "shopify://shop_images/Blog_3.png",
+            "category": "Truck Builds",
+            "title": "Building a Full-Size Overland Ram",
+            "excerpt": "Storage, weight, comfort, and lessons from a real full-size build.",
             "read_time": "4 min read",
             "link": ""
           }
@@ -195,9 +198,10 @@
         "post_p7iGq9": {
           "type": "post",
           "settings": {
-            "category": "LIFESTYLE",
-            "title": "Balance Is the New Hustle",
-            "excerpt": "How to build a life you don’t need a vacation from.",
+            "image": "shopify://shop_images/Blog_4.png",
+            "category": "Travel",
+            "title": "Why the Best Trips Rarely Go as Planned",
+            "excerpt": "The best stories usually come from the unexpected turns.",
             "read_time": "5 min read",
             "link": ""
           }
@@ -261,6 +265,9 @@
         "feature_3i6E4G",
         "feature_wcqHcm"
       ],
+      "custom_css": [
+        "h2,h3 {color: white;}"
+      ],
       "name": "TSTN Community Features",
       "settings": {
         "heading": "More Than Content. It's a Community."
@@ -268,13 +275,17 @@
     },
     "tstn_journey_cta_adCRhC": {
       "type": "tstn-journey-cta",
+      "custom_css": [
+        "h1,h2,h3 {color: white;}"
+      ],
       "name": "TSTN Journey CTA",
       "settings": {
         "heading": "Your Journey. Our Support. Let's Build the Best Version of You.",
         "sub": "Join thousands of members already growing with TSTN Club.",
         "cta_text": "Join TSTN Club Today",
         "cta_link": "",
-        "script_text": "StrongerTogether"
+        "image": "shopify://shop_images/Screenshot_2026-05-01_130527.png",
+        "script_text": "the story till now"
       }
     }
   },
