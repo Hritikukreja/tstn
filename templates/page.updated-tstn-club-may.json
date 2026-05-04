@@ -49,18 +49,18 @@
         "title_one": "TSTN",
         "title_two": "CLUB",
         "tagline": "For the Driven. By the Real.",
-        "description": "Your hub for real talks, expert insights, inspiring stories and a community that grows together.",
+        "description": "A home for overlanders, weekend explorers, truck builders, and people who want honest stories from the road — not polished nonsense.",
         "cta1_text": "Join the Club",
         "cta1_link": "",
-        "cta2_text": "Explore Now",
+        "cta2_text": "Explore Stories",
         "cta2_link": "",
         "rating": "4.8/5",
-        "rating_sub": "From 2,000+ Members",
+        "rating_sub": "4.8/5 from 2,000+ explorers",
         "image_main": "shopify://shop_images/6.1.png",
         "image_main_quote": "Real People. Real Stories.",
         "image_top": "shopify://shop_images/5.1.png",
         "image_bottom": "shopify://shop_images/2.0.png",
-        "badge_text": "GROW LEARN INSPIRE"
+        "badge_text": "DRIVE, BUILD, EXPLORE"
       }
     },
     "tstn_featured_videos_DRAEaX": {
@@ -69,30 +69,33 @@
         "video_item_3bQX7M": {
           "type": "video_item",
           "settings": {
-            "title": "Building Discipline That Lasts",
-            "author": "Pratham Mittal",
-            "time": "10:32",
-            "duration": "10:32",
+            "image": "shopify://shop_images/2.png",
+            "title": "Building a Rig That Can Actually Handle the Trip",
+            "author": "Shaun Walford with Brad Kowitz",
+            "time": "42 min",
+            "duration": "Episode 02",
             "link": ""
           }
         },
         "video_item_eTMzKr": {
           "type": "video_item",
           "settings": {
-            "title": "Nutrition Myths Busted!",
-            "author": "Nitika Choudhary",
-            "time": "08:15",
-            "duration": "08:15",
+            "image": "shopify://shop_images/3_2db77255-8fc6-4bd8-b4d9-9623c369f84f.png",
+            "title": "Remote Travel, Recovery Gear & Smart Decisions",
+            "author": "Shaun Walford with Scott Brady",
+            "time": "55 min",
+            "duration": "Episode 03",
             "link": ""
           }
         },
         "video_item_D3XrKU": {
           "type": "video_item",
           "settings": {
-            "title": "From Setbacks to Comebacks",
-            "author": "Real Member Story",
-            "time": "07:28",
-            "duration": "07:28",
+            "image": "shopify://shop_images/4_d57e7ef3-55b6-4891-ab36-c3561b4889e0.png",
+            "title": "Living on the Road Without Overcomplicating It",
+            "author": "Shaun Walford with Clay Croft",
+            "time": "39 min",
+            "duration": "Episode 04",
             "link": ""
           }
         },
@@ -142,10 +145,10 @@
         "heading": "Featured Videos",
         "viewall_text": "View all videos",
         "viewall_link": "",
-        "main_image": "shopify://shop_images/6.1.png",
-        "main_title": "The Mindset That Changes Everything",
-        "main_author": "By Pratham Mittal",
-        "main_duration": "12:45",
+        "main_image": "shopify://shop_images/1_ca459672-715a-4b89-a702-86b5b1a43cfd.png",
+        "main_title": "",
+        "main_author": "",
+        "main_duration": "",
         "main_link": "",
         "mo_pill": "MEMBERS ONLY",
         "mo_title": "Unlock Exclusive Content & Perks",
