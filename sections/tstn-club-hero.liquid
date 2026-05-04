@@ -74,10 +74,13 @@
   }
 
   .tstn-hero__tagline {
-    font-size: clamp(20px, 2.4vw, 28px);
-    font-weight: 600;
+    font-family: var(--tstn-font-display);
+    font-weight: 400;
+    font-size: clamp(26px, 3.2vw, 38px);
     margin: 0 0 16px;
     color: var(--tstn-text);
+    letter-spacing: 0.5px;
+    line-height: 1.1;
   }
   .tstn-hero__desc {
     font-size: clamp(15px, 1.4vw, 16px);
@@ -294,7 +297,7 @@
         <span class="tstn-hero__title-club">{{ section.settings.title_two | default: 'CLUB' }}</span>
       </h1>
 
-      <p class="tstn-hero__tagline">{{ section.settings.tagline | default: 'For the Driven. By the Real.' }}</p>
+      <h2 class="tstn-hero__tagline">{{ section.settings.tagline | default: 'For the Driven. By the Real.' }}</h2>
       <p class="tstn-hero__desc">{{ section.settings.description | default: 'Your hub for real talks, expert insights, inspiring stories and a community that grows together.' }}</p>
 
       <div class="tstn-hero__ctas">
