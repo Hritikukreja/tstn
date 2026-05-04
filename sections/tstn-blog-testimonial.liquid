@@ -54,9 +54,10 @@
   .tstn-blog__title {
     font-family: var(--tstn-font-display);
     font-weight: 400;
-    font-size: clamp(24px, 2.5vw, 32px);
+    font-size: clamp(28px, 3vw, 38px);
     margin: 0;
     letter-spacing: 0.5px;
+    line-height: 1;
   }
   .tstn-blog__viewall {
     color: var(--tstn-text);
@@ -123,11 +124,13 @@
     text-transform: uppercase;
   }
   .tstn-blog__post-title {
-    font-size: 15px;
-    font-weight: 700;
-    line-height: 1.3;
+    font-family: var(--tstn-font-display);
+    font-weight: 400;
+    font-size: clamp(17px, 1.5vw, 20px);
+    line-height: 1.15;
     margin: 0;
     color: var(--tstn-text);
+    letter-spacing: 0.3px;
   }
   .tstn-blog__excerpt {
     font-size: 13px;
@@ -162,12 +165,14 @@
     margin-bottom: 12px;
   }
   .tstn-test__text {
-    font-size: clamp(18px, 1.8vw, 22px);
-    line-height: 1.4;
-    font-weight: 500;
+    font-family: var(--tstn-font-display);
+    font-weight: 400;
+    font-size: clamp(20px, 2vw, 26px);
+    line-height: 1.2;
     margin: 0 0 24px;
     color: var(--tstn-text);
     flex: 1;
+    letter-spacing: 0.3px;
   }
   .tstn-test__author {
     display: flex;
