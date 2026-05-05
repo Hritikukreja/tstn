@@ -308,7 +308,7 @@
         "column_f7TMmG": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/ChatGPT_Image_Jan_22_2026_05_29_18_PM_1_a6b1bf9c-5113-4864-b2aa-53fb77a68341.png",
+            "image": "shopify://shop_images/1_73c146ca-e03f-4f1b-92e4-668f2058ef0d.png",
             "title": "",
             "text": "<p>You’re on the map. Access to the shop talk and basic rewards.</p>",
             "link_label": "",
@@ -416,6 +416,67 @@
         "button_label": "VIEW COLLECTION",
         "button_link": ""
       }
+    },
+    "feature_gallery_F3hDQE": {
+      "type": "feature-gallery",
+      "blocks": {
+        "feature_TBrMFt": {
+          "type": "feature",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/1_73c146ca-e03f-4f1b-92e4-668f2058ef0d.png",
+            "show_controls": false,
+            "title": "Feature title",
+            "description": "<p>Describe this feature in one or two lines.</p>",
+            "link_label": "Learn more",
+            "link": ""
+          }
+        },
+        "feature_La6aVL": {
+          "type": "feature",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/2_94c49a60-ace3-4a64-8b08-f4fd57842908.png",
+            "show_controls": false,
+            "title": "Feature title",
+            "description": "<p>Describe this feature in one or two lines.</p>",
+            "link_label": "Learn more",
+            "link": ""
+          }
+        },
+        "feature_RzXrC4": {
+          "type": "feature",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/3_a251c6fa-c22c-412a-b72f-22c3fb613b45.png",
+            "show_controls": false,
+            "title": "Feature title",
+            "description": "<p>Describe this feature in one or two lines.</p>",
+            "link_label": "Learn more",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_TBrMFt",
+        "feature_La6aVL",
+        "feature_RzXrC4"
+      ],
+      "custom_css": [
+        "h1,h2,h3,h4,h5 {color: white;}"
+      ],
+      "name": "Feature gallery",
+      "settings": {
+        "kicker": "THE TIERS",
+        "heading": "Earn 1 Point for every $1 Spent",
+        "text": "",
+        "columns_desktop": "3",
+        "card_alignment": "left",
+        "media_aspect_ratio": "4 / 5",
+        "color_scheme": "scheme-bbdc3f91-244c-4f61-af87-3937c9960992",
+        "padding_top": 40,
+        "padding_bottom": 40
+      }
     }
   },
   "order": [
@@ -428,6 +489,7 @@
     "1776469809e2eb7715",
     "17769202960fc08a45",
     "custom_multicol_dPrTeX",
-    "community_grid_xTzb6M"
+    "community_grid_xTzb6M",
+    "feature_gallery_F3hDQE"
   ]
 }
