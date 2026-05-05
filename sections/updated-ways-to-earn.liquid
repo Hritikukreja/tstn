@@ -5,20 +5,31 @@
   assign heading_color = section.settings.heading_color
   assign subheading_color = section.settings.subheading_color
   assign accent_color = section.settings.accent_color
-  assign card_bg_start = section.settings.card_bg_start
-  assign card_bg_end = section.settings.card_bg_end
+  assign card_bg = section.settings.card_bg
+  assign inner_card_bg = section.settings.inner_card_bg
   assign card_border_color = section.settings.card_border_color
-  assign label_bg_color = section.settings.label_bg_color
-  assign completed_bg_color = section.settings.completed_bg_color
+  assign inner_border_color = section.settings.inner_border_color
   assign heading_font_size = section.settings.heading_font_size
   assign heading_font_size_mobile = section.settings.heading_font_size_mobile
-  assign card_label_font_size = section.settings.card_label_font_size
-  assign card_height = section.settings.card_height
-  assign card_height_mobile = section.settings.card_height_mobile
+  assign card_title_size = section.settings.card_title_size
+  assign points_size = section.settings.points_size
   assign section_bg = section.settings.section_bg
+
+  assign share_heading = section.settings.share_heading
+  assign share_image = section.settings.share_image
+  assign share_subheading = section.settings.share_subheading
+  assign share_description = section.settings.share_description
+
   assign referral_heading = section.settings.referral_heading
-  assign referral_subtext = section.settings.referral_subtext
-  assign referral_image = section.settings.referral_image
+  assign referral_step_1 = section.settings.referral_step_1
+  assign referral_step_2 = section.settings.referral_step_2
+  assign referral_step_3 = section.settings.referral_step_3
+  assign you_get_label = section.settings.you_get_label
+  assign you_get_value = section.settings.you_get_value
+  assign you_get_unit = section.settings.you_get_unit
+  assign they_get_label = section.settings.they_get_label
+  assign they_get_value = section.settings.they_get_value
+  assign they_get_unit = section.settings.they_get_unit
 -%}
 
 {%- style -%}
@@ -26,17 +37,15 @@
     --tstn-accent: {{ accent_color }};
     --tstn-heading-color: {{ heading_color }};
     --tstn-subheading-color: {{ subheading_color }};
-    --tstn-card-bg-start: {{ card_bg_start }};
-    --tstn-card-bg-end: {{ card_bg_end }};
+    --tstn-card-bg: {{ card_bg }};
+    --tstn-inner-card-bg: {{ inner_card_bg }};
     --tstn-card-border: {{ card_border_color }};
-    --tstn-label-bg: {{ label_bg_color }};
-    --tstn-completed-bg: {{ completed_bg_color }};
+    --tstn-inner-border: {{ inner_border_color }};
     --tstn-section-bg: {{ section_bg }};
     --tstn-heading-size: {{ heading_font_size }}px;
     --tstn-heading-size-mobile: {{ heading_font_size_mobile }}px;
-    --tstn-card-label-size: {{ card_label_font_size }}px;
-    --tstn-card-height: {{ card_height }}px;
-    --tstn-card-height-mobile: {{ card_height_mobile }}px;
+    --tstn-card-title-size: {{ card_title_size }}px;
+    --tstn-points-size: {{ points_size }}px;
   }
 
   .tstn-earn-{{ section_id }} {
@@ -67,26 +76,89 @@
     {%- endif -%}
 
     <div class="tstn-earn__grid">
-      {%- comment -%} Ways to Earn cards — rendered by Growave {%- endcomment -%}
-      <div class="tstn-earn__ways">
-        <div
-          class="gw-rd-ways-to-earn-page-widget-placeholder"
-          data-gw-widget-shadow-root-enabled="true"
-          data-gw-show-points-balance="true"
-          style="display: block"
-        ></div>
+
+      {%- comment -%} ============ LEFT CARD: WAYS TO EARN POINTS ============ {%- endcomment -%}
+      <div class="tstn-earn__panel tstn-earn__panel--ways">
+        <h3 class="tstn-earn__panel-title">{{ 'sections.tstn_earn.ways_title' | t: default: heading }}</h3>
+
+        <div class="tstn-earn__ways">
+          <div
+            class="gw-rd-ways-to-earn-page-widget-placeholder"
+            data-gw-widget-shadow-root-enabled="true"
+            data-gw-show-points-balance="true"
+            style="display: block"
+          ></div>
+        </div>
       </div>
 
-      {%- comment -%} Referral card — styled to match earn cards, sits as last cell {%- endcomment -%}
-      <div class="tstn-earn__referral-slot">
-        <div
-          class="gw-rd-referral-program-page-widget-placeholder tstn-referral"
-          {% if referral_image != blank %}
-            data-gw-img-url="{{ referral_image | image_url: width: 600 }}"
-          {% endif %}
-          data-gw-widget-shadow-root-enabled="true"
-          style="display: block"
-        ></div>
+      {%- comment -%} ============ RIGHT CARD: SHARE & EARN + REFERRAL ============ {%- endcomment -%}
+      <div class="tstn-earn__panel tstn-earn__panel--share">
+
+        {%- comment -%} Share & Earn header block with image {%- endcomment -%}
+        <div class="tstn-share">
+          {%- if share_heading != blank -%}
+            <h3 class="tstn-earn__panel-title">{{ share_heading }}</h3>
+          {%- endif -%}
+
+          {%- if share_image != blank -%}
+            <div class="tstn-share__image">
+              {{ share_image | image_url: width: 1200 | image_tag: loading: 'lazy', alt: share_heading | escape }}
+            </div>
+          {%- endif -%}
+
+          {%- if share_subheading != blank -%}
+            <h4 class="tstn-share__subheading">{{ share_subheading }}</h4>
+          {%- endif -%}
+
+          {%- if share_description != blank -%}
+            <p class="tstn-share__description">{{ share_description }}</p>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} Refer A Friend inner card {%- endcomment -%}
+        <div class="tstn-refer">
+          {%- if referral_heading != blank -%}
+            <h4 class="tstn-refer__heading">{{ referral_heading }}</h4>
+          {%- endif -%}
+
+          <ol class="tstn-refer__steps">
+            {%- if referral_step_1 != blank -%}
+              <li><span class="tstn-refer__step-num">1</span><span class="tstn-refer__step-text">{{ referral_step_1 }}</span></li>
+            {%- endif -%}
+            {%- if referral_step_2 != blank -%}
+              <li><span class="tstn-refer__step-num">2</span><span class="tstn-refer__step-text">{{ referral_step_2 }}</span></li>
+            {%- endif -%}
+            {%- if referral_step_3 != blank -%}
+              <li><span class="tstn-refer__step-num">3</span><span class="tstn-refer__step-text">{{ referral_step_3 }}</span></li>
+            {%- endif -%}
+          </ol>
+
+          <div class="tstn-refer__rewards">
+            <div class="tstn-refer__reward">
+              <span class="tstn-refer__reward-label">{{ you_get_label }}</span>
+              <span class="tstn-refer__reward-value">
+                <strong>{{ you_get_value }}</strong> <em>{{ you_get_unit }}</em>
+              </span>
+            </div>
+            <div class="tstn-refer__reward-divider"></div>
+            <div class="tstn-refer__reward">
+              <span class="tstn-refer__reward-label">{{ they_get_label }}</span>
+              <span class="tstn-refer__reward-value">
+                <strong>{{ they_get_value }}</strong> <em>{{ they_get_unit }}</em>
+              </span>
+            </div>
+          </div>
+
+          {%- comment -%} Growave referral widget — link, copy, and share buttons {%- endcomment -%}
+          <div class="tstn-refer__widget">
+            <div
+              class="gw-rd-referral-program-page-widget-placeholder tstn-referral"
+              data-gw-widget-shadow-root-enabled="true"
+              style="display: block"
+            ></div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -94,15 +166,16 @@
 
 <style>
   /* ============================================
-     HEADER
+     SECTION HEADER (above the two panels)
      ============================================ */
-  .tstn-earn__header {
+  #shopify-section-{{ section_id }} .tstn-earn__header {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: clamp(28px, 4vw, 48px);
   }
 
-  .tstn-earn__heading {
+  #shopify-section-{{ section_id }} .tstn-earn__heading {
     font-family: 'Danger Neue Free Regular', sans-serif;
+    font-weight: 400;
     font-size: var(--tstn-heading-size);
     color: var(--tstn-heading-color);
     text-transform: uppercase;
@@ -111,325 +184,535 @@
     line-height: 1;
   }
 
-  .tstn-earn__subheading {
+  #shopify-section-{{ section_id }} .tstn-earn__subheading {
     color: var(--tstn-subheading-color);
-    font-size: 16px;
+    font-size: clamp(14px, 1.4vw, 16px);
     margin: 0;
     opacity: 0.85;
   }
 
   /* ============================================
-     GRID — 3 cols desktop, 2 tablet, 1 mobile
-     The referral box lives in its own grid cell next to earn cards
+     MAIN GRID — Two large panels side-by-side
      ============================================ */
-  .tstn-earn__grid {
+  #shopify-section-{{ section_id }} .tstn-earn__grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 25px;
-    align-items: start;
-  }
-
-  .tstn-earn__ways {
-    min-width: 0;
-  }
-
-  .tstn-earn__referral-slot {
-    min-width: 0;
+    gap: clamp(20px, 2vw, 28px);
+    align-items: stretch;
   }
 
   @media (min-width: 990px) {
-    .tstn-earn__grid {
-      grid-template-columns: 2fr 1fr;
+    #shopify-section-{{ section_id }} .tstn-earn__grid {
+      grid-template-columns: 1.35fr 1fr;
     }
   }
 
   /* ============================================
-     WAYS TO EARN — Growave widget overrides
+     PANEL — Outer card (both left & right)
      ============================================ */
-  .tstn-earn h2.gw-rd-page-widget-title,
-  .tstn-earn .gw-rd-page-widget-customer-balance {
+  #shopify-section-{{ section_id }} .tstn-earn__panel {
+    background: var(--tstn-card-bg);
+    border: 1px solid var(--tstn-card-border);
+    border-radius: 12px;
+    padding: clamp(20px, 2.4vw, 32px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(16px, 1.8vw, 24px);
+  }
+
+  #shopify-section-{{ section_id }} .tstn-earn__panel-title {
+    font-family: 'Danger Neue Free Regular', sans-serif;
+    font-weight: 400;
+    font-size: var(--tstn-card-title-size);
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    margin: 0;
+  }
+
+  /* ============================================
+     LEFT PANEL — WAYS TO EARN (Growave overrides)
+     ============================================ */
+
+  /* Hide Growave's default title + balance */
+  #shopify-section-{{ section_id }} .tstn-earn h2.gw-rd-page-widget-title,
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-customer-balance {
     display: none !important;
   }
 
-  .tstn-earn .gw-rd-page-widget-layout,
-  .tstn-earn .gw-rd-page-widget-container {
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-layout,
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-container {
     max-width: 100% !important;
     padding: 0 !important;
     background: transparent !important;
+    border: none !important;
   }
 
-  .tstn-earn .gw-rd-ways-to-earn-page-widget {
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-ways-to-earn-page-widget {
     background: transparent !important;
   }
 
-  /* Earn cards grid (inside the ways widget) */
-  .tstn-earn .gw-rd-list {
+  /* Earn cards grid — 2 columns */
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-list {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 20px !important;
+    gap: clamp(12px, 1.4vw, 18px) !important;
     margin: 0 !important;
     padding: 0 !important;
     list-style: none !important;
   }
 
-  .tstn-earn li.gw-rd-list__item {
+  #shopify-section-{{ section_id }} .tstn-earn li.gw-rd-list__item {
     flex: unset !important;
     width: 100% !important;
     max-width: 100% !important;
-    height: var(--tstn-card-height) !important;
     margin: 0 !important;
     padding: 0 !important;
   }
 
-  /* Earn card styling — dark gradient */
-  .tstn-earn .gw-rd-page-widget-card,
-  .tstn-earn .gw-rd-page-widget-card.svelte-3ln76z.svelte-3ln76z,
-  .tstn-earn .gw-rd-page-widget-card--cursor-pointer.svelte-3ln76z.svelte-3ln76z {
-    border-radius: 0 !important;
-    border: 1px solid var(--tstn-card-border) !important;
+  /* Individual earn card — flat dark block, icon left + text right */
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-card,
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-card.svelte-3ln76z.svelte-3ln76z,
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-card--cursor-pointer.svelte-3ln76z.svelte-3ln76z {
+    border-radius: 8px !important;
+    border: 1px solid var(--tstn-inner-border) !important;
+    background: var(--tstn-inner-card-bg) !important;
+    background-color: var(--tstn-inner-card-bg) !important;
+    box-shadow: none !important;
     color: #fff !important;
-    background: linear-gradient(135deg, var(--tstn-card-bg-start), var(--tstn-card-bg-end)) !important;
-    background-color: var(--tstn-card-bg-start) !important;
-    box-shadow: inset 0 0 0 1px rgba(254, 254, 254, 0.03) !important;
-    height: var(--tstn-card-height) !important;
+    height: auto !important;
+    min-height: 110px !important;
+    padding: clamp(16px, 1.8vw, 22px) !important;
     display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-around !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: clamp(14px, 1.5vw, 20px) !important;
     cursor: pointer;
-    overflow: hidden;
+    text-align: left !important;
   }
 
-  .tstn-earn .gw-rd-page-widget-card--completed.svelte-3ln76z.svelte-3ln76z {
-    height: var(--tstn-card-height) !important;
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-card--completed.svelte-3ln76z.svelte-3ln76z {
+    height: auto !important;
+    min-height: 110px !important;
   }
 
-  .tstn-earn .gw-rd-page-widget-card__icon,
-  .tstn-earn .gw-rd-page-widget-card__icon.svelte-3ln76z.svelte-3ln76z {
-    width: 100% !important;
-    height: 100% !important;
+  /* Icon — orange, left-aligned, fixed size */
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-card__icon,
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-card__icon.svelte-3ln76z.svelte-3ln76z {
+    width: clamp(44px, 5vw, 56px) !important;
+    height: clamp(44px, 5vw, 56px) !important;
     border-radius: 0 !important;
     background: transparent !important;
-  }
-
-  .tstn-earn .gw-image__img,
-  .tstn-earn .gw-image__img.svelte-1ijgyj3.svelte-1ijgyj3 {
-    object-fit: contain !important;
-  }
-
-  .tstn-earn .gw-image.gw-image--loaded .gw-image__img {
-    max-width: 80px !important;
-  }
-
-  /* Card body text */
-  .tstn-earn .gw-layout-text--variant-base,
-  .tstn-earn .gw-layout-text--variant-base.svelte-yjnpd {
-    font-family: 'ABC Diatype', sans-serif !important;
-    text-transform: uppercase !important;
-    font-size: 14px !important;
-    font-weight: 400 !important;
-    color: #fff !important;
-  }
-
-  /* Points pill + Completed label */
-  .tstn-earn .gw-layout-text--variant-secondary,
-  .tstn-earn .gw-layout-text--variant-secondary.svelte-yjnpd,
-  .tstn-earn .gw-rd-page-widget-action-completed,
-  .tstn-earn .gw-rd-page-widget-action-completed.svelte-1klamai {
-    font-family: 'Danger Neue Free Regular', sans-serif !important;
-    font-size: var(--tstn-card-label-size) !important;
-    text-transform: uppercase !important;
-    color: #fff !important;
-    background: var(--tstn-label-bg) !important;
-    width: 100%;
-    display: block !important;
-    padding: 10px 0;
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    line-height: normal !important;
-    box-shadow: 0 2px 5px 0 rgba(255, 255, 255, 0.15) !important;
-  }
-
-  .tstn-earn .gw-rd-page-widget-action-completed,
-  .tstn-earn .gw-rd-page-widget-action-completed.svelte-1klamai {
-    display: flex !important;
-    justify-content: center;
-    align-items: center;
-    background: var(--tstn-completed-bg) !important;
-    padding: 20px 0;
-  }
-
-  /* Accent elements */
-  .tstn-earn .gw-rd-icon-branding-color {
+    flex: 0 0 auto !important;
     color: var(--tstn-accent) !important;
-    border: 1px solid #fff;
-    border-radius: 50%;
   }
 
-  .tstn-earn .gw-rd-icon-branding-color rect {
+  #shopify-section-{{ section_id }} .tstn-earn .gw-image__img,
+  #shopify-section-{{ section_id }} .tstn-earn .gw-image__img.svelte-1ijgyj3.svelte-1ijgyj3 {
+    object-fit: contain !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    filter: none !important;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-earn .gw-image.gw-image--loaded .gw-image__img {
+    max-width: 100% !important;
+  }
+
+  /* Right side of card — text content stack */
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-card .gw-layout-stack,
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-card .gw-layout-block {
+    flex: 1 1 auto !important;
+    text-align: left !important;
+    align-items: flex-start !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+  }
+
+  /* Card title text — uppercase white */
+  #shopify-section-{{ section_id }} .tstn-earn .gw-layout-text--variant-base,
+  #shopify-section-{{ section_id }} .tstn-earn .gw-layout-text--variant-base.svelte-yjnpd {
+    font-family: 'Inter', 'ABC Diatype', -apple-system, sans-serif !important;
+    font-weight: 700 !important;
+    font-size: clamp(13px, 1.1vw, 14px) !important;
+    color: #fff !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.04em !important;
+    line-height: 1.35 !important;
+    text-align: left !important;
+    background: transparent !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    width: auto !important;
+    display: block !important;
+  }
+
+  /* Points value — large orange Danger Neue */
+  #shopify-section-{{ section_id }} .tstn-earn .gw-layout-text--variant-secondary,
+  #shopify-section-{{ section_id }} .tstn-earn .gw-layout-text--variant-secondary.svelte-yjnpd {
+    font-family: 'Danger Neue Free Regular', sans-serif !important;
+    font-weight: 400 !important;
+    font-size: var(--tstn-points-size) !important;
+    color: var(--tstn-accent) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.02em !important;
+    line-height: 1 !important;
+    background: transparent !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    width: auto !important;
+    display: inline-block !important;
+    text-align: left !important;
+  }
+
+  /* Make "POINTS" text smaller & white inside the points value (Growave outputs both as one block — handled via clever inline via secondary color) */
+  /* Completed pill — minimal, no background block */
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-action-completed,
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-action-completed.svelte-1klamai {
+    font-family: 'Inter', 'ABC Diatype', -apple-system, sans-serif !important;
+    font-weight: 600 !important;
+    font-size: clamp(12px, 1vw, 13px) !important;
+    color: #c9c9c9 !important;
+    background: transparent !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.06em !important;
+    width: auto !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+  }
+
+  /* Accent/branding overrides */
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-icon-branding-color {
+    color: var(--tstn-accent) !important;
+    border: none !important;
+    border-radius: 0 !important;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-icon-branding-color rect,
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-icon-branding-color path {
     fill: var(--tstn-accent) !important;
   }
 
-  .tstn-earn .gw-btn--reset.gw-rd-action-btn--secondary:hover {
+  #shopify-section-{{ section_id }} .tstn-earn .gw-btn--reset.gw-rd-action-btn--secondary:hover {
     background-color: var(--tstn-accent) !important;
   }
 
-  .tstn-earn .gw-rd-page-widget-modal-body__title {
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-modal-body__title {
     font-family: 'Danger Neue Free Regular', sans-serif !important;
     text-transform: uppercase !important;
   }
 
   /* ============================================
-     REFERRAL BOX — Styled like a dark earn card
+     RIGHT PANEL — SHARE & EARN
      ============================================ */
-  .tstn-earn__referral-slot {
-    height: 100%;
+  #shopify-section-{{ section_id }} .tstn-share {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(12px, 1.4vw, 18px);
   }
 
-  .tstn-earn .tstn-referral {
-    width: 100% !important;
+  #shopify-section-{{ section_id }} .tstn-share__image {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    aspect-ratio: 16 / 9;
+    background: #111;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-share__image img {
+    width: 100%;
     height: 100%;
+    object-fit: cover;
     display: block;
   }
 
-  /* Hide Growave's default referral title + benefits */
-  .tstn-earn .tstn-referral .gw-rd-page-widget-title,
-  .tstn-earn .tstn-referral .gw-rd-page-widget-title.svelte-tmdh8j,
-  .tstn-earn .tstn-referral .gw-rd-referral-program-page-widget__benefits {
-    display: none !important;
-  }
-
-  /* Make the referral widget container into a dark card */
-  .tstn-earn .tstn-referral .gw-rd-page-widget-container,
-  .tstn-earn .tstn-referral .gw-rd-page-widget-container.svelte-1mnbt6f {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 50px 20px 20px !important;
-    background: linear-gradient(135deg, var(--tstn-card-bg-start), var(--tstn-card-bg-end)) !important;
-    border: 1px solid var(--tstn-card-border) !important;
-    border-radius: 0 !important;
-    box-shadow: inset 0 0 0 1px rgba(254, 254, 254, 0.03) !important;
-    position: relative;
-  }
-
-  /* Custom referral heading */
-  .tstn-earn .tstn-referral .gw-rd-page-widget-container::before {
-    content: '{{ referral_heading | escape }}';
-    display: block;
-    position: absolute;
-    top: 20px;
-    left: 0;
-    right: 0;
-    color: var(--tstn-accent);
-    text-align: center;
-    font-size: 30px;
-    font-family: 'Danger Neue Free Regular', sans-serif;
+  #shopify-section-{{ section_id }} .tstn-share__subheading {
+    font-family: 'Inter', 'ABC Diatype', -apple-system, sans-serif;
+    font-weight: 700;
+    font-size: clamp(14px, 1.2vw, 16px);
+    color: #fff;
     text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
+    line-height: 1.3;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-share__description {
+    font-family: 'Inter', 'ABC Diatype', -apple-system, sans-serif;
+    font-size: clamp(13px, 1.1vw, 14px);
+    color: var(--tstn-subheading-color);
+    margin: 0;
+    line-height: 1.55;
+    opacity: 0.85;
+  }
+
+  /* ============================================
+     REFER A FRIEND — Inner Card
+     ============================================ */
+  #shopify-section-{{ section_id }} .tstn-refer {
+    background: var(--tstn-inner-card-bg);
+    border: 1px solid var(--tstn-inner-border);
+    border-radius: 8px;
+    padding: clamp(18px, 2vw, 26px);
+    display: flex;
+    flex-direction: column;
+    gap: clamp(14px, 1.6vw, 20px);
+  }
+
+  #shopify-section-{{ section_id }} .tstn-refer__heading {
+    font-family: 'Danger Neue Free Regular', sans-serif;
+    font-weight: 400;
+    font-size: clamp(20px, 2vw, 26px);
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
     line-height: 1;
   }
 
-  /* Custom referral subtext */
-  .tstn-earn .tstn-referral .gw-rd-page-widget-container::after {
-    content: '{{ referral_subtext | escape }}';
-    display: block;
-    margin-top: 16px;
-    text-align: center;
-    width: 100%;
-    text-transform: uppercase;
-    color: #fff;
-    font-family: 'Danger Neue Free Regular', sans-serif !important;
-    font-size: 13px;
-    line-height: 1.4;
-    letter-spacing: 0.02em;
+  /* Numbered steps */
+  #shopify-section-{{ section_id }} .tstn-refer__steps {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 1vw, 12px);
   }
 
-  .tstn-earn .tstn-referral .gw-rd-referral-program-page-widget {
+  #shopify-section-{{ section_id }} .tstn-refer__steps li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #d8d8d8;
+    font-family: 'Inter', 'ABC Diatype', -apple-system, sans-serif;
+    font-size: clamp(13px, 1.1vw, 14px);
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-refer__step-num {
+    flex: 0 0 auto;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid var(--tstn-accent);
+    color: var(--tstn-accent);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-refer__step-text {
+    flex: 1 1 auto;
+  }
+
+  /* Reward boxes — You Get / They Get */
+  #shopify-section-{{ section_id }} .tstn-refer__rewards {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    border: 1px solid var(--tstn-inner-border);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.015);
+    overflow: hidden;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-refer__reward {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: clamp(14px, 1.6vw, 18px);
+  }
+
+  #shopify-section-{{ section_id }} .tstn-refer__reward-label {
+    font-family: 'Inter', 'ABC Diatype', -apple-system, sans-serif;
+    font-weight: 700;
+    font-size: clamp(11px, 1vw, 12px);
+    color: #b8b8b8;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-refer__reward-value {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-refer__reward-value strong {
+    font-family: 'Danger Neue Free Regular', sans-serif;
+    font-weight: 400;
+    font-size: clamp(20px, 2vw, 24px);
+    color: var(--tstn-accent);
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-refer__reward-value em {
+    font-style: normal;
+    font-family: 'Inter', 'ABC Diatype', -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: clamp(11px, 1vw, 13px);
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-refer__reward-divider {
+    width: 1px;
+    height: 60%;
+    background: var(--tstn-inner-border);
+  }
+
+  /* ============================================
+     REFERRAL WIDGET (Growave) — copy field & socials
+     ============================================ */
+  #shopify-section-{{ section_id }} .tstn-refer__widget {
+    margin-top: 0;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-page-widget-title,
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-page-widget-title.svelte-tmdh8j,
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-referral-program-page-widget__benefits {
+    display: none !important;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-page-widget-container,
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-page-widget-container.svelte-1mnbt6f {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-referral-program-page-widget {
     width: 100% !important;
     margin: 0 !important;
     background: transparent !important;
     border: none !important;
   }
 
-  /* Referral inner text */
-  .tstn-earn .tstn-referral .gw-layout-text--variant-secondary,
-  .tstn-earn .tstn-referral .gw-layout-text--variant-primary {
-    font-family: 'Danger Neue Free Regular', sans-serif !important;
-    text-transform: uppercase !important;
-    font-size: 15px !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 4px 0 !important;
+  /* Copy field */
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-text-field {
+    border: 1px solid var(--tstn-inner-border) !important;
+    border-radius: 8px !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    overflow: hidden !important;
   }
 
-  .tstn-earn .tstn-referral .gw-layout-text--variant-secondary {
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-copy-field .gw-rd-text-field .gw-rd-text-field__input {
+    color: #cfcfcf !important;
+    font-family: 'Inter', 'ABC Diatype', monospace !important;
+    font-size: clamp(12px, 1vw, 13px) !important;
+    background: transparent !important;
+    padding: 12px 14px !important;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-copy-icon-btn {
+    background: rgba(255, 255, 255, 0.04) !important;
+    border-left: 1px solid var(--tstn-inner-border) !important;
+    border-radius: 0 !important;
+    transition: background 0.2s ease;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-copy-icon-btn:hover {
+    background: var(--tstn-accent) !important;
+  }
+
+  /* Social share buttons row */
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-popup-widget-referral-program__social,
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-referral-program-page-widget__social {
+    margin-top: clamp(14px, 1.6vw, 18px) !important;
+    display: flex !important;
+    justify-content: center !important;
+    gap: 10px !important;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-share-btn {
+    width: 38px !important;
+    height: 38px !important;
+    border-radius: 50% !important;
+    background: rgba(255, 255, 255, 0.06) !important;
+    border: 1px solid var(--tstn-inner-border) !important;
+    transition: all 0.2s ease !important;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-share-btn:hover {
+    background: var(--tstn-accent) !important;
+    border-color: var(--tstn-accent) !important;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-share-btn svg,
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-share-btn path {
+    fill: #fff !important;
     color: #fff !important;
   }
 
-  .tstn-earn .tstn-referral .gw-layout-text--variant-primary {
-    color: var(--tstn-accent) !important;
+  /* Hide the redundant "You Get / They Get" box from Growave (we built our own above) */
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-popup-widget-referral-program__reward {
+    display: none !important;
   }
 
-  .tstn-earn .gw-rd-copy-field .gw-rd-text-field .gw-rd-text-field__input {
-    color: var(--tstn-accent) !important;
-  }
-
-  .tstn-earn .gw-rd-popup-widget-referral-program__reward {
-    border: 1px solid var(--tstn-card-border) !important;
-  }
-
-  .tstn-earn .gw-rd-text-field {
-    border: 1px solid var(--tstn-card-border) !important;
-  }
-
-  .tstn-earn .gw-rd-copy-icon-btn {
-    background: #5b5b5b !important;
-  }
-
-  .tstn-earn .gw-tooltip-content.gw-tooltip-light {
-    background: #5b5b5b;
+  /* Tooltip */
+  #shopify-section-{{ section_id }} .tstn-earn .gw-tooltip-content.gw-tooltip-light {
+    background: #2a2a2a !important;
+    color: #fff !important;
   }
 
   /* ============================================
      RESPONSIVE
      ============================================ */
   @media (max-width: 989px) {
-    .tstn-earn .gw-rd-list {
+    #shopify-section-{{ section_id }} .tstn-earn .gw-rd-list {
       grid-template-columns: repeat(2, 1fr) !important;
     }
   }
 
-  @media (max-width: 767px) {
-    .tstn-earn__heading {
+  @media (max-width: 749px) {
+    #shopify-section-{{ section_id }} .tstn-earn__heading {
       font-size: var(--tstn-heading-size-mobile);
     }
 
-    .tstn-earn__grid {
-      gap: 20px;
+    #shopify-section-{{ section_id }} .tstn-earn__grid {
+      gap: 16px;
     }
 
-    .tstn-earn .gw-rd-list {
+    #shopify-section-{{ section_id }} .tstn-earn .gw-rd-list {
       grid-template-columns: 1fr !important;
-      gap: 20px !important;
+      gap: 12px !important;
     }
 
-    .tstn-earn li.gw-rd-list__item,
-    .tstn-earn .gw-rd-page-widget-card,
-    .tstn-earn .gw-rd-page-widget-card.svelte-3ln76z.svelte-3ln76z {
-      height: var(--tstn-card-height-mobile) !important;
+    #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-card,
+    #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-card.svelte-3ln76z.svelte-3ln76z {
+      min-height: 96px !important;
+      padding: 16px !important;
     }
 
-    .tstn-earn .gw-rd-page-widget-card,
-    .tstn-earn .gw-rd-page-widget-card.svelte-3ln76z.svelte-3ln76z {
-      padding: 10px !important;
+    #shopify-section-{{ section_id }} .tstn-refer__rewards {
+      grid-template-columns: 1fr;
     }
 
-    .tstn-earn .gw-layout-text--variant-secondary,
-    .tstn-earn .gw-rd-page-widget-action-completed {
-      font-size: 18px !important;
-      padding: 11px 0 !important;
-    }
-
-    .tstn-earn .gw-image.gw-image--loaded .gw-image__img {
-      max-width: 56px !important;
+    #shopify-section-{{ section_id }} .tstn-refer__reward-divider {
+      width: 100%;
+      height: 1px;
     }
   }
 </style>
@@ -442,7 +725,7 @@
   "settings": [
     {
       "type": "header",
-      "content": "Heading"
+      "content": "Section Heading"
     },
     {
       "type": "textarea",
@@ -479,7 +762,60 @@
 
     {
       "type": "header",
-      "content": "Referral Card"
+      "content": "Left Panel — Card Titles"
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "min": 14,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "label": "Panel Title Size",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "points_size",
+      "min": 18,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Points Number Size",
+      "default": 28
+    },
+
+    {
+      "type": "header",
+      "content": "Right Panel — Share & Earn"
+    },
+    {
+      "type": "text",
+      "id": "share_heading",
+      "label": "Share Panel Title",
+      "default": "SHARE & EARN"
+    },
+    {
+      "type": "image_picker",
+      "id": "share_image",
+      "label": "Share Image"
+    },
+    {
+      "type": "text",
+      "id": "share_subheading",
+      "label": "Share Subheading",
+      "default": "SHARE THE JOY OF SHOPPING WITH FRIENDS"
+    },
+    {
+      "type": "textarea",
+      "id": "share_description",
+      "label": "Share Description",
+      "default": "Give your friends a discount on their first purchase, and receive a reward for each successful referral!"
+    },
+
+    {
+      "type": "header",
+      "content": "Refer A Friend"
     },
     {
       "type": "text",
@@ -489,14 +825,57 @@
     },
     {
       "type": "text",
-      "id": "referral_subtext",
-      "label": "Referral Reward Text",
-      "default": "You get 500 points once your friend makes a purchase"
+      "id": "referral_step_1",
+      "label": "Step 1",
+      "default": "Copy the referral link"
     },
     {
-      "type": "image_picker",
-      "id": "referral_image",
-      "label": "Referral Image (optional)"
+      "type": "text",
+      "id": "referral_step_2",
+      "label": "Step 2",
+      "default": "Share it with your friends"
+    },
+    {
+      "type": "text",
+      "id": "referral_step_3",
+      "label": "Step 3",
+      "default": "Earn rewards for each friend who joins"
+    },
+    {
+      "type": "text",
+      "id": "you_get_label",
+      "label": "You Get — Label",
+      "default": "YOU GET"
+    },
+    {
+      "type": "text",
+      "id": "you_get_value",
+      "label": "You Get — Value",
+      "default": "500"
+    },
+    {
+      "type": "text",
+      "id": "you_get_unit",
+      "label": "You Get — Unit",
+      "default": "POINTS"
+    },
+    {
+      "type": "text",
+      "id": "they_get_label",
+      "label": "They Get — Label",
+      "default": "THEY GET"
+    },
+    {
+      "type": "text",
+      "id": "they_get_value",
+      "label": "They Get — Value",
+      "default": "$5"
+    },
+    {
+      "type": "text",
+      "id": "they_get_unit",
+      "label": "They Get — Unit",
+      "default": "OFF DISCOUNT"
     },
 
     {
@@ -507,96 +886,55 @@
       "type": "color",
       "id": "section_bg",
       "label": "Section Background",
-      "default": "#000000"
+      "default": "#0a0a0a"
     },
     {
       "type": "color",
       "id": "heading_color",
-      "label": "Heading Color",
+      "label": "Section Heading Color",
       "default": "#FFFFFF"
     },
     {
       "type": "color",
       "id": "subheading_color",
-      "label": "Subheading Color",
+      "label": "Subheading / Body Text",
       "default": "#CCCCCC"
     },
     {
       "type": "color",
       "id": "accent_color",
-      "label": "Accent Color",
-      "default": "#EC560A"
+      "label": "Accent Color (Orange)",
+      "default": "#ff6a1a"
     },
     {
       "type": "color",
-      "id": "card_bg_start",
-      "label": "Card Background (Start)",
-      "default": "#0E0E0E"
+      "id": "card_bg",
+      "label": "Outer Panel Background",
+      "default": "#0e0e0e"
     },
     {
       "type": "color",
-      "id": "card_bg_end",
-      "label": "Card Background (End)",
-      "default": "#141414"
+      "id": "inner_card_bg",
+      "label": "Inner Card Background",
+      "default": "#161616"
     },
     {
       "type": "color",
       "id": "card_border_color",
-      "label": "Card Border Color",
-      "default": "#303030"
+      "label": "Outer Panel Border",
+      "default": "#262626"
     },
     {
       "type": "color",
-      "id": "label_bg_color",
-      "label": "Card Label Background",
-      "default": "#1A1A1A"
-    },
-    {
-      "type": "color",
-      "id": "completed_bg_color",
-      "label": "Completed Card Background",
-      "default": "#EC560A"
+      "id": "inner_border_color",
+      "label": "Inner Card Border",
+      "default": "#2a2a2a"
     },
     {
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "Color Scheme",
       "default": "scheme-1"
-    },
-
-    {
-      "type": "header",
-      "content": "Card Settings"
-    },
-    {
-      "type": "range",
-      "id": "card_label_font_size",
-      "min": 14,
-      "max": 48,
-      "step": 2,
-      "unit": "px",
-      "label": "Card Label Size",
-      "default": 30
-    },
-    {
-      "type": "range",
-      "id": "card_height",
-      "min": 200,
-      "max": 500,
-      "step": 10,
-      "unit": "px",
-      "label": "Card Height (Desktop)",
-      "default": 330
-    },
-    {
-      "type": "range",
-      "id": "card_height_mobile",
-      "min": 160,
-      "max": 400,
-      "step": 10,
-      "unit": "px",
-      "label": "Card Height (Mobile)",
-      "default": 220
     },
 
     {
