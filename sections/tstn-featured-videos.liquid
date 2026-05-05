@@ -1,7 +1,9 @@
 {% comment %}
   TSTN Featured Videos
-  - Left: large primary video card + 3 smaller video list items on the right
-  - Right: "Members Only" CTA card with checkmark perks list, decorative lock
+  - Login-gated: if customer is logged in -> videos are playable
+                 if not logged in -> a lock overlay covers the video area with a
+                 "Members Only" prompt and a Join CTA
+  - Right-side Members Only card is always visible as a sales pitch
 {% endcomment %}
 
 <style>
@@ -43,6 +45,7 @@
     border: 1px solid var(--tstn-border);
     border-radius: 16px;
     padding: clamp(24px, 3vw, 32px);
+    position: relative;
   }
   .tstn-fv__head {
     display: flex;
@@ -72,10 +75,22 @@
   .tstn-fv__viewall svg { transition: transform 0.2s ease; }
   .tstn-fv__viewall:hover svg { transform: translateX(4px); }
 
+  /* Wrap that holds either the video grid OR the gate */
+  .tstn-fv__body {
+    position: relative;
+  }
+
   .tstn-fv__grid {
     display: grid;
     grid-template-columns: 1.4fr 1fr;
     gap: clamp(16px, 2vw, 24px);
+  }
+
+  /* When gate is active we blur/dim the grid behind it */
+  .tstn-fv__body--gated .tstn-fv__grid {
+    filter: blur(6px) brightness(0.5);
+    pointer-events: none;
+    user-select: none;
   }
 
   /* Main video */
@@ -220,7 +235,119 @@
     color: var(--tstn-muted);
   }
 
-  /* ----- Members Only card ----- */
+  /* ----- Login Gate Overlay ----- */
+  .tstn-fv__gate {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    padding: 16px;
+  }
+  .tstn-fv__gate-card {
+    background: rgba(17, 17, 17, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--tstn-border);
+    border-radius: 16px;
+    padding: clamp(28px, 3vw, 40px);
+    max-width: 460px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .tstn-fv__gate-card::before {
+    content: "";
+    position: absolute;
+    right: -40px;
+    bottom: -40px;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, rgba(245,99,0,0.18) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .tstn-fv__gate-lock {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(245,99,0,0.15);
+    border: 1px solid rgba(245,99,0,0.4);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tstn-orange);
+    margin-bottom: 18px;
+    position: relative;
+    z-index: 2;
+  }
+  .tstn-fv__gate-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--tstn-orange);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 2;
+  }
+  .tstn-fv__gate-title {
+    font-family: var(--tstn-font-display);
+    font-weight: 400;
+    font-size: clamp(24px, 2.6vw, 32px);
+    line-height: 1.1;
+    margin: 0 0 10px;
+    color: var(--tstn-text);
+    letter-spacing: 0.4px;
+    position: relative;
+    z-index: 2;
+  }
+  .tstn-fv__gate-text {
+    font-size: 14px;
+    color: var(--tstn-muted);
+    line-height: 1.5;
+    margin: 0 0 22px;
+    position: relative;
+    z-index: 2;
+  }
+  .tstn-fv__gate-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+  }
+  .tstn-fv__gate-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.25s ease;
+    border: 1px solid transparent;
+    line-height: 1;
+  }
+  .tstn-fv__gate-btn--primary {
+    background: var(--tstn-orange);
+    color: #fff;
+  }
+  .tstn-fv__gate-btn--primary:hover { background: var(--tstn-orange-hover); transform: translateY(-2px); }
+  .tstn-fv__gate-btn--ghost {
+    background: transparent;
+    color: var(--tstn-text);
+    border-color: rgba(255,255,255,0.3);
+  }
+  .tstn-fv__gate-btn--ghost:hover { background: var(--tstn-text); color: var(--tstn-bg); }
+
+  /* ----- Members Only card (sidebar) ----- */
   .tstn-mo {
     background: var(--tstn-card-bg);
     border: 1px solid var(--tstn-border);
@@ -324,6 +451,8 @@
     .tstn-fv__head { flex-direction: column; align-items: flex-start; gap: 10px; }
     .tstn-fv__item { grid-template-columns: 100px 1fr; gap: 10px; }
     .tstn-fv__item-title { font-size: 16px; }
+    .tstn-fv__gate-actions { flex-direction: column; }
+    .tstn-fv__gate-btn { width: 100%; justify-content: center; }
   }
 </style>
 
@@ -343,58 +472,116 @@
         </a>
       </div>
 
-      <div class="tstn-fv__grid">
+      {%- comment -%}
+        Login gate logic
+        - customer  -> logged in, render normal grid (clickable)
+        - !customer -> render grid as decoration + lock overlay
+      {%- endcomment -%}
 
-        <!-- Main video -->
-        <a href="{{ section.settings.main_link | default: '#' }}" class="tstn-fv__main">
-          {% if section.settings.main_image %}
-            <img src="{{ section.settings.main_image | image_url: width: 800 }}" alt="{{ section.settings.main_title }}">
-          {% else %}
-            <div style="width:100%;height:100%;background:linear-gradient(135deg,#222,#111);"></div>
-          {% endif %}
-          <div class="tstn-fv__play">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <polygon points="6,4 20,12 6,20"/>
-            </svg>
+      <div class="tstn-fv__body {% if customer == nil %}tstn-fv__body--gated{% endif %}">
+
+        <div class="tstn-fv__grid">
+
+          <!-- Main video -->
+          {%- if customer -%}
+            <a href="{{ section.settings.main_link | default: '#' }}" class="tstn-fv__main">
+          {%- else -%}
+            <div class="tstn-fv__main" aria-hidden="true">
+          {%- endif -%}
+            {% if section.settings.main_image %}
+              <img src="{{ section.settings.main_image | image_url: width: 800 }}" alt="{{ section.settings.main_title }}">
+            {% else %}
+              <div style="width:100%;height:100%;background:linear-gradient(135deg,#222,#111);"></div>
+            {% endif %}
+            <div class="tstn-fv__play">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="6,4 20,12 6,20"/>
+              </svg>
+            </div>
+            <div class="tstn-fv__main-info">
+              <h3 class="tstn-fv__main-title">{{ section.settings.main_title | default: 'The Mindset That Changes Everything' }}</h3>
+              <div class="tstn-fv__main-meta">
+                <span>{{ section.settings.main_author | default: 'By Pratham Mittal' }}</span>
+                <span>{{ section.settings.main_duration | default: '12:45' }}</span>
+              </div>
+            </div>
+          {%- if customer -%}
+            </a>
+          {%- else -%}
+            </div>
+          {%- endif -%}
+
+          <!-- Side list -->
+          <div class="tstn-fv__list">
+            {% for block in section.blocks %}
+              {% if block.type == 'video_item' %}
+                {%- if customer -%}
+                  <a href="{{ block.settings.link | default: '#' }}" class="tstn-fv__item" {{ block.shopify_attributes }}>
+                {%- else -%}
+                  <div class="tstn-fv__item" {{ block.shopify_attributes }} aria-hidden="true">
+                {%- endif -%}
+                  <div class="tstn-fv__thumb">
+                    {% if block.settings.image %}
+                      <img src="{{ block.settings.image | image_url: width: 300 }}" alt="{{ block.settings.title }}">
+                    {% else %}
+                      <div style="width:100%;height:100%;background:linear-gradient(135deg,#333,#1a1a1a);"></div>
+                    {% endif %}
+                    <div class="tstn-fv__thumb-play">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="#000">
+                        <polygon points="6,4 20,12 6,20"/>
+                      </svg>
+                    </div>
+                    {% if block.settings.duration != blank %}
+                      <span class="tstn-fv__thumb-duration">{{ block.settings.duration }}</span>
+                    {% endif %}
+                  </div>
+                  <div class="tstn-fv__item-info">
+                    <h4 class="tstn-fv__item-title">{{ block.settings.title }}</h4>
+                    <span class="tstn-fv__item-meta">{{ block.settings.author }}</span>
+                    <span class="tstn-fv__item-time">{{ block.settings.time }}</span>
+                  </div>
+                {%- if customer -%}
+                  </a>
+                {%- else -%}
+                  </div>
+                {%- endif -%}
+              {% endif %}
+            {% endfor %}
           </div>
-          <div class="tstn-fv__main-info">
-            <h3 class="tstn-fv__main-title">{{ section.settings.main_title | default: 'The Mindset That Changes Everything' }}</h3>
-            <div class="tstn-fv__main-meta">
-              <span>{{ section.settings.main_author | default: 'By Pratham Mittal' }}</span>
-              <span>{{ section.settings.main_duration | default: '12:45' }}</span>
+
+        </div>
+
+        {%- comment -%} Login gate overlay (only renders for logged-out users) {%- endcomment -%}
+        {% unless customer %}
+          <div class="tstn-fv__gate">
+            <div class="tstn-fv__gate-card">
+              <div class="tstn-fv__gate-lock">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <div class="tstn-fv__gate-pill">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1l3 6 6 .9-4.5 4.4 1 6.3L12 15.8 6.5 18.6l1-6.3L3 7.9 9 7l3-6z"/></svg>
+                {{ section.settings.gate_pill | default: 'MEMBERS ONLY' }}
+              </div>
+              <h3 class="tstn-fv__gate-title">{{ section.settings.gate_title | default: 'Unlock Exclusive Content & Perks' }}</h3>
+              <p class="tstn-fv__gate-text">{{ section.settings.gate_text | default: 'Sign in or join TSTN Club to watch exclusive videos, get in-depth blogs, live sessions, member discounts and early access to events.' }}</p>
+              <div class="tstn-fv__gate-actions">
+                <a href="{{ section.settings.gate_join_link | default: '/account/register' }}" class="tstn-fv__gate-btn tstn-fv__gate-btn--primary">
+                  {{ section.settings.gate_join_text | default: 'Join TSTN Club' }}
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
+                </a>
+                <a href="{{ section.settings.gate_login_link | default: '/account/login' }}" class="tstn-fv__gate-btn tstn-fv__gate-btn--ghost">
+                  {{ section.settings.gate_login_text | default: 'Login' }}
+                </a>
+              </div>
             </div>
           </div>
-        </a>
-
-        <!-- Side list -->
-        <div class="tstn-fv__list">
-          {% for block in section.blocks %}
-            {% if block.type == 'video_item' %}
-              <a href="{{ block.settings.link | default: '#' }}" class="tstn-fv__item" {{ block.shopify_attributes }}>
-                <div class="tstn-fv__thumb">
-                  {% if block.settings.image %}
-                    <img src="{{ block.settings.image | image_url: width: 300 }}" alt="{{ block.settings.title }}">
-                  {% else %}
-                    <div style="width:100%;height:100%;background:linear-gradient(135deg,#333,#1a1a1a);"></div>
-                  {% endif %}
-                  <div class="tstn-fv__thumb-play">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="#000">
-                      <polygon points="6,4 20,12 6,20"/>
-                    </svg>
-                  </div>
-                  {% if block.settings.duration != blank %}
-                    <span class="tstn-fv__thumb-duration">{{ block.settings.duration }}</span>
-                  {% endif %}
-                </div>
-                <div class="tstn-fv__item-info">
-                  <h4 class="tstn-fv__item-title">{{ block.settings.title }}</h4>
-                  <span class="tstn-fv__item-meta">{{ block.settings.author }}</span>
-                  <span class="tstn-fv__item-time">{{ block.settings.time }}</span>
-                </div>
-              </a>
-            {% endif %}
-          {% endfor %}
-        </div>
+        {% endunless %}
 
       </div>
     </div>
@@ -420,13 +607,19 @@
         {% endfor %}
       </ul>
 
-      <a href="{{ section.settings.mo_cta_link | default: '#' }}" class="tstn-mo__btn">
-        {{ section.settings.mo_cta_text | default: 'Join TSTN Club' }}
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-          <polyline points="12 5 19 12 12 19"></polyline>
-        </svg>
-      </a>
+      {%- comment -%}
+        If the customer is already logged in we hide the Join CTA on the
+        sidebar card (no point showing it). They still see the perks list.
+      {%- endcomment -%}
+      {% unless customer %}
+        <a href="{{ section.settings.mo_cta_link | default: '/account/register' }}" class="tstn-mo__btn">
+          {{ section.settings.mo_cta_text | default: 'Join TSTN Club' }}
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      {% endunless %}
 
       <!-- Decorative lock -->
       <svg class="tstn-mo__lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
@@ -452,7 +645,15 @@
     { "type": "text", "id": "main_author", "label": "Author/By line", "default": "By Pratham Mittal" },
     { "type": "text", "id": "main_duration", "label": "Duration", "default": "12:45" },
     { "type": "url", "id": "main_link", "label": "Video Link" },
-    { "type": "header", "content": "Members Only Card" },
+    { "type": "header", "content": "Login Gate (shown to logged-out users)" },
+    { "type": "text", "id": "gate_pill", "label": "Pill Label", "default": "MEMBERS ONLY" },
+    { "type": "text", "id": "gate_title", "label": "Title", "default": "Unlock Exclusive Content & Perks" },
+    { "type": "textarea", "id": "gate_text", "label": "Description", "default": "Sign in or join TSTN Club to watch exclusive videos, get in-depth blogs, live sessions, member discounts and early access to events." },
+    { "type": "text", "id": "gate_join_text", "label": "Join Button Text", "default": "Join TSTN Club" },
+    { "type": "url", "id": "gate_join_link", "label": "Join Button Link" },
+    { "type": "text", "id": "gate_login_text", "label": "Login Button Text", "default": "Login" },
+    { "type": "url", "id": "gate_login_link", "label": "Login Button Link" },
+    { "type": "header", "content": "Members Only Sidebar Card" },
     { "type": "text", "id": "mo_pill", "label": "Pill", "default": "MEMBERS ONLY" },
     { "type": "text", "id": "mo_title", "label": "Title", "default": "Unlock Exclusive Content & Perks" },
     { "type": "text", "id": "mo_cta_text", "label": "CTA", "default": "Join TSTN Club" },
