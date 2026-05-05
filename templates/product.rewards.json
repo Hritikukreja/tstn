@@ -279,6 +279,9 @@
         "tier_tJ7XqD",
         "tier_efpDUV"
       ],
+      "custom_css": [
+        ".tstn-tier-card__desc {font-size: 18px;}"
+      ],
       "name": "TSTN Tiers",
       "settings": {
         "heading": "THE TIERS",
@@ -286,7 +289,7 @@
         "bg_color": "#0a0a0a",
         "accent_color": "#ff6a1a",
         "text_color": "#ffffff",
-        "muted_color": "#b8b8b8",
+        "muted_color": "#ffffff",
         "card_bg_color": "#111111",
         "card_border_color": "#1f1f1f",
         "padding_y": 96
