@@ -1,0 +1,463 @@
+{% comment %}
+  TSTN Tiers Section
+  - Premium loyalty tiers display
+  - Topographic background, glowing badge cards
+  - Fully editable via theme editor blocks
+{% endcomment %}
+
+<section
+  id="shopify-section-{{ section.id }}"
+  class="tstn-tiers"
+  style="
+    --tt-bg: {{ section.settings.bg_color }};
+    --tt-accent: {{ section.settings.accent_color }};
+    --tt-text: {{ section.settings.text_color }};
+    --tt-muted: {{ section.settings.muted_color }};
+    --tt-card-bg: {{ section.settings.card_bg_color }};
+    --tt-card-border: {{ section.settings.card_border_color }};
+    --tt-pad-y: {{ section.settings.padding_y }}px;
+  "
+>
+  <div class="tstn-tiers__inner">
+    {% if section.settings.heading != blank %}
+      <h2 class="tstn-tiers__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="tstn-tiers__divider" aria-hidden="true">
+      <span class="tstn-tiers__divider-line"></span>
+      <span class="tstn-tiers__divider-mark">▾</span>
+      <span class="tstn-tiers__divider-line"></span>
+    </div>
+
+    {% if section.settings.subheading != blank %}
+      <p class="tstn-tiers__subheading">{{ section.settings.subheading }}</p>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="tstn-tiers__grid">
+        {% for block in section.blocks %}
+          {% if block.type == 'tier' %}
+            <article class="tstn-tier-card" {{ block.shopify_attributes }}>
+              <div class="tstn-tier-card__badge-wrap">
+                {% if block.settings.badge_image != blank %}
+                  <img
+                    src="{{ block.settings.badge_image | image_url: width: 600 }}"
+                    alt="{{ block.settings.title | escape }} badge"
+                    class="tstn-tier-card__badge"
+                    loading="lazy"
+                    width="280"
+                    height="280"
+                  >
+                {% else %}
+                  <div class="tstn-tier-card__badge tstn-tier-card__badge--placeholder">
+                    {{ 'image' | placeholder_svg_tag }}
+                  </div>
+                {% endif %}
+              </div>
+
+              {% if block.settings.title != blank %}
+                <h3 class="tstn-tier-card__title">{{ block.settings.title }}</h3>
+              {% endif %}
+
+              <div class="tstn-tier-card__divider" aria-hidden="true">
+                <span class="tstn-tier-card__divider-line"></span>
+                <span class="tstn-tier-card__divider-mark">▾</span>
+                <span class="tstn-tier-card__divider-line"></span>
+              </div>
+
+              {% if block.settings.description != blank %}
+                <p class="tstn-tier-card__desc">{{ block.settings.description }}</p>
+              {% endif %}
+
+              <span class="tstn-tier-card__glow" aria-hidden="true"></span>
+            </article>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+
+  <span class="tstn-tiers__topo" aria-hidden="true"></span>
+</section>
+
+<style>
+  @font-face {
+    font-family: 'Danger Neue Free Regular';
+    src: url('{{ "DangerNeueFree-Regular.woff2" | asset_url }}') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-tiers {
+    position: relative;
+    background: var(--tt-bg);
+    color: var(--tt-text);
+    padding: var(--tt-pad-y) clamp(16px, 4vw, 48px);
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  /* Topographic background pattern */
+  #shopify-section-{{ section.id }} .tstn-tiers__topo {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    background-image:
+      radial-gradient(ellipse 70% 50% at 20% 30%, rgba(255, 106, 26, 0.08), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 80% 70%, rgba(255, 106, 26, 0.06), transparent 60%),
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 400' preserveAspectRatio='none'><g fill='none' stroke='%23ffffff' stroke-width='0.6' opacity='0.35'><path d='M0,120 Q200,60 400,140 T800,100'/><path d='M0,160 Q200,100 400,180 T800,140'/><path d='M0,200 Q200,140 400,220 T800,180'/><path d='M0,240 Q200,180 400,260 T800,220'/><path d='M0,280 Q200,220 400,300 T800,260'/><path d='M0,320 Q200,260 400,340 T800,300'/><path d='M0,80 Q200,20 400,100 T800,60'/><path d='M0,360 Q200,300 400,380 T800,340'/></g></svg>");
+    background-size: cover, cover, 100% 100%;
+    background-repeat: no-repeat;
+    mix-blend-mode: screen;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-tiers__inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-tiers__heading {
+    font-family: 'Danger Neue Free Regular', 'Impact', sans-serif;
+    font-weight: 400;
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1;
+    letter-spacing: 0.04em;
+    color: var(--tt-text);
+    margin: 0 0 clamp(16px, 2vw, 24px);
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-tiers__divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 auto clamp(20px, 2.5vw, 32px);
+    max-width: 280px;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-tiers__divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--tt-accent),
+      transparent
+    );
+  }
+
+  #shopify-section-{{ section.id }} .tstn-tiers__divider-mark {
+    color: var(--tt-accent);
+    font-size: 0.7rem;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-tiers__subheading {
+    font-family: 'Danger Neue Free Regular', 'Impact', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.95rem, 1.6vw, 1.25rem);
+    letter-spacing: 0.18em;
+    color: var(--tt-accent);
+    text-transform: uppercase;
+    margin: 0 0 clamp(40px, 5vw, 64px);
+  }
+
+  #shopify-section-{{ section.id }} .tstn-tiers__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(16px, 2vw, 28px);
+  }
+
+  /* Tier Card */
+  #shopify-section-{{ section.id }} .tstn-tier-card {
+    position: relative;
+    background: var(--tt-card-bg);
+    border: 1px solid var(--tt-card-border);
+    border-radius: 18px;
+    padding: clamp(28px, 4vw, 56px) clamp(20px, 3vw, 40px) clamp(36px, 4vw, 52px);
+    text-align: center;
+    overflow: hidden;
+    isolation: isolate;
+    transition: transform 0.4s ease, border-color 0.4s ease;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-tier-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image:
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 600' preserveAspectRatio='none'><g fill='none' stroke='%23ffffff' stroke-width='0.5' opacity='0.18'><path d='M0,180 Q150,120 300,200 T600,160'/><path d='M0,240 Q150,180 300,260 T600,220'/><path d='M0,300 Q150,240 300,320 T600,280'/><path d='M0,360 Q150,300 300,380 T600,340'/><path d='M0,420 Q150,360 300,440 T600,400'/></g></svg>");
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-tier-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 106, 26, 0.4);
+  }
+
+  /* Bottom orange glow strip */
+  #shopify-section-{{ section.id }} .tstn-tier-card__glow {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70%;
+    height: 2px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--tt-accent),
+      transparent
+    );
+    box-shadow:
+      0 0 20px var(--tt-accent),
+      0 0 40px rgba(255, 106, 26, 0.5);
+    z-index: 1;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-tier-card > * {
+    position: relative;
+    z-index: 2;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-tier-card__badge-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: clamp(20px, 2.5vw, 32px);
+    min-height: clamp(160px, 18vw, 220px);
+  }
+
+  #shopify-section-{{ section.id }} .tstn-tier-card__badge {
+    width: clamp(140px, 16vw, 200px);
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 0 30px rgba(255, 106, 26, 0.25));
+    transition: transform 0.5s ease, filter 0.5s ease;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-tier-card:hover .tstn-tier-card__badge {
+    transform: scale(1.04);
+    filter: drop-shadow(0 0 40px rgba(255, 106, 26, 0.45));
+  }
+
+  #shopify-section-{{ section.id }} .tstn-tier-card__badge--placeholder {
+    width: clamp(140px, 16vw, 200px);
+    height: clamp(140px, 16vw, 200px);
+    opacity: 0.3;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-tier-card__title {
+    font-family: 'Danger Neue Free Regular', 'Impact', sans-serif;
+    font-weight: 400;
+    font-size: clamp(1.4rem, 2.4vw, 2rem);
+    line-height: 1;
+    letter-spacing: 0.06em;
+    color: var(--tt-text);
+    text-transform: uppercase;
+    margin: 0 0 clamp(12px, 1.5vw, 18px);
+  }
+
+  #shopify-section-{{ section.id }} .tstn-tier-card__divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 0 auto clamp(16px, 2vw, 22px);
+    max-width: 200px;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-tier-card__divider-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 106, 26, 0.6),
+      transparent
+    );
+  }
+
+  #shopify-section-{{ section.id }} .tstn-tier-card__divider-mark {
+    color: var(--tt-accent);
+    font-size: 0.6rem;
+    line-height: 1;
+  }
+
+  #shopify-section-{{ section.id }} .tstn-tier-card__desc {
+    font-family: inherit;
+    font-size: clamp(0.9rem, 1.1vw, 1rem);
+    line-height: 1.55;
+    color: var(--tt-muted);
+    margin: 0;
+    max-width: 320px;
+    margin-inline: auto;
+  }
+
+  /* Tablet */
+  @media (max-width: 900px) {
+    #shopify-section-{{ section.id }} .tstn-tiers__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 640px) {
+    #shopify-section-{{ section.id }} .tstn-tiers__grid {
+      grid-template-columns: 1fr;
+      max-width: 420px;
+      margin-inline: auto;
+    }
+
+    #shopify-section-{{ section.id }} .tstn-tier-card {
+      padding: 32px 24px 40px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "TSTN Tiers",
+  "tag": "section",
+  "class": "section-tstn-tiers",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "THE TIERS"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "EARN 1 POINT FOR EVERY $1 SPENT"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent color",
+      "default": "#ff6a1a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Heading / title color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Description text color",
+      "default": "#b8b8b8"
+    },
+    {
+      "type": "color",
+      "id": "card_bg_color",
+      "label": "Card background",
+      "default": "#111111"
+    },
+    {
+      "type": "color",
+      "id": "card_border_color",
+      "label": "Card border",
+      "default": "#1f1f1f"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_y",
+      "label": "Vertical padding (px)",
+      "min": 40,
+      "max": 200,
+      "step": 4,
+      "default": 96
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tier",
+      "name": "Tier",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "badge_image",
+          "label": "Tier badge image",
+          "info": "Recommended: transparent PNG, 600x600"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tier name",
+          "default": "BASE CAMP"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "You're on the map. Access to the shop talk and basic rewards."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TSTN Tiers",
+      "blocks": [
+        {
+          "type": "tier",
+          "settings": {
+            "title": "BASE CAMP",
+            "description": "You're on the map. Access to the shop talk and basic rewards."
+          }
+        },
+        {
+          "type": "tier",
+          "settings": {
+            "title": "SCOUT",
+            "description": "You're finding new lines. Early access to new lighting drops and limited gear."
+          }
+        },
+        {
+          "type": "tier",
+          "settings": {
+            "title": "EXPEDITION LEAD",
+            "description": "You're leading the convoy. Direct line to Shaun and elite discounts on flagship gear."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+
