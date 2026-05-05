@@ -3,25 +3,24 @@
 
   Usage:
   {% render 'header-drawer' %}
-{% endcomment %}
+{%- endcomment -%}
 
 <style>
   /* ===================================================
-     FULLSCREEN MOBILE DRAWER — overrides Dawn's defaults
+     FULLSCREEN MOBILE DRAWER
+     Uses Dawn's native [open] + .menu-opening trigger.
+     Single source of truth — no body class needed.
      ================================================= */
 
-  /* Lock body scroll when drawer is open */
+  /* Lock body scroll while drawer is open */
   body:has(#Details-menu-drawer-container[open]) {
     overflow: hidden !important;
   }
 
-  /* The <details> wrapper itself becomes the fullscreen overlay */
+  /* The <details> wrapper becomes the fullscreen overlay */
   #Details-menu-drawer-container[open] {
     position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
+    inset: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
     height: 100dvh !important;
@@ -30,23 +29,25 @@
     overflow: hidden !important;
   }
 
-  /* Hamburger summary (the X icon when drawer is open) — fix it to top-left */
+  /* X close button — fixed top-left, above panel */
   #Details-menu-drawer-container[open] > summary {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
     width: 5rem !important;
     height: 5rem !important;
-    z-index: 100000 !important;
+    z-index: 100001 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
     background: transparent !important;
     padding: 0 !important;
     margin: 0 !important;
+    cursor: pointer !important;
+    pointer-events: auto !important;
   }
 
-  /* Kill the dark backdrop that Dawn adds via summary::before */
+  /* Kill Dawn's dark backdrop pseudo-element */
   #Details-menu-drawer-container[open] > summary::before,
   .js menu-drawer > details > summary::before,
   .js menu-drawer > details[open]:not(.menu-opening) > summary::before,
@@ -58,18 +59,15 @@
     visibility: hidden !important;
   }
 
-  /* Kill Dawn's transform: translateX(-100%) and absolute positioning.
-     The drawer panel must fill the entire fixed parent. */
+  /* Drawer panel — fill the fixed parent, override Dawn's translateX(-100%) */
   #Details-menu-drawer-container[open] #menu-drawer,
   #Details-menu-drawer-container[open] > #menu-drawer,
   header-drawer details[open] > .menu-drawer,
   header-drawer details[open].menu-opening > .menu-drawer,
-  .js header-drawer details[open] > .menu-drawer {
+  .js header-drawer details[open] > .menu-drawer,
+  .js header-drawer details[open].menu-opening > .menu-drawer {
     position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
+    inset: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
     height: 100% !important;
@@ -79,7 +77,6 @@
     visibility: visible !important;
     opacity: 1 !important;
     background: rgb(18, 18, 18) !important;
-    background-color: rgb(18, 18, 18) !important;
     background-image: none !important;
     border: none !important;
     filter: none !important;
@@ -88,14 +85,15 @@
     z-index: 1 !important;
     padding: 0 !important;
     margin: 0 !important;
+    pointer-events: auto !important;
   }
 
-  /* Override Dawn's `.js .menu-drawer { height: calc(100vh - 100%) }` */
+  /* Override Dawn's .js .menu-drawer height calc */
   .js #Details-menu-drawer-container[open] #menu-drawer {
     height: 100% !important;
   }
 
-  /* Override the desktop @media (min-width: 750px) width: 40rem rule */
+  /* Kill the desktop 40rem max-width rule */
   @media screen and (min-width: 750px) {
     #Details-menu-drawer-container[open] #menu-drawer {
       width: 100% !important;
@@ -104,7 +102,7 @@
     }
   }
 
-  /* Inner container fills the panel, scrolls vertically */
+  /* Inner container — scrollable */
   #Details-menu-drawer-container[open] .menu-drawer__inner-container {
     width: 100% !important;
     height: 100% !important;
@@ -112,26 +110,72 @@
     overflow-y: auto !important;
     overflow-x: hidden !important;
     -webkit-overflow-scrolling: touch;
+    pointer-events: auto !important;
   }
 
+  /* Navigation container — vertical flex so logo > nav > utilities stack */
   #Details-menu-drawer-container[open] .menu-drawer__navigation-container {
     width: 100% !important;
     min-height: 100% !important;
     background: rgb(18, 18, 18) !important;
-    grid-template-rows: 1fr auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-rows: none !important;
   }
 
-  /* Top padding so first menu item clears the X button */
+  /* ===================================================
+     LOGO BLOCK — top of drawer
+     ================================================= */
+
+  .menu-drawer__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.4rem 2rem 1.6rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgb(18, 18, 18);
+    /* Keep clear of fixed X button at top-left */
+    padding-left: 6rem;
+  }
+
+  .menu-drawer__logo-link {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    line-height: 0;
+  }
+
+  .menu-drawer__logo-link img {
+    max-height: 3.6rem;
+    width: auto;
+    max-width: 18rem;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.95;
+  }
+
+  .menu-drawer__logo-link .menu-drawer__logo-text {
+    font-family: 'Danger Neue', sans-serif;
+    font-weight: 400;
+    font-size: 2rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.95);
+    line-height: 1;
+  }
+
+  /* ===================================================
+     NAVIGATION — main menu list fills available space
+     ================================================= */
+
   #Details-menu-drawer-container[open] .menu-drawer__navigation {
-    padding-top: 6rem !important;
+    flex: 1 1 auto !important;
+    padding-top: 1rem !important;
     padding-bottom: 2rem !important;
     background: transparent !important;
   }
 
-  /* ===================================================
-     OVAL/DECORATIVE SHAPE REMOVAL
-     ================================================= */
-
+  /* Remove decorative ovals/SVGs Dawn injects */
   .menu-drawer,
   .menu-drawer__inner-container,
   .menu-drawer__navigation-container,
@@ -155,7 +199,7 @@
   }
 
   /* ===================================================
-     MENU ITEMS — UPPERCASE, Danger Neue
+     MENU ITEMS — Danger Neue, uppercase, full row clickable
      ================================================= */
 
   .menu-drawer__menu-item,
@@ -172,8 +216,12 @@
     border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
     padding: 1.4rem 2rem !important;
     text-decoration: none !important;
+    display: flex !important;
+    align-items: center !important;
     pointer-events: auto !important;
     cursor: pointer !important;
+    position: relative !important;
+    z-index: 2 !important;
   }
 
   .menu-drawer__menu-item:hover,
@@ -189,13 +237,14 @@
   }
 
   /* Submenu nested items */
-  .menu-drawer__submenu {
-    background: rgb(18, 18, 18) !important;
-  }
-
   .menu-drawer__submenu .menu-drawer__menu-item {
     font-size: 1.4rem !important;
     color: rgba(245, 245, 247, 0.75) !important;
+    padding: 1.2rem 2rem 1.2rem 3.5rem !important;
+  }
+
+  .menu-drawer__submenu {
+    background-color: rgba(0, 0, 0, 0.25) !important;
   }
 
   /* Caret/arrow icons inside menu items */
@@ -214,6 +263,7 @@
     letter-spacing: 0.04em !important;
     font-size: 1.4rem !important;
     background: transparent !important;
+    pointer-events: auto !important;
   }
 
   .menu-drawer__close-button:hover {
@@ -225,7 +275,7 @@
     fill: rgba(245, 245, 247, 0.85) !important;
   }
 
-  /* Hamburger / close icon styling in summary */
+  /* Hamburger / X icon styling */
   .header__icon--menu svg {
     width: 2.2rem !important;
     height: 2.2rem !important;
@@ -234,13 +284,14 @@
   }
 
   /* ===================================================
-     UTILITY LINKS (account, social, localization)
+     UTILITY LINKS (account, social, localization) — bottom
      ================================================= */
 
-  .menu-drawer__utility-links {
+  #Details-menu-drawer-container[open] .menu-drawer__utility-links {
     border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
     background-color: rgba(0, 0, 0, 0.25) !important;
     padding: 1.5rem 2rem !important;
+    flex: 0 0 auto !important;
   }
 
   .menu-drawer__account {
@@ -254,11 +305,18 @@
     fill: rgba(245, 245, 247, 0.85) !important;
   }
 
-  /* Social icons row */
+  /* Social icons row — horizontal */
   .menu-drawer .list-social {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
     border: none !important;
     gap: 0.4rem;
     margin-left: -1rem;
+    padding: 0 !important;
+    list-style: none;
   }
 
   .menu-drawer .list-social__item,
@@ -271,6 +329,9 @@
 
   .menu-drawer .list-social__link {
     padding: 1rem !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .menu-drawer .list-social__link svg {
@@ -295,9 +356,8 @@
   }
 
   /* ===================================================
-     DESKTOP — restore Dawn's defaults (only mobile drawer changed)
-     If menu_type_desktop is "drawer" on desktop, keep the original
-     side-panel behavior at 990px+
+     DESKTOP — restore Dawn's defaults at 990px+ when
+     menu_type_desktop = "drawer"
      ================================================= */
   @media screen and (min-width: 990px) {
     header-drawer[data-breakpoint="desktop"] #Details-menu-drawer-container[open] {
@@ -312,6 +372,11 @@
       position: relative !important;
       width: auto !important;
       height: auto !important;
+    }
+
+    /* Hide drawer logo on desktop — header bar already shows logo */
+    header-drawer[data-breakpoint="tablet"] .menu-drawer__logo {
+      display: none;
     }
   }
 </style>
@@ -330,6 +395,32 @@
     <div id="menu-drawer" class="menu-drawer motion-reduce color-{{ section.settings.menu_color_scheme }}">
       <div class="menu-drawer__inner-container">
         <div class="menu-drawer__navigation-container">
+          {%- comment -%} Logo block — only on tablet/mobile drawer breakpoint {%- endcomment -%}
+          {%- if section.settings.menu_type_desktop != 'drawer' -%}
+            <div class="menu-drawer__logo">
+              <a href="{{ routes.root_url }}" class="menu-drawer__logo-link" aria-label="{{ shop.name | escape }}">
+                {%- if settings.logo != blank -%}
+                  {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
+                  {%- assign drawer_logo_height = 36 -%}
+                  {%- assign drawer_logo_width = drawer_logo_height | times: settings.logo.aspect_ratio | round -%}
+                  {{
+                    settings.logo
+                    | image_url: width: 360
+                    | image_tag:
+                      class: 'menu-drawer__logo-image',
+                      widths: '180, 270, 360',
+                      width: drawer_logo_width,
+                      height: drawer_logo_height,
+                      alt: logo_alt,
+                      loading: 'eager'
+                  }}
+                {%- else -%}
+                  <span class="menu-drawer__logo-text">{{ shop.name }}</span>
+                {%- endif -%}
+              </a>
+            </div>
+          {%- endif -%}
+
           <nav class="menu-drawer__navigation">
             <ul class="menu-drawer__menu has-submenu list-menu" role="list">
               {%- for link in section.settings.menu.links -%}
