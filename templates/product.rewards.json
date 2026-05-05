@@ -217,6 +217,9 @@
         "ways_title": "WAYS TO EARN POINTS",
         "card_title_size": 17,
         "points_size": 18,
+        "logged_out_message": "Sign up or log in to start earning points and unlock rewards.",
+        "signup_url": "",
+        "login_url": "",
         "share_heading": "SHARE & EARN",
         "share_subheading": "SHARE THE JOY OF SHOPPING WITH FRIENDS",
         "share_description": "Give your friends a discount on their first purchase, and receive a reward for each successful referral!",
@@ -308,7 +311,7 @@
         "column_f7TMmG": {
           "type": "column",
           "settings": {
-            "image": "shopify://shop_images/1_73c146ca-e03f-4f1b-92e4-668f2058ef0d.png",
+            "image": "shopify://shop_images/ChatGPT_Image_Jan_22_2026_05_29_18_PM_1_a6b1bf9c-5113-4864-b2aa-53fb77a68341.png",
             "title": "",
             "text": "<p>You’re on the map. Access to the shop talk and basic rewards.</p>",
             "link_label": "",
