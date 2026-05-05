@@ -246,6 +246,52 @@
         "padding_bottom": 28
       }
     },
+    "tstn_tiers_6bALLC": {
+      "type": "tstn-tiers",
+      "blocks": {
+        "tier_en8z36": {
+          "type": "tier",
+          "settings": {
+            "badge_image": "shopify://shop_images/ChatGPT_Image_Jan_22_2026_05_29_18_PM_1_a6b1bf9c-5113-4864-b2aa-53fb77a68341.png",
+            "title": "BASE CAMP",
+            "description": "You're on the map. Access to the shop talk and basic rewards."
+          }
+        },
+        "tier_tJ7XqD": {
+          "type": "tier",
+          "settings": {
+            "badge_image": "shopify://shop_images/ChatGPT_Image_Jan_22_2026_05_29_18_PM_2_fe25c4de-0871-4b74-8114-8473656bf229.png",
+            "title": "SCOUT",
+            "description": "You're finding new lines. Early access to new lighting drops and limited gear."
+          }
+        },
+        "tier_efpDUV": {
+          "type": "tier",
+          "settings": {
+            "badge_image": "shopify://shop_images/ChatGPT_Image_Jan_22_2026_05_29_18_PM_3_3062b154-429b-4483-939f-042e342cf355.png",
+            "title": "EXPEDITION LEAD",
+            "description": "You're leading the convoy. Direct line to Shaun and elite discounts on flagship gear."
+          }
+        }
+      },
+      "block_order": [
+        "tier_en8z36",
+        "tier_tJ7XqD",
+        "tier_efpDUV"
+      ],
+      "name": "TSTN Tiers",
+      "settings": {
+        "heading": "THE TIERS",
+        "subheading": "EARN 1 POINT FOR EVERY $1 SPENT",
+        "bg_color": "#0a0a0a",
+        "accent_color": "#ff6a1a",
+        "text_color": "#ffffff",
+        "muted_color": "#b8b8b8",
+        "card_bg_color": "#111111",
+        "card_border_color": "#1f1f1f",
+        "padding_y": 96
+      }
+    },
     "1776469809e2eb7715": {
       "type": "apps",
       "blocks": {
@@ -490,6 +536,7 @@
     "growave_tiers_BMVmYY",
     "speedometer_claude_VPmHLG",
     "updated_ways_to_earn_CF9QpD",
+    "tstn_tiers_6bALLC",
     "1776469809e2eb7715",
     "17769202960fc08a45",
     "custom_multicol_dPrTeX",
