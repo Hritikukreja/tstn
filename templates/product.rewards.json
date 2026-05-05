@@ -280,7 +280,8 @@
         "tier_efpDUV"
       ],
       "custom_css": [
-        ".tstn-tier-card__desc {font-size: 18px;}"
+        ".tstn-tier-card__desc {font-size: 18px;}",
+        ".tstn-tiers__subheading {font-size: 25px;}"
       ],
       "name": "TSTN Tiers",
       "settings": {
@@ -393,6 +394,7 @@
         "column_Aptrg6",
         "column_r8Wzym"
       ],
+      "disabled": true,
       "custom_css": [
         "h2.title.inline-richtext.h1 {text-align: center;}"
       ],
