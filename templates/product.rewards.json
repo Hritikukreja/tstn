@@ -465,6 +465,7 @@
         "feature_La6aVL",
         "feature_RzXrC4"
       ],
+      "disabled": true,
       "custom_css": [
         "h1,h2,h3,h4,h5 {color: white;}"
       ],
