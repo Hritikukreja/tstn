@@ -95,10 +95,20 @@
   }
 
   .header-wrapper {
-    background-color: rgba(22, 22, 22, 0.96) !important;
-    backdrop-filter: saturate(180%) blur(20px);
-    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    /* Solid (no backdrop-filter) — backdrop-filter creates a new containing block
+       which breaks position:fixed for descendants like the mobile drawer.
+       Using high-opacity solid colour preserves the premium look without the bug. */
+    background-color: rgb(20, 20, 20) !important;
     border-bottom: none !important;
+  }
+
+  /* Re-apply the frosted look only on desktop where the drawer doesn't render fullscreen */
+  @media screen and (min-width: 990px) {
+    .header-wrapper {
+      background-color: rgba(22, 22, 22, 0.96) !important;
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+    }
   }
 
   .header-wrapper.gradient {
@@ -419,6 +429,13 @@
     cursor: pointer;
     padding: 0.4rem;
     line-height: 1;
+  }
+
+  /* Kill Dawn's hamburger backdrop pseudo-element — our drawer handles its own fullscreen */
+  .header__icon--menu[aria-expanded='true']::before {
+    display: none !important;
+    content: none !important;
+    background: transparent !important;
   }
 </style>
 
