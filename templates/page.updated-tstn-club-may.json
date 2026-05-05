@@ -66,6 +66,31 @@
     "tstn_featured_videos_DRAEaX": {
       "type": "tstn-featured-videos",
       "blocks": {
+        "promo_PqDAUj": {
+          "type": "promo",
+          "settings": {
+            "badge_type": "default",
+            "badge_text": "GIVEAWAY",
+            "eyebrow": "Don't miss out",
+            "title": "Promo Title",
+            "description": "Short description of the promo.",
+            "cta_text": "Learn More",
+            "cta_link": ""
+          }
+        },
+        "promo_aV6dmX": {
+          "type": "promo",
+          "settings": {
+            "image": "shopify://shop_images/camer.png",
+            "badge_type": "giveaway",
+            "badge_text": "GIVEAWAY",
+            "eyebrow": "Don't miss out",
+            "title": "Promo Title",
+            "description": "Short description of the promo.",
+            "cta_text": "Learn More",
+            "cta_link": ""
+          }
+        },
         "video_item_3bQX7M": {
           "type": "video_item",
           "settings": {
@@ -131,6 +156,8 @@
         }
       },
       "block_order": [
+        "promo_PqDAUj",
+        "promo_aV6dmX",
         "video_item_3bQX7M",
         "video_item_eTMzKr",
         "video_item_D3XrKU",
@@ -153,10 +180,12 @@
         "main_author": "Shaun Walford with Clay Croft",
         "main_duration": "",
         "main_link": "",
-        "mo_pill": "MEMBERS ONLY",
-        "mo_title": "Unlock Exclusive Content & Perks",
-        "mo_cta_text": "Join TSTN Club",
-        "mo_cta_link": ""
+        "gate_pill": "MEMBERS ONLY",
+        "gate_title": "Unlock Exclusive Content & Perks",
+        "gate_cta_text": "Join TSTN Club",
+        "gate_cta_link": "",
+        "promo_autoplay": true,
+        "promo_autoplay_speed": 5000
       }
     },
     "tstn_blog_testimonial_CGmbDD": {
