@@ -148,6 +148,7 @@
     },
     "growave_tiers_BMVmYY": {
       "type": "growave-tiers",
+      "disabled": true,
       "name": "Growave Tires",
       "settings": {
         "feat_image": "shopify://shop_images/awnex_offroad.png",
@@ -155,15 +156,32 @@
         "gauge_opacity": 100
       }
     },
-    "growave_ways_earn_8V88RL": {
-      "type": "growave-ways-earn",
-      "name": "Growave Ways To Earn",
+    "updated_ways_to_earn_CF9QpD": {
+      "type": "updated-ways-to-earn",
+      "custom_css": [],
+      "name": "Ways To Earn",
       "settings": {
-        "title": "SUPPORT THE CHANNEL.<br> STOCK THE GARAGE.",
-        "text": "Earn points towards your next lighting or recovery upgrade by supporting the TSTN community.",
-        "color_scheme": "scheme-5330df68-7ce6-41b9-9bf9-37d268b32221",
+        "heading": "Ways To Earn",
+        "subheading": "Earn points every time you shop, share, and engage.",
+        "heading_font_size": 48,
+        "heading_font_size_mobile": 30,
+        "referral_heading": "REFER A FRIEND",
+        "referral_subtext": "You get 500 points once your friend makes a purchase",
+        "section_bg": "#000000",
+        "heading_color": "#FFFFFF",
+        "subheading_color": "#CCCCCC",
+        "accent_color": "#EC560A",
+        "card_bg_start": "#0E0E0E",
+        "card_bg_end": "#141414",
+        "card_border_color": "#303030",
+        "label_bg_color": "#1A1A1A",
+        "completed_bg_color": "#EC560A",
+        "color_scheme": "",
+        "card_label_font_size": 30,
+        "card_height": 330,
+        "card_height_mobile": 220,
         "padding_top": 60,
-        "padding_bottom": 64
+        "padding_bottom": 60
       }
     },
     "1776469809e2eb7715": {
@@ -395,11 +413,11 @@
     "main",
     "related-products",
     "growave_tiers_BMVmYY",
-    "growave_ways_earn_8V88RL",
+    "speedometer_claude_VPmHLG",
+    "updated_ways_to_earn_CF9QpD",
     "1776469809e2eb7715",
     "17769202960fc08a45",
     "custom_multicol_dPrTeX",
-    "speedometer_claude_VPmHLG",
     "community_grid_xTzb6M"
   ]
 }
