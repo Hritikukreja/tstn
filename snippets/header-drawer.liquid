@@ -17,6 +17,25 @@
     overflow: hidden !important;
   }
 
+  /* When the drawer is open, take the entire <header-drawer> element out of
+     the header layout flow and make IT the fullscreen overlay. This ensures
+     the fullscreen panel is not contained by any ancestor that has
+     transform / filter / backdrop-filter / will-change. */
+  @media screen and (max-width: 989px) {
+    header-drawer:has(#Details-menu-drawer-container[open]) {
+      position: fixed !important;
+      inset: 0 !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      height: 100dvh !important;
+      z-index: 99999 !important;
+      background: rgb(18, 18, 18) !important;
+      display: block !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+  }
+
   /* The <details> wrapper becomes the fullscreen overlay */
   #Details-menu-drawer-container[open] {
     position: fixed !important;
