@@ -31,6 +31,10 @@
   assign they_get_label = section.settings.they_get_label
   assign they_get_value = section.settings.they_get_value
   assign they_get_unit = section.settings.they_get_unit
+
+  assign login_url = section.settings.login_url
+  assign signup_url = section.settings.signup_url
+  assign logged_out_message = section.settings.logged_out_message
 -%}
 
 {%- style -%}
@@ -83,6 +87,19 @@
         {%- if ways_title != blank -%}
           <h3 class="tstn-earn__panel-title">{{ ways_title }}</h3>
         {%- endif -%}
+
+        {%- comment -%} Logged-out message — shown only to guests via customer check {%- endcomment -%}
+        {%- unless customer -%}
+          {%- if logged_out_message != blank -%}
+            <div class="tstn-auth-notice">
+              <span class="tstn-auth-notice__text">{{ logged_out_message }}</span>
+              <div class="tstn-auth-notice__actions">
+                <a href="{{ signup_url | default: '/account/register' }}" class="tstn-btn tstn-btn--primary">Sign Up</a>
+                <a href="{{ login_url | default: '/account/login' }}" class="tstn-btn tstn-btn--secondary">Log In</a>
+              </div>
+            </div>
+          {%- endif -%}
+        {%- endunless -%}
 
         <div class="tstn-earn__ways">
           <div
@@ -150,13 +167,24 @@
             </div>
           {%- endif -%}
 
-          <div class="tstn-refer__widget">
-            <div
-              class="gw-rd-referral-program-page-widget-placeholder tstn-referral"
-              data-gw-widget-shadow-root-enabled="false"
-              style="display: block"
-            ></div>
-          </div>
+          {%- comment -%} For guests, show our own auth CTAs and hide Growave widget — for logged-in customers, show Growave widget {%- endcomment -%}
+          {%- if customer -%}
+            <div class="tstn-refer__widget">
+              <div
+                class="gw-rd-referral-program-page-widget-placeholder tstn-referral"
+                data-gw-widget-shadow-root-enabled="false"
+                style="display: block"
+              ></div>
+            </div>
+          {%- else -%}
+            <div class="tstn-refer__auth">
+              <p class="tstn-refer__auth-text">Sign up or log in to get your referral link</p>
+              <div class="tstn-refer__auth-actions">
+                <a href="{{ signup_url | default: '/account/register' }}" class="tstn-btn tstn-btn--primary">Sign Up</a>
+                <a href="{{ login_url | default: '/account/login' }}" class="tstn-btn tstn-btn--secondary">Log In</a>
+              </div>
+            </div>
+          {%- endif -%}
         </div>
 
       </div>
@@ -220,7 +248,6 @@
     gap: clamp(16px, 1.8vw, 24px);
   }
 
-  /* Left panel — Ways panel needs to grow its inner widget area to fill height */
   #shopify-section-{{ section_id }} .tstn-earn__panel--ways {
     height: 100%;
   }
@@ -240,6 +267,77 @@
     letter-spacing: 0.04em;
     line-height: 1;
     margin: 0;
+  }
+
+  /* ============================================
+     AUTH NOTICE — Logged-out CTA in left panel
+     ============================================ */
+  #shopify-section-{{ section_id }} .tstn-auth-notice {
+    background: rgba(255, 106, 26, 0.08);
+    border: 1px solid rgba(255, 106, 26, 0.25);
+    border-radius: 8px;
+    padding: clamp(14px, 1.6vw, 18px);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-auth-notice__text {
+    font-family: 'Inter', 'ABC Diatype', -apple-system, sans-serif;
+    font-size: clamp(12px, 1vw, 13px);
+    color: #e8e8e8;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-auth-notice__actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  /* ============================================
+     CUSTOM BUTTONS — Sign Up / Log In
+     ============================================ */
+  #shopify-section-{{ section_id }} .tstn-btn {
+    font-family: 'Inter', 'ABC Diatype', -apple-system, sans-serif;
+    font-weight: 700;
+    font-size: clamp(12px, 1vw, 13px);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 12px 22px;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    line-height: 1;
+    white-space: nowrap;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-btn--primary {
+    background: var(--tstn-accent);
+    color: #fff !important;
+    border-color: var(--tstn-accent);
+  }
+
+  #shopify-section-{{ section_id }} .tstn-btn--primary:hover {
+    background: transparent;
+    color: var(--tstn-accent) !important;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-btn--secondary {
+    background: transparent;
+    color: #fff !important;
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+
+  #shopify-section-{{ section_id }} .tstn-btn--secondary:hover {
+    background: #fff;
+    color: #0a0a0a !important;
+    border-color: #fff;
   }
 
   /* ============================================
@@ -263,7 +361,6 @@
     margin: 0 !important;
   }
 
-  /* Make the ways widget container fill remaining height */
   #shopify-section-{{ section_id }} .tstn-earn__ways .gw-rd-ways-to-earn-page-widget,
   #shopify-section-{{ section_id }} .tstn-earn__ways .gw-rd-page-widget-layout,
   #shopify-section-{{ section_id }} .tstn-earn__ways .gw-rd-page-widget-container,
@@ -274,7 +371,39 @@
     flex: 1 1 auto !important;
   }
 
-  /* Hide Growave defaults: titles, balance, benefits, default reward, AND duplicated steps */
+  /* ============================================
+     HIDE GROWAVE'S OWN AUTH/SIGNUP/LOGIN BUTTONS
+     These render as auth gate cards or top-of-list CTAs.
+     ============================================ */
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-auth,
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-signin,
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-login,
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-customer,
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-guest,
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-popup-widget-auth,
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-popup-widget-login,
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-popup-widget-signup,
+  #shopify-section-{{ section_id }} .tstn-earn [class*="gw-rd-page-widget-auth"],
+  #shopify-section-{{ section_id }} .tstn-earn [class*="gw-rd-popup-widget-auth"],
+  #shopify-section-{{ section_id }} .tstn-earn [class*="gw-rd-auth"],
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-action-btn--primary,
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-action-btn,
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-action-btn[class*="signup"],
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-action-btn[class*="login"],
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-action-btn[class*="signin"],
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-action-btn[class*="register"] {
+    display: none !important;
+  }
+
+  /* Hide Growave's "Dummy content shown" pill and other dev/admin notices */
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-dummy-notice,
+  #shopify-section-{{ section_id }} .tstn-earn [class*="dummy"],
+  #shopify-section-{{ section_id }} .tstn-earn [class*="placeholder-notice"],
+  #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-notice {
+    display: none !important;
+  }
+
+  /* Hide Growave's defaults: titles, balance, benefits, default reward, AND duplicated steps */
   #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-title,
   #shopify-section-{{ section_id }} .tstn-earn h2.gw-rd-page-widget-title,
   #shopify-section-{{ section_id }} .tstn-earn h3.gw-rd-page-widget-title,
@@ -286,13 +415,15 @@
   #shopify-section-{{ section_id }} .tstn-earn .tstn-referral ul.gw-rd-list,
   #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-referral-program-page-widget__benefit-item,
   #shopify-section-{{ section_id }} .tstn-earn .tstn-referral ol,
-  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-page-widget-howto {
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-page-widget-howto,
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral [class*="howto"],
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral [class*="how-to"],
+  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral [class*="benefit"] {
     display: none !important;
   }
 
   /* ============================================
-     LEFT PANEL — Earn cards: 3 cols desktop, 2 tablet, 1 mobile
-     Grid uses auto-rows: 1fr so all cards in a row are equal height
+     LEFT PANEL — Earn cards: 3 cols / 2 / 1
      ============================================ */
   #shopify-section-{{ section_id }} .tstn-earn .gw-rd-list,
   #shopify-section-{{ section_id }} .tstn-earn ul.gw-rd-list {
@@ -322,7 +453,6 @@
 
   /* ============================================
      EARN CARD — Icon left + content stacked right
-     CRITICAL: title and points must STACK vertically
      ============================================ */
   #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-card,
   #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-card.svelte-3ln76z.svelte-3ln76z,
@@ -346,9 +476,10 @@
     cursor: pointer;
     text-align: left !important;
     box-sizing: border-box !important;
+    position: relative !important;
   }
 
-  /* Icon — orange, fixed size, left side, vertically centered */
+  /* Icon */
   #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-card__icon,
   #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-card__icon.svelte-3ln76z.svelte-3ln76z {
     width: clamp(40px, 4vw, 48px) !important;
@@ -374,7 +505,7 @@
     max-width: 100% !important;
   }
 
-  /* Right content area — vertical column, centered, fills remaining space */
+  /* Right content stack */
   #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-card > .gw-layout-stack,
   #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-card .gw-layout-stack,
   #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-card > .gw-layout-block {
@@ -390,7 +521,6 @@
     background: transparent !important;
   }
 
-  /* Card title — uppercase white bold */
   #shopify-section-{{ section_id }} .tstn-earn .gw-layout-text--variant-base,
   #shopify-section-{{ section_id }} .tstn-earn .gw-layout-text--variant-base.svelte-yjnpd {
     font-family: 'Inter', 'ABC Diatype', -apple-system, sans-serif !important;
@@ -410,7 +540,6 @@
     word-break: break-word !important;
   }
 
-  /* Points number — accent orange Danger Neue */
   #shopify-section-{{ section_id }} .tstn-earn .gw-layout-text--variant-secondary,
   #shopify-section-{{ section_id }} .tstn-earn .gw-layout-text--variant-secondary.svelte-yjnpd {
     font-family: 'Danger Neue Free Regular', sans-serif !important;
@@ -432,7 +561,6 @@
     text-overflow: ellipsis !important;
   }
 
-  /* "Completed" pill — inline, left-aligned with icon */
   #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-action-completed,
   #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-action-completed.svelte-1klamai {
     font-family: 'Inter', 'ABC Diatype', -apple-system, sans-serif !important;
@@ -466,10 +594,6 @@
   #shopify-section-{{ section_id }} .tstn-earn .gw-rd-icon-branding-color path,
   #shopify-section-{{ section_id }} .tstn-earn .gw-rd-icon-branding-color circle {
     fill: var(--tstn-accent) !important;
-  }
-
-  #shopify-section-{{ section_id }} .tstn-earn .gw-btn--reset.gw-rd-action-btn--secondary:hover {
-    background-color: var(--tstn-accent) !important;
   }
 
   #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-modal-body__title {
@@ -545,7 +669,6 @@
     line-height: 1;
   }
 
-  /* Numbered steps */
   #shopify-section-{{ section_id }} .tstn-refer__steps {
     list-style: none;
     margin: 0;
@@ -590,7 +713,6 @@
     color: #d8d8d8 !important;
   }
 
-  /* Reward boxes */
   #shopify-section-{{ section_id }} .tstn-refer__rewards {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
@@ -660,15 +782,37 @@
   }
 
   /* ============================================
-     GROWAVE REFERRAL WIDGET
+     REFER AUTH (logged-out CTA inside refer card)
      ============================================ */
-  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-page-widget-title,
-  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-page-widget-title.svelte-tmdh8j,
-  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-referral-program-page-widget__benefits,
-  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-popup-widget-referral-program__reward {
-    display: none !important;
+  #shopify-section-{{ section_id }} .tstn-refer__auth {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-top: clamp(8px, 1vw, 12px);
+    border-top: 1px solid var(--tstn-inner-border);
   }
 
+  #shopify-section-{{ section_id }} .tstn-refer__auth-text {
+    font-family: 'Inter', 'ABC Diatype', -apple-system, sans-serif;
+    font-size: clamp(12px, 1vw, 13px);
+    color: #d8d8d8;
+    margin: 0;
+    line-height: 1.4;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-refer__auth-actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  #shopify-section-{{ section_id }} .tstn-refer__auth-actions .tstn-btn {
+    flex: 1 1 auto;
+  }
+
+  /* ============================================
+     GROWAVE REFERRAL WIDGET (logged-in only)
+     ============================================ */
   #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-page-widget-container,
   #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-page-widget-container.svelte-1mnbt6f,
   #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-referral-program-page-widget {
@@ -683,7 +827,6 @@
     margin: 0 !important;
   }
 
-  /* Copy field */
   #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-text-field {
     border: 1px solid var(--tstn-inner-border) !important;
     border-radius: 8px !important;
@@ -730,7 +873,7 @@
     list-style: none !important;
   }
 
-  /* SHARE BUTTONS — make icons visible (was: solid orange circles with no icon) */
+  /* Share buttons */
   #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-share-btn,
   #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-share-button,
   #shopify-section-{{ section_id }} .tstn-earn .tstn-referral [class*="gw-rd-share"] button,
@@ -756,7 +899,6 @@
     border-color: var(--tstn-accent) !important;
   }
 
-  /* Force ALL share button SVGs/icons to be visible white */
   #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-share-btn svg,
   #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-share-btn path,
   #shopify-section-{{ section_id }} .tstn-earn .tstn-referral .gw-rd-share-btn use,
@@ -778,16 +920,6 @@
     opacity: 1 !important;
     visibility: visible !important;
     display: inline-block !important;
-  }
-
-  /* Some share buttons use colored brand backgrounds — neutralize them */
-  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral [class*="gw-rd-share"][class*="facebook"],
-  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral [class*="gw-rd-share"][class*="twitter"],
-  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral [class*="gw-rd-share"][class*="whatsapp"],
-  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral [class*="gw-rd-share"][class*="messenger"],
-  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral [class*="gw-rd-share"][class*="pinterest"],
-  #shopify-section-{{ section_id }} .tstn-earn .tstn-referral [class*="gw-rd-share"][class*="email"] {
-    background: rgba(255, 255, 255, 0.08) !important;
   }
 
   #shopify-section-{{ section_id }} .tstn-earn .gw-tooltip-content.gw-tooltip-light {
@@ -836,6 +968,96 @@
     }
   }
 </style>
+
+{%- comment -%}
+  ============================================
+  JS — MutationObserver to clean up Growave
+  Hides any auth/dummy/login/signup elements that Growave
+  injects DYNAMICALLY (after our CSS would have applied).
+  Also strips any leftover step lists in the referral widget.
+  ============================================
+{%- endcomment -%}
+<script>
+  (function() {
+    var sectionEl = document.getElementById('shopify-section-{{ section_id }}');
+    if (!sectionEl) return;
+
+    var hideSelectors = [
+      '.gw-rd-page-widget-auth',
+      '.gw-rd-popup-widget-auth',
+      '.gw-rd-page-widget-signin',
+      '.gw-rd-page-widget-login',
+      '.gw-rd-page-widget-customer',
+      '.gw-rd-page-widget-guest',
+      '.gw-rd-action-btn--primary',
+      '[class*="dummy"]',
+      '[class*="placeholder-notice"]',
+      '.gw-rd-dummy-notice',
+      '.gw-rd-page-widget-notice',
+      '.gw-rd-referral-program-page-widget__steps',
+      '.gw-rd-referral-program-page-widget__benefits',
+      '.gw-rd-referral-program-page-widget__benefit-item',
+      '.gw-rd-page-widget-howto'
+    ];
+
+    function clean(root) {
+      // Hide unwanted elements within the WAYS earn widget
+      var waysContainer = root.querySelector('.tstn-earn__ways');
+      if (waysContainer) {
+        hideSelectors.forEach(function(sel) {
+          waysContainer.querySelectorAll(sel).forEach(function(el) {
+            el.style.setProperty('display', 'none', 'important');
+          });
+        });
+
+        // Remove any list items containing sign up / log in buttons (auth gate cards)
+        waysContainer.querySelectorAll('li.gw-rd-list__item').forEach(function(li) {
+          var txt = (li.textContent || '').toLowerCase().trim();
+          var hasButton = li.querySelector('button, a.gw-rd-action-btn, [class*="auth"]');
+          if (hasButton && (txt.indexOf('sign up') !== -1 || txt.indexOf('log in') !== -1 || txt.indexOf('login') !== -1)) {
+            // Only hide if it's clearly an auth gate (very short text)
+            if (txt.length < 30) {
+              li.style.setProperty('display', 'none', 'important');
+            }
+          }
+        });
+      }
+
+      // Hide unwanted elements within the REFERRAL widget
+      var referralContainer = root.querySelector('.tstn-referral');
+      if (referralContainer) {
+        hideSelectors.forEach(function(sel) {
+          referralContainer.querySelectorAll(sel).forEach(function(el) {
+            el.style.setProperty('display', 'none', 'important');
+          });
+        });
+
+        // Hide any ordered/unordered lists that look like duplicated step instructions
+        referralContainer.querySelectorAll('ol, ul.gw-rd-list').forEach(function(list) {
+          list.style.setProperty('display', 'none', 'important');
+        });
+      }
+    }
+
+    // Initial pass
+    clean(sectionEl);
+
+    // Observer for dynamic Growave injection
+    var observer = new MutationObserver(function() {
+      clean(sectionEl);
+    });
+
+    observer.observe(sectionEl, {
+      childList: true,
+      subtree: true
+    });
+
+    // Also re-run after a small delay in case Growave hydrates late
+    setTimeout(function() { clean(sectionEl); }, 500);
+    setTimeout(function() { clean(sectionEl); }, 1500);
+    setTimeout(function() { clean(sectionEl); }, 3000);
+  })();
+</script>
 
 {% schema %}
 {
@@ -909,6 +1131,31 @@
       "unit": "px",
       "label": "Points Number Size",
       "default": 26
+    },
+
+    {
+      "type": "header",
+      "content": "Logged-Out Auth Buttons"
+    },
+    {
+      "type": "paragraph",
+      "content": "Shown only when the visitor isn't logged in. Replaces Growave's default auth buttons."
+    },
+    {
+      "type": "text",
+      "id": "logged_out_message",
+      "label": "Message for Guests",
+      "default": "Sign up or log in to start earning points and unlock rewards."
+    },
+    {
+      "type": "url",
+      "id": "signup_url",
+      "label": "Sign Up URL"
+    },
+    {
+      "type": "url",
+      "id": "login_url",
+      "label": "Log In URL"
     },
 
     {
