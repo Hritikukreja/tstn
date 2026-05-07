@@ -594,7 +594,8 @@
       "type": "tstn-journey-cta",
       "custom_css": [
         "h1,h2,h3 {color: white;}",
-        "p {color: #ffffff; font-weight: 550;}"
+        "p {color: #ffffff; font-weight: 550;}",
+        ".tstn-journey__script{font-size: 0PX; color: black;}"
       ],
       "name": "TSTN Journey CTA",
       "settings": {
