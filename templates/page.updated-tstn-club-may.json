@@ -65,7 +65,9 @@
         "image_main_quote": "Real People. Real Stories.",
         "image_top": "shopify://shop_images/5.png",
         "image_bottom": "shopify://shop_images/6.png",
-        "badge_text": "Tag tstn.official to get featured!"
+        "image_accent_1": "shopify://shop_images/4.png",
+        "image_accent_2": "shopify://shop_images/6.1.png",
+        "image_accent_3": "shopify://shop_images/Frame_250.png"
       }
     },
     "tstn_featured_videos_DRAEaX": {
