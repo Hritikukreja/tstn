@@ -158,7 +158,9 @@
     },
     "speedometer_claude_VPmHLG": {
       "type": "speedometer-claude",
-      "custom_css": [],
+      "custom_css": [
+        "p,a {color: #ffffff; font-weight: 550;}"
+      ],
       "name": "TSTN Club Dashboard",
       "settings": {
         "feat_image": "shopify://shop_images/6.1.png",
@@ -230,9 +232,9 @@
         "guest_heading_size": 96,
         "guest_heading_weight": "400",
         "guest_heading_color": "#ffffff",
-        "guest_desc_size": 15,
-        "guest_desc_weight": "400",
-        "guest_desc_color": "#cdc8be",
+        "guest_desc_size": 18,
+        "guest_desc_weight": "600",
+        "guest_desc_color": "#ffffff",
         "guest_cta_size": 13,
         "guest_cta_weight": "700",
         "guest_cta_color": "#ffffff",
@@ -264,14 +266,16 @@
         "step_title_size": 18,
         "step_title_weight": "700",
         "step_title_color": "#f8f8f8",
-        "step_desc_size": 15,
-        "step_desc_weight": "400",
+        "step_desc_size": 18,
+        "step_desc_weight": "600",
         "step_desc_color": "#f8f8f8"
       }
     },
     "updated_ways_to_earn_CF9QpD": {
       "type": "updated-ways-to-earn",
-      "custom_css": [],
+      "custom_css": [
+        "p,a {color: #ffffff; font-weight: 600; font-size: 18px;}"
+      ],
       "name": "Ways To Earn",
       "settings": {
         "heading": "Ways To Earn",
@@ -299,7 +303,7 @@
         "they_get_unit": "OFF DISCOUNT",
         "section_bg": "#000000",
         "heading_color": "#ffffff",
-        "subheading_color": "#cccccc",
+        "subheading_color": "#ffffff",
         "accent_color": "#ff8a2b",
         "card_bg": "#121212",
         "inner_card_bg": "#000000",
@@ -345,7 +349,8 @@
       ],
       "custom_css": [
         ".tstn-tier-card__desc {font-size: 18px;}",
-        ".tstn-tiers__subheading {font-size: 25px;}"
+        ".tstn-tiers__subheading {font-size: 25px;}",
+        "p {color: #ffffff !important; font-weight: 500; font-size: 18px !important;}"
       ],
       "name": "TSTN Tiers",
       "settings": {

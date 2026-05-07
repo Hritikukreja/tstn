@@ -47,7 +47,7 @@
       "name": "Hero Collection",
       "settings": {
         "background_image": "shopify://shop_images/1.1.png",
-        "overlay_opacity": 55,
+        "overlay_opacity": 35,
         "overline": "MERCH",
         "heading": "TSTN MERCH",
         "subheading": "<p>Hand-picked gear for real adventures. Tested, trusted, and used out on the trail.</p>",
