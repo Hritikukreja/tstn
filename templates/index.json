@@ -384,12 +384,31 @@
         "photo_KBCkBB",
         "photo_YdQULa"
       ],
+      "disabled": true,
       "name": "Community Grid",
       "settings": {
         "heading": "THE TSTN CIRCLE",
         "description": "Just a collection of rigs from the people who get it. Tag @tstn to drop your photo into the mix.",
         "button_label": "VIEW COLLECTION",
         "button_link": ""
+      }
+    },
+    "17781336014891a27e": {
+      "type": "apps",
+      "blocks": {
+        "growave_loyalty_wishlist_block_index_instagram_P9rFXx": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.index.instagram/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "option_galleries_id": "1",
+            "option_galleries_layout": "2"
+          }
+        }
+      },
+      "block_order": [
+        "growave_loyalty_wishlist_block_index_instagram_P9rFXx"
+      ],
+      "settings": {
+        "include_margins": true
       }
     }
   },
@@ -399,6 +418,7 @@
     "product_grid_tQbJbL",
     "video_section_bXXf4b",
     "hero_collection_rUEVmk",
-    "community_grid_nbhTUh"
+    "community_grid_nbhTUh",
+    "17781336014891a27e"
   ]
 }
