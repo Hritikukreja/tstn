@@ -2,7 +2,7 @@
   TSTN Club Hero
   - Left column: WELCOME TO pill, big "TSTN CLUB" headline (white + orange italic),
     tagline, description, two CTAs, member rating
-  - Right column: stacked tilted image cards + "GROW LEARN INSPIRE" circular badge
+  - Right column: scattered tilted image cards collage (6 images)
   - Primary CTA shows different text + link based on whether the user is logged in
 {% endcomment %}
 
@@ -164,7 +164,7 @@
   /* Right side - image cards */
   .tstn-hero__visual {
     position: relative;
-    min-height: clamp(380px, 45vw, 520px);
+    min-height: clamp(460px, 52vw, 600px);
   }
 
   .tstn-hero__card {
@@ -172,6 +172,7 @@
     border-radius: 18px;
     overflow: hidden;
     box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    transition: transform 0.4s ease;
   }
   .tstn-hero__card img {
     width: 100%;
@@ -179,30 +180,74 @@
     object-fit: cover;
     display: block;
   }
+
+  /* Main anchor card */
   .tstn-hero__card--main {
-    width: 58%;
+    width: 52%;
     aspect-ratio: 4/5;
-    left: 0;
-    top: 5%;
+    left: 4%;
+    top: 8%;
     transform: rotate(-4deg);
     border: 2px solid var(--tstn-orange);
-    z-index: 2;
+    z-index: 3;
   }
+
+  /* Top right card */
   .tstn-hero__card--top {
-    width: 50%;
-    aspect-ratio: 16/10;
-    right: 0;
+    width: 44%;
+    aspect-ratio: 16/11;
+    right: 2%;
     top: 0;
     transform: rotate(3deg);
-    z-index: 3;
+    z-index: 4;
   }
+
+  /* Bottom right card */
   .tstn-hero__card--bottom {
-    width: 46%;
-    aspect-ratio: 16/10;
-    right: 4%;
-    bottom: 8%;
+    width: 42%;
+    aspect-ratio: 16/11;
+    right: 6%;
+    bottom: 4%;
     transform: rotate(-3deg);
-    z-index: 3;
+    z-index: 4;
+  }
+
+  /* New: small accent top-left */
+  .tstn-hero__card--accent-1 {
+    width: 26%;
+    aspect-ratio: 1/1;
+    left: 0;
+    top: -2%;
+    transform: rotate(6deg);
+    z-index: 5;
+    border: 2px solid rgba(255,255,255,0.15);
+  }
+
+  /* New: small accent middle (between top and bottom right cards) */
+  .tstn-hero__card--accent-2 {
+    width: 22%;
+    aspect-ratio: 1/1;
+    right: 36%;
+    top: 38%;
+    transform: rotate(-7deg);
+    z-index: 6;
+    border: 2px solid var(--tstn-orange);
+  }
+
+  /* New: small accent bottom-left */
+  .tstn-hero__card--accent-3 {
+    width: 30%;
+    aspect-ratio: 4/3;
+    left: 8%;
+    bottom: 0;
+    transform: rotate(4deg);
+    z-index: 5;
+    border: 2px solid rgba(255,255,255,0.15);
+  }
+
+  .tstn-hero__card:hover {
+    transform: rotate(0deg) scale(1.03);
+    z-index: 10;
   }
 
   .tstn-hero__card-quote {
@@ -219,13 +264,14 @@
   /* Decorative arrow */
   .tstn-hero__arrow {
     position: absolute;
-    left: -2%;
-    top: 38%;
-    width: 80px;
-    height: 80px;
+    left: 30%;
+    top: 44%;
+    width: 70px;
+    height: 70px;
     color: var(--tstn-orange);
-    z-index: 4;
-    opacity: 0.9;
+    z-index: 7;
+    opacity: 0.85;
+    pointer-events: none;
   }
 
   /* Decorative splatter */
@@ -236,36 +282,9 @@
     width: 120px;
     height: 60px;
     color: var(--tstn-orange);
-    opacity: 0.85;
+    opacity: 0.7;
     z-index: 1;
-  }
-
-  /* Circular badge */
-  .tstn-hero__badge {
-    position: absolute;
-    width: clamp(80px, 9vw, 110px);
-    height: clamp(80px, 9vw, 110px);
-    background: var(--tstn-orange);
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-weight: 800;
-    font-size: clamp(11px, 1vw, 13px);
-    text-align: center;
-    line-height: 1.2;
-    right: 18%;
-    bottom: 4%;
-    z-index: 5;
-    box-shadow: 0 10px 25px rgba(245,99,0,0.4);
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .tstn-hero__badge-heart {
-    margin-top: 4px;
-    font-size: 10px;
+    pointer-events: none;
   }
 
   /* Mobile */
@@ -275,15 +294,18 @@
       gap: 40px;
     }
     .tstn-hero__visual {
-      min-height: 420px;
+      min-height: 480px;
       order: 2;
     }
   }
   @media (max-width: 540px) {
     .tstn-hero__title { font-size: clamp(46px, 14vw, 72px); }
-    .tstn-hero__visual { min-height: 360px; }
-    .tstn-hero__arrow { width: 60px; height: 60px; }
+    .tstn-hero__visual { min-height: 420px; }
+    .tstn-hero__arrow { width: 50px; height: 50px; }
     .tstn-hero__rating { flex-wrap: wrap; }
+    .tstn-hero__card--accent-1 { width: 28%; }
+    .tstn-hero__card--accent-2 { width: 24%; right: 38%; }
+    .tstn-hero__card--accent-3 { width: 32%; }
   }
 </style>
 
@@ -350,6 +372,8 @@
     </div>
 
     <div class="tstn-hero__visual">
+
+      <!-- Main anchor card -->
       <div class="tstn-hero__card tstn-hero__card--main">
         {% if section.settings.image_main %}
           <img src="{{ section.settings.image_main | image_url: width: 800 }}" alt="{{ section.settings.image_main.alt | default: 'TSTN Member' }}">
@@ -361,6 +385,7 @@
         {% endif %}
       </div>
 
+      <!-- Top right card -->
       <div class="tstn-hero__card tstn-hero__card--top">
         {% if section.settings.image_top %}
           <img src="{{ section.settings.image_top | image_url: width: 600 }}" alt="TSTN Group">
@@ -369,9 +394,37 @@
         {% endif %}
       </div>
 
+      <!-- Bottom right card -->
       <div class="tstn-hero__card tstn-hero__card--bottom">
         {% if section.settings.image_bottom %}
           <img src="{{ section.settings.image_bottom | image_url: width: 600 }}" alt="TSTN Event">
+        {% else %}
+          <div style="background: linear-gradient(135deg, #2a2a2a, #1a1a1a); width:100%; height:100%;"></div>
+        {% endif %}
+      </div>
+
+      <!-- Accent 1: top-left small -->
+      <div class="tstn-hero__card tstn-hero__card--accent-1">
+        {% if section.settings.image_accent_1 %}
+          <img src="{{ section.settings.image_accent_1 | image_url: width: 400 }}" alt="TSTN Moment">
+        {% else %}
+          <div style="background: linear-gradient(135deg, #3a2a1a, #1a1a1a); width:100%; height:100%;"></div>
+        {% endif %}
+      </div>
+
+      <!-- Accent 2: middle-right small (orange border accent) -->
+      <div class="tstn-hero__card tstn-hero__card--accent-2">
+        {% if section.settings.image_accent_2 %}
+          <img src="{{ section.settings.image_accent_2 | image_url: width: 400 }}" alt="TSTN Moment">
+        {% else %}
+          <div style="background: linear-gradient(135deg, #F56300, #1a1a1a); width:100%; height:100%;"></div>
+        {% endif %}
+      </div>
+
+      <!-- Accent 3: bottom-left small -->
+      <div class="tstn-hero__card tstn-hero__card--accent-3">
+        {% if section.settings.image_accent_3 %}
+          <img src="{{ section.settings.image_accent_3 | image_url: width: 500 }}" alt="TSTN Moment">
         {% else %}
           <div style="background: linear-gradient(135deg, #2a2a2a, #1a1a1a); width:100%; height:100%;"></div>
         {% endif %}
@@ -396,11 +449,6 @@
         <circle cx="80" cy="12" r="2"/>
       </svg>
 
-      <!-- Circular badge -->
-      <div class="tstn-hero__badge">
-        <span>{{ section.settings.badge_text | default: 'GROW LEARN INSPIRE' }}</span>
-        <span class="tstn-hero__badge-heart">♥</span>
-      </div>
     </div>
 
   </div>
@@ -434,14 +482,17 @@
     { "type": "text", "id": "rating", "label": "Rating Score", "default": "4.8/5" },
     { "type": "text", "id": "rating_sub", "label": "Rating Subtitle", "default": "From 2,000+ Members" },
 
-    { "type": "header", "content": "Images" },
+    { "type": "header", "content": "Main Images" },
     { "type": "image_picker", "id": "image_main", "label": "Main Image (large card)" },
     { "type": "text", "id": "image_main_quote", "label": "Main Image Quote (script overlay)", "default": "Real People. Real Stories." },
     { "type": "image_picker", "id": "image_top", "label": "Top Right Image" },
     { "type": "image_picker", "id": "image_bottom", "label": "Bottom Right Image" },
 
-    { "type": "header", "content": "Badge" },
-    { "type": "text", "id": "badge_text", "label": "Badge Text", "default": "GROW LEARN INSPIRE" }
+    { "type": "header", "content": "Accent Images" },
+    { "type": "paragraph", "content": "Smaller scattered images for the collage effect." },
+    { "type": "image_picker", "id": "image_accent_1", "label": "Accent Image 1 (top-left)" },
+    { "type": "image_picker", "id": "image_accent_2", "label": "Accent Image 2 (middle, orange border)" },
+    { "type": "image_picker", "id": "image_accent_3", "label": "Accent Image 3 (bottom-left)" }
   ],
   "blocks": [
     {
