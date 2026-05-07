@@ -11,7 +11,7 @@
 <style>
   /* Self-contained font load (safety net if base.css fails) */
   @font-face {
-    font-family: 'Danger Neue Free';
+    font-family: 'Danger Neue Free Regular';
     src: url('{{ "Danger_Neue_Regular.ttf" | asset_url }}') format('truetype');
     font-weight: normal;
     font-style: normal;
@@ -28,6 +28,7 @@
     --tstn-muted: {{ section.settings.text_muted_color }};
     --tstn-heading: {{ section.settings.heading_color }};
     --tstn-heading-size: {{ section.settings.heading_size }}px;
+    --tstn-heading-font: 'Danger Neue Free Regular', var(--font-heading-family), sans-serif;
     --tstn-radius: 14px;
     --tstn-radius-sm: 10px;
     --tstn-radius-pill: 999px;
@@ -90,7 +91,7 @@
   .tstn-gal__breadcrumb svg { width: 12px; height: 12px; }
 
   .tstn-gal__title {
-    font-family: 'Danger Neue Free', var(--font-heading-family), sans-serif !important;
+    font-family: var(--tstn-heading-font) !important;
     font-weight: 400 !important;
     font-size: clamp(calc(var(--tstn-heading-size) * 0.42), 11vw, var(--tstn-heading-size));
     line-height: 0.92;
@@ -357,11 +358,13 @@
   }
 
   .tstn-gal__featured-title {
-    font-size: 20px;
-    font-weight: 700;
+    font-family: var(--tstn-heading-font);
+    font-size: 26px;
+    font-weight: 400;
     color: var(--tstn-text);
     margin: 0 0 8px;
-    line-height: 1.2;
+    line-height: 1.05;
+    letter-spacing: 0.01em;
   }
 
   .tstn-gal__featured-desc {
@@ -1100,7 +1103,7 @@
     text-transform: uppercase;
   }
   .tstn-gal__lock-title {
-    font-family: var(--tstn-heading), 'Inter', sans-serif !important;
+    font-family: var(--tstn-heading-font) !important;
     font-weight: 400;
     font-size: clamp(24px, 3vw, 34px);
     line-height: 1.1;
@@ -1224,7 +1227,7 @@
   }
   .tstn-gal__upmodal-close svg { width: 16px; height: 16px; }
   .tstn-gal__upmodal-title {
-    font-family: var(--tstn-heading), 'Inter', sans-serif !important;
+    font-family: var(--tstn-heading-font) !important;
     font-weight: 400;
     font-size: clamp(22px, 2.5vw, 28px);
     margin: 0 0 6px;
