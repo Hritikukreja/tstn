@@ -407,6 +407,9 @@
       "block_order": [
         "growave_loyalty_wishlist_block_index_instagram_P9rFXx"
       ],
+      "custom_css": [
+        "h2 {font-size: 40px;}"
+      ],
       "settings": {
         "include_margins": true
       }
