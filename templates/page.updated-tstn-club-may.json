@@ -322,8 +322,8 @@
         "quick_filter_q8WcKe": {
           "type": "quick_filter",
           "settings": {
-            "icon": "snowflake",
-            "label": "",
+            "icon": "jeep",
+            "label": "ALBERTA",
             "link": ""
           }
         },
@@ -331,7 +331,7 @@
           "type": "quick_filter",
           "settings": {
             "icon": "snowflake",
-            "label": "",
+            "label": "BRITISH COLUMBIA",
             "link": ""
           }
         },
@@ -339,7 +339,7 @@
           "type": "quick_filter",
           "settings": {
             "icon": "snowflake",
-            "label": "",
+            "label": "ALASKA",
             "link": ""
           }
         },
@@ -347,7 +347,7 @@
           "type": "quick_filter",
           "settings": {
             "icon": "snowflake",
-            "label": "",
+            "label": "TEXAS",
             "link": ""
           }
         },
@@ -355,7 +355,7 @@
           "type": "quick_filter",
           "settings": {
             "icon": "snowflake",
-            "label": "",
+            "label": "WASHINGTON",
             "link": ""
           }
         },
@@ -363,7 +363,7 @@
           "type": "quick_filter",
           "settings": {
             "icon": "snowflake",
-            "label": "",
+            "label": "ISLANDS",
             "link": ""
           }
         },
@@ -371,7 +371,7 @@
           "type": "quick_filter",
           "settings": {
             "icon": "snowflake",
-            "label": "",
+            "label": "ARCTIC",
             "link": ""
           }
         }
