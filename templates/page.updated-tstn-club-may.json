@@ -61,13 +61,13 @@
         "cta2_link": "#shopify-section-template--20674869821575__tstn_blog_testimonial_CGmbDD",
         "rating": "4.8/5",
         "rating_sub": "4.8/5 from 2,000+ explorers",
-        "image_main": "shopify://shop_images/1.webp",
+        "image_main": "shopify://shop_images/12.png",
         "image_main_quote": "Real People. Real Stories.",
         "image_top": "shopify://shop_images/5.png",
-        "image_bottom": "shopify://shop_images/6.png",
+        "image_bottom": "shopify://shop_images/13.png",
         "image_accent_1": "shopify://shop_images/4.png",
         "image_accent_2": "shopify://shop_images/6.1.png",
-        "image_accent_3": "shopify://shop_images/Frame_250.png"
+        "image_accent_3": "shopify://shop_images/9.png"
       }
     },
     "tstn_featured_videos_DRAEaX": {
@@ -307,6 +307,18 @@
             "link": ""
           }
         },
+        "gallery_item_EqBHFM": {
+          "type": "gallery_item",
+          "settings": {
+            "image": "shopify://shop_images/13.png",
+            "category": "",
+            "title": "",
+            "author_name": "",
+            "photo_count": "",
+            "like_count": "",
+            "link": ""
+          }
+        },
         "quick_filter_q8WcKe": {
           "type": "quick_filter",
           "settings": {
@@ -373,6 +385,7 @@
         "gallery_item_Tbw8Nz",
         "gallery_item_WHjTdG",
         "gallery_item_GWGk8A",
+        "gallery_item_EqBHFM",
         "quick_filter_q8WcKe",
         "quick_filter_abkfet",
         "quick_filter_KeyFjh",
