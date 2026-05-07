@@ -752,7 +752,10 @@
   .tstn-gal__strip-side .tstn-accent { color: var(--tstn-accent); }
 
   /* ===================== LIGHTBOX ===================== */
+  /* ===================== LIGHTBOX (Apple-style viewer) ===================== */
   .tstn-gal__lightbox {
+    --lb-ease: cubic-bezier(0.32, 0.72, 0, 1);
+    --lb-duration: 460ms;
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.92);
@@ -762,41 +765,285 @@
     display: none;
     align-items: center;
     justify-content: center;
-    padding: 60px 40px;
+    padding: 0;
     opacity: 0;
-    transition: opacity 0.2s ease;
+    transition: opacity 0.32s var(--lb-ease);
   }
   .tstn-gal__lightbox.is-open { display: flex; opacity: 1; }
-  .tstn-gal__lightbox-img {
-    max-width: 100%;
-    max-height: 100%;
-    border-radius: 12px;
-    border: 1px solid var(--tstn-border);
-    box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+
+  /* Top bar with counter + close */
+  .tstn-gal__lightbox-topbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+    z-index: 5;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0) 100%);
+    pointer-events: none;
+  }
+  .tstn-gal__lightbox-topbar > * { pointer-events: auto; }
+  .tstn-gal__lightbox-counter {
+    color: rgba(255,255,255,0.85);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    font-variant-numeric: tabular-nums;
+    padding: 7px 14px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 999px;
+    -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
   }
   .tstn-gal__lightbox-close {
-    position: absolute;
-    top: 24px;
-    right: 24px;
     width: 42px;
     height: 42px;
     background: rgba(255,255,255,0.06);
-    border: 1px solid var(--tstn-border);
-    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 50%;
     color: #fff;
     cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.18s ease;
+    transition: all 0.22s var(--lb-ease);
     box-shadow: none !important;
     -webkit-appearance: none;
+    -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
   }
   .tstn-gal__lightbox-close:hover {
     background: var(--tstn-accent);
     border-color: var(--tstn-accent);
+    transform: scale(1.05);
   }
   .tstn-gal__lightbox-close svg { width: 18px; height: 18px; }
+
+  /* Stage (clips the sliding figure) */
+  .tstn-gal__lightbox-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 80px 90px 110px;
+    box-sizing: border-box;
+  }
+
+  /* Two stacked figures — one shown, one queued — for crossfade-slide */
+  .tstn-gal__lightbox-figure {
+    position: absolute;
+    inset: 80px 90px 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      transform var(--lb-duration) var(--lb-ease),
+      opacity var(--lb-duration) var(--lb-ease);
+    will-change: transform, opacity;
+    pointer-events: none;
+  }
+  .tstn-gal__lightbox-figure img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 30px 90px rgba(0,0,0,0.6);
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+  /* Active figure */
+  .tstn-gal__lightbox-figure.is-active {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    pointer-events: auto;
+  }
+  /* Inactive figures wait off to the right by default */
+  .tstn-gal__lightbox-figure.is-inactive {
+    opacity: 0;
+    transform: translateX(8%) scale(0.97);
+  }
+  /* Direction-aware enter/leave states */
+  .tstn-gal__lightbox-figure.is-leaving-left {
+    opacity: 0;
+    transform: translateX(-8%) scale(0.97);
+  }
+  .tstn-gal__lightbox-figure.is-leaving-right {
+    opacity: 0;
+    transform: translateX(8%) scale(0.97);
+  }
+  .tstn-gal__lightbox-figure.is-entering-from-right {
+    opacity: 0;
+    transform: translateX(8%) scale(0.97);
+  }
+  .tstn-gal__lightbox-figure.is-entering-from-left {
+    opacity: 0;
+    transform: translateX(-8%) scale(0.97);
+  }
+  /* Touch-drag (no transition while finger is down) */
+  .tstn-gal__lightbox-figure.is-dragging {
+    transition: none;
+  }
+  /* Initial open zoom-in */
+  .tstn-gal__lightbox:not(.is-open) .tstn-gal__lightbox-figure {
+    transform: scale(0.94);
+    opacity: 0;
+  }
+
+  /* Arrows */
+  .tstn-gal__lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 6;
+    -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+    transition:
+      background 0.22s var(--lb-ease),
+      border-color 0.22s var(--lb-ease),
+      transform 0.28s var(--lb-ease),
+      opacity 0.22s var(--lb-ease);
+    box-shadow: none !important;
+    -webkit-appearance: none;
+    opacity: 0.85;
+  }
+  .tstn-gal__lightbox-nav:hover {
+    background: var(--tstn-accent);
+    border-color: var(--tstn-accent);
+    color: #0a0a0a;
+    opacity: 1;
+    transform: translateY(-50%) scale(1.06);
+  }
+  .tstn-gal__lightbox-nav:active {
+    transform: translateY(-50%) scale(0.96);
+  }
+  .tstn-gal__lightbox-nav.is-prev { left: 24px; }
+  .tstn-gal__lightbox-nav.is-next { right: 24px; }
+  .tstn-gal__lightbox-nav svg { width: 22px; height: 22px; }
+  .tstn-gal__lightbox-nav.is-disabled {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-50%) scale(0.85);
+  }
+
+  /* Caption strip */
+  .tstn-gal__lightbox-caption {
+    position: absolute;
+    left: 50%;
+    bottom: 24px;
+    transform: translateX(-50%);
+    z-index: 5;
+    max-width: min(640px, calc(100% - 200px));
+    text-align: center;
+    color: #fff;
+    padding: 12px 22px;
+    background: rgba(20,20,20,0.65);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+    transition: opacity 0.32s var(--lb-ease), transform 0.32s var(--lb-ease);
+    pointer-events: none;
+  }
+  .tstn-gal__lightbox-caption:empty,
+  .tstn-gal__lightbox-caption.is-empty { display: none; }
+  .tstn-gal__lightbox-caption-title {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0;
+  }
+  .tstn-gal__lightbox-caption-author {
+    font-size: 12px;
+    color: rgba(255,255,255,0.65);
+    margin: 4px 0 0;
+  }
+  .tstn-gal__lightbox-caption.is-swapping {
+    opacity: 0;
+    transform: translateX(-50%) translateY(6px);
+  }
+
+  /* Thumbnail strip (peek of next 2-3) */
+  .tstn-gal__lightbox-thumbs {
+    position: absolute;
+    left: 50%;
+    bottom: 90px;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 4;
+    padding: 6px;
+    background: rgba(20,20,20,0.55);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 14px;
+    -webkit-backdrop-filter: blur(14px);
+            backdrop-filter: blur(14px);
+    opacity: 0;
+    transition: opacity 0.32s var(--lb-ease) 0.1s, transform 0.32s var(--lb-ease) 0.1s;
+    pointer-events: none;
+  }
+  .tstn-gal__lightbox.is-open .tstn-gal__lightbox-thumbs {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .tstn-gal__lightbox-thumb {
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid transparent;
+    background: rgba(255,255,255,0.04);
+    cursor: pointer;
+    flex-shrink: 0;
+    padding: 0;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+    transition: border-color 0.22s var(--lb-ease), transform 0.22s var(--lb-ease), opacity 0.22s var(--lb-ease);
+    opacity: 0.55;
+  }
+  .tstn-gal__lightbox-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .tstn-gal__lightbox-thumb:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+  }
+  .tstn-gal__lightbox-thumb.is-active {
+    opacity: 1;
+    border-color: var(--tstn-accent);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 700px) {
+    .tstn-gal__lightbox-stage { padding: 70px 16px 100px; }
+    .tstn-gal__lightbox-figure { inset: 70px 16px 100px; }
+    .tstn-gal__lightbox-nav { width: 42px; height: 42px; }
+    .tstn-gal__lightbox-nav.is-prev { left: 10px; }
+    .tstn-gal__lightbox-nav.is-next { right: 10px; }
+    .tstn-gal__lightbox-thumbs { bottom: 80px; }
+    .tstn-gal__lightbox-thumb { width: 44px; height: 44px; }
+    .tstn-gal__lightbox-caption { bottom: 16px; max-width: calc(100% - 32px); }
+  }
 
   /* ===================== LOGIN GATE / LOCK OVERLAY ===================== */
   .tstn-gal__lock {
@@ -1338,7 +1585,8 @@
                  alt="{{ section.settings.featured_title | escape }}"
                  loading="lazy"
                  width="{{ section.settings.featured_image.width }}"
-                 height="{{ section.settings.featured_image.height }}">
+                 height="{{ section.settings.featured_image.height }}"
+                 data-lightbox-src="{{ section.settings.featured_image | image_url: width: 1800 }}">
           {%- else -%}
             {{ 'lifestyle-1' | placeholder_svg_tag }}
           {%- endif -%}
@@ -1613,10 +1861,31 @@
 
   {%- comment -%} =============== LIGHTBOX =============== {%- endcomment -%}
   <div class="tstn-gal__lightbox" id="tstn-lightbox-{{ section.id }}" role="dialog" aria-modal="true" aria-hidden="true">
-    <button type="button" class="tstn-gal__lightbox-close" aria-label="Close">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    <div class="tstn-gal__lightbox-topbar">
+      <div class="tstn-gal__lightbox-counter" data-lb-counter>1 / 1</div>
+      <button type="button" class="tstn-gal__lightbox-close" aria-label="Close">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+
+    <button type="button" class="tstn-gal__lightbox-nav is-prev" aria-label="Previous image" data-lb-prev>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
     </button>
-    <img class="tstn-gal__lightbox-img" src="" alt="">
+    <button type="button" class="tstn-gal__lightbox-nav is-next" aria-label="Next image" data-lb-next>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+
+    <div class="tstn-gal__lightbox-stage">
+      <div class="tstn-gal__lightbox-figure is-active" data-lb-figure="0">
+        <img src="" alt="">
+      </div>
+      <div class="tstn-gal__lightbox-figure is-inactive" data-lb-figure="1">
+        <img src="" alt="">
+      </div>
+    </div>
+
+    <div class="tstn-gal__lightbox-thumbs" data-lb-thumbs></div>
+    <div class="tstn-gal__lightbox-caption is-empty" data-lb-caption></div>
   </div>
 
 </section>
@@ -1627,24 +1896,226 @@
     if (!section) return;
 
     var lightbox = section.querySelector('.tstn-gal__lightbox');
-    var lightboxImg = lightbox.querySelector('.tstn-gal__lightbox-img');
     var closeBtn = lightbox.querySelector('.tstn-gal__lightbox-close');
+    var prevBtn = lightbox.querySelector('[data-lb-prev]');
+    var nextBtn = lightbox.querySelector('[data-lb-next]');
+    var counterEl = lightbox.querySelector('[data-lb-counter]');
+    var captionEl = lightbox.querySelector('[data-lb-caption]');
+    var thumbsEl = lightbox.querySelector('[data-lb-thumbs]');
+    var figures = lightbox.querySelectorAll('.tstn-gal__lightbox-figure');
+    var stage = lightbox.querySelector('.tstn-gal__lightbox-stage');
+
+    // Build the gallery list from all card images in the section
+    var items = [];
+    section.querySelectorAll('img[data-lightbox-src]').forEach(function(img) {
+      var card = img.closest('.tstn-gal__card') || img.closest('.tstn-gal__featured');
+      var title = '';
+      var author = '';
+      if (card) {
+        var t = card.querySelector('.tstn-gal__card-title, .tstn-gal__featured-title');
+        var a = card.querySelector('.tstn-gal__author-name');
+        if (t) title = t.textContent.trim();
+        if (a) author = a.textContent.trim();
+      }
+      items.push({
+        src: img.getAttribute('data-lightbox-src'),
+        thumb: img.src,
+        title: title,
+        author: author
+      });
+    });
+
+    var currentIndex = 0;
+    var activeIdx = 0; // which of the two figures is currently active (0 or 1)
+    var isAnimating = false;
+    var transitionMs = 460;
+
+    function getFigureImg(figIdx) {
+      return figures[figIdx].querySelector('img');
+    }
+
+    function preload(idx) {
+      if (idx < 0 || idx >= items.length) return;
+      var pre = new Image();
+      pre.src = items[idx].src;
+    }
+
+    function updateCounter() {
+      counterEl.textContent = (currentIndex + 1) + ' / ' + items.length;
+    }
+
+    function updateCaption(swap) {
+      var item = items[currentIndex];
+      var hasContent = item && (item.title || item.author);
+      if (!hasContent) {
+        captionEl.classList.add('is-empty');
+        captionEl.innerHTML = '';
+        return;
+      }
+      var render = function() {
+        var html = '';
+        if (item.title) html += '<p class="tstn-gal__lightbox-caption-title">' + escapeHtml(item.title) + '</p>';
+        if (item.author) html += '<p class="tstn-gal__lightbox-caption-author">by ' + escapeHtml(item.author) + '</p>';
+        captionEl.innerHTML = html;
+        captionEl.classList.remove('is-empty');
+      };
+      if (swap) {
+        captionEl.classList.add('is-swapping');
+        setTimeout(function() {
+          render();
+          requestAnimationFrame(function() {
+            captionEl.classList.remove('is-swapping');
+          });
+        }, 180);
+      } else {
+        render();
+      }
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, function(c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+
+    function buildThumbs() {
+      thumbsEl.innerHTML = '';
+      // Show ~5 thumbs centered on current
+      var span = 2; // 2 before + current + 2 after
+      var start = Math.max(0, currentIndex - span);
+      var end = Math.min(items.length - 1, currentIndex + span);
+      // Prefer to keep 5 visible by extending whichever side has room
+      while (end - start < 4 && (start > 0 || end < items.length - 1)) {
+        if (start > 0) start--;
+        else if (end < items.length - 1) end++;
+        if (end - start >= 4) break;
+      }
+      for (var i = start; i <= end; i++) {
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'tstn-gal__lightbox-thumb' + (i === currentIndex ? ' is-active' : '');
+        btn.setAttribute('aria-label', 'Go to image ' + (i + 1));
+        btn.setAttribute('data-lb-thumb-idx', i);
+        var im = document.createElement('img');
+        im.src = items[i].thumb;
+        im.alt = '';
+        btn.appendChild(im);
+        thumbsEl.appendChild(btn);
+      }
+      thumbsEl.querySelectorAll('[data-lb-thumb-idx]').forEach(function(t) {
+        t.addEventListener('click', function() {
+          var idx = parseInt(t.getAttribute('data-lb-thumb-idx'), 10);
+          if (idx === currentIndex) return;
+          var dir = idx > currentIndex ? 1 : -1;
+          goTo(idx, dir);
+        });
+      });
+    }
+
+    function setFigure(figIdx, src) {
+      var img = getFigureImg(figIdx);
+      img.src = src;
+    }
 
     function openLightbox(src) {
       if (!src) return;
-      lightboxImg.src = src;
+      // Find index of clicked image
+      var idx = items.findIndex(function(it) { return it.src === src; });
+      if (idx === -1) idx = 0;
+      currentIndex = idx;
+      activeIdx = 0;
+
+      // Set both figures to a clean state
+      figures[0].classList.add('is-active');
+      figures[0].classList.remove('is-inactive', 'is-leaving-left', 'is-leaving-right', 'is-entering-from-left', 'is-entering-from-right');
+      figures[1].classList.add('is-inactive');
+      figures[1].classList.remove('is-active', 'is-leaving-left', 'is-leaving-right', 'is-entering-from-left', 'is-entering-from-right');
+
+      setFigure(0, items[currentIndex].src);
+      setFigure(1, '');
+
       lightbox.classList.add('is-open');
       lightbox.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
+
+      updateCounter();
+      updateCaption(false);
+      buildThumbs();
+      preload(currentIndex + 1);
+      preload(currentIndex - 1);
     }
 
     function closeLightbox() {
       lightbox.classList.remove('is-open');
       lightbox.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
-      lightboxImg.src = '';
+      // Clear srcs after transition for memory
+      setTimeout(function() {
+        if (!lightbox.classList.contains('is-open')) {
+          getFigureImg(0).src = '';
+          getFigureImg(1).src = '';
+        }
+      }, 400);
     }
 
+    function goTo(newIndex, direction) {
+      if (isAnimating) return;
+      if (items.length <= 1) return;
+      // Wrap around
+      if (newIndex < 0) newIndex = items.length - 1;
+      if (newIndex >= items.length) newIndex = 0;
+      if (newIndex === currentIndex) return;
+
+      isAnimating = true;
+      var nextActiveIdx = activeIdx === 0 ? 1 : 0;
+      var current = figures[activeIdx];
+      var incoming = figures[nextActiveIdx];
+
+      // Set up incoming figure
+      setFigure(nextActiveIdx, items[newIndex].src);
+      incoming.classList.remove('is-active', 'is-inactive', 'is-leaving-left', 'is-leaving-right', 'is-entering-from-left', 'is-entering-from-right');
+      // Position it on the side it should enter from
+      if (direction > 0) {
+        incoming.classList.add('is-entering-from-right');
+      } else {
+        incoming.classList.add('is-entering-from-left');
+      }
+
+      // Force a reflow so the initial position takes effect before transitioning
+      // eslint-disable-next-line no-unused-expressions
+      incoming.offsetWidth;
+
+      // Animate
+      requestAnimationFrame(function() {
+        // Outgoing slides away in the direction of motion
+        current.classList.remove('is-active');
+        current.classList.add(direction > 0 ? 'is-leaving-left' : 'is-leaving-right');
+        // Incoming slides into active position
+        incoming.classList.remove('is-entering-from-right', 'is-entering-from-left');
+        incoming.classList.add('is-active');
+      });
+
+      currentIndex = newIndex;
+      activeIdx = nextActiveIdx;
+
+      updateCounter();
+      updateCaption(true);
+      buildThumbs();
+      preload(currentIndex + 1);
+      preload(currentIndex - 1);
+
+      setTimeout(function() {
+        // Clean up the outgoing figure
+        current.classList.remove('is-leaving-left', 'is-leaving-right');
+        current.classList.add('is-inactive');
+        isAnimating = false;
+      }, transitionMs);
+    }
+
+    function next() { goTo(currentIndex + 1, 1); }
+    function prev() { goTo(currentIndex - 1, -1); }
+
+    // Hook up triggers (cards)
     section.querySelectorAll('[data-lightbox-trigger]').forEach(function(el) {
       function trigger(e) {
         e.preventDefault();
@@ -1661,11 +2132,52 @@
     });
 
     closeBtn.addEventListener('click', closeLightbox);
+    nextBtn.addEventListener('click', next);
+    prevBtn.addEventListener('click', prev);
     lightbox.addEventListener('click', function(e) {
-      if (e.target === lightbox) closeLightbox();
+      // Only close on backdrop click — not on stage, controls, or figure
+      if (e.target === lightbox || e.target === stage) closeLightbox();
     });
     document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+      if (!lightbox.classList.contains('is-open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowRight') next();
+      else if (e.key === 'ArrowLeft') prev();
+    });
+
+    // Touch swipe on stage
+    var touchStartX = 0, touchStartY = 0, touchDelta = 0, isTouching = false;
+    stage.addEventListener('touchstart', function(e) {
+      if (isAnimating || e.touches.length !== 1) return;
+      isTouching = true;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchDelta = 0;
+      figures[activeIdx].classList.add('is-dragging');
+    }, { passive: true });
+    stage.addEventListener('touchmove', function(e) {
+      if (!isTouching || e.touches.length !== 1) return;
+      var dx = e.touches[0].clientX - touchStartX;
+      var dy = e.touches[0].clientY - touchStartY;
+      // Only treat as swipe if mostly horizontal
+      if (Math.abs(dy) > Math.abs(dx)) return;
+      touchDelta = dx;
+      var current = figures[activeIdx];
+      var pct = (dx / window.innerWidth) * 100;
+      current.style.transform = 'translateX(' + pct + '%) scale(' + (1 - Math.min(0.04, Math.abs(pct) / 800)) + ')';
+      current.style.opacity = String(Math.max(0.4, 1 - Math.abs(pct) / 100));
+    }, { passive: true });
+    stage.addEventListener('touchend', function() {
+      if (!isTouching) return;
+      isTouching = false;
+      var current = figures[activeIdx];
+      current.classList.remove('is-dragging');
+      current.style.transform = '';
+      current.style.opacity = '';
+      var threshold = window.innerWidth * 0.18;
+      if (touchDelta < -threshold) next();
+      else if (touchDelta > threshold) prev();
+      touchDelta = 0;
     });
 
     // Filter pills (visual only)
