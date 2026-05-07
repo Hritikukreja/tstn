@@ -68,27 +68,38 @@
       "blocks": {
         "promo_PqDAUj": {
           "type": "promo",
+          "disabled": true,
           "settings": {
             "badge_type": "default",
             "badge_text": "GIVEAWAY",
             "eyebrow": "Don't miss out",
             "title": "Promo Title",
             "description": "Short description of the promo.",
+            "cta_mode": "email",
             "cta_text": "Learn More",
-            "cta_link": ""
+            "cta_link": "",
+            "email_placeholder": "Enter your email",
+            "email_btn_text": "Subscribe",
+            "email_tag": "general",
+            "email_success": "✓ Thanks! You’re on the list."
           }
         },
         "promo_aV6dmX": {
           "type": "promo",
           "settings": {
-            "image": "shopify://shop_images/camer.png",
+            "image": "shopify://shop_images/product-sub-img-2.png",
             "badge_type": "giveaway",
             "badge_text": "GIVEAWAY",
-            "eyebrow": "Don't miss out",
-            "title": "Promo Title",
-            "description": "Short description of the promo.",
+            "eyebrow": "Participate now",
+            "title": "Thule Hullavator Giveaway",
+            "description": "We’re giving away a Thule Hullavator Pro to help make loading and unloading your kayak easier, safer, and faster.",
+            "cta_mode": "email",
             "cta_text": "Learn More",
-            "cta_link": ""
+            "cta_link": "",
+            "email_placeholder": "Enter your email",
+            "email_btn_text": "ENTER NOW",
+            "email_tag": "general",
+            "email_success": "✓ Thanks! You’re on the list."
           }
         },
         "video_item_3bQX7M": {
