@@ -42,7 +42,7 @@
     "hero_collection_cAz8QC": {
       "type": "hero-collection",
       "custom_css": [
-        "p {color: #ffffff; font-weight: 400;}"
+        "p {color: #ffffff; font-weight: 550;}"
       ],
       "name": "Hero Collection",
       "settings": {
