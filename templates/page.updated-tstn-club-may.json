@@ -202,6 +202,14 @@
     "tstn_blog_testimonial_CGmbDD": {
       "type": "tstn-blog-testimonial",
       "blocks": {
+        "testimonial_G4FW34": {
+          "type": "testimonial",
+          "settings": {
+            "text": "TSTN gave me the confidence to take my rig farther than I normally would. The community tips, gear advice, and real-world stories actually help",
+            "name": "Mark D.",
+            "role": "Alberta"
+          }
+        },
         "post_FceJWL": {
           "type": "post",
           "settings": {
@@ -209,8 +217,8 @@
             "category": "OVERLANDING",
             "title": "When The Trail Turns Against You",
             "excerpt": "Preparation matters most when conditions change fast.",
-            "read_time": "5 min read",
-            "link": ""
+            "content": "Write the full blog post here. Press Enter twice between paragraphs to separate them.",
+            "read_time": "5 min read"
           }
         },
         "post_RBLFyP": {
@@ -220,8 +228,8 @@
             "category": "Gear",
             "title": "The Gear That Actually Earns Its Space",
             "excerpt": "Only the gear that solves real problems stays in the truck.",
-            "read_time": "6 min read",
-            "link": ""
+            "content": "Write the full blog post here. Press Enter twice between paragraphs to separate them.",
+            "read_time": "6 min read"
           }
         },
         "post_qc6knC": {
@@ -231,8 +239,8 @@
             "category": "Truck Builds",
             "title": "Building a Full-Size Overland Ram",
             "excerpt": "Storage, weight, comfort, and lessons from a real full-size build.",
-            "read_time": "4 min read",
-            "link": ""
+            "content": "Write the full blog post here. Press Enter twice between paragraphs to separate them.",
+            "read_time": "4 min read"
           }
         },
         "post_p7iGq9": {
@@ -242,12 +250,13 @@
             "category": "Travel",
             "title": "Why the Best Trips Rarely Go as Planned",
             "excerpt": "The best stories usually come from the unexpected turns.",
-            "read_time": "5 min read",
-            "link": ""
+            "content": "Write the full blog post here. Press Enter twice between paragraphs to separate them.",
+            "read_time": "5 min read"
           }
         }
       },
       "block_order": [
+        "testimonial_G4FW34",
         "post_FceJWL",
         "post_RBLFyP",
         "post_qc6knC",
@@ -258,9 +267,12 @@
         "heading": "From the Blog",
         "viewall_text": "View all blogs",
         "viewall_link": "",
-        "testimonial_text": "TSTN Club isn’t just content, it’s a community that pushes you to be better.",
-        "testimonial_name": "Rohit Verma",
-        "testimonial_role": "Member"
+        "test_autoplay": true,
+        "test_autoplay_speed": 6000,
+        "gate_pill": "MEMBERS ONLY",
+        "gate_title": "Unlock Exclusive Content & Perks",
+        "gate_cta_text": "Join TSTN Club",
+        "gate_cta_link": ""
       }
     },
     "1777934112a409e8e2": {
