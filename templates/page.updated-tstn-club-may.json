@@ -70,143 +70,6 @@
         "image_accent_3": "shopify://shop_images/9.png"
       }
     },
-    "tstn_featured_videos_DRAEaX": {
-      "type": "tstn-featured-videos",
-      "blocks": {
-        "promo_PqDAUj": {
-          "type": "promo",
-          "settings": {
-            "image": "shopify://shop_images/BLUETTI_Elite_30_V2__Shaun.png",
-            "badge_type": "default",
-            "badge_text": "BLUETTI V2",
-            "eyebrow": "LIMITED TIME DEAL",
-            "title": "SPECIAL PRICE $499 ONLY",
-            "description": "Power your campsite, road trip, or emergency setup with the BLUETTI Elite 30 V2. Compact, reliable, and ready to keep your essentials running wherever you go.",
-            "cta_mode": "link",
-            "cta_text": "SECURE NOW!",
-            "cta_link": "",
-            "email_placeholder": "Enter your email",
-            "email_btn_text": "Subscribe",
-            "email_tag": "general",
-            "email_success": "✓ Thanks! You’re on the list."
-          }
-        },
-        "promo_aV6dmX": {
-          "type": "promo",
-          "settings": {
-            "image": "shopify://shop_images/hullavator.avif",
-            "badge_type": "giveaway",
-            "badge_text": "GIVEAWAY",
-            "eyebrow": "Participate now",
-            "title": "THULE HULLAVATOR GIVEAWAY",
-            "description": "We’re giving away a Thule Hullavator Pro to help make loading and unloading your kayak easier, safer, and faster.",
-            "cta_mode": "email",
-            "cta_text": "Learn More",
-            "cta_link": "",
-            "email_placeholder": "Enter your email",
-            "email_btn_text": "ENTER NOW",
-            "email_tag": "general",
-            "email_success": "✓ Thanks! You’re on the list."
-          }
-        },
-        "video_item_3bQX7M": {
-          "type": "video_item",
-          "settings": {
-            "image": "shopify://shop_images/2.png",
-            "title": "Building a Rig That Can Actually Handle the Trip",
-            "author": "Shaun Walford with Brad Kowitz",
-            "time": "42 min",
-            "duration": "Episode 02",
-            "link": ""
-          }
-        },
-        "video_item_eTMzKr": {
-          "type": "video_item",
-          "settings": {
-            "image": "shopify://shop_images/3_2db77255-8fc6-4bd8-b4d9-9623c369f84f.png",
-            "title": "Remote Travel, Recovery Gear & Smart Decisions",
-            "author": "Shaun Walford with Scott Brady",
-            "time": "55 min",
-            "duration": "Episode 03",
-            "link": ""
-          }
-        },
-        "video_item_D3XrKU": {
-          "type": "video_item",
-          "settings": {
-            "image": "shopify://shop_images/4_d57e7ef3-55b6-4891-ab36-c3561b4889e0.png",
-            "title": "Living on the Road Without Overcomplicating It",
-            "author": "Shaun Walford with Clay Croft",
-            "time": "39 min",
-            "duration": "Episode 04",
-            "link": ""
-          }
-        },
-        "perk_KjwDjb": {
-          "type": "perk",
-          "settings": {
-            "text": "Exclusive Videos"
-          }
-        },
-        "perk_iWjfUq": {
-          "type": "perk",
-          "settings": {
-            "text": "In-depth Blogs"
-          }
-        },
-        "perk_m9thFg": {
-          "type": "perk",
-          "settings": {
-            "text": "Live Sessions"
-          }
-        },
-        "perk_qkdjRi": {
-          "type": "perk",
-          "settings": {
-            "text": "Member Discounts"
-          }
-        },
-        "perk_YigMxP": {
-          "type": "perk",
-          "settings": {
-            "text": "Early Access to Events"
-          }
-        }
-      },
-      "block_order": [
-        "promo_PqDAUj",
-        "promo_aV6dmX",
-        "video_item_3bQX7M",
-        "video_item_eTMzKr",
-        "video_item_D3XrKU",
-        "perk_KjwDjb",
-        "perk_iWjfUq",
-        "perk_m9thFg",
-        "perk_qkdjRi",
-        "perk_YigMxP"
-      ],
-      "custom_css": [
-        "h1,h2,h3,h4,h5,h6,a {color: white;}",
-        "p {color: #ffffff; font-weight: 550;}"
-      ],
-      "name": "TSTN Featured Videos",
-      "settings": {
-        "heading": "Featured Videos",
-        "viewall_text": "View all videos",
-        "viewall_link": "",
-        "main_image": "shopify://shop_images/1_ca459672-715a-4b89-a702-86b5b1a43cfd.png",
-        "main_title": "Full-Size Overlanding: Lessons From the Road",
-        "main_author": "Shaun Walford with Clay Croft",
-        "main_duration": "",
-        "main_link": "https://www.youtube.com/watch?v=ebBJDpA_1ME&t=97s",
-        "gate_pill": "MEMBERS ONLY",
-        "gate_title": "Unlock Exclusive Content & Perks",
-        "gate_cta_text": "Join TSTN Club",
-        "gate_cta_link": "",
-        "promo_autoplay": true,
-        "promo_autoplay_speed": 5000
-      }
-    },
     "community_gallery_xFcGVL": {
       "type": "community-gallery",
       "blocks": {
@@ -451,6 +314,143 @@
         "powered_by_text": "POWERED BY THE TSTN COMMUNITY"
       }
     },
+    "tstn_featured_videos_DRAEaX": {
+      "type": "tstn-featured-videos",
+      "blocks": {
+        "promo_PqDAUj": {
+          "type": "promo",
+          "settings": {
+            "image": "shopify://shop_images/BLUETTI_Elite_30_V2__Shaun.png",
+            "badge_type": "default",
+            "badge_text": "BLUETTI V2",
+            "eyebrow": "LIMITED TIME DEAL",
+            "title": "SPECIAL PRICE $499 ONLY",
+            "description": "Power your campsite, road trip, or emergency setup with the BLUETTI Elite 30 V2. Compact, reliable, and ready to keep your essentials running wherever you go.",
+            "cta_mode": "link",
+            "cta_text": "SECURE NOW!",
+            "cta_link": "",
+            "email_placeholder": "Enter your email",
+            "email_btn_text": "Subscribe",
+            "email_tag": "general",
+            "email_success": "✓ Thanks! You’re on the list."
+          }
+        },
+        "promo_aV6dmX": {
+          "type": "promo",
+          "settings": {
+            "image": "shopify://shop_images/hullavator.avif",
+            "badge_type": "giveaway",
+            "badge_text": "GIVEAWAY",
+            "eyebrow": "Participate now",
+            "title": "THULE HULLAVATOR GIVEAWAY",
+            "description": "We’re giving away a Thule Hullavator Pro to help make loading and unloading your kayak easier, safer, and faster.",
+            "cta_mode": "email",
+            "cta_text": "Learn More",
+            "cta_link": "",
+            "email_placeholder": "Enter your email",
+            "email_btn_text": "ENTER NOW",
+            "email_tag": "general",
+            "email_success": "✓ Thanks! You’re on the list."
+          }
+        },
+        "video_item_3bQX7M": {
+          "type": "video_item",
+          "settings": {
+            "image": "shopify://shop_images/2.png",
+            "title": "Building a Rig That Can Actually Handle the Trip",
+            "author": "Shaun Walford with Brad Kowitz",
+            "time": "42 min",
+            "duration": "Episode 02",
+            "link": ""
+          }
+        },
+        "video_item_eTMzKr": {
+          "type": "video_item",
+          "settings": {
+            "image": "shopify://shop_images/3_2db77255-8fc6-4bd8-b4d9-9623c369f84f.png",
+            "title": "Remote Travel, Recovery Gear & Smart Decisions",
+            "author": "Shaun Walford with Scott Brady",
+            "time": "55 min",
+            "duration": "Episode 03",
+            "link": ""
+          }
+        },
+        "video_item_D3XrKU": {
+          "type": "video_item",
+          "settings": {
+            "image": "shopify://shop_images/4_d57e7ef3-55b6-4891-ab36-c3561b4889e0.png",
+            "title": "Living on the Road Without Overcomplicating It",
+            "author": "Shaun Walford with Clay Croft",
+            "time": "39 min",
+            "duration": "Episode 04",
+            "link": ""
+          }
+        },
+        "perk_KjwDjb": {
+          "type": "perk",
+          "settings": {
+            "text": "Exclusive Videos"
+          }
+        },
+        "perk_iWjfUq": {
+          "type": "perk",
+          "settings": {
+            "text": "In-depth Blogs"
+          }
+        },
+        "perk_m9thFg": {
+          "type": "perk",
+          "settings": {
+            "text": "Live Sessions"
+          }
+        },
+        "perk_qkdjRi": {
+          "type": "perk",
+          "settings": {
+            "text": "Member Discounts"
+          }
+        },
+        "perk_YigMxP": {
+          "type": "perk",
+          "settings": {
+            "text": "Early Access to Events"
+          }
+        }
+      },
+      "block_order": [
+        "promo_PqDAUj",
+        "promo_aV6dmX",
+        "video_item_3bQX7M",
+        "video_item_eTMzKr",
+        "video_item_D3XrKU",
+        "perk_KjwDjb",
+        "perk_iWjfUq",
+        "perk_m9thFg",
+        "perk_qkdjRi",
+        "perk_YigMxP"
+      ],
+      "custom_css": [
+        "h1,h2,h3,h4,h5,h6,a {color: white;}",
+        "p {color: #ffffff; font-weight: 550;}"
+      ],
+      "name": "TSTN Featured Videos",
+      "settings": {
+        "heading": "Featured Videos",
+        "viewall_text": "View all videos",
+        "viewall_link": "",
+        "main_image": "shopify://shop_images/1_ca459672-715a-4b89-a702-86b5b1a43cfd.png",
+        "main_title": "Full-Size Overlanding: Lessons From the Road",
+        "main_author": "Shaun Walford with Clay Croft",
+        "main_duration": "",
+        "main_link": "https://www.youtube.com/watch?v=ebBJDpA_1ME&t=97s",
+        "gate_pill": "MEMBERS ONLY",
+        "gate_title": "Unlock Exclusive Content & Perks",
+        "gate_cta_text": "Join TSTN Club",
+        "gate_cta_link": "",
+        "promo_autoplay": true,
+        "promo_autoplay_speed": 5000
+      }
+    },
     "tstn_blog_testimonial_CGmbDD": {
       "type": "tstn-blog-testimonial",
       "blocks": {
@@ -595,7 +595,7 @@
       "custom_css": [
         "h1,h2,h3 {color: white;}",
         "p {color: #ffffff; font-weight: 550;}",
-        ".tstn-journey__script{font-size: 0PX; color: black;}"
+        ".tstn-journey__script {font-size: 0px; color: black;}"
       ],
       "name": "TSTN Journey CTA",
       "settings": {
@@ -629,8 +629,8 @@
   "order": [
     "main",
     "tstn_club_hero_bR43kc",
-    "tstn_featured_videos_DRAEaX",
     "community_gallery_xFcGVL",
+    "tstn_featured_videos_DRAEaX",
     "tstn_blog_testimonial_CGmbDD",
     "tstn_community_features_CgHfHH",
     "tstn_journey_cta_adCRhC",
