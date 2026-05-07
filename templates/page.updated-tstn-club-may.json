@@ -394,6 +394,10 @@
         "quick_filter_bYJzQc",
         "quick_filter_BRYLg8"
       ],
+      "custom_css": [
+        "h1,h2,h3,h4,h5,h6,a {color: white;}",
+        "p {color: #ffffff; font-weight: 550;}"
+      ],
       "name": "Community Gallery",
       "settings": {
         "padding_top": 80,
@@ -403,7 +407,7 @@
         "tag_text": "The Gallery",
         "tag_color": "#ff6a1a",
         "heading": "insider ALBUM",
-        "heading_size": 140,
+        "heading_size": 60,
         "heading_color": "#ffffff",
         "subtitle": "Explore rigs, adventures, builds, gear setups, and community moments.",
         "bg_image": "shopify://shop_images/10.png",
