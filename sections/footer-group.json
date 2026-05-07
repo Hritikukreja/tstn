@@ -31,6 +31,7 @@
         },
         "link_list_RhwqDC": {
           "type": "link_list",
+          "disabled": true,
           "settings": {
             "menu": "footer-menu-2"
           }
