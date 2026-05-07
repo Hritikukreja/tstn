@@ -159,25 +159,52 @@
     flex-wrap: nowrap;
   }
 
+  /* Inline menu items — target Dawn's actual classes (.header__menu-item is the <a>) */
+  .header__inline-menu .header__menu-item,
   .header__inline-menu .list-menu__item--link,
   .header__inline-menu summary.list-menu__item {
-    color: rgba(245, 245, 247, 0.85);
+    color: rgba(245, 245, 247, 0.75) !important;
     font-size: 1.2rem;
     font-weight: 400;
     letter-spacing: 0.04em;
     text-transform: uppercase;
-    padding: 0 1.05rem;
+    padding: 0 1.05rem !important;
     white-space: nowrap;
     transition: color 0.15s ease;
     line-height: var(--header-bar-height);
     padding-bottom: 0;
     padding-top: 0;
+    text-decoration: none !important;
   }
 
+  .header__inline-menu .header__menu-item:hover,
   .header__inline-menu .list-menu__item--link:hover,
   .header__inline-menu summary.list-menu__item:hover {
-    color: rgba(245, 245, 247, 1);
-    text-decoration: none;
+    color: rgba(245, 245, 247, 1) !important;
+    text-decoration: none !important;
+  }
+
+  /* CURRENT PAGE — orange accent, brighter, no underline */
+  .header__inline-menu .header__menu-item[aria-current="page"],
+  .header__inline-menu .header__menu-item[aria-current="page"] .header__active-menu-item,
+  .header__inline-menu .header__active-menu-item {
+    color: #ff6a1a !important;
+    text-decoration: none !important;
+    text-decoration-thickness: 0 !important;
+  }
+
+  .header__inline-menu .header__menu-item[aria-current="page"]:hover,
+  .header__inline-menu .header__menu-item[aria-current="page"]:hover .header__active-menu-item,
+  .header__inline-menu .header__menu-item:hover .header__active-menu-item {
+    color: #ff8842 !important;
+    text-decoration: none !important;
+    text-decoration-thickness: 0 !important;
+  }
+
+  /* Parent menu item with active child — also orange */
+  .header__inline-menu .header__active-menu-item-parent,
+  .header__inline-menu summary.header__active-menu-item-parent {
+    color: #ff6a1a !important;
   }
 
   .header__inline-menu .list-menu__item--link::after {
