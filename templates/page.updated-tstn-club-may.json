@@ -44,7 +44,7 @@
         "avatar_EdaDyH"
       ],
       "custom_css": [
-        "p {color: #ffffff; font-weight: 600;}"
+        "p {color: #ffffff; font-weight: 550;}"
       ],
       "name": "TSTN Club Hero",
       "settings": {
@@ -184,7 +184,8 @@
         "perk_YigMxP"
       ],
       "custom_css": [
-        "h2,h3 {color: white;}"
+        "h1,h2,h3,h4,h5,h6,a {color: white;}",
+        "p {color: #ffffff; font-weight: 550;}"
       ],
       "name": "TSTN Featured Videos",
       "settings": {
@@ -353,7 +354,8 @@
         "feature_wcqHcm"
       ],
       "custom_css": [
-        "h2,h3 {color: white;}"
+        "h2,h3 {color: white;}",
+        "p {color: #ffffff; font-weight: 550;}"
       ],
       "name": "TSTN Community Features",
       "settings": {
@@ -363,7 +365,8 @@
     "tstn_journey_cta_adCRhC": {
       "type": "tstn-journey-cta",
       "custom_css": [
-        "h1,h2,h3 {color: white;}"
+        "h1,h2,h3 {color: white;}",
+        "p {color: #ffffff; font-weight: 550;}"
       ],
       "name": "TSTN Journey CTA",
       "settings": {
