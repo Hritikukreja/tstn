@@ -136,6 +136,9 @@
     },
     "curated_video_y49Hqq": {
       "type": "curated-video",
+      "custom_css": [
+        "p {color: #ffffff; font-weight: 400;}"
+      ],
       "name": "Curated Video",
       "settings": {
         "overline": "CURATED BY SHAUN",
