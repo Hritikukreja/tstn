@@ -278,35 +278,45 @@
   }
 
   /* =============================================
-     DESKTOP SEARCH MODAL — dark theme override
+     DESKTOP SEARCH MODAL — clean dark bar
      ============================================= */
   .search-modal,
   details-modal[open] .search-modal {
-    background: rgba(10, 10, 10, 0.98) !important;
+    background: rgba(14, 14, 14, 0.985) !important;
     backdrop-filter: saturate(180%) blur(24px);
     -webkit-backdrop-filter: saturate(180%) blur(24px);
     border: none !important;
-    box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.6) !important;
+    box-shadow: 0 1.6rem 4rem rgba(0, 0, 0, 0.55) !important;
   }
 
   .search-modal__content,
   .search-modal__content-bottom {
     background: transparent !important;
     border: none !important;
-    padding: 1.6rem 2.4rem !important;
+    padding: 1.4rem 2.4rem !important;
+    gap: 1.2rem;
+    align-items: center;
   }
 
+  /* The pill-shaped form — subtle, never orange (orange focus was too loud) */
   .search-modal__form {
-    background: rgba(255, 255, 255, 0.06) !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.14) !important;
     border-radius: 999px !important;
-    padding: 0 1.6rem !important;
-    transition: border-color 0.15s ease, background 0.15s ease;
+    padding: 0 1.2rem 0 1.8rem !important;
+    transition: border-color 0.2s ease, background 0.2s ease;
+    flex: 1;
+    max-width: none;
+  }
+
+  .search-modal__form:hover {
+    border-color: rgba(255, 255, 255, 0.22) !important;
   }
 
   .search-modal__form:focus-within {
-    border-color: #ff6a1a !important;
-    background: rgba(255, 255, 255, 0.09) !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+    background: rgba(255, 255, 255, 0.07) !important;
+    box-shadow: 0 0 0 3px rgba(255, 106, 26, 0.12) !important;
   }
 
   .search-modal input,
@@ -316,9 +326,9 @@
     background: transparent !important;
     border: none !important;
     color: rgba(245, 245, 247, 1) !important;
-    font-size: 1.6rem !important;
+    font-size: 1.5rem !important;
     letter-spacing: 0.04em !important;
-    padding: 1.2rem 0 !important;
+    padding: 1rem 0 !important;
     box-shadow: none !important;
     outline: none !important;
   }
@@ -326,20 +336,28 @@
   .search-modal input::placeholder,
   .search-modal input[type='search']::placeholder,
   .search__input::placeholder {
-    color: rgba(245, 245, 247, 0.5) !important;
+    color: rgba(245, 245, 247, 0.45) !important;
     text-transform: uppercase;
     letter-spacing: 0.06em;
   }
 
-  /* Reset / submit buttons inside the search form */
+  /* Hide Dawn's floating field label inside the search form */
+  .search-modal__form .field__label {
+    display: none !important;
+  }
+
+  /* Submit / reset buttons inside the pill */
   .search-modal button,
   .search-modal__form button,
   .search-modal .reset__button,
   .search-modal .search__button {
     background: transparent !important;
     border: none !important;
-    color: rgba(245, 245, 247, 0.85) !important;
+    color: rgba(245, 245, 247, 0.7) !important;
     box-shadow: none !important;
+    width: 3.2rem !important;
+    height: 3.2rem !important;
+    transition: color 0.15s ease;
   }
 
   .search-modal button:hover,
@@ -353,15 +371,21 @@
   .search-modal__form button svg {
     fill: currentColor !important;
     color: inherit !important;
+    width: 1.8rem !important;
+    height: 1.8rem !important;
   }
 
-  /* The big X close button on the search modal */
+  /* The X close button — kept tight against the pill */
   .search-modal__close-button,
   button.search-modal__close-button {
     background: transparent !important;
     border: none !important;
-    color: rgba(245, 245, 247, 0.85) !important;
+    color: rgba(245, 245, 247, 0.7) !important;
     box-shadow: none !important;
+    width: 3.2rem !important;
+    height: 3.2rem !important;
+    flex-shrink: 0;
+    transition: color 0.15s ease;
   }
 
   .search-modal__close-button:hover {
@@ -370,6 +394,8 @@
 
   .search-modal__close-button svg {
     fill: currentColor !important;
+    width: 1.6rem !important;
+    height: 1.6rem !important;
   }
 
   /* =============================================
@@ -424,7 +450,7 @@
   }
 
   .cart-count-bubble {
-    background: rgba(245, 245, 247, 0.85);
+    background: #ff6a1a;
     color: rgb(22, 22, 22);
     font-family: 'Danger Neue', sans-serif !important;
     font-size: 0.9rem;
@@ -480,6 +506,290 @@
     font-family: 'Danger Neue', sans-serif !important;
     text-transform: uppercase;
     letter-spacing: 0.06em;
+  }
+
+  /* =============================================
+     CART DRAWER — premium dark theme
+     (Applies globally; cart-drawer renders elsewhere
+      in theme.liquid but inherits these styles.)
+     ============================================= */
+  cart-drawer {
+    color: rgba(245, 245, 247, 0.9);
+  }
+
+  cart-drawer .drawer__inner,
+  cart-drawer.drawer .drawer__inner {
+    background: rgba(15, 15, 15, 0.985) !important;
+    backdrop-filter: saturate(180%) blur(24px);
+    -webkit-backdrop-filter: saturate(180%) blur(24px);
+    border-left: 1px solid rgba(255, 255, 255, 0.06) !important;
+    color: rgba(245, 245, 247, 0.9) !important;
+  }
+
+  cart-drawer .drawer__header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+    padding: 2rem 2.4rem !important;
+  }
+
+  cart-drawer .drawer__heading,
+  cart-drawer h2.drawer__heading {
+    font-family: 'Danger Neue', sans-serif !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 1.8rem !important;
+    margin: 0;
+  }
+
+  cart-drawer .drawer__close,
+  cart-drawer button.drawer__close {
+    color: rgba(245, 245, 247, 0.7) !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    transition: color 0.15s ease;
+  }
+
+  cart-drawer .drawer__close:hover {
+    color: rgba(245, 245, 247, 1) !important;
+  }
+
+  cart-drawer .drawer__close svg {
+    fill: currentColor !important;
+    color: inherit !important;
+  }
+
+  /* Empty cart state */
+  cart-drawer .drawer__inner-empty,
+  cart-drawer .cart-drawer__warnings,
+  cart-drawer .cart-drawer__empty-content {
+    background: transparent !important;
+    color: rgba(245, 245, 247, 0.85) !important;
+    text-align: center;
+    padding: 4rem 2rem !important;
+  }
+
+  cart-drawer .cart__empty-text,
+  cart-drawer .cart-drawer__warnings h2 {
+    font-family: 'Danger Neue', sans-serif !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 2rem !important;
+    margin-bottom: 1.6rem !important;
+  }
+
+  /* Continue shopping / view all CTA */
+  cart-drawer .cart-drawer__warnings .button,
+  cart-drawer .drawer__inner-empty .button,
+  cart-drawer a.button,
+  cart-drawer button.button {
+    font-family: 'Danger Neue', sans-serif !important;
+    background: transparent !important;
+    color: rgba(245, 245, 247, 0.95) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 999px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 1.2rem 2.4rem !important;
+    box-shadow: none !important;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  cart-drawer .cart-drawer__warnings .button:hover,
+  cart-drawer .drawer__inner-empty .button:hover,
+  cart-drawer a.button:hover,
+  cart-drawer button.button:hover {
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: rgb(15, 15, 15) !important;
+    border-color: rgba(255, 255, 255, 0.95) !important;
+  }
+
+  /* Account / sign-in section in empty drawer */
+  cart-drawer .cart-drawer__login,
+  cart-drawer .cart-drawer__collection {
+    color: rgba(245, 245, 247, 0.7) !important;
+  }
+
+  cart-drawer .cart-drawer__login a,
+  cart-drawer .cart-drawer__collection a {
+    color: rgba(245, 245, 247, 0.95) !important;
+    text-decoration: underline;
+  }
+
+  /* Cart items */
+  cart-drawer .cart-items,
+  cart-drawer cart-drawer-items {
+    background: transparent !important;
+    color: inherit !important;
+  }
+
+  cart-drawer .cart-item,
+  cart-drawer tr.cart-item {
+    background: transparent !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  }
+
+  cart-drawer .cart-item__name,
+  cart-drawer a.cart-item__name {
+    font-family: 'Danger Neue', sans-serif !important;
+    color: rgba(255, 255, 255, 0.95) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+
+  cart-drawer .cart-item__name:hover {
+    color: #ff6a1a !important;
+  }
+
+  cart-drawer .cart-item__details,
+  cart-drawer .product-option,
+  cart-drawer dl,
+  cart-drawer dt,
+  cart-drawer dd {
+    color: rgba(245, 245, 247, 0.65) !important;
+  }
+
+  cart-drawer .cart-item__price,
+  cart-drawer .cart-item__price-wrapper,
+  cart-drawer .price {
+    color: rgba(245, 245, 247, 0.95) !important;
+  }
+
+  cart-drawer .price--end,
+  cart-drawer .price__sale .price-item--regular {
+    color: rgba(245, 245, 247, 0.5) !important;
+  }
+
+  /* Quantity selector */
+  cart-drawer .quantity,
+  cart-drawer quantity-input {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 999px !important;
+    color: rgba(245, 245, 247, 0.95) !important;
+  }
+
+  cart-drawer .quantity__input {
+    background: transparent !important;
+    color: rgba(245, 245, 247, 0.95) !important;
+    border: none !important;
+    font-family: 'Danger Neue', sans-serif !important;
+  }
+
+  cart-drawer .quantity__button {
+    color: rgba(245, 245, 247, 0.85) !important;
+    background: transparent !important;
+    border: none !important;
+  }
+
+  cart-drawer .quantity__button:hover {
+    color: #ff6a1a !important;
+  }
+
+  cart-drawer .cart-item__quantity-wrapper cart-remove-button button,
+  cart-drawer cart-remove-button .button {
+    background: transparent !important;
+    color: rgba(245, 245, 247, 0.55) !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    text-transform: none !important;
+    letter-spacing: 0;
+  }
+
+  cart-drawer .cart-item__quantity-wrapper cart-remove-button button:hover {
+    color: #ff6a1a !important;
+    background: transparent !important;
+  }
+
+  cart-drawer .cart-item__error,
+  cart-drawer .cart-item__error-text {
+    color: #ff8842 !important;
+  }
+
+  /* Footer of cart drawer */
+  cart-drawer .drawer__footer,
+  cart-drawer .cart-drawer__footer {
+    background: rgba(10, 10, 10, 0.6) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    padding: 1.8rem 2.4rem !important;
+  }
+
+  cart-drawer .totals,
+  cart-drawer .totals * {
+    color: rgba(245, 245, 247, 0.95) !important;
+    font-family: 'Danger Neue', sans-serif !important;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  cart-drawer .totals h2,
+  cart-drawer .totals__total,
+  cart-drawer .totals__total-value {
+    font-size: 1.6rem !important;
+  }
+
+  cart-drawer .tax-note,
+  cart-drawer .cart__dynamic-checkout-buttons,
+  cart-drawer small.tax-note {
+    color: rgba(245, 245, 247, 0.55) !important;
+  }
+
+  /* Checkout button (primary CTA) */
+  cart-drawer .cart__ctas .button,
+  cart-drawer button[name='checkout'],
+  cart-drawer #CartDrawer-Checkout {
+    font-family: 'Danger Neue', sans-serif !important;
+    background: #ff6a1a !important;
+    color: rgb(15, 15, 15) !important;
+    border: none !important;
+    border-radius: 999px !important;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 1.4rem !important;
+    padding: 1.4rem 2.4rem !important;
+    box-shadow: none !important;
+    transition: background 0.2s ease, transform 0.1s ease;
+  }
+
+  cart-drawer .cart__ctas .button:hover,
+  cart-drawer button[name='checkout']:hover,
+  cart-drawer #CartDrawer-Checkout:hover {
+    background: #ff8842 !important;
+    color: rgb(15, 15, 15) !important;
+  }
+
+  cart-drawer .cart__ctas .button:active,
+  cart-drawer button[name='checkout']:active {
+    transform: scale(0.98);
+  }
+
+  /* Cart note textarea */
+  cart-drawer .cart__note,
+  cart-drawer details.cart__note {
+    color: rgba(245, 245, 247, 0.7) !important;
+  }
+
+  cart-drawer .cart__note textarea,
+  cart-drawer textarea {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 0.8rem !important;
+    color: rgba(245, 245, 247, 0.95) !important;
+    font-family: inherit;
+  }
+
+  cart-drawer .cart__note summary {
+    color: rgba(245, 245, 247, 0.85) !important;
+  }
+
+  /* Item product image */
+  cart-drawer .cart-item__image,
+  cart-drawer img.cart-item__image {
+    border-radius: 0.6rem;
+    background: rgba(255, 255, 255, 0.04);
   }
 
   /* =============================================
@@ -610,7 +920,6 @@
       display: none !important;
     }
 
-    /* Force search icon visible on mobile */
     .header__search,
     details-modal.header__search,
     .header__icon--search {
@@ -626,7 +935,6 @@
       display: none;
     }
 
-    /* On mobile, suppress Dawn's full-screen search modal so only our overlay appears */
     .header__search details[open] .search-modal,
     details-modal[open] .search-modal {
       display: none !important;
@@ -689,14 +997,18 @@
     background: transparent !important;
   }
 
-  /* Cart drawer fix */
-  cart-drawer.drawer:not(.active) {
-    visibility: hidden !important;
+  /* =============================================
+     CART DRAWER POINTER FIX — only block clicks when
+     fully closed (no .active and no .animate). Don't
+     force visibility:hidden, that fights Dawn's open
+     transition and prevents the drawer from showing.
+     ============================================= */
+  cart-drawer:not(.active):not(.animate) {
     pointer-events: none !important;
   }
 
-  cart-drawer.drawer.active {
-    visibility: visible !important;
+  cart-drawer.active,
+  cart-drawer.animate {
     pointer-events: auto !important;
   }
 
@@ -995,8 +1307,6 @@
 
   /* ──────────────────────────────────────────
      MOBILE SEARCH OVERLAY — event delegation
-     so it survives section refreshes and works
-     even when Dawn re-renders the search button.
      ────────────────────────────────────────── */
   document.addEventListener('click', function (e) {
     if (window.innerWidth > 989) return;
@@ -1004,13 +1314,11 @@
     var trigger = e.target.closest('.header__icon--search, .header__search summary, details-modal summary');
     if (!trigger) return;
 
-    /* Make sure we're inside the site header, not some other modal */
     if (!trigger.closest('.section-header')) return;
 
     e.preventDefault();
     e.stopPropagation();
 
-    /* If Dawn already toggled the <details> open, snap it shut */
     var details = trigger.closest('details');
     if (details && details.hasAttribute('open')) {
       details.removeAttribute('open');
@@ -1046,7 +1354,6 @@
       });
     }
 
-    /* MENU DRAWER — close on link click */
     var headerDrawer = document.querySelector('header-drawer');
     if (headerDrawer) {
       var details = headerDrawer.querySelector('#Details-menu-drawer-container');
