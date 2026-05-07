@@ -1,0 +1,1334 @@
+{% comment %}
+  ============================================================
+    TSTN — Community Gallery Section
+    - Featured story, filterable item grid, sidebar panels
+    - Lightbox on expand (vanilla JS, no libraries)
+    - Masked mountain backdrop behind heading
+    - Full theme-editor control via CSS variables
+  ============================================================
+{% endcomment %}
+
+<style>
+  /* Self-contained font load (safety net if base.css fails) */
+  @font-face {
+    font-family: 'Danger Neue Free';
+    src: url('{{ "Danger_Neue_Regular.ttf" | asset_url }}') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  #shopify-section-{{ section.id }} {
+    --tstn-bg: {{ section.settings.bg_color }};
+    --tstn-card: {{ section.settings.card_bg_color }};
+    --tstn-card-hover: {{ section.settings.card_hover_color }};
+    --tstn-border: {{ section.settings.border_color }};
+    --tstn-accent: {{ section.settings.accent_color }};
+    --tstn-text: {{ section.settings.text_color }};
+    --tstn-muted: {{ section.settings.text_muted_color }};
+    --tstn-heading: {{ section.settings.heading_color }};
+    --tstn-heading-size: {{ section.settings.heading_size }}px;
+    --tstn-radius: 14px;
+    --tstn-radius-sm: 10px;
+    --tstn-radius-pill: 999px;
+    --tstn-pad-x: 32px;
+    background: var(--tstn-bg) !important;
+  }
+
+  .tstn-gal {
+    background: var(--tstn-bg);
+    color: var(--tstn-text);
+    font-family: var(--font-body-family), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    padding: 60px var(--tstn-pad-x) 60px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ===================== HEADER ===================== */
+  .tstn-gal__header {
+    position: relative;
+    margin-bottom: 32px;
+    z-index: 2;
+    padding-bottom: 4px;
+  }
+
+  .tstn-gal__bg-img {
+    position: absolute;
+    top: -80px;
+    right: calc(-1 * var(--tstn-pad-x));
+    width: 65%;
+    height: 360px;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .tstn-gal__bg-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    -webkit-mask-image: linear-gradient(to left, #000 35%, transparent 95%);
+            mask-image: linear-gradient(to left, #000 35%, transparent 95%);
+  }
+
+  .tstn-gal__breadcrumb {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 18px;
+    position: relative;
+    z-index: 2;
+  }
+  .tstn-gal__breadcrumb svg { width: 12px; height: 12px; }
+
+  .tstn-gal__title {
+    font-family: 'Danger Neue Free', var(--font-heading-family), sans-serif !important;
+    font-weight: 400 !important;
+    font-size: clamp(calc(var(--tstn-heading-size) * 0.42), 11vw, var(--tstn-heading-size));
+    line-height: 0.92;
+    letter-spacing: 0.015em;
+    color: var(--tstn-heading);
+    margin: 0 0 18px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 2;
+  }
+
+  .tstn-gal__subtitle {
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--tstn-muted);
+    max-width: 600px;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ===================== FILTER BAR ===================== */
+  .tstn-gal__filterbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: var(--tstn-card);
+    border: 1px solid var(--tstn-border);
+    border-radius: var(--tstn-radius);
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+  }
+
+  .tstn-gal__pills {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+    flex: 0 1 auto;
+  }
+
+  .tstn-gal__pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 16px;
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--tstn-radius-sm);
+    color: var(--tstn-muted);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    white-space: nowrap;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+  .tstn-gal__pill:hover { color: var(--tstn-text); background: rgba(255,255,255,0.04); }
+  .tstn-gal__pill.is-active {
+    color: var(--tstn-accent);
+    border-color: var(--tstn-accent);
+    background: rgba(255,106,26,0.07);
+  }
+  .tstn-gal__pill svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+  .tstn-gal__spacer { flex: 1 1 8px; min-width: 0; }
+
+  .tstn-gal__search {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 14px;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--tstn-border);
+    border-radius: var(--tstn-radius-sm);
+    width: 240px;
+    transition: border-color 0.18s ease;
+  }
+  .tstn-gal__search:focus-within { border-color: var(--tstn-accent); }
+  .tstn-gal__search svg { width: 14px; height: 14px; stroke: var(--tstn-muted); stroke-width: 1.8; fill: none; flex-shrink: 0; }
+  .tstn-gal__search input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--tstn-text);
+    font-size: 13px;
+    font-family: inherit;
+    width: 100%;
+  }
+  .tstn-gal__search input::placeholder { color: var(--tstn-muted); }
+
+  .tstn-gal__sort {
+    padding: 9px 36px 9px 14px;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--tstn-border);
+    border-radius: var(--tstn-radius-sm);
+    color: var(--tstn-text);
+    font-size: 13px;
+    font-family: inherit;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%239a9a9a' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+  }
+
+  .tstn-gal__toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--tstn-muted);
+    font-size: 13px;
+    cursor: pointer;
+    user-select: none;
+    padding: 0 8px;
+  }
+  .tstn-gal__switch {
+    width: 32px;
+    height: 18px;
+    background: rgba(255,255,255,0.14);
+    border-radius: var(--tstn-radius-pill);
+    position: relative;
+    transition: background 0.2s ease;
+    flex-shrink: 0;
+  }
+  .tstn-gal__switch::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 14px;
+    height: 14px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+  }
+  .tstn-gal__toggle input { display: none; }
+  .tstn-gal__toggle input:checked + .tstn-gal__switch { background: var(--tstn-accent); }
+  .tstn-gal__toggle input:checked + .tstn-gal__switch::after { transform: translateX(14px); }
+
+  .tstn-gal__viewmode {
+    display: inline-flex;
+    background: rgba(0,0,0,0.4);
+    border: 1px solid var(--tstn-border);
+    border-radius: var(--tstn-radius-sm);
+    padding: 4px;
+    gap: 2px;
+  }
+  .tstn-gal__viewbtn {
+    width: 32px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    color: var(--tstn-muted);
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.18s ease;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+  }
+  .tstn-gal__viewbtn.is-active { background: rgba(255,106,26,0.12); color: var(--tstn-accent); }
+  .tstn-gal__viewbtn svg { width: 16px; height: 16px; }
+
+  /* ===================== MAIN GRID ===================== */
+  .tstn-gal__grid {
+    display: grid;
+    grid-template-columns: minmax(280px, 1.05fr) minmax(0, 1.95fr) minmax(240px, 0.78fr);
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: stretch;
+  }
+
+  /* ----- FEATURED ----- */
+  .tstn-gal__featured {
+    position: relative;
+    background: var(--tstn-card);
+    border: 1px solid var(--tstn-border);
+    border-radius: var(--tstn-radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .tstn-gal__featured:hover {
+    transform: translateY(-2px);
+    border-color: var(--tstn-accent);
+    box-shadow: 0 12px 40px -16px rgba(255,106,26,0.35);
+  }
+
+  .tstn-gal__featured-img {
+    flex: 1 1 auto;
+    position: relative;
+    min-height: 380px;
+    overflow: hidden;
+  }
+  .tstn-gal__featured-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+  .tstn-gal__featured:hover .tstn-gal__featured-img img { transform: scale(1.04); }
+  .tstn-gal__featured-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 55%, rgba(10,10,10,0.85) 100%);
+    pointer-events: none;
+  }
+
+  .tstn-gal__featured-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    background: rgba(10,10,10,0.7);
+    -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+    border: 1px solid var(--tstn-accent);
+    border-radius: 8px;
+    color: var(--tstn-accent);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    z-index: 2;
+  }
+  .tstn-gal__featured-badge svg { width: 11px; height: 11px; }
+
+  .tstn-gal__featured-body {
+    padding: 18px 20px 20px;
+    background: var(--tstn-card);
+    border-top: 1px solid var(--tstn-border);
+  }
+
+  .tstn-gal__cat {
+    color: var(--tstn-accent);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin: 0 0 6px;
+  }
+
+  .tstn-gal__featured-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--tstn-text);
+    margin: 0 0 8px;
+    line-height: 1.2;
+  }
+
+  .tstn-gal__featured-desc {
+    font-size: 13px;
+    color: var(--tstn-muted);
+    line-height: 1.55;
+    margin: 0 0 16px;
+  }
+
+  .tstn-gal__featured-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .tstn-gal__author {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+  }
+  .tstn-gal__author-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--tstn-accent), #9a3a0a);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .tstn-gal__author-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .tstn-gal__author-name {
+    font-size: 12px;
+    color: var(--tstn-text);
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .tstn-gal__featured-stats {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--tstn-muted);
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+  .tstn-gal__featured-stats span { display: inline-flex; align-items: center; gap: 5px; }
+  .tstn-gal__featured-stats svg { width: 13px; height: 13px; }
+
+  /* ----- ITEMS GRID ----- */
+  .tstn-gal__items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    align-content: start;
+  }
+
+  .tstn-gal__card {
+    position: relative;
+    background: var(--tstn-card);
+    border: 1px solid var(--tstn-border);
+    border-radius: var(--tstn-radius);
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  .tstn-gal__card:hover {
+    transform: translateY(-2px);
+    border-color: var(--tstn-accent);
+    box-shadow: 0 10px 30px -16px rgba(255,106,26,0.3);
+  }
+
+  .tstn-gal__card-img {
+    aspect-ratio: 16 / 10;
+    position: relative;
+    overflow: hidden;
+  }
+  .tstn-gal__card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .tstn-gal__card:hover .tstn-gal__card-img img { transform: scale(1.06); }
+  .tstn-gal__card-img::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0) 60%, rgba(0,0,0,0.55) 100%);
+    pointer-events: none;
+  }
+
+  .tstn-gal__photocount {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 9px;
+    background: rgba(10,10,10,0.72);
+    -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+    border-radius: 7px;
+    color: var(--tstn-text);
+    font-size: 11px;
+    font-weight: 600;
+    z-index: 2;
+  }
+  .tstn-gal__photocount svg { width: 11px; height: 11px; }
+
+  .tstn-gal__expand {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10,10,10,0.72);
+    -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+    border: none;
+    border-radius: 7px;
+    color: var(--tstn-text);
+    cursor: pointer;
+    transition: all 0.18s ease;
+    z-index: 2;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+  }
+  .tstn-gal__expand:hover {
+    background: var(--tstn-accent);
+    color: #fff;
+  }
+  .tstn-gal__expand svg { width: 12px; height: 12px; }
+
+  .tstn-gal__card-cat-overlay {
+    position: absolute;
+    bottom: 10px;
+    left: 12px;
+    color: var(--tstn-accent);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    z-index: 2;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.8);
+  }
+
+  .tstn-gal__card-body { padding: 12px 14px 14px; }
+
+  .tstn-gal__card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--tstn-text);
+    margin: 0 0 10px;
+    line-height: 1.3;
+  }
+
+  .tstn-gal__card-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .tstn-gal__card-author { font-size: 11px; }
+  .tstn-gal__card-author .tstn-gal__author-avatar { width: 22px; height: 22px; }
+  .tstn-gal__card-author .tstn-gal__author-name { font-size: 11px; }
+
+  .tstn-gal__likes {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--tstn-muted);
+    font-size: 11px;
+    flex-shrink: 0;
+  }
+  .tstn-gal__likes svg { width: 12px; height: 12px; }
+
+  /* ----- SIDEBAR ----- */
+  .tstn-gal__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .tstn-gal__panel {
+    background: var(--tstn-card);
+    border: 1px solid var(--tstn-border);
+    border-radius: var(--tstn-radius);
+    padding: 18px;
+  }
+
+  .tstn-gal__panel-title {
+    color: var(--tstn-accent);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin: 0 0 14px;
+  }
+
+  .tstn-gal__chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tstn-gal__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 12px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--tstn-border);
+    border-radius: var(--tstn-radius-pill);
+    color: var(--tstn-text);
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.18s ease;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .tstn-gal__chip:hover {
+    background: var(--tstn-accent);
+    color: #fff;
+    border-color: var(--tstn-accent);
+  }
+  .tstn-gal__chip svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+  /* Upload card */
+  .tstn-gal__upload {
+    background: linear-gradient(135deg, rgba(255,106,26,0.10), rgba(255,106,26,0.02));
+    border: 1px solid var(--tstn-accent);
+    border-radius: var(--tstn-radius);
+    padding: 18px;
+    position: relative;
+    overflow: hidden;
+  }
+  .tstn-gal__upload-head {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .tstn-gal__upload-icon {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,106,26,0.14);
+    border: 1px solid var(--tstn-accent);
+    border-radius: 9px;
+    color: var(--tstn-accent);
+    flex-shrink: 0;
+  }
+  .tstn-gal__upload-icon svg { width: 18px; height: 18px; }
+  .tstn-gal__upload-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--tstn-text);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin: 0 0 5px;
+  }
+  .tstn-gal__upload-desc {
+    font-size: 11px;
+    color: var(--tstn-muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+  .tstn-gal__upload-btn {
+    display: block;
+    width: 100%;
+    padding: 11px 16px;
+    background: var(--tstn-accent);
+    border: 1px solid var(--tstn-accent);
+    border-radius: 9px;
+    color: #fff !important;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+    appearance: none;
+    font-family: inherit;
+  }
+  .tstn-gal__upload-btn:hover {
+    background: transparent;
+    color: var(--tstn-accent) !important;
+  }
+
+  /* Stats panel */
+  .tstn-gal__stats {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .tstn-gal__stat {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .tstn-gal__stat-icon {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,106,26,0.10);
+    border-radius: 9px;
+    color: var(--tstn-accent);
+    flex-shrink: 0;
+  }
+  .tstn-gal__stat-icon svg { width: 17px; height: 17px; }
+  .tstn-gal__stat-value {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--tstn-text);
+    line-height: 1.1;
+  }
+  .tstn-gal__stat-label {
+    font-size: 11px;
+    color: var(--tstn-muted);
+    margin-top: 2px;
+  }
+
+  /* ===================== BOTTOM STRIP ===================== */
+  .tstn-gal__strip {
+    margin-top: 0;
+    padding: 16px 24px;
+    background: var(--tstn-card);
+    border: 1px solid var(--tstn-border);
+    border-radius: var(--tstn-radius);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .tstn-gal__strip-side {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--tstn-muted);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .tstn-gal__strip-side svg {
+    color: var(--tstn-accent);
+    flex-shrink: 0;
+  }
+  .tstn-gal__strip-side .tstn-accent { color: var(--tstn-accent); }
+
+  /* ===================== LIGHTBOX ===================== */
+  .tstn-gal__lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.92);
+    -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 40px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .tstn-gal__lightbox.is-open { display: flex; opacity: 1; }
+  .tstn-gal__lightbox-img {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 12px;
+    border: 1px solid var(--tstn-border);
+    box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+  }
+  .tstn-gal__lightbox-close {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 42px;
+    height: 42px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--tstn-border);
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.18s ease;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+  }
+  .tstn-gal__lightbox-close:hover {
+    background: var(--tstn-accent);
+    border-color: var(--tstn-accent);
+  }
+  .tstn-gal__lightbox-close svg { width: 18px; height: 18px; }
+
+  /* ===================== RESPONSIVE ===================== */
+  @media (max-width: 1280px) {
+    .tstn-gal__grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    }
+    .tstn-gal__sidebar {
+      grid-column: 1 / -1;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    .tstn-gal__sidebar > * { flex: 1 1 240px; }
+  }
+
+  @media (max-width: 900px) {
+    .tstn-gal { padding: 40px 20px 50px; }
+    .tstn-gal__grid { grid-template-columns: 1fr; }
+    .tstn-gal__items { grid-template-columns: repeat(2, 1fr); }
+    .tstn-gal__featured-img { min-height: 280px; }
+    .tstn-gal__filterbar { padding: 8px; gap: 8px; }
+    .tstn-gal__search { width: 100%; flex: 1 1 200px; }
+    .tstn-gal__sidebar { flex-direction: column; }
+    .tstn-gal__bg-img { width: 80%; height: 280px; top: -40px; }
+  }
+
+  @media (max-width: 600px) {
+    .tstn-gal__items { grid-template-columns: 1fr; }
+    .tstn-gal__pills {
+      width: 100%;
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+    .tstn-gal__pills::-webkit-scrollbar { display: none; }
+    .tstn-gal__strip-side { font-size: 10px; gap: 8px; letter-spacing: 0.15em; }
+    .tstn-gal__strip { padding: 14px 18px; }
+    .tstn-gal__featured-title { font-size: 18px; }
+  }
+</style>
+
+<section class="tstn-gal">
+  {%- comment -%} =============== HEADER =============== {%- endcomment -%}
+  <header class="tstn-gal__header">
+    {%- if section.settings.bg_image != blank -%}
+      <div class="tstn-gal__bg-img" style="opacity: {{ section.settings.bg_image_opacity | divided_by: 100.0 }};">
+        <img src="{{ section.settings.bg_image | image_url: width: 1800 }}"
+             alt=""
+             loading="lazy"
+             width="{{ section.settings.bg_image.width }}"
+             height="{{ section.settings.bg_image.height }}">
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.tag_text != blank -%}
+      <div class="tstn-gal__breadcrumb" style="color: {{ section.settings.tag_color }};">
+        <span>{{ section.settings.tag_text }}</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="tstn-gal__title">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.subtitle != blank -%}
+      <p class="tstn-gal__subtitle">{{ section.settings.subtitle }}</p>
+    {%- endif -%}
+  </header>
+
+  {%- comment -%} =============== FILTER BAR =============== {%- endcomment -%}
+  {%- if section.settings.show_filter_bar -%}
+    <div class="tstn-gal__filterbar">
+      <div class="tstn-gal__pills">
+        <button type="button" class="tstn-gal__pill is-active"><span>All</span></button>
+        <button type="button" class="tstn-gal__pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h2l1-4h12l1 4h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M5 13V8h12l2 5"/></svg>
+          <span>Rigs</span>
+        </button>
+        <button type="button" class="tstn-gal__pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+          <span>Trips</span>
+        </button>
+        <button type="button" class="tstn-gal__pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+          <span>Builds</span>
+        </button>
+        <button type="button" class="tstn-gal__pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Campsites</span>
+        </button>
+        <button type="button" class="tstn-gal__pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <span>Community</span>
+        </button>
+        <button type="button" class="tstn-gal__pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18l-2 13H5L3 6z"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span>Gear</span>
+        </button>
+      </div>
+
+      <div class="tstn-gal__spacer"></div>
+
+      <div class="tstn-gal__search">
+        <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" placeholder="{{ section.settings.search_placeholder }}" aria-label="Search the gallery">
+      </div>
+
+      <select class="tstn-gal__sort" aria-label="Sort">
+        <option>Newest</option>
+        <option>Most Liked</option>
+        <option>Most Photos</option>
+      </select>
+
+      <label class="tstn-gal__toggle">
+        <input type="checkbox">
+        <span class="tstn-gal__switch"></span>
+        <span>Only community uploads</span>
+      </label>
+
+      <div class="tstn-gal__viewmode">
+        <button type="button" class="tstn-gal__viewbtn is-active" aria-label="Grid view">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        </button>
+        <button type="button" class="tstn-gal__viewbtn" aria-label="Column view">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="18" rx="1"/><rect x="14" y="3" width="7" height="18" rx="1"/></svg>
+        </button>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} =============== MAIN GRID =============== {%- endcomment -%}
+  <div class="tstn-gal__grid">
+
+    {%- comment -%} ----- FEATURED STORY ----- {%- endcomment -%}
+    {%- if section.settings.show_featured -%}
+      <a href="{{ section.settings.featured_link | default: '#' }}" class="tstn-gal__featured">
+        <div class="tstn-gal__featured-img">
+          {%- if section.settings.featured_image != blank -%}
+            <img src="{{ section.settings.featured_image | image_url: width: 900 }}"
+                 alt="{{ section.settings.featured_title | escape }}"
+                 loading="lazy"
+                 width="{{ section.settings.featured_image.width }}"
+                 height="{{ section.settings.featured_image.height }}">
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag }}
+          {%- endif -%}
+          {%- if section.settings.featured_badge != blank -%}
+            <span class="tstn-gal__featured-badge">
+              <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              {{ section.settings.featured_badge }}
+            </span>
+          {%- endif -%}
+        </div>
+        <div class="tstn-gal__featured-body">
+          {%- if section.settings.featured_category != blank -%}
+            <div class="tstn-gal__cat">{{ section.settings.featured_category }}</div>
+          {%- endif -%}
+          {%- if section.settings.featured_title != blank -%}
+            <h3 class="tstn-gal__featured-title">{{ section.settings.featured_title }}</h3>
+          {%- endif -%}
+          {%- if section.settings.featured_description != blank -%}
+            <p class="tstn-gal__featured-desc">{{ section.settings.featured_description }}</p>
+          {%- endif -%}
+          <div class="tstn-gal__featured-meta">
+            <div class="tstn-gal__author">
+              <div class="tstn-gal__author-avatar">
+                {%- if section.settings.featured_avatar != blank -%}
+                  <img src="{{ section.settings.featured_avatar | image_url: width: 60 }}" alt="" loading="lazy">
+                {%- endif -%}
+              </div>
+              <span class="tstn-gal__author-name">{{ section.settings.featured_author }}</span>
+            </div>
+            <div class="tstn-gal__featured-stats">
+              {%- if section.settings.featured_photos != blank -%}
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                  {{ section.settings.featured_photos }}
+                </span>
+              {%- endif -%}
+              {%- if section.settings.featured_likes != blank -%}
+                <span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                  {{ section.settings.featured_likes }}
+                </span>
+              {%- endif -%}
+            </div>
+          </div>
+        </div>
+      </a>
+    {%- endif -%}
+
+    {%- comment -%} ----- ITEMS GRID ----- {%- endcomment -%}
+    <div class="tstn-gal__items">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'gallery_item' -%}
+          <a href="{{ block.settings.link | default: '#' }}" class="tstn-gal__card" {{ block.shopify_attributes }}>
+            <div class="tstn-gal__card-img">
+              {%- if block.settings.image != blank -%}
+                <img src="{{ block.settings.image | image_url: width: 700 }}"
+                     alt="{{ block.settings.title | escape }}"
+                     loading="lazy"
+                     width="{{ block.settings.image.width }}"
+                     height="{{ block.settings.image.height }}"
+                     data-lightbox-src="{{ block.settings.image | image_url: width: 1800 }}">
+              {%- else -%}
+                {{ 'lifestyle-1' | placeholder_svg_tag }}
+              {%- endif -%}
+              {%- if block.settings.photo_count != blank -%}
+                <span class="tstn-gal__photocount">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                  {{ block.settings.photo_count }}
+                </span>
+              {%- endif -%}
+              <button type="button" class="tstn-gal__expand" aria-label="Open image" data-lightbox-trigger>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>
+              </button>
+              {%- if block.settings.category != blank -%}
+                <div class="tstn-gal__card-cat-overlay">{{ block.settings.category }}</div>
+              {%- endif -%}
+            </div>
+            <div class="tstn-gal__card-body">
+              {%- if block.settings.title != blank -%}
+                <div class="tstn-gal__card-title">{{ block.settings.title }}</div>
+              {%- endif -%}
+              <div class="tstn-gal__card-meta">
+                <div class="tstn-gal__author tstn-gal__card-author">
+                  <div class="tstn-gal__author-avatar">
+                    {%- if block.settings.avatar != blank -%}
+                      <img src="{{ block.settings.avatar | image_url: width: 50 }}" alt="" loading="lazy">
+                    {%- endif -%}
+                  </div>
+                  <span class="tstn-gal__author-name">{{ block.settings.author_name }}</span>
+                </div>
+                {%- if block.settings.like_count != blank -%}
+                  <span class="tstn-gal__likes">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+                    {{ block.settings.like_count }}
+                  </span>
+                {%- endif -%}
+              </div>
+            </div>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    {%- comment -%} ----- SIDEBAR ----- {%- endcomment -%}
+    {%- if section.settings.show_sidebar -%}
+      <aside class="tstn-gal__sidebar">
+
+        {%- comment -%} Quick Filters {%- endcomment -%}
+        <div class="tstn-gal__panel">
+          {%- if section.settings.qf_title != blank -%}
+            <h4 class="tstn-gal__panel-title">{{ section.settings.qf_title }}</h4>
+          {%- endif -%}
+          <div class="tstn-gal__chips">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'quick_filter' -%}
+                <a href="{{ block.settings.link | default: '#' }}" class="tstn-gal__chip" {{ block.shopify_attributes }}>
+                  {%- case block.settings.icon -%}
+                    {%- when 'snowflake' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/><line x1="19.07" y1="4.93" x2="4.93" y2="19.07"/></svg>
+                    {%- when 'truck' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h2l1-4h12l1 4h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M5 13V8h12l2 5"/></svg>
+                    {%- when 'jeep' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 17V11l2-5h10l2 5v6"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><line x1="9" y1="11" x2="15" y2="11"/></svg>
+                    {%- when 'fire' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 9.5C14.5 7 12 4 12 4S9.5 7 9.5 9.5C9.5 12 12 13 12 13s2.5-1 2.5-3.5z"/><path d="M8.5 14.5A3.5 3.5 0 0 0 12 18a3.5 3.5 0 0 0 3.5-3.5C15.5 13 13.5 11 12 10.5c-1.5 0.5-3.5 2.5-3.5 4z"/></svg>
+                    {%- when 'tent' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 19l9-15 9 15"/><path d="M12 4v15"/><path d="M3 19h18"/></svg>
+                    {%- when 'shield' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    {%- when 'sparkle' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5L12 3z"/></svg>
+                    {%- when 'compass' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
+                    {%- when 'wrench' -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                  {%- endcase -%}
+                  <span>{{ block.settings.label }}</span>
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+
+        {%- comment -%} Upload card {%- endcomment -%}
+        <div class="tstn-gal__upload">
+          <div class="tstn-gal__upload-head">
+            <div class="tstn-gal__upload-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+            <div>
+              {%- if section.settings.upload_title != blank -%}
+                <h4 class="tstn-gal__upload-title">{{ section.settings.upload_title }}</h4>
+              {%- endif -%}
+              {%- if section.settings.upload_description != blank -%}
+                <p class="tstn-gal__upload-desc">{{ section.settings.upload_description }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+          {%- if section.settings.upload_button_text != blank -%}
+            <a href="{{ section.settings.upload_button_url | default: '#' }}" class="tstn-gal__upload-btn">{{ section.settings.upload_button_text }}</a>
+          {%- endif -%}
+        </div>
+
+        {%- comment -%} Stats {%- endcomment -%}
+        <div class="tstn-gal__panel tstn-gal__stats">
+          {%- if section.settings.stat_1_value != blank -%}
+            <div class="tstn-gal__stat">
+              <div class="tstn-gal__stat-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+              </div>
+              <div>
+                <div class="tstn-gal__stat-value">{{ section.settings.stat_1_value }}</div>
+                <div class="tstn-gal__stat-label">{{ section.settings.stat_1_label }}</div>
+              </div>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.stat_2_value != blank -%}
+            <div class="tstn-gal__stat">
+              <div class="tstn-gal__stat-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div>
+                <div class="tstn-gal__stat-value">{{ section.settings.stat_2_value }}</div>
+                <div class="tstn-gal__stat-label">{{ section.settings.stat_2_label }}</div>
+              </div>
+            </div>
+          {%- endif -%}
+          {%- if section.settings.stat_3_value != blank -%}
+            <div class="tstn-gal__stat">
+              <div class="tstn-gal__stat-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div>
+                <div class="tstn-gal__stat-value">{{ section.settings.stat_3_value }}</div>
+                <div class="tstn-gal__stat-label">{{ section.settings.stat_3_label }}</div>
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+
+      </aside>
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} =============== BOTTOM STRIP =============== {%- endcomment -%}
+  {%- if section.settings.show_bottom_strip -%}
+    <div class="tstn-gal__strip">
+      <div class="tstn-gal__strip-side">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M3 20l5-12 4 6 4-9 5 15z"/></svg>
+        <span>{{ section.settings.tagline_text }}</span>
+      </div>
+      <div class="tstn-gal__strip-side">
+        <span>{{ section.settings.powered_by_text }}</span>
+        <svg viewBox="0 0 70 14" fill="currentColor" preserveAspectRatio="none" width="70" height="14"><path d="M2 7 Q18 1 35 7 T68 7 L66 10 Q44 14 35 9 T4 9 Z" opacity="0.9"/></svg>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- comment -%} =============== LIGHTBOX =============== {%- endcomment -%}
+  <div class="tstn-gal__lightbox" id="tstn-lightbox-{{ section.id }}" role="dialog" aria-modal="true" aria-hidden="true">
+    <button type="button" class="tstn-gal__lightbox-close" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+    <img class="tstn-gal__lightbox-img" src="" alt="">
+  </div>
+
+</section>
+
+<script>
+  (function() {
+    var section = document.getElementById('shopify-section-{{ section.id }}');
+    if (!section) return;
+
+    var lightbox = section.querySelector('.tstn-gal__lightbox');
+    var lightboxImg = lightbox.querySelector('.tstn-gal__lightbox-img');
+    var closeBtn = lightbox.querySelector('.tstn-gal__lightbox-close');
+
+    function openLightbox(src) {
+      if (!src) return;
+      lightboxImg.src = src;
+      lightbox.classList.add('is-open');
+      lightbox.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('is-open');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      lightboxImg.src = '';
+    }
+
+    section.querySelectorAll('[data-lightbox-trigger]').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var card = btn.closest('.tstn-gal__card');
+        if (!card) return;
+        var img = card.querySelector('img[data-lightbox-src]');
+        if (img) openLightbox(img.getAttribute('data-lightbox-src'));
+      });
+    });
+
+    closeBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', function(e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && lightbox.classList.contains('is-open')) closeLightbox();
+    });
+
+    // Filter pills (visual only)
+    section.querySelectorAll('.tstn-gal__pill').forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        section.querySelectorAll('.tstn-gal__pill').forEach(function(p) { p.classList.remove('is-active'); });
+        pill.classList.add('is-active');
+      });
+    });
+
+    // View mode toggle (visual only)
+    section.querySelectorAll('.tstn-gal__viewbtn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        section.querySelectorAll('.tstn-gal__viewbtn').forEach(function(b) { b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Community Gallery",
+  "tag": "section",
+  "class": "section-tstn-gallery",
+  "settings": [
+    { "type": "header", "content": "Header" },
+    { "type": "text", "id": "tag_text", "label": "Breadcrumb tag", "default": "COMMUNITY GALLERY" },
+    { "type": "color", "id": "tag_color", "label": "Tag color", "default": "#ff6a1a" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "The Gallery" },
+    { "type": "range", "id": "heading_size", "min": 60, "max": 220, "step": 4, "default": 140, "unit": "px", "label": "Heading max size (desktop)" },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#ffffff" },
+    { "type": "text", "id": "subtitle", "label": "Subtitle", "default": "Explore rigs, adventures, builds, gear setups, and community moments." },
+    { "type": "image_picker", "id": "bg_image", "label": "Background image (mountains)" },
+    { "type": "range", "id": "bg_image_opacity", "min": 0, "max": 100, "step": 5, "default": 45, "unit": "%", "label": "Background image opacity" },
+
+    { "type": "header", "content": "Theme Colors" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#0a0a0a" },
+    { "type": "color", "id": "card_bg_color", "label": "Card background", "default": "#141414" },
+    { "type": "color", "id": "card_hover_color", "label": "Card hover background", "default": "#1a1a1a" },
+    { "type": "color", "id": "border_color", "label": "Border", "default": "#262626" },
+    { "type": "color", "id": "accent_color", "label": "Accent (orange)", "default": "#ff6a1a" },
+    { "type": "color", "id": "text_color", "label": "Body text", "default": "#ffffff" },
+    { "type": "color", "id": "text_muted_color", "label": "Muted text", "default": "#9a9a9a" },
+
+    { "type": "header", "content": "Filter Bar" },
+    { "type": "checkbox", "id": "show_filter_bar", "label": "Show filter bar", "default": true },
+    { "type": "text", "id": "search_placeholder", "label": "Search placeholder", "default": "Search the gallery" },
+
+    { "type": "header", "content": "Featured Story" },
+    { "type": "checkbox", "id": "show_featured", "label": "Show featured story", "default": true },
+    { "type": "image_picker", "id": "featured_image", "label": "Featured image" },
+    { "type": "text", "id": "featured_badge", "label": "Featured badge text", "default": "FEATURED STORY" },
+    { "type": "text", "id": "featured_category", "label": "Category", "default": "TRIP" },
+    { "type": "text", "id": "featured_title", "label": "Title", "default": "Snow Run in the Rockies" },
+    { "type": "textarea", "id": "featured_description", "label": "Description", "default": "Epic weekend run through the Rockies with the crew. Views, snow, and good vibes." },
+    { "type": "text", "id": "featured_author", "label": "Author name", "default": "Dylan M." },
+    { "type": "image_picker", "id": "featured_avatar", "label": "Author avatar" },
+    { "type": "text", "id": "featured_photos", "label": "Photo count", "default": "28" },
+    { "type": "text", "id": "featured_likes", "label": "Like count", "default": "142" },
+    { "type": "url", "id": "featured_link", "label": "Featured story link" },
+
+    { "type": "header", "content": "Sidebar" },
+    { "type": "checkbox", "id": "show_sidebar", "label": "Show sidebar", "default": true },
+    { "type": "text", "id": "qf_title", "label": "Quick filters title", "default": "QUICK FILTERS" },
+
+    { "type": "header", "content": "Upload Card" },
+    { "type": "text", "id": "upload_title", "label": "Title", "default": "UPLOAD YOUR RIG" },
+    { "type": "textarea", "id": "upload_description", "label": "Description", "default": "Share your build, adventure, or setup with the community." },
+    { "type": "text", "id": "upload_button_text", "label": "Button text", "default": "Upload Now" },
+    { "type": "url", "id": "upload_button_url", "label": "Button URL" },
+
+    { "type": "header", "content": "Stats" },
+    { "type": "text", "id": "stat_1_value", "label": "Stat 1 value", "default": "2,400+" },
+    { "type": "text", "id": "stat_1_label", "label": "Stat 1 label", "default": "Photos" },
+    { "type": "text", "id": "stat_2_value", "label": "Stat 2 value", "default": "380+" },
+    { "type": "text", "id": "stat_2_label", "label": "Stat 2 label", "default": "Community Uploads" },
+    { "type": "text", "id": "stat_3_value", "label": "Stat 3 value", "default": "120" },
+    { "type": "text", "id": "stat_3_label", "label": "Stat 3 label", "default": "Featured Builds" },
+
+    { "type": "header", "content": "Bottom Strip" },
+    { "type": "checkbox", "id": "show_bottom_strip", "label": "Show bottom strip", "default": true },
+    { "type": "text", "id": "tagline_text", "label": "Tagline", "default": "REAL PEOPLE. REAL RIGS. REAL ADVENTURES." },
+    { "type": "text", "id": "powered_by_text", "label": "Powered by text", "default": "POWERED BY THE TSTN COMMUNITY" }
+  ],
+  "blocks": [
+    {
+      "type": "gallery_item",
+      "name": "Gallery Item",
+      "limit": 16,
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "category", "label": "Category (e.g. BUILD, TRIP, GEAR)" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "text", "id": "author_name", "label": "Author name" },
+        { "type": "image_picker", "id": "avatar", "label": "Author avatar" },
+        { "type": "text", "id": "photo_count", "label": "Photo count" },
+        { "type": "text", "id": "like_count", "label": "Like count" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    },
+    {
+      "type": "quick_filter",
+      "name": "Quick Filter Chip",
+      "limit": 12,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "default": "snowflake",
+          "options": [
+            { "value": "snowflake", "label": "Snowflake (Winter)" },
+            { "value": "truck", "label": "Truck (Ram Builds)" },
+            { "value": "jeep", "label": "Jeep" },
+            { "value": "fire", "label": "Campfire" },
+            { "value": "tent", "label": "Roof Tent" },
+            { "value": "shield", "label": "Recovery" },
+            { "value": "sparkle", "label": "New Uploads" },
+            { "value": "compass", "label": "Compass" },
+            { "value": "wrench", "label": "Wrench" }
+          ]
+        },
+        { "type": "text", "id": "label", "label": "Label" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Community Gallery",
+      "blocks": [
+        { "type": "gallery_item" },
+        { "type": "gallery_item" },
+        { "type": "gallery_item" },
+        { "type": "gallery_item" },
+        { "type": "gallery_item" },
+        { "type": "gallery_item" },
+        { "type": "gallery_item" },
+        { "type": "gallery_item" },
+        { "type": "quick_filter" },
+        { "type": "quick_filter" },
+        { "type": "quick_filter" },
+        { "type": "quick_filter" },
+        { "type": "quick_filter" },
+        { "type": "quick_filter" },
+        { "type": "quick_filter" }
+      ]
+    }
+  ]
+}
+{% endschema %}
