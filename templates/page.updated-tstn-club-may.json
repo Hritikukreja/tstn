@@ -442,7 +442,7 @@
         "padding_top": 24,
         "padding_right": 12,
         "padding_bottom": 24,
-        "padding_left": 8,
+        "padding_left": 12,
         "tag_text": "The Gallery",
         "tag_color": "#ff6a1a",
         "heading": "insider ALBUM",
@@ -492,9 +492,9 @@
         "stat_2_value": "380+",
         "stat_2_label": "Community Uploads",
         "stat_3_value": "120",
-        "stat_3_label": "Featured Builds",
+        "stat_3_label": "Featured Locations",
         "show_bottom_strip": true,
-        "tagline_text": "REAL PEOPLE. REAL RIGS. REAL ADVENTURES.",
+        "tagline_text": "REAL PEOPLE. REAL LOCATIONS. REAL ADVENTURES.",
         "powered_by_text": "POWERED BY THE TSTN COMMUNITY"
       }
     },
