@@ -41,6 +41,9 @@
     },
     "hero_collection_cAz8QC": {
       "type": "hero-collection",
+      "custom_css": [
+        "p {color: #ffffff; font-weight: 400;}"
+      ],
       "name": "Hero Collection",
       "settings": {
         "background_image": "shopify://shop_images/1.1.png",
