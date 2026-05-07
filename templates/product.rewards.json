@@ -296,6 +296,24 @@
         "padding_y": 96
       }
     },
+    "177811854801255580": {
+      "type": "apps",
+      "blocks": {
+        "growave_loyalty_wishlist_block_index_instagram_YjtXdA": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.index.instagram/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "option_galleries_id": "1",
+            "option_galleries_layout": "1"
+          }
+        }
+      },
+      "block_order": [
+        "growave_loyalty_wishlist_block_index_instagram_YjtXdA"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
     "1776469809e2eb7715": {
       "type": "apps",
       "blocks": {
@@ -463,6 +481,7 @@
         "photo_Wt4qEB",
         "photo_7HGRCz"
       ],
+      "disabled": true,
       "name": "Community Grid",
       "settings": {
         "heading": "THE TSTN CIRCLE",
@@ -542,6 +561,7 @@
     "speedometer_claude_VPmHLG",
     "updated_ways_to_earn_CF9QpD",
     "tstn_tiers_6bALLC",
+    "177811854801255580",
     "1776469809e2eb7715",
     "17769202960fc08a45",
     "custom_multicol_dPrTeX",
