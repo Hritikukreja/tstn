@@ -598,12 +598,12 @@
       ],
       "name": "TSTN Journey CTA",
       "settings": {
-        "heading": "Your Journey. Our Support. Let's Build the Best Version of You.",
-        "sub": "Join thousands of members already growing with TSTN Club.",
+        "heading": "More than a club. A signal.",
+        "sub": "Not everyone gets it. That is the point.",
         "cta_text": "Join TSTN Club Today",
         "cta_link": "",
-        "image": "shopify://shop_images/Screenshot_2026-05-01_130527.png",
-        "script_text": "the story till now"
+        "image": "shopify://shop_images/13.png",
+        "script_text": ""
       }
     },
     "1777934112a409e8e2": {
