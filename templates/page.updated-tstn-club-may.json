@@ -202,6 +202,14 @@
     "tstn_blog_testimonial_CGmbDD": {
       "type": "tstn-blog-testimonial",
       "blocks": {
+        "testimonial_wcr4H7": {
+          "type": "testimonial",
+          "settings": {
+            "text": "I joined for overlanding content, but stayed for the people. It feels like a real community, not just another outdoor page.",
+            "name": "Jason R.",
+            "role": "Washington"
+          }
+        },
         "testimonial_G4FW34": {
           "type": "testimonial",
           "settings": {
@@ -256,6 +264,7 @@
         }
       },
       "block_order": [
+        "testimonial_wcr4H7",
         "testimonial_G4FW34",
         "post_FceJWL",
         "post_RBLFyP",
