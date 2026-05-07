@@ -75,12 +75,13 @@ input::-webkit-search-decoration {
 
 /* ============================================================
    TSTN — Search Overlay Dark Theme Overrides
+   Fixes:
    1. Centers the search input under the close button
-   2. Removes the orange focus glow / Dawn focus ring
-   3. Applies dark theme to input + predictive search dropdown
+   2. Removes the orange focus glow / border
+   3. Applies dark theme styling (transparent bg, white text)
 ============================================================ */
 
-/* --- 1. Search modal container (dark background + centered) --- */
+/* --- 1. Center the search overlay container --- */
 details-modal[open] .search-modal,
 .search-modal {
   background-color: #0a0a0a !important;
@@ -88,8 +89,8 @@ details-modal[open] .search-modal,
 
 .search-modal__content {
   display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
   padding-top: clamp(40px, 8vw, 100px) !important;
   padding-left: clamp(16px, 4vw, 40px) !important;
   padding-right: clamp(16px, 4vw, 40px) !important;
@@ -102,7 +103,7 @@ details-modal[open] .search-modal,
   margin: 0 auto !important;
 }
 
-/* --- 2. Kill Dawn's orange focus ring + hover ring --- */
+/* --- 2. Kill the orange focus ring + hover ring --- */
 .search-modal .field:before,
 .search-modal .field:after,
 .search-modal .field:hover:before,
@@ -151,7 +152,7 @@ details-modal[open] .search-modal,
   left: 2rem !important;
 }
 
-/* --- 5. Search + reset buttons --- */
+/* --- 5. Style the search + reset buttons --- */
 .search-modal .search__button,
 .search-modal .reset__button {
   background-color: transparent !important;
@@ -168,125 +169,37 @@ details-modal[open] .search-modal,
   background-color: transparent !important;
 }
 
-.search-modal .search__button:hover .icon,
-.search-modal .reset__button:hover .icon {
+.search-modal .search__button:hover .icon {
   color: #F56300 !important;
 }
 
+/* Divider between reset + search button */
 .search-modal .reset__button:not(:focus-visible)::after,
 .search-modal .reset__button:not(:focus)::after {
   border-right-color: rgba(255, 255, 255, 0.15) !important;
 }
 
-/* ============================================================
-   Predictive Search Dropdown — Dark Theme
-============================================================ */
-
+/* --- 6. Predictive search results (dark theme) --- */
 .search-modal predictive-search,
 .search-modal .predictive-search {
   background: #0a0a0a !important;
   color: #ffffff !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  border-radius: 16px !important;
-  margin-top: 1.2rem !important;
-  width: 100% !important;
-  max-width: 720px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-  overflow: hidden !important;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4) !important;
+  border-radius: 12px !important;
+  margin-top: 1rem !important;
 }
 
-/* Results wrapper layout */
-.search-modal .predictive-search__results-groups-wrapper {
-  background: transparent !important;
-  border: none !important;
-}
-
-/* Group section headings (Suggestions / Products / Pages) */
 .search-modal .predictive-search__heading {
   color: rgba(255, 255, 255, 0.5) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-  background: transparent !important;
-  letter-spacing: 1.5px !important;
-  text-transform: uppercase !important;
-  font-size: 1.1rem !important;
-  font-weight: 600 !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
 }
 
-/* List items */
 .search-modal .predictive-search__list-item {
   color: #ffffff !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
-  background: transparent !important;
 }
 
 .search-modal .predictive-search__list-item:hover,
 .search-modal .predictive-search__list-item[aria-selected='true'] {
   background-color: rgba(245, 99, 0, 0.08) !important;
-}
-
-/* Item link + heading text */
-.search-modal .predictive-search__item {
-  color: #ffffff !important;
-  background: transparent !important;
-}
-
-.search-modal .predictive-search__item-heading {
-  color: #ffffff !important;
-}
-
-.search-modal .predictive-search__list-item:hover .predictive-search__item-heading,
-.search-modal .predictive-search__list-item[aria-selected='true'] .predictive-search__item-heading {
   color: #F56300 !important;
-}
-
-/* Vendor + price metadata */
-.search-modal .predictive-search__item-vendor {
-  color: rgba(255, 255, 255, 0.5) !important;
-}
-
-.search-modal .predictive-search .price,
-.search-modal .predictive-search .price__regular,
-.search-modal .predictive-search .price-item {
-  color: rgba(255, 255, 255, 0.7) !important;
-}
-
-/* Product thumbnail */
-.search-modal .predictive-search__image {
-  border-radius: 8px !important;
-  background: rgba(255, 255, 255, 0.04) !important;
-}
-
-/* "Search for [terms]" footer button */
-.search-modal .predictive-search__search-for-button {
-  background: rgba(255, 255, 255, 0.03) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
-
-.search-modal .predictive-search__item--term {
-  color: #F56300 !important;
-  background: transparent !important;
-}
-
-.search-modal .predictive-search__item--term:hover {
-  background: rgba(245, 99, 0, 0.08) !important;
-  color: #ff7a1f !important;
-}
-
-.search-modal .predictive-search__item--term .svg-wrapper svg {
-  color: #F56300 !important;
-}
-
-/* Loading spinner color */
-.search-modal .predictive-search__loading-state {
-  color: #F56300 !important;
-}
-
-/* Styled query result highlight (the matched substring) */
-.search-modal .predictive-search__item-query-result mark,
-.search-modal .predictive-search__item-query-result b {
-  color: #F56300 !important;
-  background: transparent !important;
-  font-weight: 700 !important;
 }
