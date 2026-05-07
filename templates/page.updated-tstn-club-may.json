@@ -450,7 +450,7 @@
         "heading_color": "#ffffff",
         "subtitle": "Explore rigs, adventures, builds, gear setups, and community moments.",
         "bg_image": "shopify://shop_images/10.png",
-        "bg_image_opacity": 45,
+        "bg_image_opacity": 25,
         "bg_color": "#0a0a0a",
         "card_bg_color": "#141414",
         "card_hover_color": "#1a1a1a",
