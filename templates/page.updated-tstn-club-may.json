@@ -225,6 +225,7 @@
         "gallery_item_Gq4Tcz": {
           "type": "gallery_item",
           "settings": {
+            "image": "shopify://shop_images/2_0d1efe19-339a-442f-b020-117957fe0d57.png",
             "category": "",
             "title": "",
             "author_name": "",
@@ -236,6 +237,7 @@
         "gallery_item_ApQKFM": {
           "type": "gallery_item",
           "settings": {
+            "image": "shopify://shop_images/3_02c98383-7e47-4d64-899c-02ce9d47253b.png",
             "category": "",
             "title": "",
             "author_name": "",
@@ -250,6 +252,7 @@
             "category": "",
             "title": "",
             "author_name": "",
+            "avatar": "shopify://shop_images/4_9178397a-cb3c-4ed3-ba54-3ad5241c6609.png",
             "photo_count": "",
             "like_count": "",
             "link": ""
@@ -258,6 +261,7 @@
         "gallery_item_YCjmXy": {
           "type": "gallery_item",
           "settings": {
+            "image": "shopify://shop_images/6_d378ea8e-cbae-4d37-84f8-ed91ab883bac.png",
             "category": "",
             "title": "",
             "author_name": "",
@@ -269,6 +273,7 @@
         "gallery_item_Tbw8Nz": {
           "type": "gallery_item",
           "settings": {
+            "image": "shopify://shop_images/7.png",
             "category": "",
             "title": "",
             "author_name": "",
@@ -280,6 +285,7 @@
         "gallery_item_WHjTdG": {
           "type": "gallery_item",
           "settings": {
+            "image": "shopify://shop_images/8.png",
             "category": "",
             "title": "",
             "author_name": "",
@@ -291,6 +297,7 @@
         "gallery_item_GWGk8A": {
           "type": "gallery_item",
           "settings": {
+            "image": "shopify://shop_images/9.png",
             "category": "",
             "title": "",
             "author_name": "",
