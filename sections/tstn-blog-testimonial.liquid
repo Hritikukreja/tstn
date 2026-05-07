@@ -1,9 +1,7 @@
 {% comment %}
   TSTN Blog + Testimonial
-  - Left: "From the Blog" 4-up grid of post cards
-  - Right: testimonial card with dots
-  - Logged-in: clicking a post opens a content modal (cover, category, title, full content)
-  - Logged-out: clicking any post opens a "Members Only" gate popup
+  - Left: "From the Blog" 4-up grid of post cards (with login gate popup)
+  - Right: Testimonial carousel (multiple testimonials, auto-rotate, dots, swipe)
 {% endcomment %}
 
 <style>
@@ -38,6 +36,7 @@
     display: grid;
     grid-template-columns: 2.5fr 1fr;
     gap: clamp(20px, 2vw, 28px);
+    align-items: stretch;
   }
 
   /* From the Blog card */
@@ -91,7 +90,6 @@
     display: flex;
     flex-direction: column;
     transition: transform 0.3s ease, border-color 0.3s ease;
-    border: 1px solid var(--tstn-border);
     padding: 0;
     text-align: left;
     width: 100%;
@@ -165,38 +163,75 @@
     font-weight: 600;
   }
 
-  /* Testimonial */
+  /* ============================================================
+     Testimonial Carousel
+     ============================================================ */
   .tstn-test {
     background: var(--tstn-card-bg);
     border: 1px solid var(--tstn-border);
     border-radius: 16px;
-    padding: clamp(28px, 3vw, 36px);
+    overflow: hidden;
     position: relative;
     display: flex;
     flex-direction: column;
+    min-height: 100%;
   }
+
   .tstn-test__quote-mark {
+    position: absolute;
+    top: clamp(16px, 2vw, 24px);
+    left: clamp(20px, 2.5vw, 32px);
     color: var(--tstn-orange);
-    font-size: 50px;
+    font-size: clamp(48px, 5vw, 64px);
     line-height: 0.7;
     font-family: Georgia, serif;
-    margin-bottom: 12px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .tstn-test__track-wrap {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+  }
+  .tstn-test__track {
+    display: flex;
+    width: 100%;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    touch-action: pan-y;
+  }
+  .tstn-test__slide {
+    flex: 0 0 100%;
+    width: 100%;
+    padding: clamp(60px, 7vw, 80px) clamp(28px, 3vw, 36px) clamp(20px, 2.5vw, 28px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+    min-height: 360px;
   }
   .tstn-test__text {
     font-family: var(--tstn-font-display);
     font-weight: 400;
     font-size: clamp(20px, 2vw, 26px);
-    line-height: 1.2;
-    margin: 0 0 24px;
+    line-height: 1.25;
+    margin: 0 0 clamp(20px, 2.5vw, 28px);
     color: var(--tstn-text);
-    flex: 1;
     letter-spacing: 0.3px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
+
   .tstn-test__author {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 20px;
+    flex-shrink: 0;
   }
   .tstn-test__avatar {
     width: 44px;
@@ -207,24 +242,65 @@
     background-color: #333;
     flex-shrink: 0;
   }
-  .tstn-test__author-info { display: flex; flex-direction: column; gap: 2px; }
+  .tstn-test__author-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    text-align: left;
+  }
   .tstn-test__author-name { font-size: 15px; font-weight: 600; }
   .tstn-test__author-role { font-size: 13px; color: var(--tstn-muted); }
-  .tstn-test__dots { display: flex; gap: 6px; justify-content: center; }
+
+  /* Carousel controls (same pattern as promo) */
+  .tstn-test__controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 clamp(28px, 3vw, 36px) clamp(24px, 3vw, 30px);
+    gap: 12px;
+  }
+  .tstn-test__dots {
+    display: flex;
+    gap: 6px;
+    flex: 1;
+    justify-content: center;
+  }
   .tstn-test__dot {
     width: 6px;
     height: 6px;
     border-radius: 50%;
     background: rgba(255,255,255,0.2);
-    transition: background 0.2s ease, width 0.2s ease;
     border: none;
     cursor: pointer;
     padding: 0;
+    transition: background 0.2s ease, width 0.2s ease;
   }
   .tstn-test__dot.is-active {
     background: var(--tstn-orange);
     width: 18px;
     border-radius: 3px;
+  }
+  .tstn-test__arrows {
+    display: flex;
+    gap: 6px;
+  }
+  .tstn-test__arrow {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: transparent;
+    color: var(--tstn-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+  }
+  .tstn-test__arrow:hover {
+    background: var(--tstn-orange);
+    border-color: var(--tstn-orange);
+    color: #fff;
   }
 
   /* ============================================================
@@ -438,6 +514,8 @@
   @media (max-width: 1100px) {
     .tstn-bt__inner { grid-template-columns: 1fr; }
     .tstn-blog__grid { grid-template-columns: repeat(2, 1fr); }
+    .tstn-test { min-height: auto; }
+    .tstn-test__slide { min-height: 300px; }
   }
   @media (max-width: 540px) {
     .tstn-blog__grid { grid-template-columns: 1fr; }
@@ -450,6 +528,7 @@
 <section class="tstn-bt">
   <div class="tstn-bt__inner">
 
+    <!-- Blog -->
     <div class="tstn-blog">
       <div class="tstn-blog__head">
         <h2 class="tstn-blog__title">{{ section.settings.heading | default: 'From the Blog' }}</h2>
@@ -502,26 +581,66 @@
       </div>
     </div>
 
-    <div class="tstn-test">
+    <!-- Testimonial Carousel -->
+    {%- assign testimonial_count = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'testimonial' -%}{%- assign testimonial_count = testimonial_count | plus: 1 -%}{%- endif -%}
+    {%- endfor -%}
+
+    <div
+      class="tstn-test"
+      data-tstn-test
+      data-autoplay="{{ section.settings.test_autoplay }}"
+      data-autoplay-speed="{{ section.settings.test_autoplay_speed | default: 6000 }}">
+
       <div class="tstn-test__quote-mark">"</div>
-      <p class="tstn-test__text">{{ section.settings.testimonial_text | default: 'TSTN Club isn’t just content, it’s a community that pushes you to be better.' }}</p>
-      <div class="tstn-test__author">
-        {% if section.settings.testimonial_avatar %}
-          <div class="tstn-test__avatar" style="background-image: url('{{ section.settings.testimonial_avatar | image_url: width: 100 }}');"></div>
-        {% else %}
-          <div class="tstn-test__avatar"></div>
-        {% endif %}
-        <div class="tstn-test__author-info">
-          <span class="tstn-test__author-name">{{ section.settings.testimonial_name | default: 'Rohit Verma' }}</span>
-          <span class="tstn-test__author-role">{{ section.settings.testimonial_role | default: 'Member' }}</span>
+
+      <div class="tstn-test__track-wrap">
+        <div class="tstn-test__track" data-tstn-test-track>
+          {% for block in section.blocks %}
+            {% if block.type == 'testimonial' %}
+              <div class="tstn-test__slide" {{ block.shopify_attributes }}>
+                <p class="tstn-test__text">{{ block.settings.text }}</p>
+                <div class="tstn-test__author">
+                  {% if block.settings.avatar %}
+                    <div class="tstn-test__avatar" style="background-image: url('{{ block.settings.avatar | image_url: width: 100 }}');"></div>
+                  {% else %}
+                    <div class="tstn-test__avatar"></div>
+                  {% endif %}
+                  <div class="tstn-test__author-info">
+                    <span class="tstn-test__author-name">{{ block.settings.name }}</span>
+                    <span class="tstn-test__author-role">{{ block.settings.role }}</span>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+          {% endfor %}
         </div>
       </div>
-      <div class="tstn-test__dots">
-        <button class="tstn-test__dot is-active" aria-label="Slide 1"></button>
-        <button class="tstn-test__dot" aria-label="Slide 2"></button>
-        <button class="tstn-test__dot" aria-label="Slide 3"></button>
-        <button class="tstn-test__dot" aria-label="Slide 4"></button>
-      </div>
+
+      {% if testimonial_count > 1 %}
+        <div class="tstn-test__controls">
+          <div class="tstn-test__arrows">
+            <button class="tstn-test__arrow" type="button" data-tstn-test-prev aria-label="Previous testimonial">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+            </button>
+          </div>
+          <div class="tstn-test__dots" data-tstn-test-dots>
+            {% assign t_idx = 0 %}
+            {% for block in section.blocks %}
+              {% if block.type == 'testimonial' %}
+                <button class="tstn-test__dot {% if t_idx == 0 %}is-active{% endif %}" type="button" data-tstn-test-dot="{{ t_idx }}" aria-label="Testimonial {{ t_idx | plus: 1 }}"></button>
+                {% assign t_idx = t_idx | plus: 1 %}
+              {% endif %}
+            {% endfor %}
+          </div>
+          <div class="tstn-test__arrows">
+            <button class="tstn-test__arrow" type="button" data-tstn-test-next aria-label="Next testimonial">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          </div>
+        </div>
+      {% endif %}
     </div>
 
   </div>
@@ -554,13 +673,11 @@
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
       </button>
-
       <div class="tstn-gate__glow"></div>
       <svg class="tstn-gate__lock-bg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
       </svg>
-
       <div class="tstn-gate__pill">
         <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
         {{ section.settings.gate_pill | default: 'MEMBERS ONLY' }}
@@ -598,6 +715,7 @@
 
   var isLoggedIn = {% if customer %}true{% else %}false{% endif %};
 
+  /* ------------- Modals ------------- */
   var articleModal = section.querySelector('#tstn-modal-article-' + sectionId);
   var gateModal    = section.querySelector('#tstn-modal-gate-' + sectionId);
   var triggers     = section.querySelectorAll('[data-tstn-blog-trigger]');
@@ -622,7 +740,6 @@
       document.body.classList.remove('tstn-modal-open');
     }
     if (modal === articleModal) {
-      // Reset content - reset scroll position too
       var body = articleModal.querySelector('.tstn-article__body');
       if (body) body.scrollTop = 0;
     }
@@ -646,10 +763,8 @@
     titleEl.textContent = title;
     metaEl.textContent  = readtime;
 
-    // Content may contain newlines - convert to paragraphs
     var paragraphs = content.split(/\n\s*\n/).filter(function(p) { return p.trim().length > 0; });
     contentEl.innerHTML = paragraphs.map(function(p) {
-      // Escape HTML, then wrap in <p>
       var div = document.createElement('div');
       div.textContent = p.trim();
       return '<p>' + div.innerHTML.replace(/\n/g, '<br>') + '</p>';
@@ -676,6 +791,61 @@
     if (e.key !== 'Escape') return;
     section.querySelectorAll('.tstn-modal.is-open').forEach(function(m) { closeModal(m); });
   });
+
+  /* ------------- Testimonial Carousel ------------- */
+  var test = section.querySelector('[data-tstn-test]');
+  if (test) {
+    var track = test.querySelector('[data-tstn-test-track]');
+    var slides = track.querySelectorAll('.tstn-test__slide');
+    var dots = test.querySelectorAll('[data-tstn-test-dot]');
+    var prevBtn = test.querySelector('[data-tstn-test-prev]');
+    var nextBtn = test.querySelector('[data-tstn-test-next]');
+    var index = 0;
+    var total = slides.length;
+    var autoplay = test.getAttribute('data-autoplay') === 'true';
+    var autoplaySpeed = parseInt(test.getAttribute('data-autoplay-speed'), 10) || 6000;
+    var timer = null;
+
+    function goTo(i) {
+      index = (i + total) % total;
+      track.style.transform = 'translateX(-' + (index * 100) + '%)';
+      dots.forEach(function(d, di) { d.classList.toggle('is-active', di === index); });
+    }
+    function next() { goTo(index + 1); }
+    function prev() { goTo(index - 1); }
+    function startAuto() {
+      if (!autoplay || total < 2) return;
+      stopAuto();
+      timer = setInterval(next, autoplaySpeed);
+    }
+    function stopAuto() { if (timer) { clearInterval(timer); timer = null; } }
+
+    if (nextBtn) nextBtn.addEventListener('click', function() { next(); startAuto(); });
+    if (prevBtn) prevBtn.addEventListener('click', function() { prev(); startAuto(); });
+    dots.forEach(function(d) {
+      d.addEventListener('click', function() {
+        goTo(parseInt(d.getAttribute('data-tstn-test-dot'), 10));
+        startAuto();
+      });
+    });
+
+    test.addEventListener('mouseenter', stopAuto);
+    test.addEventListener('mouseleave', startAuto);
+
+    var touchStartX = 0, touchEndX = 0;
+    track.addEventListener('touchstart', function(e) {
+      touchStartX = e.changedTouches[0].screenX;
+      stopAuto();
+    }, { passive: true });
+    track.addEventListener('touchend', function(e) {
+      touchEndX = e.changedTouches[0].screenX;
+      var diff = touchStartX - touchEndX;
+      if (Math.abs(diff) > 40) { if (diff > 0) next(); else prev(); }
+      startAuto();
+    }, { passive: true });
+
+    startAuto();
+  }
 })();
 </script>
 
@@ -688,11 +858,10 @@
     { "type": "text", "id": "viewall_text", "label": "View all link text", "default": "View all blogs" },
     { "type": "url", "id": "viewall_link", "label": "View all link" },
 
-    { "type": "header", "content": "Testimonial" },
-    { "type": "textarea", "id": "testimonial_text", "label": "Quote", "default": "TSTN Club isn’t just content, it’s a community that pushes you to be better." },
-    { "type": "image_picker", "id": "testimonial_avatar", "label": "Author Avatar" },
-    { "type": "text", "id": "testimonial_name", "label": "Author Name", "default": "Rohit Verma" },
-    { "type": "text", "id": "testimonial_role", "label": "Author Role", "default": "Member" },
+    { "type": "header", "content": "Testimonial Carousel" },
+    { "type": "checkbox", "id": "test_autoplay", "label": "Auto-rotate testimonials", "default": true },
+    { "type": "range", "id": "test_autoplay_speed", "label": "Auto-rotate speed (ms)", "min": 3000, "max": 9000, "step": 500, "default": 6000 },
+    { "type": "paragraph", "content": "Add 'Testimonial' blocks below to populate the carousel." },
 
     { "type": "header", "content": "Members Only Gate Popup (logged-out)" },
     { "type": "text", "id": "gate_pill", "label": "Pill Label", "default": "MEMBERS ONLY" },
@@ -715,6 +884,16 @@
       ]
     },
     {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "textarea", "id": "text", "label": "Quote", "default": "Add the testimonial quote here." },
+        { "type": "image_picker", "id": "avatar", "label": "Author Avatar" },
+        { "type": "text", "id": "name", "label": "Author Name", "default": "Member Name" },
+        { "type": "text", "id": "role", "label": "Author Role", "default": "Member" }
+      ]
+    },
+    {
       "type": "perk",
       "name": "Members Perk",
       "settings": [
@@ -722,15 +901,19 @@
       ]
     }
   ],
-  "max_blocks": 12,
+  "max_blocks": 16,
   "presets": [
     {
       "name": "TSTN Blog & Testimonial",
       "blocks": [
         { "type": "post", "settings": { "category": "MINDSET", "title": "Consistency Over Motivation", "excerpt": "Why showing up every day matters more than feeling ready.", "content": "Motivation is unreliable. It comes and goes with mood, weather, sleep, and what you ate for breakfast.\n\nConsistency is the opposite. It doesn’t care how you feel. It just shows up.\n\nThis is the post-it on the bathroom mirror moment — the boring truth that nobody wants to hear because it’s not exciting. There is no shortcut. There is no perfect routine. There is only doing the work, day after day, even when you don’t feel like it.\n\nThat’s the whole game.", "read_time": "5 min read" } },
-        { "type": "post", "settings": { "category": "NUTRITION", "title": "Protein: How Much Do You Really Need?", "excerpt": "Simple guide to hitting your protein goals without overthinking.", "content": "Most people massively overcomplicate protein.\n\nA simple rule: aim for around 1.6–2.2g of protein per kg of body weight if you’re training hard. For a 70kg person, that’s roughly 110–155g a day.\n\nThat sounds like a lot — until you realize a chicken breast has 30g, a cup of dal has 18g, and a scoop of whey has 24g. Three solid meals plus one snack and you’re there.\n\nDon’t obsess. Don’t weigh every gram. Just make sure protein shows up in every meal.", "read_time": "6 min read" } },
-        { "type": "post", "settings": { "category": "TRAINING", "title": "Progressive Overload Made Simple", "excerpt": "The key to getting stronger, without getting confused.", "content": "Progressive overload sounds technical. It isn’t.\n\nIt means: do a little more this week than you did last week.\n\nThat could be one extra rep. Five extra pounds. One more set. A slightly cleaner form. Anything that nudges the bar forward.\n\nThe trick is to track it. If you’re not writing it down, you’re not really progressing — you’re just going to the gym.", "read_time": "4 min read" } },
-        { "type": "post", "settings": { "category": "LIFESTYLE", "title": "Balance Is the New Hustle", "excerpt": "How to build a life you don’t need a vacation from.", "content": "The hustle culture lied to us.\n\n12-hour days, weekends working, sleep is for the weak — none of it is sustainable. Burnout doesn’t make you successful, it makes you tired.\n\nReal balance isn’t about working less. It’s about working on the right things, then logging off and actually being present in the rest of your life.\n\nThe new flex is being able to put your laptop down at 6pm and not think about it again until tomorrow.", "read_time": "5 min read" } },
+        { "type": "post", "settings": { "category": "NUTRITION", "title": "Protein: How Much Do You Really Need?", "excerpt": "Simple guide to hitting your protein goals without overthinking.", "content": "Most people massively overcomplicate protein.\n\nA simple rule: aim for around 1.6–2.2g of protein per kg of body weight if you’re training hard.\n\nDon’t obsess. Just make sure protein shows up in every meal.", "read_time": "6 min read" } },
+        { "type": "post", "settings": { "category": "TRAINING", "title": "Progressive Overload Made Simple", "excerpt": "The key to getting stronger, without getting confused.", "content": "Progressive overload sounds technical. It isn’t.\n\nIt means: do a little more this week than you did last week.", "read_time": "4 min read" } },
+        { "type": "post", "settings": { "category": "LIFESTYLE", "title": "Balance Is the New Hustle", "excerpt": "How to build a life you don’t need a vacation from.", "content": "The hustle culture lied to us.\n\nReal balance isn’t about working less. It’s about working on the right things, then logging off.", "read_time": "5 min read" } },
+        { "type": "testimonial", "settings": { "text": "TSTN Club isn’t just content, it’s a community that pushes you to be better.", "name": "Rohit Verma", "role": "Member" } },
+        { "type": "testimonial", "settings": { "text": "Joining TSTN Club changed how I think about training. The community keeps me showing up even on the days I don’t feel like it.", "name": "Anjali Sharma", "role": "Member since 2024" } },
+        { "type": "testimonial", "settings": { "text": "The blogs alone are worth it. Real, honest advice — no fluff, no nonsense, just stuff that actually works.", "name": "Karan Malhotra", "role": "Founding Member" } },
+        { "type": "testimonial", "settings": { "text": "Finally a place where the conversations are about real progress, not just highlight reels.", "name": "Priya Nair", "role": "Member" } },
         { "type": "perk", "settings": { "text": "Exclusive Videos" } },
         { "type": "perk", "settings": { "text": "In-depth Blogs" } },
         { "type": "perk", "settings": { "text": "Live Sessions" } },
