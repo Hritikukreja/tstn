@@ -440,9 +440,9 @@
       "name": "Community Gallery",
       "settings": {
         "padding_top": 8,
-        "padding_right": 24,
+        "padding_right": 0,
         "padding_bottom": 24,
-        "padding_left": 4,
+        "padding_left": 0,
         "tag_text": "The Gallery",
         "tag_color": "#ff6a1a",
         "heading": "insider ALBUM",
