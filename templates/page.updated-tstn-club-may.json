@@ -440,7 +440,7 @@
       "name": "Community Gallery",
       "settings": {
         "padding_top": 24,
-        "padding_right": 0,
+        "padding_right": 8,
         "padding_bottom": 24,
         "padding_left": 0,
         "tag_text": "The Gallery",
