@@ -48,7 +48,7 @@
         "overlay_opacity": 40,
         "overline": "THE COLLECTION",
         "heading": "GEAR THAT GOES FURTHER",
-        "subheading": "<p>Hand-picked gear for real adventures. Tested, trusted, and used out on the trail.</p>",
+        "subheading": "",
         "text_alignment": "left",
         "button_label": "EXPLORE THE GEAR",
         "button_link": "",
@@ -545,24 +545,6 @@
         "button_link": ""
       }
     },
-    "1778118660573b4067": {
-      "type": "apps",
-      "blocks": {
-        "growave_loyalty_wishlist_block_index_instagram_nDUgnG": {
-          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.index.instagram/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
-          "settings": {
-            "option_galleries_id": "1",
-            "option_galleries_layout": "1"
-          }
-        }
-      },
-      "block_order": [
-        "growave_loyalty_wishlist_block_index_instagram_nDUgnG"
-      ],
-      "settings": {
-        "include_margins": true
-      }
-    },
     "contact_cta_eMqn8p": {
       "type": "contact-cta",
       "name": "Contact CTA",
@@ -574,6 +556,24 @@
         "button_link": "",
         "overlay_opacity": 65,
         "height": 600
+      }
+    },
+    "1778118660573b4067": {
+      "type": "apps",
+      "blocks": {
+        "growave_loyalty_wishlist_block_index_instagram_nDUgnG": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.index.instagram/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "option_galleries_id": "1",
+            "option_galleries_layout": "2"
+          }
+        }
+      },
+      "block_order": [
+        "growave_loyalty_wishlist_block_index_instagram_nDUgnG"
+      ],
+      "settings": {
+        "include_margins": true
       }
     }
   },
@@ -588,7 +588,7 @@
     "guides_block_M8N9Gw",
     "trust_badges_cTdDRX",
     "community_grid_rt4UaW",
-    "1778118660573b4067",
-    "contact_cta_eMqn8p"
+    "contact_cta_eMqn8p",
+    "1778118660573b4067"
   ]
 }
