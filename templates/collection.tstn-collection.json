@@ -41,6 +41,7 @@
     },
     "hero_collection_cAz8QC": {
       "type": "hero-collection",
+      "custom_css": [],
       "name": "Hero Collection",
       "settings": {
         "background_image": "shopify://shop_images/2.0.png",
@@ -145,6 +146,9 @@
     },
     "curated_video_y49Hqq": {
       "type": "curated-video",
+      "custom_css": [
+        "p {color: #ffffff; font-weight: 400;}"
+      ],
       "name": "Curated Video",
       "settings": {
         "overline": "CURATED BY SHAUN",
@@ -532,12 +536,31 @@
         "photo_wxgXz8",
         "photo_CdbFWc"
       ],
+      "disabled": true,
       "name": "Community Grid",
       "settings": {
         "heading": "SPOTTED: TSTN",
         "description": "No polished ads here, just real setups from the community. Tag @tstn to be added to the grid.",
         "button_label": "VIEW THE FEED",
         "button_link": ""
+      }
+    },
+    "1778118660573b4067": {
+      "type": "apps",
+      "blocks": {
+        "growave_loyalty_wishlist_block_index_instagram_nDUgnG": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.index.instagram/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "option_galleries_id": "1",
+            "option_galleries_layout": "1"
+          }
+        }
+      },
+      "block_order": [
+        "growave_loyalty_wishlist_block_index_instagram_nDUgnG"
+      ],
+      "settings": {
+        "include_margins": true
       }
     },
     "contact_cta_eMqn8p": {
@@ -565,6 +588,7 @@
     "guides_block_M8N9Gw",
     "trust_badges_cTdDRX",
     "community_grid_rt4UaW",
+    "1778118660573b4067",
     "contact_cta_eMqn8p"
   ]
 }
