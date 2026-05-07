@@ -158,9 +158,7 @@
     },
     "speedometer_claude_VPmHLG": {
       "type": "speedometer-claude",
-      "custom_css": [
-        ".tstn-desc {font-size: 40px;}"
-      ],
+      "custom_css": [],
       "name": "TSTN Club Dashboard",
       "settings": {
         "feat_image": "shopify://shop_images/6.1.png",
