@@ -219,19 +219,23 @@
             "author_name": "",
             "photo_count": "",
             "like_count": "",
-            "link": ""
+            "description": "",
+            "location_label": "",
+            "location_url": ""
           }
         },
         "gallery_item_Gq4Tcz": {
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/2_0d1efe19-339a-442f-b020-117957fe0d57.png",
-            "category": "",
+            "category": "Campsites",
             "title": "",
             "author_name": "",
             "photo_count": "",
             "like_count": "",
-            "link": ""
+            "description": "",
+            "location_label": "",
+            "location_url": ""
           }
         },
         "gallery_item_ApQKFM": {
@@ -243,7 +247,9 @@
             "author_name": "",
             "photo_count": "",
             "like_count": "",
-            "link": ""
+            "description": "",
+            "location_label": "",
+            "location_url": ""
           }
         },
         "gallery_item_xeYapg": {
@@ -256,7 +262,9 @@
             "avatar": "shopify://shop_images/4_9178397a-cb3c-4ed3-ba54-3ad5241c6609.png",
             "photo_count": "",
             "like_count": "",
-            "link": ""
+            "description": "",
+            "location_label": "",
+            "location_url": ""
           }
         },
         "gallery_item_YCjmXy": {
@@ -268,7 +276,9 @@
             "author_name": "",
             "photo_count": "",
             "like_count": "",
-            "link": ""
+            "description": "",
+            "location_label": "",
+            "location_url": ""
           }
         },
         "gallery_item_Tbw8Nz": {
@@ -280,7 +290,9 @@
             "author_name": "",
             "photo_count": "",
             "like_count": "",
-            "link": ""
+            "description": "",
+            "location_label": "",
+            "location_url": ""
           }
         },
         "gallery_item_WHjTdG": {
@@ -292,19 +304,23 @@
             "author_name": "",
             "photo_count": "",
             "like_count": "",
-            "link": ""
+            "description": "",
+            "location_label": "",
+            "location_url": ""
           }
         },
         "gallery_item_GWGk8A": {
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/9.png",
-            "category": "",
+            "category": "Campsites",
             "title": "",
             "author_name": "",
             "photo_count": "",
             "like_count": "",
-            "link": ""
+            "description": "",
+            "location_label": "",
+            "location_url": ""
           }
         },
         "gallery_item_EqBHFM": {
@@ -316,7 +332,9 @@
             "author_name": "",
             "photo_count": "",
             "like_count": "",
-            "link": ""
+            "description": "",
+            "location_label": "",
+            "location_url": ""
           }
         },
         "gallery_item_UjC74c": {
@@ -328,7 +346,9 @@
             "author_name": "",
             "photo_count": "",
             "like_count": "",
-            "link": ""
+            "description": "",
+            "location_label": "",
+            "location_url": ""
           }
         },
         "gallery_item_wp9iL4": {
@@ -340,7 +360,9 @@
             "author_name": "",
             "photo_count": "",
             "like_count": "",
-            "link": ""
+            "description": "",
+            "location_label": "",
+            "location_url": ""
           }
         },
         "gallery_item_KGDek3": {
@@ -352,7 +374,9 @@
             "author_name": "",
             "photo_count": "",
             "like_count": "",
-            "link": ""
+            "description": "",
+            "location_label": "",
+            "location_url": ""
           }
         },
         "quick_filter_q8WcKe": {
@@ -443,6 +467,10 @@
         "padding_right": 12,
         "padding_bottom": 24,
         "padding_left": 12,
+        "padding_top_mobile": 32,
+        "padding_right_mobile": 16,
+        "padding_bottom_mobile": 40,
+        "padding_left_mobile": 16,
         "tag_text": "The Gallery",
         "tag_color": "#ff6a1a",
         "heading": "insider ALBUM",
@@ -476,7 +504,8 @@
         "featured_author": "Dylan M.",
         "featured_photos": "28",
         "featured_likes": "142",
-        "featured_link": "#shopify-section-template--20674869821575__community_gallery_xFcGVL",
+        "featured_location_label": "",
+        "featured_location_url": "",
         "show_sidebar": true,
         "qf_title": "QUICK FILTERS",
         "upload_title": "UPLOAD YOUR RIG",
@@ -487,6 +516,12 @@
         "upload_max_files": 10,
         "upload_max_size_mb": 10,
         "upload_endpoint": "",
+        "show_likes": true,
+        "show_comments": true,
+        "show_share": true,
+        "like_endpoint": "",
+        "comments_endpoint": "",
+        "share_text": "Check out this shot from the TSTN community",
         "stat_1_value": "2,400+",
         "stat_1_label": "Photos",
         "stat_2_value": "380+",
