@@ -83,18 +83,6 @@
     margin-bottom: 0;
   }
 
-  /* Safety: never let the header slide off-screen — keeps all buttons clickable
-     at all scroll positions. Overrides Dawn's scroll-up hide behavior. */
-  .section-header.shopify-section-header-hidden {
-    top: 0 !important;
-  }
-
-  .section-header,
-  .section-header.shopify-section-header-sticky,
-  .section-header.shopify-section-header-hidden {
-    transform: none !important;
-  }
-
   .header-wrapper {
     /* Solid (no backdrop-filter) — backdrop-filter creates a new containing block
        which breaks position:fixed for descendants like the mobile drawer.
@@ -316,22 +304,48 @@
     }
 
     /* Hamburger button — when drawer CLOSED */
-    .header__icon--menu {
+    .header__icon--menu,
+    summary.header__icon--menu,
+    header-drawer details > summary.header__icon--menu {
       display: flex !important;
       align-items: center;
       justify-content: center;
-      width: 3.6rem;
+      width: 4.4rem !important;
       height: var(--header-bar-height);
       color: rgba(245, 245, 247, 0.85) !important;
       background: transparent !important;
       border: none;
-      cursor: pointer;
+      cursor: pointer !important;
       padding: 0;
-      list-style: none;
+      list-style: none !important;
+      position: relative !important;
+      z-index: 101 !important;
+      pointer-events: auto !important;
+      -webkit-tap-highlight-color: rgba(245, 245, 247, 0.1);
+      user-select: none;
+      -webkit-user-select: none;
     }
 
-    .header__icon--menu::-webkit-details-marker {
-      display: none;
+    /* Strip browser's default summary marker on every engine */
+    .header__icon--menu::-webkit-details-marker,
+    summary.header__icon--menu::-webkit-details-marker {
+      display: none !important;
+    }
+
+    .header__icon--menu::marker,
+    summary.header__icon--menu::marker {
+      display: none !important;
+      content: '' !important;
+    }
+
+    /* Make the entire summary area receive the tap, not just the icon */
+    .header__icon--menu > span {
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+      pointer-events: none; /* let the click hit the summary itself */
     }
 
     .header__icon--menu svg,
@@ -465,6 +479,28 @@
     content: none !important;
     background: transparent !important;
   }
+
+  /* =============================================
+     CRITICAL FIX: Cart drawer (Dawn) covers the
+     entire viewport at z-index 1000 and only gains
+     visibility:hidden through transition. Force it
+     hidden when not active so it stops blocking
+     clicks on header buttons (hamburger, search, cart, etc.)
+     ============================================= */
+  cart-drawer.drawer:not(.active) {
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+
+  cart-drawer.drawer.active {
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  /* Ensure header always sits above page content but below opened drawers */
+  .section-header {
+    z-index: 100 !important;
+  }
 </style>
 
 {%- style -%}
@@ -498,7 +534,7 @@
 -%}
 
 <sticky-header
-  data-sticky-type="always"
+  data-sticky-type="on-scroll-up"
   class="header-wrapper gradient"
 >
   {%- liquid
