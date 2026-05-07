@@ -319,6 +319,42 @@
             "link": ""
           }
         },
+        "gallery_item_UjC74c": {
+          "type": "gallery_item",
+          "settings": {
+            "image": "shopify://shop_images/3.png",
+            "category": "",
+            "title": "",
+            "author_name": "",
+            "photo_count": "",
+            "like_count": "",
+            "link": ""
+          }
+        },
+        "gallery_item_wp9iL4": {
+          "type": "gallery_item",
+          "settings": {
+            "image": "shopify://shop_images/4.png",
+            "category": "",
+            "title": "",
+            "author_name": "",
+            "photo_count": "",
+            "like_count": "",
+            "link": ""
+          }
+        },
+        "gallery_item_KGDek3": {
+          "type": "gallery_item",
+          "settings": {
+            "image": "shopify://shop_images/1.1.png",
+            "category": "",
+            "title": "",
+            "author_name": "",
+            "photo_count": "",
+            "like_count": "",
+            "link": ""
+          }
+        },
         "quick_filter_q8WcKe": {
           "type": "quick_filter",
           "settings": {
@@ -386,6 +422,9 @@
         "gallery_item_WHjTdG",
         "gallery_item_GWGk8A",
         "gallery_item_EqBHFM",
+        "gallery_item_UjC74c",
+        "gallery_item_wp9iL4",
+        "gallery_item_KGDek3",
         "quick_filter_q8WcKe",
         "quick_filter_abkfet",
         "quick_filter_KeyFjh",
