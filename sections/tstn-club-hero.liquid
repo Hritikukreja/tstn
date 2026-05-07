@@ -3,6 +3,7 @@
   - Left column: WELCOME TO pill, big "TSTN CLUB" headline (white + orange italic),
     tagline, description, two CTAs, member rating
   - Right column: stacked tilted image cards + "GROW LEARN INSPIRE" circular badge
+  - Primary CTA shows different text + link based on whether the user is logged in
 {% endcomment %}
 
 <style>
@@ -301,13 +302,30 @@
       <p class="tstn-hero__desc">{{ section.settings.description | default: 'Your hub for real talks, expert insights, inspiring stories and a community that grows together.' }}</p>
 
       <div class="tstn-hero__ctas">
-        <a href="{{ section.settings.cta1_link | default: '#' }}" class="tstn-btn tstn-btn--primary">
-          {{ section.settings.cta1_text | default: 'Join the Club' }}
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="5" y1="12" x2="19" y2="12"></line>
-            <polyline points="12 5 19 12 12 19"></polyline>
-          </svg>
-        </a>
+
+        {%- comment -%}
+          Login-aware Primary CTA
+          - Logged in:  cta1_text_member  + cta1_link_member  (default: 'Explore Club' -> /pages/club)
+          - Logged out: cta1_text         + cta1_link         (default: 'Join the Club' -> /account/register)
+        {%- endcomment -%}
+        {% if customer %}
+          <a href="{{ section.settings.cta1_link_member | default: '/pages/club' }}" class="tstn-btn tstn-btn--primary">
+            {{ section.settings.cta1_text_member | default: 'Explore Club' }}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        {% else %}
+          <a href="{{ section.settings.cta1_link | default: '/account/register' }}" class="tstn-btn tstn-btn--primary">
+            {{ section.settings.cta1_text | default: 'Join the Club' }}
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        {% endif %}
+
         <a href="{{ section.settings.cta2_link | default: '#' }}" class="tstn-btn tstn-btn--ghost">
           {{ section.settings.cta2_text | default: 'Explore Now' }}
         </a>
@@ -398,19 +416,30 @@
     { "type": "text", "id": "title_two", "label": "Title — Orange Italic", "default": "CLUB" },
     { "type": "text", "id": "tagline", "label": "Tagline", "default": "For the Driven. By the Real." },
     { "type": "textarea", "id": "description", "label": "Description", "default": "Your hub for real talks, expert insights, inspiring stories and a community that grows together." },
-    { "type": "header", "content": "CTAs" },
-    { "type": "text", "id": "cta1_text", "label": "Primary CTA", "default": "Join the Club" },
-    { "type": "url", "id": "cta1_link", "label": "Primary CTA Link" },
-    { "type": "text", "id": "cta2_text", "label": "Secondary CTA", "default": "Explore Now" },
-    { "type": "url", "id": "cta2_link", "label": "Secondary CTA Link" },
+
+    { "type": "header", "content": "Primary CTA — Logged Out" },
+    { "type": "text", "id": "cta1_text", "label": "Button Text", "default": "Join the Club" },
+    { "type": "url", "id": "cta1_link", "label": "Button Link" },
+
+    { "type": "header", "content": "Primary CTA — Logged In" },
+    { "type": "paragraph", "content": "Shown to members who are already signed in." },
+    { "type": "text", "id": "cta1_text_member", "label": "Button Text", "default": "Explore Club" },
+    { "type": "url", "id": "cta1_link_member", "label": "Button Link" },
+
+    { "type": "header", "content": "Secondary CTA" },
+    { "type": "text", "id": "cta2_text", "label": "Button Text", "default": "Explore Now" },
+    { "type": "url", "id": "cta2_link", "label": "Button Link" },
+
     { "type": "header", "content": "Rating" },
     { "type": "text", "id": "rating", "label": "Rating Score", "default": "4.8/5" },
     { "type": "text", "id": "rating_sub", "label": "Rating Subtitle", "default": "From 2,000+ Members" },
+
     { "type": "header", "content": "Images" },
     { "type": "image_picker", "id": "image_main", "label": "Main Image (large card)" },
     { "type": "text", "id": "image_main_quote", "label": "Main Image Quote (script overlay)", "default": "Real People. Real Stories." },
     { "type": "image_picker", "id": "image_top", "label": "Top Right Image" },
     { "type": "image_picker", "id": "image_bottom", "label": "Bottom Right Image" },
+
     { "type": "header", "content": "Badge" },
     { "type": "text", "id": "badge_text", "label": "Badge Text", "default": "GROW LEARN INSPIRE" }
   ],
