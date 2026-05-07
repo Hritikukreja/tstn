@@ -68,15 +68,15 @@
       "blocks": {
         "promo_PqDAUj": {
           "type": "promo",
-          "disabled": true,
           "settings": {
+            "image": "shopify://shop_images/BLUETTI_Elite_30_V2__Shaun.png",
             "badge_type": "default",
-            "badge_text": "GIVEAWAY",
-            "eyebrow": "Don't miss out",
-            "title": "Promo Title",
-            "description": "Short description of the promo.",
-            "cta_mode": "email",
-            "cta_text": "Learn More",
+            "badge_text": "BLUETTI V2",
+            "eyebrow": "LIMITED TIME DEAL",
+            "title": "SPECIAL PRICE $499 ONLY",
+            "description": "Power your campsite, road trip, or emergency setup with the BLUETTI Elite 30 V2. Compact, reliable, and ready to keep your essentials running wherever you go.",
+            "cta_mode": "link",
+            "cta_text": "SECURE NOW!",
             "cta_link": "",
             "email_placeholder": "Enter your email",
             "email_btn_text": "Subscribe",
@@ -87,11 +87,11 @@
         "promo_aV6dmX": {
           "type": "promo",
           "settings": {
-            "image": "shopify://shop_images/product-sub-img-2.png",
+            "image": "shopify://shop_images/hullavator.avif",
             "badge_type": "giveaway",
             "badge_text": "GIVEAWAY",
             "eyebrow": "Participate now",
-            "title": "Thule Hullavator Giveaway",
+            "title": "THULE HULLAVATOR GIVEAWAY",
             "description": "We’re giving away a Thule Hullavator Pro to help make loading and unloading your kayak easier, safer, and faster.",
             "cta_mode": "email",
             "cta_text": "Learn More",
