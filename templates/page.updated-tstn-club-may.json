@@ -43,6 +43,9 @@
         "avatar_DfTpnB",
         "avatar_EdaDyH"
       ],
+      "custom_css": [
+        "p {color: #ffffff; font-weight: 600;}"
+      ],
       "name": "TSTN Club Hero",
       "settings": {
         "pill_text": "WELCOME TO",
