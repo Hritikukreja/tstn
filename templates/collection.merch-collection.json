@@ -61,7 +61,7 @@
         "tab_ntk3kh": {
           "type": "tab",
           "settings": {
-            "label": "ALL",
+            "label": "T-SHIRTS",
             "link": "shopify://collections",
             "is_active": true
           }
@@ -69,7 +69,7 @@
         "tab_3pJpUd": {
           "type": "tab",
           "settings": {
-            "label": "POWER",
+            "label": "HOODIES",
             "link": "",
             "is_active": false
           }
@@ -77,7 +77,7 @@
         "tab_BJHEWY": {
           "type": "tab",
           "settings": {
-            "label": "STORAGE",
+            "label": "CAPS",
             "link": "",
             "is_active": false
           }
@@ -85,7 +85,7 @@
         "tab_RmgzUw": {
           "type": "tab",
           "settings": {
-            "label": "RECOVERY",
+            "label": "HATS",
             "link": "",
             "is_active": false
           }
@@ -93,7 +93,7 @@
         "tab_7QnYFJ": {
           "type": "tab",
           "settings": {
-            "label": "SHELTER",
+            "label": "COLLABARATIONS",
             "link": "",
             "is_active": false
           }
@@ -101,7 +101,7 @@
         "tab_tAtTFG": {
           "type": "tab",
           "settings": {
-            "label": "VEHICLE",
+            "label": "JACKETS",
             "link": "",
             "is_active": false
           }
@@ -109,15 +109,7 @@
         "tab_tPTN3y": {
           "type": "tab",
           "settings": {
-            "label": "MERCH",
-            "link": "",
-            "is_active": false
-          }
-        },
-        "tab_FDcDGL": {
-          "type": "tab",
-          "settings": {
-            "label": "ACCESSORIES",
+            "label": "MUGS",
             "link": "",
             "is_active": false
           }
@@ -130,8 +122,7 @@
         "tab_RmgzUw",
         "tab_7QnYFJ",
         "tab_tAtTFG",
-        "tab_tPTN3y",
-        "tab_FDcDGL"
+        "tab_tPTN3y"
       ],
       "name": "Collection Filter Bar",
       "settings": {
@@ -533,12 +524,31 @@
         "photo_wxgXz8",
         "photo_CdbFWc"
       ],
+      "disabled": true,
       "name": "Community Grid",
       "settings": {
         "heading": "SEEN AROUND",
         "description": "TSTN gear out in the real world. Tag @tstn.official in your fit pics or gear shots to join the board.",
         "button_label": "THE LOOKBOOK",
         "button_link": ""
+      }
+    },
+    "177811872523257940": {
+      "type": "apps",
+      "blocks": {
+        "growave_loyalty_wishlist_block_index_instagram_t3fQDD": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.index.instagram/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "option_galleries_id": "1",
+            "option_galleries_layout": "1"
+          }
+        }
+      },
+      "block_order": [
+        "growave_loyalty_wishlist_block_index_instagram_t3fQDD"
+      ],
+      "settings": {
+        "include_margins": true
       }
     },
     "contact_cta_eMqn8p": {
@@ -566,6 +576,7 @@
     "guides_block_M8N9Gw",
     "trust_badges_cTdDRX",
     "community_grid_rt4UaW",
+    "177811872523257940",
     "contact_cta_eMqn8p"
   ]
 }
