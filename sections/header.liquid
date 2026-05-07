@@ -83,6 +83,18 @@
     margin-bottom: 0;
   }
 
+  /* Safety: never let the header slide off-screen — keeps all buttons clickable
+     at all scroll positions. Overrides Dawn's scroll-up hide behavior. */
+  .section-header.shopify-section-header-hidden {
+    top: 0 !important;
+  }
+
+  .section-header,
+  .section-header.shopify-section-header-sticky,
+  .section-header.shopify-section-header-hidden {
+    transform: none !important;
+  }
+
   .header-wrapper {
     /* Solid (no backdrop-filter) — backdrop-filter creates a new containing block
        which breaks position:fixed for descendants like the mobile drawer.
@@ -486,7 +498,7 @@
 -%}
 
 <sticky-header
-  data-sticky-type="on-scroll-up"
+  data-sticky-type="always"
   class="header-wrapper gradient"
 >
   {%- liquid
