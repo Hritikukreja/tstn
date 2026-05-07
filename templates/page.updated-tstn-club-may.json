@@ -435,7 +435,11 @@
         "upload_title": "UPLOAD YOUR RIG",
         "upload_description": "Share your build, adventure, or setup with the community.",
         "upload_button_text": "Upload Now",
-        "upload_button_url": "",
+        "upload_modal_title": "Share Your Adventure",
+        "upload_modal_sub": "Drag photos in or click to browse. JPG, PNG up to 10MB each.",
+        "upload_max_files": 10,
+        "upload_max_size_mb": 10,
+        "upload_endpoint": "",
         "stat_1_value": "2,400+",
         "stat_1_label": "Photos",
         "stat_2_value": "380+",
@@ -535,24 +539,6 @@
         "gate_cta_link": ""
       }
     },
-    "1777934112a409e8e2": {
-      "type": "apps",
-      "blocks": {
-        "growave_loyalty_wishlist_block_index_instagram_zKbLUA": {
-          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.index.instagram/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
-          "settings": {
-            "option_galleries_id": "1",
-            "option_galleries_layout": "2"
-          }
-        }
-      },
-      "block_order": [
-        "growave_loyalty_wishlist_block_index_instagram_zKbLUA"
-      ],
-      "settings": {
-        "include_margins": true
-      }
-    },
     "tstn_community_features_CgHfHH": {
       "type": "tstn-community-features",
       "blocks": {
@@ -619,6 +605,24 @@
         "image": "shopify://shop_images/Screenshot_2026-05-01_130527.png",
         "script_text": "the story till now"
       }
+    },
+    "1777934112a409e8e2": {
+      "type": "apps",
+      "blocks": {
+        "growave_loyalty_wishlist_block_index_instagram_zKbLUA": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.index.instagram/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "option_galleries_id": "1",
+            "option_galleries_layout": "2"
+          }
+        }
+      },
+      "block_order": [
+        "growave_loyalty_wishlist_block_index_instagram_zKbLUA"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
@@ -627,8 +631,8 @@
     "tstn_featured_videos_DRAEaX",
     "community_gallery_xFcGVL",
     "tstn_blog_testimonial_CGmbDD",
-    "1777934112a409e8e2",
     "tstn_community_features_CgHfHH",
-    "tstn_journey_cta_adCRhC"
+    "tstn_journey_cta_adCRhC",
+    "1777934112a409e8e2"
   ]
 }
