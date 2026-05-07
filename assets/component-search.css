@@ -72,3 +72,134 @@ input::-webkit-search-decoration {
 .template-search__results {
   position: relative;
 }
+
+/* ============================================================
+   TSTN — Search Overlay Dark Theme Overrides
+   Fixes:
+   1. Centers the search input under the close button
+   2. Removes the orange focus glow / border
+   3. Applies dark theme styling (transparent bg, white text)
+============================================================ */
+
+/* --- 1. Center the search overlay container --- */
+details-modal[open] .search-modal,
+.search-modal {
+  background-color: #0a0a0a !important;
+}
+
+.search-modal__content {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: flex-start !important;
+  padding-top: clamp(40px, 8vw, 100px) !important;
+  padding-left: clamp(16px, 4vw, 40px) !important;
+  padding-right: clamp(16px, 4vw, 40px) !important;
+  max-width: 100% !important;
+}
+
+.search-modal__form {
+  width: 100% !important;
+  max-width: 720px !important;
+  margin: 0 auto !important;
+}
+
+/* --- 2. Kill the orange focus ring + hover ring --- */
+.search-modal .field:before,
+.search-modal .field:after,
+.search-modal .field:hover:before,
+.search-modal .field:focus-within:before,
+.search-modal .field:focus-within:after {
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+/* --- 3. Custom dark-theme border on the field --- */
+.search-modal .field {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  border-radius: 999px !important;
+  overflow: hidden !important;
+  transition: border-color 0.25s ease, background 0.25s ease !important;
+}
+
+.search-modal .field:hover {
+  border-color: rgba(255, 255, 255, 0.32) !important;
+}
+
+.search-modal .field:focus-within {
+  border-color: #F56300 !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* --- 4. Style the input itself --- */
+.search-modal .field__input,
+.search-modal .search__input.field__input {
+  background: transparent !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 1.6rem 9.8rem 1.6rem 2rem !important;
+  font-size: 1.5rem !important;
+}
+
+.search-modal .field__input::placeholder {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.search-modal .field__label {
+  color: rgba(255, 255, 255, 0.5) !important;
+  left: 2rem !important;
+}
+
+/* --- 5. Style the search + reset buttons --- */
+.search-modal .search__button,
+.search-modal .reset__button {
+  background-color: transparent !important;
+  color: #ffffff !important;
+}
+
+.search-modal .search__button .icon,
+.search-modal .reset__button .icon {
+  color: #ffffff !important;
+}
+
+.search-modal .search__button:hover,
+.search-modal .reset__button:hover {
+  background-color: transparent !important;
+}
+
+.search-modal .search__button:hover .icon {
+  color: #F56300 !important;
+}
+
+/* Divider between reset + search button */
+.search-modal .reset__button:not(:focus-visible)::after,
+.search-modal .reset__button:not(:focus)::after {
+  border-right-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* --- 6. Predictive search results (dark theme) --- */
+.search-modal predictive-search,
+.search-modal .predictive-search {
+  background: #0a0a0a !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px !important;
+  margin-top: 1rem !important;
+}
+
+.search-modal .predictive-search__heading {
+  color: rgba(255, 255, 255, 0.5) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.search-modal .predictive-search__list-item {
+  color: #ffffff !important;
+}
+
+.search-modal .predictive-search__list-item:hover,
+.search-modal .predictive-search__list-item[aria-selected='true'] {
+  background-color: rgba(245, 99, 0, 0.08) !important;
+  color: #F56300 !important;
+}
