@@ -2,8 +2,8 @@
   TSTN Featured Videos
   - Logged-in: clicking a video opens a video modal player
   - Logged-out: clicking a video opens a "Members Only" gate popup
-                (styled exactly like the screenshot reference)
-  - Sidebar: slidable carousel for giveaways / live video subscribe / promos
+  - Sidebar: slidable promo carousel; each slide is either a Link CTA OR
+             an inline Email Capture form (Shopify built-in newsletter)
 {% endcomment %}
 
 <style>
@@ -229,7 +229,7 @@
   .tstn-fv__item-time { font-size: 12px; color: var(--tstn-muted); }
 
   /* ============================================================
-     Promo Carousel (replaces Members Only sidebar)
+     Promo Carousel
      ============================================================ */
   .tstn-promo {
     background: var(--tstn-card-bg);
@@ -302,9 +302,7 @@
     align-items: center;
     gap: 5px;
   }
-  .tstn-promo__badge--live {
-    background: #ff2d2d;
-  }
+  .tstn-promo__badge--live { background: #ff2d2d; }
   .tstn-promo__badge-dot {
     width: 6px;
     height: 6px;
@@ -347,6 +345,8 @@
     margin: 0 0 18px;
     flex: 1;
   }
+
+  /* CTA Link button */
   .tstn-promo__cta {
     display: inline-flex;
     align-items: center;
@@ -367,6 +367,62 @@
   }
   .tstn-promo__cta svg { transition: transform 0.25s ease; }
   .tstn-promo__cta:hover svg { transform: translateX(3px); }
+
+  /* Email capture form */
+  .tstn-promo__form {
+    margin-top: auto;
+  }
+  .tstn-promo__form-row {
+    display: flex;
+    gap: 6px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--tstn-border);
+    border-radius: 999px;
+    padding: 4px;
+    transition: border-color 0.2s ease;
+  }
+  .tstn-promo__form-row:focus-within {
+    border-color: var(--tstn-orange);
+  }
+  .tstn-promo__form-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--tstn-text);
+    font-size: 13px;
+    padding: 10px 14px;
+    font-family: inherit;
+    min-width: 0;
+  }
+  .tstn-promo__form-input::placeholder {
+    color: rgba(255,255,255,0.4);
+  }
+  .tstn-promo__form-btn {
+    background: var(--tstn-orange);
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background 0.2s ease;
+    flex-shrink: 0;
+    font-family: inherit;
+  }
+  .tstn-promo__form-btn:hover { background: var(--tstn-orange-hover); }
+  .tstn-promo__form-msg {
+    font-size: 12px;
+    color: var(--tstn-orange);
+    margin-top: 8px;
+    padding-left: 6px;
+  }
+  .tstn-promo__form-msg--success { color: #4ade80; }
+  .tstn-promo__form-msg--error { color: #ff6b6b; }
 
   /* Carousel controls */
   .tstn-promo__controls {
@@ -420,7 +476,7 @@
   }
 
   /* ============================================================
-     Modals (video player + members-only gate)
+     Modals
      ============================================================ */
   .tstn-modal {
     position: fixed;
@@ -506,12 +562,9 @@
     letter-spacing: 0.3px;
     line-height: 1.15;
   }
-  .tstn-modal__author {
-    font-size: 13px;
-    color: var(--tstn-muted);
-  }
+  .tstn-modal__author { font-size: 13px; color: var(--tstn-muted); }
 
-  /* Gate modal (matches reference image exactly) */
+  /* Gate modal */
   .tstn-modal--gate .tstn-modal__inner {
     width: 100%;
     max-width: 560px;
@@ -583,10 +636,7 @@
     color: var(--tstn-text);
     font-weight: 500;
   }
-  .tstn-gate__check {
-    color: var(--tstn-orange);
-    flex-shrink: 0;
-  }
+  .tstn-gate__check { color: var(--tstn-orange); flex-shrink: 0; }
   .tstn-gate__cta {
     display: inline-flex;
     align-items: center;
@@ -626,6 +676,9 @@
     .tstn-fv__item-title { font-size: 16px; }
     .tstn-modal--gate .tstn-modal__inner { padding: 28px 24px; }
     .tstn-gate__lock-bg { width: 160px; height: 160px; }
+    .tstn-promo__form-row { flex-direction: column; border-radius: 14px; padding: 6px; gap: 4px; }
+    .tstn-promo__form-input { padding: 10px 12px; }
+    .tstn-promo__form-btn { width: 100%; justify-content: center; padding: 10px; }
   }
 </style>
 
@@ -647,7 +700,6 @@
 
       <div class="tstn-fv__grid">
 
-        <!-- Main video -->
         <button
           class="tstn-fv__main"
           type="button"
@@ -661,9 +713,7 @@
             <div style="width:100%;height:100%;background:linear-gradient(135deg,#222,#111);"></div>
           {% endif %}
           <div class="tstn-fv__play">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <polygon points="6,4 20,12 6,20"/>
-            </svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg>
           </div>
           <div class="tstn-fv__main-info">
             <h3 class="tstn-fv__main-title">{{ section.settings.main_title | default: 'The Mindset That Changes Everything' }}</h3>
@@ -674,7 +724,6 @@
           </div>
         </button>
 
-        <!-- Side video list -->
         <div class="tstn-fv__list">
           {% for block in section.blocks %}
             {% if block.type == 'video_item' %}
@@ -693,9 +742,7 @@
                     <div style="width:100%;height:100%;background:linear-gradient(135deg,#333,#1a1a1a);"></div>
                   {% endif %}
                   <div class="tstn-fv__thumb-play">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="#000">
-                      <polygon points="6,4 20,12 6,20"/>
-                    </svg>
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="#000"><polygon points="6,4 20,12 6,20"/></svg>
                   </div>
                   {% if block.settings.duration != blank %}
                     <span class="tstn-fv__thumb-duration">{{ block.settings.duration }}</span>
@@ -714,7 +761,7 @@
       </div>
     </div>
 
-    <!-- Promo Carousel (replaces Members Only) -->
+    <!-- Promo Carousel -->
     {%- assign promo_count = 0 -%}
     {%- for block in section.blocks -%}
       {%- if block.type == 'promo' -%}{%- assign promo_count = promo_count | plus: 1 -%}{%- endif -%}
@@ -763,13 +810,42 @@
                   {% endif %}
                   <h3 class="tstn-promo__title">{{ block.settings.title }}</h3>
                   <p class="tstn-promo__desc">{{ block.settings.description }}</p>
-                  <a href="{{ block.settings.cta_link | default: '#' }}" class="tstn-promo__cta">
-                    {{ block.settings.cta_text | default: 'Learn More' }}
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                      <line x1="5" y1="12" x2="19" y2="12"></line>
-                      <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                  </a>
+
+                  {%- comment -%} CTA mode: link OR email capture {%- endcomment -%}
+                  {% if block.settings.cta_mode == 'email' %}
+                    {% form 'customer', class: 'tstn-promo__form', novalidate: 'novalidate' %}
+                      <input type="hidden" name="contact[tags]" value="newsletter,promo:{{ block.settings.email_tag | default: 'general' | escape }}">
+                      <div class="tstn-promo__form-row">
+                        <input
+                          type="email"
+                          name="contact[email]"
+                          class="tstn-promo__form-input"
+                          placeholder="{{ block.settings.email_placeholder | default: 'Enter your email' | escape }}"
+                          required
+                          autocomplete="email">
+                        <button type="submit" name="commit" class="tstn-promo__form-btn">
+                          {{ block.settings.email_btn_text | default: 'Subscribe' }}
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                          </svg>
+                        </button>
+                      </div>
+                      {% if form.posted_successfully? %}
+                        <div class="tstn-promo__form-msg tstn-promo__form-msg--success">{{ block.settings.email_success | default: '✓ Thanks! You’re on the list.' }}</div>
+                      {% elsif form.errors %}
+                        <div class="tstn-promo__form-msg tstn-promo__form-msg--error">{{ form.errors | default_errors }}</div>
+                      {% endif %}
+                    {% endform %}
+                  {% else %}
+                    <a href="{{ block.settings.cta_link | default: '#' }}" class="tstn-promo__cta">
+                      {{ block.settings.cta_text | default: 'Learn More' }}
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                      </svg>
+                    </a>
+                  {% endif %}
                 </div>
               </div>
             {% endif %}
@@ -780,9 +856,11 @@
       {% if promo_count > 1 %}
         <div class="tstn-promo__controls">
           <div class="tstn-promo__dots" data-tstn-promo-dots>
+            {% assign d_idx = 0 %}
             {% for block in section.blocks %}
               {% if block.type == 'promo' %}
-                <button class="tstn-promo__dot {% if forloop.first %}is-active{% endif %}" type="button" data-tstn-promo-dot="{{ forloop.index0 }}" aria-label="Slide {{ forloop.index }}"></button>
+                <button class="tstn-promo__dot {% if d_idx == 0 %}is-active{% endif %}" type="button" data-tstn-promo-dot="{{ d_idx }}" aria-label="Slide {{ d_idx | plus: 1 }}"></button>
+                {% assign d_idx = d_idx | plus: 1 %}
               {% endif %}
             {% endfor %}
           </div>
@@ -800,7 +878,7 @@
 
   </div>
 
-  <!-- Video Modal (logged in) -->
+  <!-- Video Modal -->
   <div class="tstn-modal tstn-modal--video" id="tstn-modal-video-{{ section.id }}" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="tstn-modal__inner">
       <button class="tstn-modal__close" type="button" aria-label="Close video">
@@ -817,7 +895,7 @@
     </div>
   </div>
 
-  <!-- Gate Modal (logged out) -->
+  <!-- Gate Modal -->
   <div class="tstn-modal tstn-modal--gate" id="tstn-modal-gate-{{ section.id }}" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="tstn-modal__inner">
       <button class="tstn-modal__close" type="button" aria-label="Close">
@@ -827,7 +905,6 @@
         </svg>
       </button>
 
-      <!-- Decorative glow + lock -->
       <div class="tstn-gate__glow"></div>
       <svg class="tstn-gate__lock-bg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
         <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
@@ -872,12 +949,8 @@
   var section = document.getElementById('shopify-section-' + sectionId);
   if (!section) return;
 
-  /* ---------- Customer state (server-injected) ---------- */
   var isLoggedIn = {% if customer %}true{% else %}false{% endif %};
 
-  /* ============================================================
-     Modals: video + gate
-     ============================================================ */
   var videoModal = section.querySelector('#tstn-modal-video-' + sectionId);
   var gateModal  = section.querySelector('#tstn-modal-gate-' + sectionId);
   var frame      = videoModal && videoModal.querySelector('[data-tstn-modal-frame]');
@@ -889,16 +962,10 @@
     if (!rawUrl) return null;
     var url = rawUrl.trim();
     var ytMatch = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
-    if (ytMatch) {
-      return { type: 'iframe', src: 'https://www.youtube.com/embed/' + ytMatch[1] + '?autoplay=1&rel=0&modestbranding=1' };
-    }
+    if (ytMatch) return { type: 'iframe', src: 'https://www.youtube.com/embed/' + ytMatch[1] + '?autoplay=1&rel=0&modestbranding=1' };
     var vimeoMatch = url.match(/(?:vimeo\.com\/(?:video\/)?|player\.vimeo\.com\/video\/)(\d+)/);
-    if (vimeoMatch) {
-      return { type: 'iframe', src: 'https://player.vimeo.com/video/' + vimeoMatch[1] + '?autoplay=1' };
-    }
-    if (/\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(url)) {
-      return { type: 'video', src: url };
-    }
+    if (vimeoMatch) return { type: 'iframe', src: 'https://player.vimeo.com/video/' + vimeoMatch[1] + '?autoplay=1' };
+    if (/\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(url)) return { type: 'video', src: url };
     return { type: 'iframe', src: url };
   }
 
@@ -908,16 +975,13 @@
     modal.setAttribute('aria-hidden', 'false');
     document.body.classList.add('tstn-modal-open');
   }
-
   function closeModal(modal) {
     if (!modal) return;
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
-    // Only release scroll lock if no other modal is open
     if (!section.querySelector('.tstn-modal.is-open')) {
       document.body.classList.remove('tstn-modal-open');
     }
-    // Clear video frame to stop playback
     if (modal === videoModal && frame) frame.innerHTML = '';
   }
 
@@ -940,15 +1004,10 @@
 
   triggers.forEach(function(t) {
     t.addEventListener('click', function() {
-      if (isLoggedIn) {
-        openVideoModal(t);
-      } else {
-        openModal(gateModal);
-      }
+      if (isLoggedIn) openVideoModal(t); else openModal(gateModal);
     });
   });
 
-  // Close handlers (both modals)
   section.querySelectorAll('.tstn-modal').forEach(function(modal) {
     var closeBtn = modal.querySelector('.tstn-modal__close');
     if (closeBtn) closeBtn.addEventListener('click', function() { closeModal(modal); });
@@ -962,9 +1021,7 @@
     section.querySelectorAll('.tstn-modal.is-open').forEach(function(m) { closeModal(m); });
   });
 
-  /* ============================================================
-     Promo Carousel
-     ============================================================ */
+  /* Promo Carousel */
   var promo = section.querySelector('[data-tstn-promo]');
   if (promo) {
     var track = promo.querySelector('[data-tstn-promo-track]');
@@ -985,15 +1042,12 @@
     }
     function next() { goTo(index + 1); }
     function prev() { goTo(index - 1); }
-
     function startAuto() {
       if (!autoplay || total < 2) return;
       stopAuto();
       timer = setInterval(next, autoplaySpeed);
     }
-    function stopAuto() {
-      if (timer) { clearInterval(timer); timer = null; }
-    }
+    function stopAuto() { if (timer) { clearInterval(timer); timer = null; } }
 
     if (nextBtn) nextBtn.addEventListener('click', function() { next(); startAuto(); });
     if (prevBtn) prevBtn.addEventListener('click', function() { prev(); startAuto(); });
@@ -1004,23 +1058,27 @@
       });
     });
 
-    // Pause on hover
     promo.addEventListener('mouseenter', stopAuto);
     promo.addEventListener('mouseleave', startAuto);
 
-    // Touch swipe
-    var touchStartX = 0;
-    var touchEndX = 0;
+    // Don't pause/swipe when interacting with form fields
+    track.querySelectorAll('input, button').forEach(function(el) {
+      el.addEventListener('focus', stopAuto);
+      el.addEventListener('blur', startAuto);
+    });
+
+    var touchStartX = 0, touchEndX = 0;
     track.addEventListener('touchstart', function(e) {
+      // Don't intercept swipe on form fields
+      if (e.target.closest('.tstn-promo__form')) return;
       touchStartX = e.changedTouches[0].screenX;
       stopAuto();
     }, { passive: true });
     track.addEventListener('touchend', function(e) {
+      if (e.target.closest('.tstn-promo__form')) return;
       touchEndX = e.changedTouches[0].screenX;
       var diff = touchStartX - touchEndX;
-      if (Math.abs(diff) > 40) {
-        if (diff > 0) next(); else prev();
-      }
+      if (Math.abs(diff) > 40) { if (diff > 0) next(); else prev(); }
       startAuto();
     }, { passive: true });
 
@@ -1043,19 +1101,18 @@
     { "type": "text", "id": "main_title", "label": "Title", "default": "The Mindset That Changes Everything" },
     { "type": "text", "id": "main_author", "label": "Author/By line", "default": "By Pratham Mittal" },
     { "type": "text", "id": "main_duration", "label": "Duration", "default": "12:45" },
-    { "type": "url", "id": "main_link", "label": "Video URL (YouTube, Vimeo, or direct .mp4)", "info": "Paste any YouTube/Vimeo watch URL — auto-converted to embed format." },
+    { "type": "url", "id": "main_link", "label": "Video URL (YouTube, Vimeo, or direct .mp4)" },
 
     { "type": "header", "content": "Members Only Gate Popup (logged-out)" },
     { "type": "text", "id": "gate_pill", "label": "Pill Label", "default": "MEMBERS ONLY" },
     { "type": "text", "id": "gate_title", "label": "Title", "default": "Unlock Exclusive Content & Perks" },
     { "type": "text", "id": "gate_cta_text", "label": "CTA Button Text", "default": "Join TSTN Club" },
     { "type": "url", "id": "gate_cta_link", "label": "CTA Button Link" },
-    { "type": "paragraph", "content": "Add 'Members Perk' blocks below to show as a checkmark list inside the gate popup." },
+    { "type": "paragraph", "content": "Add 'Members Perk' blocks below to populate the checkmark list." },
 
     { "type": "header", "content": "Promo Carousel" },
     { "type": "checkbox", "id": "promo_autoplay", "label": "Auto-rotate slides", "default": true },
-    { "type": "range", "id": "promo_autoplay_speed", "label": "Auto-rotate speed (ms)", "min": 2000, "max": 9000, "step": 500, "default": 5000 },
-    { "type": "paragraph", "content": "Add 'Promo Slide' blocks below for giveaways, live video, subscribe prompts, etc." }
+    { "type": "range", "id": "promo_autoplay_speed", "label": "Auto-rotate speed (ms)", "min": 2000, "max": 9000, "step": 500, "default": 5000 }
   ],
   "blocks": [
     {
@@ -1067,12 +1124,12 @@
         { "type": "text", "id": "author", "label": "Author" },
         { "type": "text", "id": "time", "label": "Time" },
         { "type": "text", "id": "duration", "label": "Duration label (e.g. 10:32)" },
-        { "type": "url", "id": "link", "label": "Video URL (YouTube, Vimeo, or direct .mp4)" }
+        { "type": "url", "id": "link", "label": "Video URL" }
       ]
     },
     {
       "type": "perk",
-      "name": "Members Perk (gate popup)",
+      "name": "Members Perk",
       "settings": [
         { "type": "text", "id": "text", "label": "Perk", "default": "Exclusive Videos" }
       ]
@@ -1097,8 +1154,25 @@
         { "type": "text", "id": "eyebrow", "label": "Eyebrow Text", "default": "Don't miss out" },
         { "type": "text", "id": "title", "label": "Title", "default": "Promo Title" },
         { "type": "textarea", "id": "description", "label": "Description", "default": "Short description of the promo." },
-        { "type": "text", "id": "cta_text", "label": "CTA Button Text", "default": "Learn More" },
-        { "type": "url", "id": "cta_link", "label": "CTA Link" }
+        { "type": "header", "content": "Call to Action" },
+        {
+          "type": "select",
+          "id": "cta_mode",
+          "label": "CTA Style",
+          "default": "link",
+          "options": [
+            { "value": "link", "label": "Link Button" },
+            { "value": "email", "label": "Email Capture Form" }
+          ]
+        },
+        { "type": "paragraph", "content": "▼ If 'Link Button' is selected:" },
+        { "type": "text", "id": "cta_text", "label": "Button Text", "default": "Learn More" },
+        { "type": "url", "id": "cta_link", "label": "Button Link" },
+        { "type": "paragraph", "content": "▼ If 'Email Capture Form' is selected — emails go to your Shopify customer list:" },
+        { "type": "text", "id": "email_placeholder", "label": "Input Placeholder", "default": "Enter your email" },
+        { "type": "text", "id": "email_btn_text", "label": "Submit Button Text", "default": "Subscribe" },
+        { "type": "text", "id": "email_tag", "label": "Customer Tag (segments emails)", "default": "general", "info": "Submitted emails are tagged so you can segment them in Shopify Admin (e.g. 'live-video', 'giveaway-jan')." },
+        { "type": "text", "id": "email_success", "label": "Success Message", "default": "✓ Thanks! You’re on the list." }
       ]
     }
   ],
@@ -1115,9 +1189,9 @@
         { "type": "perk", "settings": { "text": "Live Sessions" } },
         { "type": "perk", "settings": { "text": "Member Discounts" } },
         { "type": "perk", "settings": { "text": "Early Access to Events" } },
-        { "type": "promo", "settings": { "badge_type": "giveaway", "badge_text": "GIVEAWAY", "eyebrow": "This Month", "title": "Win a TSTN Merch Bundle", "description": "Tag a friend and follow us for a chance to win exclusive TSTN merch worth ₹10,000.", "cta_text": "Enter Now" } },
-        { "type": "promo", "settings": { "badge_type": "live", "badge_text": "LIVE SOON", "eyebrow": "Live Session", "title": "Subscribe for Live Q&A", "description": "Get notified when we go live. Real-time conversations, real questions, real answers.", "cta_text": "Subscribe" } },
-        { "type": "promo", "settings": { "badge_type": "default", "badge_text": "EVENT", "eyebrow": "Coming Up", "title": "TSTN Meetup 2026", "description": "Join the community in person. Limited seats available for our annual meetup.", "cta_text": "Reserve Spot" } }
+        { "type": "promo", "settings": { "badge_type": "giveaway", "badge_text": "GIVEAWAY", "eyebrow": "This Month", "title": "Win a TSTN Merch Bundle", "description": "Enter your email for a chance to win exclusive TSTN merch worth ₹10,000.", "cta_mode": "email", "email_btn_text": "Enter", "email_tag": "giveaway" } },
+        { "type": "promo", "settings": { "badge_type": "live", "badge_text": "LIVE SOON", "eyebrow": "Live Session", "title": "Subscribe for Live Q&A", "description": "Get notified when we go live. Real-time conversations, real questions, real answers.", "cta_mode": "email", "email_btn_text": "Notify Me", "email_tag": "live-video" } },
+        { "type": "promo", "settings": { "badge_type": "default", "badge_text": "EVENT", "eyebrow": "Coming Up", "title": "TSTN Meetup 2026", "description": "Join the community in person. Limited seats available for our annual meetup.", "cta_mode": "link", "cta_text": "Reserve Spot" } }
       ]
     }
   ]
