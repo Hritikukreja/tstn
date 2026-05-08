@@ -645,11 +645,6 @@
   </div>
 </section>
 
-{%- comment -%}
-  Inline icon snippet fallback — if you don't want to create a separate
-  snippets/tstn-fa-icon.liquid file, this section embeds icons inline below.
-{%- endcomment -%}
-
 <script>
 (function() {
   var section = document.getElementById('shopify-section-{{ section.id }}');
@@ -708,12 +703,6 @@
 })();
 </script>
 
-{%- comment -%} ============ ICON SNIPPET (inline render) ============ {%- endcomment -%}
-{% capture _unused %}
-  Use the render tag above. The actual snippet file content goes in
-  snippets/tstn-fa-icon.liquid — see notes at bottom of this file.
-{% endcapture %}
-
 {% schema %}
 {
   "name": "TSTN Feature Accordion",
@@ -725,19 +714,19 @@
       "content": "Heading"
     },
     {
-      "type": "text",
+      "type": "inline_richtext",
       "id": "eyebrow",
       "label": "Eyebrow",
       "default": "Used & Tested"
     },
     {
-      "type": "text",
+      "type": "inline_richtext",
       "id": "heading",
       "label": "Heading",
       "default": "See It In Action"
     },
     {
-      "type": "text",
+      "type": "inline_richtext",
       "id": "subheading",
       "label": "Subheading",
       "default": "Real Roads. Real Conditions. Real Performance."
