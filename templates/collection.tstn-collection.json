@@ -550,10 +550,10 @@
       "name": "Contact CTA",
       "settings": {
         "background_image": "shopify://shop_images/3.png",
-        "heading": "NEED HELP CHOOSING THE RIGHT SETUP?",
-        "description": "I got you. Reach out and I'll point you in the right direction.",
-        "button_label": "CONTACT THE CREW",
-        "button_link": "",
+        "heading": "WATCH THE ADVENTURE UNFOLD",
+        "description": "From backcountry builds to real overland trips, follow TSTN on YouTube for gear, grit, and the road less traveled.",
+        "button_label": "WATCH ON YOUTUBE",
+        "button_link": "https://www.youtube.com/c/thestorytillnow",
         "overlay_opacity": 65,
         "height": 600
       }
