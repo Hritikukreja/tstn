@@ -828,11 +828,6 @@
     transform: scale(1.05);
   }
   .tstn-gal__lightbox-iconbtn svg { width: 18px; height: 18px; }
-  .tstn-gal__lightbox-info-toggle.is-active {
-    background: var(--tstn-accent);
-    border-color: var(--tstn-accent);
-    color: #0a0a0a;
-  }
 
   /* Stage */
   .tstn-gal__lightbox-stage {
@@ -2129,9 +2124,6 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
           </button>
         {%- endif -%}
-        <button type="button" class="tstn-gal__lightbox-iconbtn tstn-gal__lightbox-info-toggle" aria-label="Toggle info" data-lb-info-toggle>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-        </button>
         <button type="button" class="tstn-gal__lightbox-iconbtn tstn-gal__lightbox-close" aria-label="Close">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
@@ -2233,7 +2225,6 @@
       var figures = lightbox.querySelectorAll('.tstn-gal__lightbox-figure');
       var stage = lightbox.querySelector('.tstn-gal__lightbox-stage');
       var infoEl = lightbox.querySelector('[data-lb-info]');
-      var infoToggleBtn = lightbox.querySelector('[data-lb-info-toggle]');
       var titleEl = lightbox.querySelector('[data-lb-title]');
       var authorEl = lightbox.querySelector('[data-lb-author]');
       var locEl = lightbox.querySelector('[data-lb-location]');
@@ -2493,22 +2484,12 @@
       // ----- Comment panel toggle -----
       if (commentToggleBtn && commentsPanel) {
         commentToggleBtn.addEventListener('click', function() {
-          // Auto-open info panel if it isn't already
-          if (!infoEl.classList.contains('is-open')) toggleInfo(true);
           commentsPanel.classList.toggle('is-open');
           if (commentsPanel.classList.contains('is-open') && commentInput) {
             setTimeout(function() { commentInput.focus(); }, 300);
           }
         });
       }
-
-      // ----- Info toggle -----
-      function toggleInfo(force) {
-        var open = typeof force === 'boolean' ? force : !infoEl.classList.contains('is-open');
-        infoEl.classList.toggle('is-open', open);
-        if (infoToggleBtn) infoToggleBtn.classList.toggle('is-active', open);
-      }
-      if (infoToggleBtn) infoToggleBtn.addEventListener('click', function() { toggleInfo(); });
 
       // ----- Share -----
       function shareCurrent() {
@@ -2590,6 +2571,7 @@
         lightbox.classList.add('is-open');
         lightbox.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
+        infoEl.classList.add('is-open');
 
         updateCounter();
         renderInfo();
@@ -2605,7 +2587,6 @@
         document.body.style.overflow = '';
         if (commentsPanel) commentsPanel.classList.remove('is-open');
         infoEl.classList.remove('is-open');
-        if (infoToggleBtn) infoToggleBtn.classList.remove('is-active');
         setTimeout(function() {
           if (!lightbox.classList.contains('is-open')) {
             setFigure(0, '');
@@ -2691,7 +2672,6 @@
         if (e.key === 'Escape') closeLightbox();
         else if (e.key === 'ArrowRight') next();
         else if (e.key === 'ArrowLeft') prev();
-        else if (e.key === 'i' || e.key === 'I') toggleInfo();
       });
 
       // ----- Touch swipe on stage -----
