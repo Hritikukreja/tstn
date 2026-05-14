@@ -464,9 +464,9 @@
       "name": "Community Gallery",
       "settings": {
         "padding_top": 40,
-        "padding_right": 44,
+        "padding_right": 88,
         "padding_bottom": 24,
-        "padding_left": 40,
+        "padding_left": 88,
         "padding_top_mobile": 32,
         "padding_right_mobile": 16,
         "padding_bottom_mobile": 40,
