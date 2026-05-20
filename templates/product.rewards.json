@@ -368,6 +368,23 @@
     "177811854801255580": {
       "type": "apps",
       "blocks": {
+        "covet_instagram_feed_reviews_app_block_standard_XmdrLp": {
+          "type": "shopify://apps/covet-instagram-feed-reviews/blocks/app-block-standard/577480e8-b5be-4890-968c-06ccfb458c74",
+          "settings": {
+            "gallery_embed_id": 0,
+            "show_text": true,
+            "title_text": "Covet.pics gallery",
+            "title_color": "#ff8a2b",
+            "title_size": 22,
+            "subtitle_text": "",
+            "subtitle_color": "#ff8a2b",
+            "subtitle_size": 14,
+            "text_alignment": "center",
+            "margin": 20,
+            "custom_html_above": "",
+            "custom_html_below": ""
+          }
+        },
         "growave_loyalty_wishlist_block_index_instagram_YjtXdA": {
           "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.index.instagram/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
           "settings": {
@@ -377,6 +394,7 @@
         }
       },
       "block_order": [
+        "covet_instagram_feed_reviews_app_block_standard_XmdrLp",
         "growave_loyalty_wishlist_block_index_instagram_YjtXdA"
       ],
       "custom_css": [
