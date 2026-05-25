@@ -1,0 +1,982 @@
+{% comment %}
+  Section: TSTN Product Banner
+  A lean, premium dark product hero. Replaces the standard main-product section
+  on TSTN product templates. Self-contained: own gallery, variant picker, buy
+  buttons, trust badge row. No Dawn block plumbing.
+{% endcomment %}
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign product_form_id = 'tstn-pb-form-' | append: section.id
+  assign accent = section.settings.accent_color | default: '#ff6a1a'
+  assign bg = section.settings.bg_color | default: '#0a0a0a'
+  assign card_bg = section.settings.card_bg | default: '#1a1a1a'
+  assign text_color = section.settings.text_color | default: '#ffffff'
+  assign muted_color = section.settings.muted_color | default: '#b0b0b0'
+  assign border_color = section.settings.border_color | default: '#2a2a2a'
+-%}
+
+<style>
+  @font-face {
+    font-family: 'Danger Neue Free Regular';
+    src: url('https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Danger_Neue_Regular.ttf?v=1776280277') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  #shopify-section-{{ section.id }} {
+    --tstn-bg: {{ bg }};
+    --tstn-card-bg: {{ card_bg }};
+    --tstn-text: {{ text_color }};
+    --tstn-muted: {{ muted_color }};
+    --tstn-dim: #6e6e73;
+    --tstn-border: {{ border_color }};
+    --tstn-border-strong: #3a3a3a;
+    --tstn-accent: {{ accent }};
+    --tstn-accent-hover: #e85d10;
+    --tstn-heading-font: 'Danger Neue Free Regular', 'Impact', 'Arial Narrow', sans-serif;
+
+    background: var(--tstn-bg);
+    color: var(--tstn-text);
+    padding-top: {{ section.settings.padding_top | times: 0.6 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round: 0 }}px;
+  }
+
+  @media (min-width: 750px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .tstn-pb {
+    background: var(--tstn-bg);
+    color: var(--tstn-text);
+    width: 100%;
+  }
+
+  .tstn-pb__inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 3rem);
+  }
+
+  /* Breadcrumb */
+  .tstn-pb__breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 1.25rem 0 1.5rem;
+    font-family: var(--tstn-heading-font);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 14px;
+    line-height: 1;
+  }
+  .tstn-pb__breadcrumb a {
+    color: var(--tstn-text);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .tstn-pb__breadcrumb a:hover { color: var(--tstn-accent); }
+  .tstn-pb__breadcrumb-sep {
+    color: var(--tstn-dim);
+    margin: 0 0.125rem;
+  }
+  .tstn-pb__breadcrumb-current { color: var(--tstn-accent); }
+
+  /* Grid */
+  .tstn-pb__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  @media (min-width: 900px) {
+    .tstn-pb__grid {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 3rem;
+    }
+  }
+
+  /* ---------- Gallery ---------- */
+  .tstn-pb__gallery {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 0.875rem;
+    align-items: start;
+  }
+  @media (max-width: 749px) {
+    .tstn-pb__gallery {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .tstn-pb__thumbs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    max-height: 720px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--tstn-border-strong) transparent;
+  }
+  @media (max-width: 749px) {
+    .tstn-pb__thumbs {
+      flex-direction: row;
+      max-height: none;
+      overflow-x: auto;
+      padding-bottom: 0.25rem;
+      order: 2;
+    }
+  }
+  .tstn-pb__thumb {
+    flex-shrink: 0;
+    width: 96px;
+    aspect-ratio: 1 / 1;
+    background: var(--tstn-card-bg);
+    border: 2px solid transparent;
+    border-radius: 4px;
+    padding: 0;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+  .tstn-pb__thumb:hover { border-color: var(--tstn-border-strong); }
+  .tstn-pb__thumb.is-active { border-color: var(--tstn-accent); }
+  .tstn-pb__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .tstn-pb__main {
+    position: relative;
+    background: var(--tstn-card-bg);
+    border-radius: 6px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+  }
+  .tstn-pb__main img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .tstn-pb__main img.is-active { opacity: 1; }
+
+  /* ---------- Info column ---------- */
+  .tstn-pb__info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding-top: 0.5rem;
+  }
+
+  .tstn-pb__title {
+    font-family: var(--tstn-heading-font);
+    font-weight: 400;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 0.95;
+    letter-spacing: 0.01em;
+    color: var(--tstn-text);
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .tstn-pb__price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.875rem;
+    margin: 0;
+  }
+  .tstn-pb__price {
+    font-family: var(--tstn-heading-font);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 400;
+    color: var(--tstn-accent);
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+  }
+  .tstn-pb__price-compare {
+    font-size: 1.125rem;
+    color: var(--tstn-dim);
+    text-decoration: line-through;
+  }
+
+  .tstn-pb__installments {
+    color: var(--tstn-muted);
+    font-size: 14px;
+    line-height: 1.4;
+    margin: -0.5rem 0 0;
+  }
+  .tstn-pb__installments .shopify-installments__content,
+  .tstn-pb__installments a {
+    color: var(--tstn-text);
+  }
+
+  /* ---------- Options ---------- */
+  .tstn-pb__option {
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+  .tstn-pb__option-label {
+    font-family: var(--tstn-heading-font);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 14px;
+    color: var(--tstn-text);
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .tstn-pb__option-selected {
+    color: var(--tstn-muted);
+    margin-left: 0.25rem;
+  }
+
+  /* Color swatches */
+  .tstn-pb__swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .tstn-pb__swatch {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.2s ease;
+    background-clip: padding-box;
+  }
+  .tstn-pb__swatch input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .tstn-pb__swatch:has(input:checked),
+  .tstn-pb__swatch.is-selected {
+    border-color: var(--tstn-accent);
+    box-shadow: inset 0 0 0 3px var(--tstn-bg);
+  }
+  .tstn-pb__swatch:hover { border-color: var(--tstn-border-strong); }
+  .tstn-pb__swatch:has(input:checked):hover { border-color: var(--tstn-accent); }
+
+  /* Size pills */
+  .tstn-pb__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+  .tstn-pb__pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+    padding: 0.875rem 1.5rem;
+    border: 1.5px solid var(--tstn-border-strong);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--tstn-text);
+    font-family: var(--tstn-heading-font);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+  }
+  .tstn-pb__pill input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .tstn-pb__pill:hover { border-color: var(--tstn-accent); }
+  .tstn-pb__pill:has(input:checked),
+  .tstn-pb__pill.is-selected {
+    border-color: var(--tstn-accent);
+    color: var(--tstn-accent);
+  }
+  .tstn-pb__pill.is-unavailable {
+    opacity: 0.4;
+    text-decoration: line-through;
+    cursor: not-allowed;
+  }
+
+  /* Size guide */
+  .tstn-pb__size-guide {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--tstn-accent);
+    font-family: var(--tstn-heading-font);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 14px;
+    text-decoration: none;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    align-self: flex-start;
+    transition: color 0.2s ease;
+  }
+  .tstn-pb__size-guide:hover { color: var(--tstn-accent-hover); }
+  .tstn-pb__size-guide svg {
+    width: 18px;
+    height: 18px;
+    stroke: currentColor;
+    fill: none;
+  }
+
+  /* ---------- Buy buttons ---------- */
+  .tstn-pb__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 0;
+  }
+  .tstn-pb__submit {
+    background: var(--tstn-accent);
+    color: var(--tstn-text);
+    border: none;
+    border-radius: 6px;
+    font-family: var(--tstn-heading-font);
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 1.125rem 2rem;
+    min-height: 56px;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+  .tstn-pb__submit:hover:not([disabled]) {
+    background: var(--tstn-accent-hover);
+    transform: translateY(-1px);
+  }
+  .tstn-pb__submit[disabled] {
+    background: var(--tstn-border);
+    color: var(--tstn-dim);
+    cursor: not-allowed;
+  }
+
+  /* Dynamic checkout button (Shop Pay) — Shopify renders this */
+  #shopify-section-{{ section.id }} .shopify-payment-button__button {
+    border-radius: 6px !important;
+    min-height: 56px !important;
+    font-family: var(--tstn-heading-font) !important;
+  }
+  #shopify-section-{{ section.id }} .shopify-payment-button__more-options {
+    color: var(--tstn-accent) !important;
+    font-family: var(--tstn-heading-font) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.08em !important;
+    font-size: 13px !important;
+    text-decoration: none !important;
+    text-align: center !important;
+    margin-top: 0.5rem !important;
+    width: 100% !important;
+    display: block !important;
+  }
+  #shopify-section-{{ section.id }} .shopify-payment-button__more-options:hover {
+    color: var(--tstn-accent-hover) !important;
+  }
+
+  /* ---------- Trust badges ---------- */
+  .tstn-pb__trust {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--tstn-border);
+    display: grid;
+    grid-template-columns: repeat({{ section.blocks.size | at_least: 1 }}, 1fr);
+    gap: 1.25rem;
+  }
+  @media (max-width: 749px) {
+    .tstn-pb__trust { grid-template-columns: 1fr; }
+  }
+  .tstn-pb__badge {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  .tstn-pb__badge-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .tstn-pb__badge-icon img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(54%) sepia(96%) saturate(2459%) hue-rotate(347deg) brightness(98%) contrast(95%);
+  }
+  .tstn-pb__badge-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: var(--tstn-accent);
+    fill: none;
+  }
+  .tstn-pb__badge-content { min-width: 0; }
+  .tstn-pb__badge-title {
+    font-family: var(--tstn-heading-font);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 13px;
+    color: var(--tstn-text);
+    line-height: 1.25;
+    margin: 0;
+  }
+  .tstn-pb__badge-sub {
+    font-size: 12px;
+    color: var(--tstn-muted);
+    line-height: 1.4;
+    margin: 0.25rem 0 0;
+  }
+
+  /* Mobile tweaks */
+  @media (max-width: 749px) {
+    .tstn-pb__title { font-size: clamp(2rem, 9vw, 3rem); }
+    .tstn-pb__price { font-size: 1.5rem; }
+    .tstn-pb__breadcrumb { font-size: 12px; padding: 0.875rem 0 1rem; }
+  }
+</style>
+
+<section class="tstn-pb" data-section-id="{{ section.id }}">
+  <div class="tstn-pb__inner">
+
+    {%- if section.settings.show_breadcrumb -%}
+      <nav class="tstn-pb__breadcrumb" aria-label="Breadcrumb">
+        <a href="{{ routes.root_url }}">Home</a>
+
+        {%- assign bc_collection = collection -%}
+        {%- if bc_collection == blank and product.collections.size > 0 -%}
+          {%- assign bc_collection = product.collections.first -%}
+        {%- endif -%}
+
+        {%- if bc_collection != blank -%}
+          <span class="tstn-pb__breadcrumb-sep" aria-hidden="true">&rsaquo;</span>
+          <a href="{{ bc_collection.url }}">{{ bc_collection.title }}</a>
+        {%- endif -%}
+
+        <span class="tstn-pb__breadcrumb-sep" aria-hidden="true">&rsaquo;</span>
+        <span class="tstn-pb__breadcrumb-current" aria-current="page">{{ product.title }}</span>
+      </nav>
+    {%- endif -%}
+
+    <div class="tstn-pb__grid">
+
+      {%- comment -%} ========== Gallery ========== {%- endcomment -%}
+      <div class="tstn-pb__gallery">
+        {%- if product.media.size > 1 -%}
+          <div class="tstn-pb__thumbs" role="tablist" aria-label="Product images">
+            {%- for media in product.media -%}
+              <button
+                type="button"
+                class="tstn-pb__thumb {% if forloop.first %}is-active{% endif %}"
+                data-thumb-index="{{ forloop.index0 }}"
+                role="tab"
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+              >
+                <img
+                  src="{{ media.preview_image | image_url: width: 200 }}"
+                  alt="{{ media.alt | default: product.title | escape }}"
+                  loading="lazy"
+                  width="96"
+                  height="96"
+                >
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        <div class="tstn-pb__main">
+          {%- if product.media.size > 0 -%}
+            {%- for media in product.media -%}
+              <img
+                class="tstn-pb__main-img {% if forloop.first %}is-active{% endif %}"
+                data-main-index="{{ forloop.index0 }}"
+                src="{{ media.preview_image | image_url: width: 1400 }}"
+                alt="{{ media.alt | default: product.title | escape }}"
+                {% if forloop.first %}loading="eager"{% else %}loading="lazy"{% endif %}
+                width="800"
+                height="800"
+              >
+            {%- endfor -%}
+          {%- else -%}
+            <img
+              class="tstn-pb__main-img is-active"
+              src="{{ product.featured_image | image_url: width: 1400 | default: 'product-1' | placeholder_svg_tag }}"
+              alt="{{ product.title | escape }}"
+              loading="eager"
+              width="800"
+              height="800"
+            >
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- comment -%} ========== Info ========== {%- endcomment -%}
+      <div class="tstn-pb__info">
+
+        <h1 class="tstn-pb__title">{{ product.title | escape }}</h1>
+
+        <div class="tstn-pb__price-row">
+          <span class="tstn-pb__price" data-tstn-price>
+            {{ current_variant.price | money_with_currency }}
+          </span>
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            <span class="tstn-pb__price-compare" data-tstn-compare>
+              {{ current_variant.compare_at_price | money_with_currency }}
+            </span>
+          {%- endif -%}
+        </div>
+
+        {%- if section.settings.show_installments -%}
+          <div class="tstn-pb__installments">
+            {%- form 'product', product, id: 'tstn-installments-' | append: section.id -%}
+              <input type="hidden" name="id" value="{{ current_variant.id }}">
+              {{ form | payment_terms }}
+            {%- endform -%}
+          </div>
+        {%- endif -%}
+
+        {%- form 'product', product, id: product_form_id, class: 'tstn-pb__form', novalidate: 'novalidate' -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}" data-tstn-variant-id>
+
+          {%- unless product.has_only_default_variant -%}
+            {%- for option in product.options_with_values -%}
+              {%- assign opt_name_lower = option.name | downcase -%}
+              {%- assign is_color = false -%}
+              {%- if opt_name_lower contains 'color' or opt_name_lower contains 'colour' -%}
+                {%- assign is_color = true -%}
+              {%- endif -%}
+
+              <fieldset class="tstn-pb__option" data-option-position="{{ option.position }}" data-option-name="{{ option.name | escape }}">
+                <legend class="tstn-pb__option-label">
+                  {{ option.name | upcase }}: <span class="tstn-pb__option-selected" data-tstn-option-display="{{ option.position }}">{{ option.selected_value }}</span>
+                </legend>
+
+                {%- if is_color -%}
+                  <div class="tstn-pb__swatches">
+                    {%- for value in option.values -%}
+                      {%- assign swatch_color = value | downcase -%}
+                      {%- if value.swatch.color -%}
+                        {%- assign swatch_color = value.swatch.color -%}
+                      {%- endif -%}
+                      <label class="tstn-pb__swatch {% if value.selected %}is-selected{% endif %}"
+                             style="background-color: {{ swatch_color }};"
+                             title="{{ value | escape }}">
+                        <input
+                          type="radio"
+                          name="tstn-option-{{ option.position }}-{{ section.id }}"
+                          value="{{ value | escape }}"
+                          data-tstn-option-input="{{ option.position }}"
+                          {% if value.selected %}checked{% endif %}
+                        >
+                        <span class="visually-hidden">{{ value }}</span>
+                      </label>
+                    {%- endfor -%}
+                  </div>
+                {%- else -%}
+                  <div class="tstn-pb__pills">
+                    {%- for value in option.values -%}
+                      <label class="tstn-pb__pill {% if value.selected %}is-selected{% endif %}">
+                        <input
+                          type="radio"
+                          name="tstn-option-{{ option.position }}-{{ section.id }}"
+                          value="{{ value | escape }}"
+                          data-tstn-option-input="{{ option.position }}"
+                          {% if value.selected %}checked{% endif %}
+                        >
+                        <span>{{ value }}</span>
+                      </label>
+                    {%- endfor -%}
+                  </div>
+                {%- endif -%}
+              </fieldset>
+            {%- endfor -%}
+          {%- endunless -%}
+
+          {%- if section.settings.show_size_guide and section.settings.size_guide_url != blank -%}
+            <a href="{{ section.settings.size_guide_url }}" class="tstn-pb__size-guide">
+              <svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21.3 8.7l-9 9c-.4.4-1 .4-1.4 0l-6-6c-.4-.4-.4-1 0-1.4l3-3c.4-.4 1-.4 1.4 0l6 6"/>
+                <path d="M7 14l3-3"/>
+                <path d="M10 17l3-3"/>
+                <path d="M14 12l3-3"/>
+                <path d="M17 9l3-3"/>
+              </svg>
+              {{ section.settings.size_guide_text }}
+            </a>
+          {%- endif -%}
+
+          <button
+            type="submit"
+            name="add"
+            class="tstn-pb__submit"
+            data-tstn-submit
+            {% unless current_variant.available %}disabled{% endunless %}
+          >
+            {% if current_variant.available %}Add to Cart{% else %}Sold Out{% endif %}
+          </button>
+
+          {{ form | payment_button }}
+        {%- endform -%}
+
+        {%- if section.blocks.size > 0 -%}
+          <div class="tstn-pb__trust">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'trust_badge' -%}
+                <div class="tstn-pb__badge" {{ block.shopify_attributes }}>
+                  <div class="tstn-pb__badge-icon">
+                    {%- if block.settings.icon != blank -%}
+                      <img
+                        src="{{ block.settings.icon | image_url: width: 80 }}"
+                        alt="{{ block.settings.title | escape }}"
+                        loading="lazy"
+                        width="28"
+                        height="28"
+                      >
+                    {%- else -%}
+                      {%- comment -%} Fallback inline icon {%- endcomment -%}
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 6L9 17l-5-5"/>
+                      </svg>
+                    {%- endif -%}
+                  </div>
+                  <div class="tstn-pb__badge-content">
+                    {%- if block.settings.title != blank -%}
+                      <p class="tstn-pb__badge-title">{{ block.settings.title }}</p>
+                    {%- endif -%}
+                    {%- if block.settings.subtitle != blank -%}
+                      <p class="tstn-pb__badge-sub">{{ block.settings.subtitle }}</p>
+                    {%- endif -%}
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- comment -%} ========== Variant + gallery JS ========== {%- endcomment -%}
+<script>
+  (function() {
+    var section = document.querySelector('[data-section-id="{{ section.id }}"]');
+    if (!section) return;
+
+    var productData = {{ product | json }};
+    var variants = productData.variants || [];
+    var optionCount = (productData.options || []).length;
+
+    var idInput = section.querySelector('[data-tstn-variant-id]');
+    var priceEl = section.querySelector('[data-tstn-price]');
+    var compareEl = section.querySelector('[data-tstn-compare]');
+    var submitBtn = section.querySelector('[data-tstn-submit]');
+    var moneyFormat = '{{ shop.money_format }}';
+
+    function formatMoney(cents) {
+      try {
+        return new Intl.NumberFormat('{{ request.locale.iso_code | default: "en" }}', {
+          style: 'currency',
+          currency: '{{ cart.currency.iso_code }}'
+        }).format(cents / 100);
+      } catch (e) {
+        return '$' + (cents / 100).toFixed(2);
+      }
+    }
+
+    function getSelectedOptions() {
+      var opts = [];
+      for (var i = 1; i <= optionCount; i++) {
+        var input = section.querySelector('[data-tstn-option-input="' + i + '"]:checked');
+        opts.push(input ? input.value : null);
+      }
+      return opts;
+    }
+
+    function findVariant(opts) {
+      return variants.find(function(v) {
+        return opts.every(function(o, i) {
+          return v.options[i] === o;
+        });
+      });
+    }
+
+    function updateSelectedLabels(opts) {
+      opts.forEach(function(val, i) {
+        var display = section.querySelector('[data-tstn-option-display="' + (i + 1) + '"]');
+        if (display && val) display.textContent = val;
+      });
+    }
+
+    function updateSelectedStyles() {
+      // Sync .is-selected class with checked inputs for browsers without :has()
+      section.querySelectorAll('.tstn-pb__swatch, .tstn-pb__pill').forEach(function(el) {
+        var input = el.querySelector('input[type="radio"]');
+        if (!input) return;
+        el.classList.toggle('is-selected', input.checked);
+      });
+    }
+
+    function updateVariant() {
+      var opts = getSelectedOptions();
+      updateSelectedLabels(opts);
+      updateSelectedStyles();
+
+      var variant = findVariant(opts);
+      if (!variant) {
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Unavailable';
+        }
+        return;
+      }
+
+      if (idInput) idInput.value = variant.id;
+
+      if (priceEl) priceEl.textContent = formatMoney(variant.price);
+      if (compareEl) {
+        if (variant.compare_at_price && variant.compare_at_price > variant.price) {
+          compareEl.textContent = formatMoney(variant.compare_at_price);
+          compareEl.style.display = '';
+        } else {
+          compareEl.style.display = 'none';
+        }
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = !variant.available;
+        submitBtn.textContent = variant.available ? 'Add to Cart' : 'Sold Out';
+      }
+
+      // Update URL with variant param
+      if (history.replaceState) {
+        var url = new URL(window.location.href);
+        url.searchParams.set('variant', variant.id);
+        history.replaceState({}, '', url.toString());
+      }
+
+      // Fire native variant change event so other apps can react
+      section.dispatchEvent(new CustomEvent('tstn:variant:change', {
+        detail: { variant: variant }
+      }));
+    }
+
+    // Option change listeners
+    section.addEventListener('change', function(e) {
+      if (e.target.matches('[data-tstn-option-input]')) {
+        updateVariant();
+      }
+    });
+
+    // Gallery thumbnail switching
+    var thumbs = section.querySelectorAll('.tstn-pb__thumb');
+    var mainImgs = section.querySelectorAll('.tstn-pb__main-img');
+
+    thumbs.forEach(function(thumb) {
+      thumb.addEventListener('click', function() {
+        var idx = thumb.getAttribute('data-thumb-index');
+        thumbs.forEach(function(t) {
+          t.classList.toggle('is-active', t === thumb);
+          t.setAttribute('aria-selected', t === thumb ? 'true' : 'false');
+        });
+        mainImgs.forEach(function(img) {
+          img.classList.toggle('is-active', img.getAttribute('data-main-index') === idx);
+        });
+      });
+    });
+
+    // Initial sync
+    updateSelectedStyles();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "TSTN Product Banner",
+  "tag": "section",
+  "class": "section-tstn-product-banner",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Display"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_breadcrumb",
+      "label": "Show breadcrumb",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_installments",
+      "label": "Show Shop Pay installments line",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Size Guide Link"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_size_guide",
+      "label": "Show Size Guide link",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "size_guide_text",
+      "label": "Size Guide text",
+      "default": "Size Guide"
+    },
+    {
+      "type": "url",
+      "id": "size_guide_url",
+      "label": "Size Guide link",
+      "info": "Link to a page or popup with sizing info"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Image card background",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text color",
+      "default": "#b0b0b0"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#2a2a2a"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent (orange)",
+      "default": "#ff6a1a"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_badge",
+      "name": "Trust Badge",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon image",
+          "info": "Recommended: 64x64px PNG/SVG with transparent background. Icon will be auto-tinted to your accent color."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "On orders over $250"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "TSTN Product Banner",
+      "blocks": [
+        {
+          "type": "trust_badge",
+          "settings": {
+            "title": "Free Shipping",
+            "subtitle": "On orders over $250"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "title": "Easy Returns",
+            "subtitle": "30 day returns"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "title": "Quality Gear",
+            "subtitle": "Built for adventure"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
