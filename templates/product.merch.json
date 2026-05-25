@@ -258,10 +258,10 @@
           "type": "feature",
           "settings": {
             "media_type": "image",
-            "image": "shopify://shop_images/Hulla.png",
+            "image": "shopify://shop_images/1_7c8ff83e-59a5-421a-95c8-d5f0e95ae197.png",
             "show_controls": false,
-            "title": "Kayaking made easy",
-            "description": "<p>Load and unload your kayak on your own, thanks to the gas-assist struts that lift and lower 40 lbs of the kayak’s weight</p>",
+            "title": "MADE FOR OUTDOORS",
+            "description": "",
             "link_label": "",
             "link": ""
           }
@@ -270,10 +270,10 @@
           "type": "feature",
           "settings": {
             "media_type": "video",
-            "image": "shopify://shop_images/hulla_2.png",
+            "image": "shopify://shop_images/2_4de9a49e-453c-426c-9584-336f95bb8c09.png",
             "show_controls": false,
-            "title": "Protection at its peak",
-            "description": "<p>Maximum protection for your kayak, thanks to 8 touch points of padded support</p>",
+            "title": "ALL DAY COMFORT",
+            "description": "",
             "link_label": "",
             "link": ""
           }
@@ -282,10 +282,10 @@
           "type": "feature",
           "settings": {
             "media_type": "image",
-            "image": "shopify://shop_images/hullavator_JPEG.png",
+            "image": "shopify://shop_images/3_390e7451-dfa9-48fe-bcd8-9368b7f8032d.png",
             "show_controls": false,
-            "title": "Built for life",
-            "description": "<p>Aluminum, double-coated steel construction for corrosion resistance delivers a longer product life</p>",
+            "title": "FOR THE EVERYDAY EXPLORER",
+            "description": "",
             "link_label": "",
             "link": ""
           }
@@ -299,8 +299,8 @@
       "name": "Feature gallery",
       "settings": {
         "kicker": "Feature gallery",
-        "heading": "Designed to showcase key features",
-        "text": "<p>Add up to eight feature cards with image or video.</p>",
+        "heading": "BUILT FOR EVERY ADVENTURE",
+        "text": "<p>Thoughtful details and premium materials make this your go-to layer, wherever the road takes you.</p>",
         "columns_desktop": "3",
         "card_alignment": "left",
         "media_aspect_ratio": "4 / 5",
