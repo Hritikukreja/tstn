@@ -214,52 +214,6 @@
         "padding_bottom": 32
       }
     },
-    "join_crew_EUdPaY": {
-      "type": "join-crew",
-      "blocks": {
-        "block_UUCPip": {
-          "type": "block",
-          "settings": {
-            "icon": "{{ product.metafields.custom.specification_icon1.value }}",
-            "title": "{{ product.metafields.custom.specification_icon_title1.value }}",
-            "description": ""
-          }
-        },
-        "block_mC9nRJ": {
-          "type": "block",
-          "settings": {
-            "icon": "{{ product.metafields.custom.specification_icon2.value }}",
-            "title": "{{ product.metafields.custom.specification_icon_title2.value }}",
-            "description": ""
-          }
-        },
-        "block_ePqQp3": {
-          "type": "block",
-          "settings": {
-            "icon": "{{ product.metafields.custom.specification_icon3.value }}",
-            "title": "{{ product.metafields.custom.specification_icon_title3.value }}",
-            "description": ""
-          }
-        }
-      },
-      "block_order": [
-        "block_UUCPip",
-        "block_mC9nRJ",
-        "block_ePqQp3"
-      ],
-      "disabled": true,
-      "name": "Join Crew",
-      "settings": {
-        "class": "product-crew",
-        "background_image": "{{ product.metafields.custom.specification_desktop_image.value }}",
-        "background_image_mobile": "{{ product.metafields.custom.specification_mobile_image.value }}",
-        "main_heading": "Specifications",
-        "subheading": "{{ product.metafields.custom.specifications_subheading.value }}",
-        "description": "",
-        "button_text": "",
-        "button_link": ""
-      }
-    },
     "feature_gallery_xpJVXd": {
       "type": "feature-gallery",
       "blocks": {
@@ -663,7 +617,6 @@
     "main",
     "pro_hero_ye7RgN",
     "video_buy_section_fh7rn3",
-    "join_crew_EUdPaY",
     "feature_gallery_xpJVXd",
     "product_faq_h3Cdgd",
     "custom_multicol_VFKWpH",
