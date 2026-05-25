@@ -8,6 +8,7 @@
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
   assign product_form_id = 'tstn-pb-form-' | append: section.id
+  assign installments_form_id = 'tstn-pb-installments-' | append: section.id
   assign accent = section.settings.accent_color | default: '#ff6a1a'
   assign bg = section.settings.bg_color | default: '#0a0a0a'
   assign card_bg = section.settings.card_bg | default: '#1a1a1a'
@@ -548,7 +549,7 @@
 
         {%- if section.settings.show_installments -%}
           <div class="tstn-pb__installments">
-            {%- form 'product', product, id: 'tstn-installments-' | append: section.id -%}
+            {%- form 'product', product, id: installments_form_id -%}
               <input type="hidden" name="id" value="{{ current_variant.id }}">
               {{ form | payment_terms }}
             {%- endform -%}
