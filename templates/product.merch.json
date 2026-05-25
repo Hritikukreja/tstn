@@ -35,6 +35,7 @@
         "trust_badge_NRxzyH": {
           "type": "trust_badge",
           "settings": {
+            "icon": "truck",
             "title": "Free Shipping",
             "subtitle": "On orders over $250"
           }
@@ -42,6 +43,7 @@
         "trust_badge_7ag9t4": {
           "type": "trust_badge",
           "settings": {
+            "icon": "truck",
             "title": "Easy Returns",
             "subtitle": "30 day returns"
           }
@@ -49,23 +51,50 @@
         "trust_badge_gQLkEi": {
           "type": "trust_badge",
           "settings": {
+            "icon": "truck",
             "title": "Quality Gear",
             "subtitle": "Built for adventure"
+          }
+        },
+        "accordion_item_gJdKfW": {
+          "type": "accordion_item",
+          "settings": {
+            "icon": "list",
+            "title": "Product Details",
+            "subtitle": "Fit, feel, and function.",
+            "content": ""
+          }
+        },
+        "accordion_item_xPYW4w": {
+          "type": "accordion_item",
+          "settings": {
+            "icon": "list",
+            "title": "Product Details",
+            "subtitle": "Fit, feel, and function.",
+            "content": ""
+          }
+        },
+        "accordion_item_NWRYQa": {
+          "type": "accordion_item",
+          "settings": {
+            "icon": "list",
+            "title": "Product Details",
+            "subtitle": "Fit, feel, and function.",
+            "content": ""
           }
         }
       },
       "block_order": [
         "trust_badge_NRxzyH",
         "trust_badge_7ag9t4",
-        "trust_badge_gQLkEi"
+        "trust_badge_gQLkEi",
+        "accordion_item_gJdKfW",
+        "accordion_item_xPYW4w",
+        "accordion_item_NWRYQa"
       ],
       "name": "TSTN Product Banner",
       "settings": {
         "show_breadcrumb": true,
-        "show_installments": true,
-        "show_size_guide": true,
-        "size_guide_text": "Size Guide",
-        "size_guide_url": "",
         "bg_color": "#0a0a0a",
         "card_bg": "#1a1a1a",
         "text_color": "#ffffff",
