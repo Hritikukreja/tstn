@@ -69,8 +69,8 @@
           "type": "accordion_item",
           "settings": {
             "icon": "list",
-            "title": "Product Details",
-            "subtitle": "Fit, feel, and function.",
+            "title": "Materials & CARE",
+            "subtitle": "What's it made of and how to care for it.",
             "content": ""
           }
         },
@@ -78,8 +78,8 @@
           "type": "accordion_item",
           "settings": {
             "icon": "list",
-            "title": "Product Details",
-            "subtitle": "Fit, feel, and function.",
+            "title": "Size GUIDE",
+            "subtitle": "Find your perfect fit.",
             "content": ""
           }
         }
