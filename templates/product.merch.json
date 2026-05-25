@@ -144,6 +144,7 @@
     },
     "pro_hero_ye7RgN": {
       "type": "pro-hero",
+      "disabled": true,
       "custom_css": [],
       "name": "Pro hero",
       "settings": {
@@ -217,6 +218,7 @@
         "trust_badge_ENiQfA",
         "trust_badge_tWkPkf"
       ],
+      "disabled": true,
       "custom_css": [
         "p {font-size: 16px;}"
       ],
