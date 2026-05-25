@@ -32,7 +32,7 @@
     "tstn_product_banner_HTPx8E": {
       "type": "tstn-product-banner",
       "blocks": {
-        "trust_badge_Hjcyng": {
+        "trust_badge_NRxzyH": {
           "type": "trust_badge",
           "settings": {
             "title": "Free Shipping",
@@ -55,7 +55,7 @@
         }
       },
       "block_order": [
-        "trust_badge_Hjcyng",
+        "trust_badge_NRxzyH",
         "trust_badge_7ag9t4",
         "trust_badge_gQLkEi"
       ],
