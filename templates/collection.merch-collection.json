@@ -173,9 +173,9 @@
         "product_mxmTxU": {
           "type": "product",
           "settings": {
-            "image": "shopify://shop_images/5.avif",
+            "image": "shopify://shop_images/classic-dad-hat-black-front-6a15fc14d0017.jpg",
             "brand": "",
-            "title": "CAPS",
+            "title": "CAPS & Bennies",
             "description": "Premium quality, cool designs",
             "price": "Starts at just $39.99",
             "button_label": "VIEW Collection",
@@ -197,11 +197,11 @@
         "product_z4V3Ww": {
           "type": "product",
           "settings": {
-            "image": "shopify://shop_images/6.avif",
+            "image": "shopify://shop_images/unisex-premium-pullover-hoodie-black-front-6a13b4d080dc7.jpg",
             "brand": "",
-            "title": "BENNIES",
+            "title": "Hoodies",
             "description": "Premium quality, cool designs",
-            "price": "Starts at just $19.99",
+            "price": "Starts at just $49.99",
             "button_label": "VIEW Collection",
             "link": "shopify://products/thule-hullavator-pro-kayak-rack-modula-racks"
           }
@@ -253,7 +253,6 @@
         "product_VBFeNz": {
           "type": "product",
           "settings": {
-            "image": "shopify://shop_images/classic-dad-hat-black-front-6a13e205c62b7.jpg",
             "brand": "The story till now",
             "title": "TSTN Hat",
             "price": "49.9",
