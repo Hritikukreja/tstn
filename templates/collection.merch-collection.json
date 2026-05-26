@@ -277,13 +277,13 @@
         "product_nNQfth": {
           "type": "product",
           "settings": {
-            "image": "shopify://shop_images/4.avif",
-            "brand": "67 Designs",
-            "title": "Mounts",
-            "price": "$499.00",
+            "image": "shopify://shop_images/classic-snapback-dark-navy-front-6a13e0b6815de.jpg",
+            "brand": "THE STORY TILL NOW",
+            "title": "DAD HAT",
+            "price": "49.99",
             "compare_price": "",
             "badge": "none",
-            "link": ""
+            "link": "shopify://products/tstn-hat"
           }
         },
         "product_YimfYH": {
