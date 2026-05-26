@@ -229,6 +229,7 @@
           "type": "product",
           "disabled": true,
           "settings": {
+            "product": "",
             "image": "shopify://shop_images/BLUETTI_Elite_30_V2_5.webp",
             "brand": "BLUETTI",
             "title": "Power Station",
@@ -241,18 +242,19 @@
         "product_7nKzqr": {
           "type": "product",
           "settings": {
-            "image": "shopify://shop_images/unisex-premium-pullover-hoodie-black-front-6a13b4d080dc7.jpg",
-            "brand": "TSTN",
-            "title": "TSTN HOODIE",
-            "price": "89.99",
-            "compare_price": "99.99",
-            "badge": "sale",
+            "product": "tstn-hoodie",
+            "brand": "",
+            "title": "",
+            "price": "",
+            "compare_price": "",
+            "badge": "none",
             "link": "shopify://products/tstn-hoodie"
           }
         },
         "product_VBFeNz": {
           "type": "product",
           "settings": {
+            "product": "",
             "image": "shopify://shop_images/1_06a41048-a077-450f-b2f1-c863d8440a9c.webp",
             "brand": "The story till now",
             "title": "TSTN Hat",
@@ -265,6 +267,7 @@
         "product_azGTKL": {
           "type": "product",
           "settings": {
+            "product": "",
             "image": "shopify://shop_images/unisex-champion-packable-anorak-black-front-6a15ba00a296d.jpg",
             "brand": "the story till now",
             "title": "Windproof & Waterproof Jacket",
@@ -278,6 +281,7 @@
           "type": "product",
           "disabled": true,
           "settings": {
+            "product": "",
             "image": "shopify://shop_images/3.avif",
             "brand": "Titan",
             "title": "Fuel Tanks",
@@ -290,6 +294,7 @@
         "product_rEjbfp": {
           "type": "product",
           "settings": {
+            "product": "",
             "image": "shopify://shop_images/2.avif",
             "brand": "MetalCloak",
             "title": "Rocksport Black Shocks",
@@ -303,6 +308,7 @@
           "type": "product",
           "disabled": true,
           "settings": {
+            "product": "",
             "brand": "FRONT RUNNER",
             "title": "WOLF PACK PRO",
             "price": "$349.00",
@@ -314,6 +320,7 @@
         "product_mRzj89": {
           "type": "product",
           "settings": {
+            "product": "",
             "image": "shopify://shop_images/Rewards.avif",
             "brand": "TSTN",
             "title": "T Shirt",
@@ -327,6 +334,7 @@
           "type": "product",
           "disabled": true,
           "settings": {
+            "product": "",
             "brand": "BLUETTI",
             "title": "AC200L POWER STATION",
             "price": "$1,399.00",
