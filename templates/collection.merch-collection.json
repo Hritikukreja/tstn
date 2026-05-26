@@ -265,12 +265,12 @@
         "product_azGTKL": {
           "type": "product",
           "settings": {
-            "image": "shopify://shop_images/5.avif",
-            "brand": "Taruca",
-            "title": "Falcon 360 Awning",
-            "price": "$199.00",
+            "image": "shopify://shop_images/unisex-champion-packable-anorak-black-front-6a15ba00a296d.jpg",
+            "brand": "the story till now",
+            "title": "Windproof & Waterproof Jacket",
+            "price": "79.99",
             "compare_price": "",
-            "badge": "none",
+            "badge": "new",
             "link": ""
           }
         },
