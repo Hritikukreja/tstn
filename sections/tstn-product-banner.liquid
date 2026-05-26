@@ -106,7 +106,7 @@
     display: grid;
     grid-template-columns: 96px 1fr;
     gap: 0.875rem;
-    align-items: start;
+    align-items: stretch;
   }
   @media (max-width: 749px) {
     .tstn-pb__gallery {
@@ -114,22 +114,79 @@
     }
   }
 
+  .tstn-pb__thumbs-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-height: 0;
+  }
+  @media (max-width: 749px) {
+    .tstn-pb__thumbs-col {
+      flex-direction: row;
+      order: 2;
+    }
+  }
+
+  .tstn-pb__thumbs-arrow {
+    background: var(--tstn-card-bg);
+    border: 1px solid var(--tstn-border);
+    border-radius: 4px;
+    height: 32px;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tstn-text);
+    padding: 0;
+    transition: border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+  }
+  .tstn-pb__thumbs-arrow:hover:not(:disabled) {
+    border-color: var(--tstn-accent);
+    color: var(--tstn-accent);
+  }
+  .tstn-pb__thumbs-arrow:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+  }
+  .tstn-pb__thumbs-arrow[hidden] {
+    display: none !important;
+  }
+  .tstn-pb__thumbs-arrow svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+  }
+  @media (max-width: 749px) {
+    .tstn-pb__thumbs-arrow {
+      width: 32px;
+      height: auto;
+      align-self: stretch;
+    }
+  }
+
   .tstn-pb__thumbs {
+    flex: 1 1 0;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     gap: 0.625rem;
-    max-height: 720px;
     overflow-y: auto;
-    scrollbar-width: thin;
-    scrollbar-color: var(--tstn-border-strong) transparent;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    /* Hide scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .tstn-pb__thumbs::-webkit-scrollbar {
+    display: none;
   }
   @media (max-width: 749px) {
     .tstn-pb__thumbs {
       flex-direction: row;
-      max-height: none;
       overflow-x: auto;
+      overflow-y: hidden;
       padding-bottom: 0.25rem;
-      order: 2;
     }
   }
   .tstn-pb__thumb {
@@ -162,14 +219,33 @@
   }
   .tstn-pb__main img {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+    inset: 1.75rem;
+    width: calc(100% - 3.5rem);
+    height: calc(100% - 3.5rem);
     object-fit: contain;
     opacity: 0;
     transition: opacity 0.2s ease;
   }
   .tstn-pb__main img.is-active { opacity: 1; }
+
+  /* ---------- Description ---------- */
+  .tstn-pb__description {
+    color: var(--tstn-muted);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+  }
+  .tstn-pb__description > *:first-child { margin-top: 0; }
+  .tstn-pb__description > *:last-child { margin-bottom: 0; }
+  .tstn-pb__description p { margin: 0 0 0.75em; }
+  .tstn-pb__description strong { color: var(--tstn-text); }
+  .tstn-pb__description a { color: var(--tstn-accent); text-decoration: underline; }
+  .tstn-pb__description ul,
+  .tstn-pb__description ol {
+    padding-left: 1.25em;
+    margin: 0 0 0.75em;
+  }
+  .tstn-pb__description li { margin-bottom: 0.25em; }
 
   /* ---------- Info column ---------- */
   .tstn-pb__info {
@@ -560,13 +636,23 @@
   <div class="tstn-pb__inner">
 
     {%- if section.settings.show_breadcrumb -%}
+      {%- liquid
+        assign bc_collection = section.settings.breadcrumb_collection
+        if bc_collection == blank
+          assign bc_collection = collection
+        endif
+        if bc_collection == blank
+          for c in product.collections
+            unless c.handle == 'frontpage' or c.handle == 'all'
+              assign bc_collection = c
+              break
+            endunless
+          endfor
+        endif
+        assign home_label = section.settings.home_label | default: 'Home'
+      -%}
       <nav class="tstn-pb__breadcrumb" aria-label="Breadcrumb">
-        <a href="{{ routes.root_url }}">Home</a>
-
-        {%- assign bc_collection = collection -%}
-        {%- if bc_collection == blank and product.collections.size > 0 -%}
-          {%- assign bc_collection = product.collections.first -%}
-        {%- endif -%}
+        <a href="{{ routes.root_url }}">{{ home_label }}</a>
 
         {%- if bc_collection != blank -%}
           <span class="tstn-pb__breadcrumb-sep" aria-hidden="true">&rsaquo;</span>
@@ -583,24 +669,50 @@
       {%- comment -%} ========== Gallery ========== {%- endcomment -%}
       <div class="tstn-pb__gallery">
         {%- if product.media.size > 1 -%}
-          <div class="tstn-pb__thumbs" role="tablist" aria-label="Product images">
-            {%- for media in product.media -%}
-              <button
-                type="button"
-                class="tstn-pb__thumb {% if forloop.first %}is-active{% endif %}"
-                data-thumb-index="{{ forloop.index0 }}"
-                role="tab"
-                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
-              >
-                <img
-                  src="{{ media.preview_image | image_url: width: 200 }}"
-                  alt="{{ media.alt | default: product.title | escape }}"
-                  loading="lazy"
-                  width="96"
-                  height="96"
+          <div class="tstn-pb__thumbs-col">
+            <button
+              type="button"
+              class="tstn-pb__thumbs-arrow tstn-pb__thumbs-arrow--up"
+              aria-label="Scroll thumbnails up"
+              data-tstn-thumb-up
+              hidden
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="18 15 12 9 6 15"/>
+              </svg>
+            </button>
+
+            <div class="tstn-pb__thumbs" role="tablist" aria-label="Product images" data-tstn-thumbs>
+              {%- for media in product.media -%}
+                <button
+                  type="button"
+                  class="tstn-pb__thumb {% if forloop.first %}is-active{% endif %}"
+                  data-thumb-index="{{ forloop.index0 }}"
+                  role="tab"
+                  aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
                 >
-              </button>
-            {%- endfor -%}
+                  <img
+                    src="{{ media.preview_image | image_url: width: 200 }}"
+                    alt="{{ media.alt | default: product.title | escape }}"
+                    loading="lazy"
+                    width="96"
+                    height="96"
+                  >
+                </button>
+              {%- endfor -%}
+            </div>
+
+            <button
+              type="button"
+              class="tstn-pb__thumbs-arrow tstn-pb__thumbs-arrow--down"
+              aria-label="Scroll thumbnails down"
+              data-tstn-thumb-down
+              hidden
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
           </div>
         {%- endif -%}
 
@@ -702,6 +814,12 @@
               </fieldset>
             {%- endfor -%}
           {%- endunless -%}
+
+          {%- if section.settings.show_description and product.description != blank -%}
+            <div class="tstn-pb__description rte">
+              {{ product.description }}
+            </div>
+          {%- endif -%}
 
           <button
             type="submit"
@@ -920,6 +1038,72 @@
       });
     });
 
+    // Thumbnail scroll arrows
+    var thumbsBox = section.querySelector('[data-tstn-thumbs]');
+    var arrowUp = section.querySelector('[data-tstn-thumb-up]');
+    var arrowDown = section.querySelector('[data-tstn-thumb-down]');
+
+    function isHorizontal() {
+      return window.matchMedia('(max-width: 749px)').matches;
+    }
+
+    function getScrollMetrics() {
+      if (!thumbsBox) return { current: 0, max: 0, canScroll: false };
+      var horizontal = isHorizontal();
+      var current = horizontal ? thumbsBox.scrollLeft : thumbsBox.scrollTop;
+      var totalSize = horizontal ? thumbsBox.scrollWidth : thumbsBox.scrollHeight;
+      var visibleSize = horizontal ? thumbsBox.clientWidth : thumbsBox.clientHeight;
+      var max = totalSize - visibleSize;
+      return {
+        current: current,
+        max: max,
+        canScroll: max > 2
+      };
+    }
+
+    function updateArrows() {
+      if (!thumbsBox || !arrowUp || !arrowDown) return;
+      var m = getScrollMetrics();
+      arrowUp.hidden = !m.canScroll;
+      arrowDown.hidden = !m.canScroll;
+      arrowUp.disabled = m.current <= 0;
+      arrowDown.disabled = m.current >= m.max - 1;
+    }
+
+    function scrollThumbs(direction) {
+      if (!thumbsBox) return;
+      var horizontal = isHorizontal();
+      // Scroll by ~one thumb (96px + 10px gap = 106px), but jump 2 if room
+      var step = 106 * 2;
+      if (horizontal) {
+        thumbsBox.scrollBy({ left: direction * step, behavior: 'smooth' });
+      } else {
+        thumbsBox.scrollBy({ top: direction * step, behavior: 'smooth' });
+      }
+    }
+
+    if (arrowUp) {
+      arrowUp.addEventListener('click', function() { scrollThumbs(-1); });
+    }
+    if (arrowDown) {
+      arrowDown.addEventListener('click', function() { scrollThumbs(1); });
+    }
+    if (thumbsBox) {
+      thumbsBox.addEventListener('scroll', updateArrows, { passive: true });
+    }
+    window.addEventListener('resize', updateArrows);
+
+    // Initial + after images load (image load changes scrollHeight)
+    updateArrows();
+    if (document.readyState === 'complete') {
+      updateArrows();
+    } else {
+      window.addEventListener('load', updateArrows);
+    }
+    // Re-check shortly after to catch lazy-loaded image dimensions
+    setTimeout(updateArrows, 300);
+    setTimeout(updateArrows, 1000);
+
     // Initial sync
     updateSelectedStyles();
   })();
@@ -936,12 +1120,34 @@
   "settings": [
     {
       "type": "header",
-      "content": "Display"
+      "content": "Breadcrumb"
     },
     {
       "type": "checkbox",
       "id": "show_breadcrumb",
       "label": "Show breadcrumb",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "home_label",
+      "label": "Home label",
+      "default": "Home"
+    },
+    {
+      "type": "collection",
+      "id": "breadcrumb_collection",
+      "label": "Pin breadcrumb collection",
+      "info": "Optional. If set, the middle breadcrumb link is always this collection. If empty, it auto-detects: first the collection page the user came from, then the product's first non-system collection."
+    },
+    {
+      "type": "header",
+      "content": "Display"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show product description after sizes",
       "default": true
     },
     {
