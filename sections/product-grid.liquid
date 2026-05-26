@@ -7,17 +7,66 @@
     <div class="tstn-gear-grid__grid">
       {%- for block in section.blocks -%}
         {%- if block.type == 'product' -%}
+          {%- liquid
+            assign linked_product = block.settings.product
+
+            # ---------- IMAGE ----------
+            assign final_image = block.settings.image
+            if final_image == blank and linked_product != blank
+              assign final_image = linked_product.featured_image
+            endif
+
+            # ---------- BRAND ----------
+            assign final_brand = block.settings.brand
+            if final_brand == blank and linked_product != blank
+              assign final_brand = linked_product.vendor
+            endif
+
+            # ---------- TITLE ----------
+            assign final_title = block.settings.title
+            if final_title == blank and linked_product != blank
+              assign final_title = linked_product.title
+            endif
+
+            # ---------- LINK ----------
+            assign final_link = block.settings.link
+            if final_link == blank and linked_product != blank
+              assign final_link = linked_product.url
+            endif
+            if final_link == blank
+              assign final_link = '#'
+            endif
+
+            # ---------- PRICE ----------
+            assign final_price = block.settings.price
+            if final_price == blank and linked_product != blank
+              assign final_price = linked_product.price | money
+            endif
+
+            # ---------- COMPARE-AT PRICE ----------
+            assign final_compare = block.settings.compare_price
+            if final_compare == blank and linked_product != blank and linked_product.compare_at_price > linked_product.price
+              assign final_compare = linked_product.compare_at_price | money
+            endif
+
+            # ---------- BADGE ----------
+            assign final_badge = block.settings.badge
+            if final_badge == 'none' and linked_product != blank and linked_product.compare_at_price > linked_product.price
+              assign final_badge = 'sale'
+            endif
+          -%}
+
           <div class="tstn-gear-grid__card" {{ block.shopify_attributes }}>
-            <a href="{{ block.settings.link | default: '#' }}" class="tstn-gear-grid__image-wrap">
-              {%- if block.settings.badge != 'none' -%}
-                <span class="tstn-gear-grid__badge tstn-gear-grid__badge--{{ block.settings.badge }}">
-                  {{ block.settings.badge | upcase }}
+            <a href="{{ final_link }}" class="tstn-gear-grid__image-wrap">
+              {%- if final_badge != 'none' and final_badge != blank -%}
+                <span class="tstn-gear-grid__badge tstn-gear-grid__badge--{{ final_badge }}">
+                  {{ final_badge | upcase }}
                 </span>
               {%- endif -%}
 
-              {%- if block.settings.image != blank -%}
+              {%- if final_image != blank -%}
                 {{
-                  block.settings.image
+                  final_image
                   | image_url: width: 600
                   | image_tag:
                     loading: 'lazy',
@@ -32,20 +81,20 @@
 
             <div class="tstn-gear-grid__body">
               <div class="tstn-gear-grid__info">
-                {%- if block.settings.brand != blank -%}
-                  <p class="tstn-gear-grid__brand">{{ block.settings.brand }}</p>
+                {%- if final_brand != blank -%}
+                  <p class="tstn-gear-grid__brand">{{ final_brand }}</p>
                 {%- endif -%}
-                {%- if block.settings.title != blank -%}
+                {%- if final_title != blank -%}
                   <h3 class="tstn-gear-grid__title">
-                    <a href="{{ block.settings.link | default: '#' }}">{{ block.settings.title }}</a>
+                    <a href="{{ final_link }}">{{ final_title }}</a>
                   </h3>
                 {%- endif -%}
                 <p class="tstn-gear-grid__price">
-                  {%- if block.settings.price != blank -%}
-                    <span class="tstn-gear-grid__price-current">{{ block.settings.price }}</span>
+                  {%- if final_price != blank -%}
+                    <span class="tstn-gear-grid__price-current">{{ final_price }}</span>
                   {%- endif -%}
-                  {%- if block.settings.compare_price != blank -%}
-                    <span class="tstn-gear-grid__price-compare">{{ block.settings.compare_price }}</span>
+                  {%- if final_compare != blank -%}
+                    <span class="tstn-gear-grid__price-compare">{{ final_compare }}</span>
                   {%- endif -%}
                 </p>
               </div>
@@ -321,15 +370,33 @@
       "type": "product",
       "name": "Product",
       "settings": [
+        {
+          "type": "header",
+          "content": "Link to product (recommended)"
+        },
+        {
+          "type": "paragraph",
+          "content": "Connect a product to auto-fill the image, brand, title, price and link below. Anything you set manually will override the product."
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "header",
+          "content": "Manual overrides"
+        },
         { "type": "image_picker", "id": "image", "label": "Image" },
-        { "type": "text", "id": "brand", "label": "Brand", "default": "BRAND" },
-        { "type": "text", "id": "title", "label": "Title", "default": "PRODUCT NAME" },
-        { "type": "text", "id": "price", "label": "Price", "default": "$0.00" },
+        { "type": "text", "id": "brand", "label": "Brand" },
+        { "type": "text", "id": "title", "label": "Title" },
+        { "type": "text", "id": "price", "label": "Price" },
         { "type": "text", "id": "compare_price", "label": "Compare-at price (for SALE)" },
         {
           "type": "select",
           "id": "badge",
           "label": "Badge",
+          "info": "Sale badge auto-shows when the linked product has a compare-at price.",
           "options": [
             { "value": "none", "label": "None" },
             { "value": "new", "label": "NEW" },
@@ -337,7 +404,7 @@
           ],
           "default": "none"
         },
-        { "type": "url", "id": "link", "label": "Product link" }
+        { "type": "url", "id": "link", "label": "Manual product link (overrides linked product URL)" }
       ]
     }
   ],
@@ -346,16 +413,16 @@
     {
       "name": "Product Grid",
       "blocks": [
-        { "type": "product", "settings": { "badge": "new", "brand": "BLUETTI", "title": "ELITE 45 FRIDGE", "price": "$1,249.00" } },
-        { "type": "product", "settings": { "badge": "sale", "brand": "FACTOR 55", "title": "ULTRAHOOK XTV", "price": "$109.00", "compare_price": "$129.00" } },
-        { "type": "product", "settings": { "brand": "GOOSE GEAR", "title": "BUMPER STORAGE BOX", "price": "$299.00" } },
-        { "type": "product", "settings": { "brand": "DICAM ADVENTURE CO.", "title": "95L RUGGED CASE", "price": "$199.00" } },
-        { "type": "product", "settings": { "brand": "DIODE DYNAMICS", "title": "SS5 PRO LED LIGHT BAR", "price": "$499.00" } },
-        { "type": "product", "settings": { "brand": "TSTN", "title": "RECOVERY SHACKLE", "price": "$54.00" } },
-        { "type": "product", "settings": { "brand": "MIDLAND", "title": "MXT275 GMRS RADIO", "price": "$199.00" } },
-        { "type": "product", "settings": { "brand": "FRONT RUNNER", "title": "WOLF PACK PRO", "price": "$349.00" } },
-        { "type": "product", "settings": { "brand": "TSTN", "title": "PATCH HAT", "price": "$34.00" } },
-        { "type": "product", "settings": { "brand": "BLUETTI", "title": "AC200L POWER STATION", "price": "$1,399.00" } }
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" }
       ]
     }
   ]
