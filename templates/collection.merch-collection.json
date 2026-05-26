@@ -241,13 +241,13 @@
         "product_7nKzqr": {
           "type": "product",
           "settings": {
-            "image": "shopify://shop_images/1.avif",
-            "brand": "KC",
-            "title": "Hilites Lights",
-            "price": "$109.00",
-            "compare_price": "$129.00",
+            "image": "shopify://shop_images/unisex-premium-pullover-hoodie-black-front-6a13b4d080dc7.jpg",
+            "brand": "TSTN",
+            "title": "TSTN HOODIE",
+            "price": "86.5",
+            "compare_price": "",
             "badge": "sale",
-            "link": ""
+            "link": "shopify://products/tstn-hoodie"
           }
         },
         "product_VBFeNz": {
