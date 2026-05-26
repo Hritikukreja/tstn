@@ -197,11 +197,11 @@
         "product_z4V3Ww": {
           "type": "product",
           "settings": {
-            "image": "shopify://shop_images/unisex-premium-pullover-hoodie-black-front-6a13b4d080dc7.jpg",
+            "image": "shopify://shop_images/rocks-glass-10.5-oz-front-6a15ff3ba24f2.jpg",
             "brand": "",
-            "title": "Hoodies",
+            "title": "Glasses & more",
             "description": "Premium quality, cool designs",
-            "price": "Starts at just $59.99",
+            "price": "Starts at just $14.99",
             "button_label": "VIEW Collection",
             "link": "shopify://products/thule-hullavator-pro-kayak-rack-modula-racks"
           }
@@ -253,6 +253,7 @@
         "product_VBFeNz": {
           "type": "product",
           "settings": {
+            "image": "shopify://shop_images/1_06a41048-a077-450f-b2f1-c863d8440a9c.webp",
             "brand": "The story till now",
             "title": "TSTN Hat",
             "price": "49.9",
@@ -273,20 +274,9 @@
             "link": ""
           }
         },
-        "product_nNQfth": {
-          "type": "product",
-          "settings": {
-            "image": "shopify://shop_images/classic-snapback-dark-navy-front-6a13e0b6815de.jpg",
-            "brand": "THE STORY TILL NOW",
-            "title": "DAD HAT",
-            "price": "49.99",
-            "compare_price": "",
-            "badge": "none",
-            "link": "shopify://products/tstn-hat"
-          }
-        },
         "product_YimfYH": {
           "type": "product",
+          "disabled": true,
           "settings": {
             "image": "shopify://shop_images/3.avif",
             "brand": "Titan",
@@ -351,7 +341,6 @@
         "product_7nKzqr",
         "product_VBFeNz",
         "product_azGTKL",
-        "product_nNQfth",
         "product_YimfYH",
         "product_rEjbfp",
         "product_FDqRpa",
