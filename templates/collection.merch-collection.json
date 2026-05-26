@@ -244,8 +244,8 @@
             "image": "shopify://shop_images/unisex-premium-pullover-hoodie-black-front-6a13b4d080dc7.jpg",
             "brand": "TSTN",
             "title": "TSTN HOODIE",
-            "price": "86.5",
-            "compare_price": "",
+            "price": "89.99",
+            "compare_price": "99.99",
             "badge": "sale",
             "link": "shopify://products/tstn-hoodie"
           }
@@ -253,13 +253,13 @@
         "product_VBFeNz": {
           "type": "product",
           "settings": {
-            "image": "shopify://shop_images/6.avif",
-            "brand": "Sherpa Equipment",
-            "title": "Roof Rack",
-            "price": "$299.00",
+            "image": "shopify://shop_images/classic-dad-hat-black-front-6a13e205c62b7.jpg",
+            "brand": "The story till now",
+            "title": "TSTN Hat",
+            "price": "49.9",
             "compare_price": "",
             "badge": "none",
-            "link": ""
+            "link": "shopify://products/tstn-hat"
           }
         },
         "product_azGTKL": {
