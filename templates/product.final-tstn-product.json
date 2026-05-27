@@ -145,7 +145,7 @@
         "button_text_color": "#f8f8f8",
         "button_font_size": 15,
         "button_font_weight": 800,
-        "price_text": "From $1099 or $45.79/mo. for 24 mo.*",
+        "price_text": "{{ product.metafields.custom.emi_text.value }}",
         "price_color": "#ffffff",
         "price_size": 22,
         "section_bg_color": "#ffffff"
