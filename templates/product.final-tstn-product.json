@@ -119,8 +119,8 @@
       "custom_css": [],
       "name": "Pro hero",
       "settings": {
-        "media_type": "video",
-        "hero_image": "shopify://shop_images/hulla3_b3992ab2-d097-4001-87cb-5af1f9b251f6.png",
+        "media_type": "image",
+        "hero_image": "{{ section.settings.product.featured_image }}",
         "show_controls": false,
         "hero_height_desktop": 85,
         "hero_height_mobile": 80,
