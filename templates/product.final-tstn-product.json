@@ -220,7 +220,7 @@
           "type": "feature",
           "settings": {
             "media_type": "image",
-            "image": "shopify://shop_images/2_78b5bb70-4b73-41dc-bbd0-0032d80736da.webp",
+            "image": "{{ product.metafields.custom.feature_gallery_image_1.value }}",
             "show_controls": false,
             "title": "{{ product.metafields.custom.feature_gallery_title_1.value }}",
             "description": "<p>{{ product.metafields.custom.feature_gallery_description_1 | metafield_tag }}</p>",
@@ -232,7 +232,7 @@
           "type": "feature",
           "settings": {
             "media_type": "video",
-            "image": "shopify://shop_images/hulla_2.png",
+            "image": "{{ product.metafields.custom.feature_gallery_image_2.value }}",
             "show_controls": false,
             "title": "{{ product.metafields.custom.feature_gallery_title_2.value }}",
             "description": "<p>{{ product.metafields.custom.feature_gallery_description_2 | metafield_tag }}</p>",
