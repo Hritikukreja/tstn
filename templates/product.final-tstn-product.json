@@ -260,9 +260,9 @@
       ],
       "name": "Feature gallery",
       "settings": {
-        "kicker": "Feature gallery",
-        "heading": "Designed to showcase key features",
-        "text": "<p>Add up to eight feature cards with image or video.</p>",
+        "kicker": "{{ product.metafields.custom.feature_gallery_eyebrow.value }}",
+        "heading": "{{ product.metafields.custom.feature_gallery_heading.value }}",
+        "text": "<p>{{ product.metafields.custom.feature_gallery_description.value }}</p>",
         "columns_desktop": "3",
         "card_alignment": "left",
         "media_aspect_ratio": "4 / 5",
