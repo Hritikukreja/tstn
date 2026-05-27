@@ -121,6 +121,7 @@
       "settings": {
         "media_type": "image",
         "hero_image": "{{ section.settings.product.featured_image }}",
+        "hero_video": "{{ section.settings.product.metafields.custom.hero_video.value }}",
         "show_controls": false,
         "hero_height_desktop": 85,
         "hero_height_mobile": 80,
