@@ -222,8 +222,8 @@
             "media_type": "image",
             "image": "shopify://shop_images/2_78b5bb70-4b73-41dc-bbd0-0032d80736da.webp",
             "show_controls": false,
-            "title": "Kayaking made easy",
-            "description": "<p>Load and unload your kayak on your own, thanks to the gas-assist struts that lift and lower 40 lbs of the kayak’s weight</p>",
+            "title": "{{ product.metafields.custom.feature_gallery_title_1.value }}",
+            "description": "<p>{{ product.metafields.custom.feature_gallery_description_1 | metafield_tag }}</p>",
             "link_label": "",
             "link": ""
           }
@@ -234,8 +234,8 @@
             "media_type": "video",
             "image": "shopify://shop_images/hulla_2.png",
             "show_controls": false,
-            "title": "Protection at its peak",
-            "description": "<p>Maximum protection for your kayak, thanks to 8 touch points of padded support</p>",
+            "title": "{{ product.metafields.custom.feature_gallery_title_2.value }}",
+            "description": "<p>{{ product.metafields.custom.feature_gallery_description_2 | metafield_tag }}</p>",
             "link_label": "",
             "link": ""
           }
@@ -246,8 +246,8 @@
             "media_type": "image",
             "image": "shopify://shop_images/hullavator_JPEG.png",
             "show_controls": false,
-            "title": "Built for life",
-            "description": "<p>Aluminum, double-coated steel construction for corrosion resistance delivers a longer product life</p>",
+            "title": "{{ product.metafields.custom.feature_gallery_title_3.value }}",
+            "description": "<p>{{ product.metafields.custom.feature_gallery_description_3 | metafield_tag }}</p>",
             "link_label": "",
             "link": ""
           }
