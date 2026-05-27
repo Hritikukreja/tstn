@@ -121,7 +121,6 @@
       "settings": {
         "media_type": "video",
         "hero_image": "shopify://shop_images/hulla3_b3992ab2-d097-4001-87cb-5af1f9b251f6.png",
-        "hero_video": "shopify://files/videos/Thule - Made with Clipchamp Full Width.mp4",
         "show_controls": false,
         "hero_height_desktop": 85,
         "hero_height_mobile": 80,
@@ -134,7 +133,7 @@
         "kicker_color": "#ffffff",
         "kicker_size": 36,
         "kicker_weight": 400,
-        "heading": "hullavator pro",
+        "heading": "{{ section.settings.product.title }}",
         "heading_color": "#ffffff",
         "heading_size": 120,
         "heading_weight": 400,
