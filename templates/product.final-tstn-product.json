@@ -119,7 +119,7 @@
       "custom_css": [],
       "name": "Pro hero",
       "settings": {
-        "media_type": "image",
+        "media_type": "video",
         "hero_image": "{{ section.settings.product.featured_image }}",
         "hero_video": "{{ section.settings.product.metafields.custom.hero_video.value }}",
         "show_controls": false,
@@ -183,7 +183,7 @@
         "trust_badge_ENiQfA"
       ],
       "custom_css": [
-        "p {font-size: 16px;}"
+        "p {font-size: 18px;}"
       ],
       "name": "Video + Buy Now",
       "settings": {
