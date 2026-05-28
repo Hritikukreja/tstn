@@ -423,12 +423,15 @@
   }
 
   /* ============================================
-     LEFT PANEL — Earn cards: 3 cols / 2 / 1
+     LEFT PANEL — Earn cards: auto-fit grid
+     Cards stay at least 240px wide and the column count
+     drops automatically (3 → 2 → 1) so reward text never
+     gets squeezed into a too-narrow track.
      ============================================ */
   #shopify-section-{{ section_id }} .tstn-earn .gw-rd-list,
   #shopify-section-{{ section_id }} .tstn-earn ul.gw-rd-list {
     display: grid !important;
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)) !important;
     grid-auto-rows: 1fr !important;
     gap: clamp(12px, 1.2vw, 16px) !important;
     margin: 0 !important;
@@ -537,7 +540,11 @@
     box-shadow: none !important;
     width: 100% !important;
     display: block !important;
-    word-break: break-word !important;
+    /* Break between words first; only break inside a word if it truly can't fit.
+       Fixes the "TWITTE R" mid-word split. */
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    hyphens: none !important;
   }
 
   #shopify-section-{{ section_id }} .tstn-earn .gw-layout-text--variant-secondary,
@@ -548,7 +555,7 @@
     color: var(--tstn-accent) !important;
     text-transform: uppercase !important;
     letter-spacing: 0.02em !important;
-    line-height: 1 !important;
+    line-height: 1.05 !important;
     background: transparent !important;
     padding: 0 !important;
     border: none !important;
@@ -556,9 +563,14 @@
     width: 100% !important;
     display: block !important;
     text-align: left !important;
-    white-space: nowrap !important;
-    overflow: hidden !important;
-    text-overflow: ellipsis !important;
+    /* Allow the reward text to wrap instead of clipping with an ellipsis.
+       This fixes "150 POINTS FOR…" / "20% OFF DISCOU…" being cut off. */
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    word-break: normal !important;
+    overflow-wrap: break-word !important;
+    hyphens: none !important;
   }
 
   #shopify-section-{{ section_id }} .tstn-earn .gw-rd-page-widget-action-completed,
@@ -930,13 +942,6 @@
   /* ============================================
      RESPONSIVE
      ============================================ */
-  @media (max-width: 989px) {
-    #shopify-section-{{ section_id }} .tstn-earn .gw-rd-list,
-    #shopify-section-{{ section_id }} .tstn-earn ul.gw-rd-list {
-      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    }
-  }
-
   @media (max-width: 749px) {
     #shopify-section-{{ section_id }} .tstn-earn__heading {
       font-size: var(--tstn-heading-size-mobile);
