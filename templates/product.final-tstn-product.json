@@ -491,6 +491,23 @@
         "padding_bottom": 48
       }
     },
+    "image_banner_xT3dyb": {
+      "type": "image-banner",
+      "name": "t:sections.image-banner.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/Skycamp_4.0_Diagrams_-_Desktop_2850x_c60fef6f-2f62-4c09-94d2-1ed238ef94d4.webp",
+        "image_overlay_opacity": 0,
+        "image_height": "adapt",
+        "image_behavior": "none",
+        "desktop_content_position": "middle-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": true,
+        "color_scheme": "scheme-1",
+        "stack_images_on_mobile": true,
+        "mobile_content_alignment": "center",
+        "show_text_below": false
+      }
+    },
     "product_showcase_dczdxa": {
       "type": "product-showcase",
       "blocks": {
@@ -717,6 +734,7 @@
     "176682539376c70439",
     "related-products",
     "tstn_product_banner_xWi4bj",
+    "image_banner_xT3dyb",
     "product_showcase_dczdxa",
     "custom_coll_jdyER7",
     "featured_collection_MFMxnR",
