@@ -624,11 +624,194 @@
   }
   .tstn-pb__accordion-content li { margin-bottom: 0.25rem; }
 
-  /* Mobile tweaks */
+  /* ============================================
+     Mobile (< 750px) — comprehensive fixes
+     ============================================ */
   @media (max-width: 749px) {
-    .tstn-pb__title { font-size: clamp(2rem, 9vw, 3rem); }
-    .tstn-pb__price { font-size: 1.5rem; }
-    .tstn-pb__breadcrumb { font-size: 12px; padding: 0.875rem 0 1rem; }
+
+    /* Container & section spacing */
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round: 0 }}px;
+    }
+    .tstn-pb__inner {
+      padding: 0 1rem;
+    }
+    .tstn-pb__grid {
+      gap: 1.5rem;
+    }
+
+    /* Breadcrumb */
+    .tstn-pb__breadcrumb {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      padding: 0.75rem 0 0.5rem;
+      gap: 0.375rem;
+    }
+
+    /* Gallery: stack — main image first, thumbs underneath */
+    .tstn-pb__gallery {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+    .tstn-pb__main {
+      order: 1;
+      max-width: 100%;
+    }
+    .tstn-pb__main img {
+      inset: 1rem;
+      width: calc(100% - 2rem);
+      height: calc(100% - 2rem);
+    }
+
+    /* Thumbs go horizontal under main image; rely on native swipe — hide arrows */
+    .tstn-pb__thumbs-col {
+      order: 2;
+      flex-direction: row;
+      gap: 0;
+    }
+    .tstn-pb__thumbs-arrow {
+      display: none !important;
+    }
+    .tstn-pb__thumbs {
+      flex-direction: row;
+      overflow-x: auto;
+      overflow-y: hidden;
+      gap: 0.5rem;
+      padding-bottom: 0.25rem;
+      -webkit-overflow-scrolling: touch;
+    }
+    .tstn-pb__thumb {
+      width: 72px;
+      height: 72px;
+    }
+
+    /* Info column */
+    .tstn-pb__info {
+      gap: 1rem;
+      padding-top: 0;
+    }
+    .tstn-pb__title {
+      font-size: clamp(2rem, 8vw, 2.75rem);
+      letter-spacing: 0;
+    }
+    .tstn-pb__price {
+      font-size: 1.5rem;
+    }
+    .tstn-pb__price-row {
+      gap: 0.625rem;
+    }
+
+    /* Variant options */
+    .tstn-pb__option-label {
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+    .tstn-pb__pills {
+      gap: 0.5rem;
+    }
+    .tstn-pb__pill {
+      min-width: 52px;
+      padding: 0.75rem 1rem;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+    }
+    .tstn-pb__swatches {
+      gap: 0.625rem;
+    }
+    .tstn-pb__swatch {
+      width: 32px;
+      height: 32px;
+    }
+
+    /* Description: slightly larger for readability */
+    .tstn-pb__description {
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    /* Buy buttons full width on mobile */
+    .tstn-pb__submit {
+      font-size: 15px;
+      letter-spacing: 0.12em;
+      padding: 1rem 1.5rem;
+      min-height: 52px;
+    }
+    #shopify-section-{{ section.id }} .shopify-payment-button__button {
+      font-size: 15px !important;
+      min-height: 52px !important;
+      height: 52px !important;
+      letter-spacing: 0.12em !important;
+    }
+
+    /* Trust badges: stack, no dividers, tighter spacing */
+    .tstn-pb__trust {
+      grid-template-columns: 1fr !important;
+      gap: 0.875rem;
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+    }
+    .tstn-pb__badge {
+      padding-right: 0;
+      gap: 0.625rem;
+    }
+    .tstn-pb__badge:not(:last-child)::after {
+      display: none;
+    }
+    .tstn-pb__badge-title {
+      font-size: 13px;
+    }
+    .tstn-pb__badge-sub {
+      font-size: 12px;
+    }
+
+    /* Accordion: tighter padding */
+    .tstn-pb__accordion {
+      margin-top: 1.25rem;
+      gap: 0.5rem;
+    }
+    .tstn-pb__accordion-summary {
+      padding: 0.875rem 1rem;
+      gap: 0.75rem;
+    }
+    .tstn-pb__accordion-icon {
+      width: 24px;
+      height: 24px;
+    }
+    .tstn-pb__accordion-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+    .tstn-pb__accordion-title {
+      font-size: 13px;
+    }
+    .tstn-pb__accordion-sub {
+      font-size: 12px;
+    }
+    .tstn-pb__accordion-content {
+      padding: 0 1rem 1rem;
+      font-size: 14px;
+    }
+    .tstn-pb__accordion-toggle {
+      font-size: 22px;
+    }
+  }
+
+  /* Very small phones (< 380px) — extra tightening */
+  @media (max-width: 379px) {
+    .tstn-pb__title {
+      font-size: 1.75rem;
+    }
+    .tstn-pb__pill {
+      min-width: 44px;
+      padding: 0.625rem 0.75rem;
+      font-size: 12px;
+    }
+    .tstn-pb__thumb {
+      width: 64px;
+      height: 64px;
+    }
   }
 </style>
 
