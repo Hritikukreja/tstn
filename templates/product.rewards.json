@@ -66,10 +66,13 @@
           "settings": {
             "icon_1_image": "shopify://shop_images/HASSLE_FREE_RETURNS.png",
             "icon_1_title": "Hassle Free Returns",
+            "icon_1_subtitle": "On orders over $250",
             "icon_2_image": "shopify://shop_images/FAST_FREE_SHIPPING.png",
             "icon_2_title": "Fast & Free Shipping*",
+            "icon_2_subtitle": "30 day returns",
             "icon_3_image": "shopify://shop_images/FITMENT_GUARANTEE.png",
-            "icon_3_title": "Fitment Guarantee"
+            "icon_3_title": "Fitment Guarantee",
+            "icon_3_subtitle": "Built for adventure"
           }
         },
         "buy_buttons": {
@@ -314,6 +317,46 @@
         "padding_bottom": 28
       }
     },
+    "updated_ways_to_earn_Hdxx3x": {
+      "type": "updated-ways-to-earn",
+      "name": "Ways To Earn",
+      "settings": {
+        "heading": "Ways To Earn",
+        "subheading": "Earn points every time you shop, share, and engage.",
+        "heading_font_size": 48,
+        "heading_font_size_mobile": 30,
+        "ways_title": "WAYS TO EARN POINTS",
+        "card_title_size": 20,
+        "points_size": 26,
+        "logged_out_message": "Sign up or log in to start earning points and unlock rewards.",
+        "signup_url": "",
+        "login_url": "",
+        "share_heading": "SHARE & EARN",
+        "share_subheading": "SHARE THE JOY OF SHOPPING WITH FRIENDS",
+        "share_description": "Give your friends a discount on their first purchase, and receive a reward for each successful referral!",
+        "referral_heading": "REFER A FRIEND",
+        "referral_step_1": "Copy the referral link",
+        "referral_step_2": "Share it with your friends",
+        "referral_step_3": "Earn rewards for each friend who joins",
+        "you_get_label": "YOU GET",
+        "you_get_value": "500",
+        "you_get_unit": "POINTS",
+        "they_get_label": "THEY GET",
+        "they_get_value": "$5",
+        "they_get_unit": "OFF DISCOUNT",
+        "section_bg": "#0a0a0a",
+        "heading_color": "#FFFFFF",
+        "subheading_color": "#CCCCCC",
+        "accent_color": "#ff6a1a",
+        "card_bg": "#0e0e0e",
+        "inner_card_bg": "#161616",
+        "card_border_color": "#262626",
+        "inner_border_color": "#2a2a2a",
+        "color_scheme": "",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
     "tstn_tiers_6bALLC": {
       "type": "tstn-tiers",
       "blocks": {
@@ -411,12 +454,16 @@
           "type": "shopify://apps/collective-club/blocks/community-feed/019afe39-d050-7ff5-8454-0b261632ba15",
           "disabled": true,
           "settings": {
+            "feed_mode": "pagination",
+            "font_scale": "normal",
+            "spacing_scale": "normal",
+            "border_radius": "rounded",
+            "show_banner": true,
             "title": "THE SHOP TALK.",
             "description": "No keyboard warriors. Just real advice on suspension, lighting, and recovery setups. Ask questions and get answers from the community that actually wheels.",
-            "show_title": true,
-            "show_description": true,
-            "title_font": "heading",
-            "font_preset": "body",
+            "banner_height": "medium",
+            "show_community_avatar": true,
+            "show_social_proof": true,
             "primary_color": "#f56300",
             "contrast_color": "",
             "text_color": "#ffffff",
@@ -424,10 +471,8 @@
             "background_color": "#121212",
             "card_bg_color": "#1c1c1c",
             "border_color": "#f56300",
-            "colored_borders": true,
-            "border_radius": "rounded",
-            "sidebar_title": "",
-            "sidebar_description": "",
+            "title_font": "heading",
+            "font_preset": "body",
             "sidebar_rule_1": "",
             "sidebar_rule_2": "",
             "sidebar_rule_3": ""
@@ -650,6 +695,7 @@
     "growave_tiers_BMVmYY",
     "speedometer_claude_VPmHLG",
     "updated_ways_to_earn_CF9QpD",
+    "updated_ways_to_earn_Hdxx3x",
     "tstn_tiers_6bALLC",
     "177811854801255580",
     "1776469809e2eb7715",
