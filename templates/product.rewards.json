@@ -319,6 +319,7 @@
     },
     "updated_ways_to_earn_Hdxx3x": {
       "type": "updated-ways-to-earn",
+      "disabled": true,
       "name": "Ways To Earn",
       "settings": {
         "heading": "Ways To Earn",

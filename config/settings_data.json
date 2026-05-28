@@ -153,7 +153,7 @@
         "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.embed.socialshopwave-helper/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
         "disabled": false,
         "settings": {
-          "disable_shadow_root_globally": true
+          "disable_shadow_root_globally": false
         }
       }
     },
