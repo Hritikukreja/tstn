@@ -161,49 +161,53 @@
         "product_d9iLdy": {
           "type": "product",
           "settings": {
+            "product": "",
             "image": "shopify://shop_images/1.avif",
             "brand": "",
             "title": "T-SHIRTS",
             "description": "Premium quality, cool designs",
             "price": "Starts at just $29.99",
-            "button_label": "VIEW Collection",
-            "link": "shopify://products/thule-hullavator-pro-kayak-rack-modula-racks"
+            "link": "shopify://products/thule-hullavator-pro-kayak-rack-modula-racks",
+            "button_label": "VIEW Collection"
           }
         },
         "product_mxmTxU": {
           "type": "product",
           "settings": {
+            "product": "",
             "image": "shopify://shop_images/classic-dad-hat-black-front-6a15fc14d0017.jpg",
             "brand": "",
             "title": "CAPS & Bennies",
             "description": "Premium quality, cool designs",
             "price": "Starts at just $39.99",
-            "button_label": "VIEW Collection",
-            "link": "shopify://products/thule-hullavator-pro-kayak-rack-modula-racks"
+            "link": "shopify://products/thule-hullavator-pro-kayak-rack-modula-racks",
+            "button_label": "VIEW Collection"
           }
         },
         "product_e4d8n8": {
           "type": "product",
           "settings": {
+            "product": "",
             "image": "shopify://shop_images/4.avif",
             "brand": "",
             "title": "JACKETS & hoodies",
             "description": "Premium quality, cool designs",
             "price": "Starts at just $79.99",
-            "button_label": "VIEW Collection",
-            "link": "shopify://products/thule-hullavator-pro-kayak-rack-modula-racks"
+            "link": "shopify://products/thule-hullavator-pro-kayak-rack-modula-racks",
+            "button_label": "VIEW Collection"
           }
         },
         "product_z4V3Ww": {
           "type": "product",
           "settings": {
+            "product": "",
             "image": "shopify://shop_images/rocks-glass-10.5-oz-front-6a15ff3b9efe8.jpg",
             "brand": "",
             "title": "Glasses & more",
             "description": "Premium quality, cool designs",
             "price": "Starts at just $14.99",
-            "button_label": "VIEW Collection",
-            "link": "shopify://products/thule-hullavator-pro-kayak-rack-modula-racks"
+            "link": "shopify://products/thule-hullavator-pro-kayak-rack-modula-racks",
+            "button_label": "VIEW Collection"
           }
         }
       },
@@ -213,6 +217,7 @@
         "product_e4d8n8",
         "product_z4V3Ww"
       ],
+      "disabled": true,
       "name": "Featured Products",
       "settings": {
         "overline": "SHOP MERCH",
