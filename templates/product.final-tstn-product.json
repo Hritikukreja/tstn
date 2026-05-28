@@ -437,6 +437,7 @@
         },
         "accordion_item_ep4GjU": {
           "type": "accordion_item",
+          "disabled": true,
           "settings": {
             "icon": "grid",
             "title": "Materials & Care",
@@ -446,6 +447,7 @@
         },
         "accordion_item_J6kxgK": {
           "type": "accordion_item",
+          "disabled": true,
           "settings": {
             "icon": "box",
             "title": "Shipping & Returns",
@@ -455,6 +457,7 @@
         },
         "accordion_item_iBCijJ": {
           "type": "accordion_item",
+          "disabled": true,
           "settings": {
             "icon": "ruler",
             "title": "Size Guide",
