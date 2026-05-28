@@ -215,64 +215,6 @@
         "padding_bottom": 32
       }
     },
-    "feature_gallery_xpJVXd": {
-      "type": "feature-gallery",
-      "blocks": {
-        "feature_4UN7bL": {
-          "type": "feature",
-          "settings": {
-            "media_type": "image",
-            "image": "{{ product.metafields.custom.feature_gallery_image_1.value }}",
-            "show_controls": false,
-            "title": "{{ product.metafields.custom.feature_gallery_title_1.value }}",
-            "description": "<p>{{ product.metafields.custom.feature_gallery_description_1 | metafield_tag }}</p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "feature_XwaB6Y": {
-          "type": "feature",
-          "settings": {
-            "media_type": "video",
-            "image": "{{ product.metafields.custom.feature_gallery_image_2.value }}",
-            "show_controls": false,
-            "title": "{{ product.metafields.custom.feature_gallery_title_2.value }}",
-            "description": "<p>{{ product.metafields.custom.feature_gallery_description_2 | metafield_tag }}</p>",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "feature_EVxyAD": {
-          "type": "feature",
-          "settings": {
-            "media_type": "image",
-            "image": "{{ product.metafields.custom.feature_gallery_image_3.value }}",
-            "show_controls": false,
-            "title": "{{ product.metafields.custom.feature_gallery_title_3.value }}",
-            "description": "<p>{{ product.metafields.custom.feature_gallery_description_3 | metafield_tag }}</p>",
-            "link_label": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "feature_4UN7bL",
-        "feature_XwaB6Y",
-        "feature_EVxyAD"
-      ],
-      "name": "Feature gallery",
-      "settings": {
-        "kicker": "{{ product.metafields.custom.feature_gallery_eyebrow.value }}",
-        "heading": "{{ product.metafields.custom.feature_gallery_heading.value }}",
-        "text": "<p>{{ product.metafields.custom.feature_gallery_description.value }}</p>",
-        "columns_desktop": "3",
-        "card_alignment": "left",
-        "media_aspect_ratio": "4 / 5",
-        "color_scheme": "scheme-5330df68-7ce6-41b9-9bf9-37d268b32221",
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
     "feature_gallery_T3DUzd": {
       "type": "feature-gallery",
       "blocks": {
@@ -280,10 +222,10 @@
           "type": "feature",
           "settings": {
             "media_type": "image",
-            "image": "{{ product.metafields.custom.feature_gallery_image_1.value }}",
+            "image": "shopify://shop_images/ChatGPT_Image_May_28_2026_03_09_12_PM_1.png",
             "show_controls": false,
-            "title": "{{ product.metafields.custom.feature_gallery_title_1.value }}",
-            "description": "<p>{{ product.metafields.custom.feature_gallery_description_1 | metafield_tag }}</p>",
+            "title": "Insulated Interior Comfort",
+            "description": "<p>Stay comfortable inside with a quilted interior, dark privacy panels, and a built-in world map liner that gives the tent a cleaner, more premium cabin feel.</p>",
             "link_label": "",
             "link": ""
           }
@@ -292,10 +234,10 @@
           "type": "feature",
           "settings": {
             "media_type": "video",
-            "image": "{{ product.metafields.custom.feature_gallery_image_2.value }}",
+            "image": "shopify://shop_images/ChatGPT_Image_May_28_2026_03_09_12_PM_2.png",
             "show_controls": false,
-            "title": "{{ product.metafields.custom.feature_gallery_title_2.value }}",
-            "description": "<p>{{ product.metafields.custom.feature_gallery_description_2 | metafield_tag }}</p>",
+            "title": "Freestanding Awning Coverage",
+            "description": "<p>The extended awning adds shade and weather protection around the tent entrance, giving you a more usable camp setup without needing extra shelter.</p>",
             "link_label": "",
             "link": ""
           }
@@ -304,10 +246,11 @@
           "type": "feature",
           "settings": {
             "media_type": "image",
-            "image": "{{ product.metafields.custom.feature_gallery_image_3.value }}",
+            "image": "shopify://shop_images/ChatGPT_Image_May_28_2026_03_09_12_PM_3.png",
+            "video": "shopify://files/videos/Hero Video.mp4",
             "show_controls": false,
-            "title": "{{ product.metafields.custom.feature_gallery_title_3.value }}",
-            "description": "<p>{{ product.metafields.custom.feature_gallery_description_3 | metafield_tag }}</p>",
+            "title": "Quick Ladder Access",
+            "description": "<p>The telescoping ladder makes entry fast and stable, helping you get in and out of the rooftop tent easily even on uneven trail-side terrain.</p>",
             "link_label": "",
             "link": ""
           }
@@ -321,8 +264,8 @@
       "name": "Feature gallery",
       "settings": {
         "kicker": "{{ product.metafields.custom.feature_gallery_eyebrow.value }}",
-        "heading": "{{ product.metafields.custom.feature_gallery_heading.value }}",
-        "text": "<p>{{ product.metafields.custom.feature_gallery_description.value }}</p>",
+        "heading": "Smarter Details for Better Nights Outside",
+        "text": "",
         "columns_desktop": "3",
         "card_alignment": "left",
         "media_aspect_ratio": "4 / 5",
@@ -547,6 +490,64 @@
         "accent_color": "#ff6a1a",
         "padding_top": 24,
         "padding_bottom": 48
+      }
+    },
+    "feature_gallery_xpJVXd": {
+      "type": "feature-gallery",
+      "blocks": {
+        "feature_4UN7bL": {
+          "type": "feature",
+          "settings": {
+            "media_type": "image",
+            "image": "{{ product.metafields.custom.feature_gallery_image_1.value }}",
+            "show_controls": false,
+            "title": "{{ product.metafields.custom.feature_gallery_title_1.value }}",
+            "description": "<p>{{ product.metafields.custom.feature_gallery_description_1 | metafield_tag }}</p>",
+            "link_label": "",
+            "link": "shopify://products/skycamp-4-0"
+          }
+        },
+        "feature_XwaB6Y": {
+          "type": "feature",
+          "settings": {
+            "media_type": "video",
+            "image": "{{ product.metafields.custom.feature_gallery_image_2.value }}",
+            "show_controls": false,
+            "title": "{{ product.metafields.custom.feature_gallery_title_2.value }}",
+            "description": "<p>{{ product.metafields.custom.feature_gallery_description_2 | metafield_tag }}</p>",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "feature_EVxyAD": {
+          "type": "feature",
+          "settings": {
+            "media_type": "image",
+            "image": "{{ product.metafields.custom.feature_gallery_image_3.value }}",
+            "show_controls": false,
+            "title": "{{ product.metafields.custom.feature_gallery_title_3.value }}",
+            "description": "<p>{{ product.metafields.custom.feature_gallery_description_3 | metafield_tag }}</p>",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_4UN7bL",
+        "feature_XwaB6Y",
+        "feature_EVxyAD"
+      ],
+      "name": "Feature gallery",
+      "settings": {
+        "kicker": "{{ product.metafields.custom.feature_gallery_eyebrow.value }}",
+        "heading": "{{ product.metafields.custom.feature_gallery_heading.value }}",
+        "text": "<p>{{ product.metafields.custom.feature_gallery_description.value }}</p>",
+        "columns_desktop": "3",
+        "card_alignment": "left",
+        "media_aspect_ratio": "4 / 5",
+        "color_scheme": "scheme-5330df68-7ce6-41b9-9bf9-37d268b32221",
+        "padding_top": 80,
+        "padding_bottom": 80
       }
     },
     "image_banner_xT3dyb": {
