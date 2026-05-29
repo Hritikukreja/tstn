@@ -198,7 +198,7 @@
         "product": "{{ product }}",
         "custom_price": "{{ product.metafields.custom.emi_text.value }}",
         "button_label": "Buy Now",
-        "button_url": "#<a href=\"#product-banner\">Jump to buy</a>",
+        "button_url": "{{ product.url }}",
         "show_buy_button": true,
         "richtext": "",
         "bg_color": "#121212",
