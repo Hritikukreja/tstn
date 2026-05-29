@@ -65,7 +65,7 @@
           "type": "tab",
           "settings": {
             "label": "T-SHIRTS",
-            "link": "shopify://products/ssr-tee"
+            "link": "shopify://collections/t-shirts"
           }
         },
         "tab_3pJpUd": {
@@ -123,7 +123,7 @@
         "tab_tPTN3y"
       ],
       "custom_css": [
-        "p , a{color: white; font-weight: bold;}"
+        "p,a {color: white; font-weight: bold;}"
       ],
       "name": "Collection Filter Bar",
       "settings": {
