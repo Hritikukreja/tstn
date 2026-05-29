@@ -122,6 +122,9 @@
         "tab_tAtTFG",
         "tab_tPTN3y"
       ],
+      "custom_css": [
+        "p , a{color: white; font-weight: bold;}"
+      ],
       "name": "Collection Filter Bar",
       "settings": {
         "product_count": "",
