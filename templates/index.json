@@ -419,6 +419,34 @@
       "settings": {
         "include_margins": true
       }
+    },
+    "1780038188eb7a0977": {
+      "type": "apps",
+      "blocks": {
+        "covet_instagram_feed_reviews_app_block_standard_UJJMDR": {
+          "type": "shopify://apps/covet-instagram-feed-reviews/blocks/app-block-standard/577480e8-b5be-4890-968c-06ccfb458c74",
+          "settings": {
+            "gallery_embed_id": 248383,
+            "show_text": false,
+            "title_text": "Covet.pics gallery",
+            "title_color": "#000000",
+            "title_size": 22,
+            "subtitle_text": "",
+            "subtitle_color": "#000000",
+            "subtitle_size": 14,
+            "text_alignment": "center",
+            "margin": 20,
+            "custom_html_above": "",
+            "custom_html_below": ""
+          }
+        }
+      },
+      "block_order": [
+        "covet_instagram_feed_reviews_app_block_standard_UJJMDR"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
@@ -428,6 +456,7 @@
     "video_section_bXXf4b",
     "hero_collection_rUEVmk",
     "community_grid_nbhTUh",
-    "17781336014891a27e"
+    "17781336014891a27e",
+    "1780038188eb7a0977"
   ]
 }
