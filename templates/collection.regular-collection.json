@@ -41,6 +41,9 @@
     },
     "featured_collection_njGkeJ": {
       "type": "featured-collection",
+      "custom_css": [
+        "h1,h2,h3,h4,h5,h6{color: white;}"
+      ],
       "name": "t:sections.featured-collection.presets.name",
       "settings": {
         "collection": "{{ collection }}",
