@@ -63,64 +63,59 @@
           "type": "tab",
           "settings": {
             "label": "ALL",
-            "link": "shopify://collections",
-            "is_active": true
+            "link": "shopify://collections/all-products"
           }
         },
         "tab_3pJpUd": {
           "type": "tab",
           "settings": {
             "label": "POWER",
-            "link": "",
-            "is_active": false
+            "link": "shopify://products/bluetti-elite-30-v2"
           }
         },
         "tab_BJHEWY": {
           "type": "tab",
+          "disabled": true,
           "settings": {
             "label": "STORAGE",
-            "link": "",
-            "is_active": false
+            "link": ""
           }
         },
         "tab_RmgzUw": {
           "type": "tab",
+          "disabled": true,
           "settings": {
             "label": "RECOVERY",
-            "link": "",
-            "is_active": false
+            "link": ""
           }
         },
         "tab_7QnYFJ": {
           "type": "tab",
           "settings": {
-            "label": "SHELTER",
-            "link": "",
-            "is_active": false
+            "label": "camp",
+            "link": "shopify://products/skycamp-4-0"
           }
         },
         "tab_tAtTFG": {
           "type": "tab",
           "settings": {
-            "label": "VEHICLE",
-            "link": "",
-            "is_active": false
+            "label": "merch",
+            "link": "shopify://collections/merch"
           }
         },
         "tab_tPTN3y": {
           "type": "tab",
+          "disabled": true,
           "settings": {
             "label": "MERCH",
-            "link": "",
-            "is_active": false
+            "link": ""
           }
         },
         "tab_FDcDGL": {
           "type": "tab",
           "settings": {
             "label": "ACCESSORIES",
-            "link": "",
-            "is_active": false
+            "link": "shopify://products/epic-crow-molle"
           }
         }
       },
@@ -136,12 +131,11 @@
       ],
       "name": "Collection Filter Bar",
       "settings": {
-        "product_count": "31",
-        "count_label": "PRODUCTS",
-        "filters_label": "FILTERS",
-        "sort_label": "SORT BY",
-        "default_sort": "FEATURED",
-        "accent_color": "#ff6a1a"
+        "product_count": "",
+        "count_label": "",
+        "filters_label": "",
+        "sort_label": "",
+        "default_sort": ""
       }
     },
     "curated_video_y49Hqq": {
@@ -169,7 +163,6 @@
           "type": "product",
           "settings": {
             "product": "skycamp-4-0",
-            "image": "shopify://shop_images/2_b2ff9de0-a426-4e01-bb75-0d00ad2cdb2e.webp",
             "brand": "",
             "title": "",
             "description": "",
