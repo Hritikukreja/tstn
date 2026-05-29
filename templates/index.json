@@ -33,6 +33,7 @@
         "heading_weight": 400,
         "button_label": "",
         "product": "",
+        "variant_scroll_target": "",
         "button_link": "",
         "button_bg_color": "#ffffff",
         "button_hover_color": "#cccccc",
@@ -162,33 +163,22 @@
     "product_grid_tQbJbL": {
       "type": "product-grid",
       "blocks": {
-        "product_dMmnwz": {
+        "product_9KXxEa": {
           "type": "product",
           "settings": {
-            "image": "shopify://shop_images/2.avif",
-            "brand": "TSTN",
-            "title": "COOL T-SHIRT",
-            "price": "$39.99",
+            "product": "skycamp-4-0",
+            "brand": "",
+            "title": "",
+            "price": "",
             "compare_price": "",
             "badge": "none",
-            "link": ""
-          }
-        },
-        "product_aFJYyi": {
-          "type": "product",
-          "settings": {
-            "image": "shopify://shop_images/1.avif",
-            "brand": "TSTN",
-            "title": "T-SHIRT",
-            "price": "$49.00",
-            "compare_price": "",
-            "badge": "new",
             "link": ""
           }
         },
         "product_bKpjy6": {
           "type": "product",
           "settings": {
+            "product": "",
             "image": "shopify://shop_images/product-sub-img-2.png",
             "brand": "THULE",
             "title": "Hullavator Pro",
@@ -201,6 +191,7 @@
         "product_6J3LFB": {
           "type": "product",
           "settings": {
+            "product": "",
             "image": "shopify://shop_images/BLUETTI_Elite_30_V2_8.webp",
             "brand": "BLUETTI",
             "title": "Portable Power Station",
@@ -210,13 +201,13 @@
             "link": ""
           }
         },
-        "product_WCFHid": {
+        "product_zVqV7L": {
           "type": "product",
           "settings": {
-            "image": "shopify://shop_images/4.avif",
-            "brand": "TSTN",
-            "title": "Utility Jacket",
-            "price": "$99.00",
+            "product": "tstn-hat-1",
+            "brand": "",
+            "title": "",
+            "price": "",
             "compare_price": "",
             "badge": "none",
             "link": ""
@@ -224,11 +215,10 @@
         }
       },
       "block_order": [
-        "product_dMmnwz",
-        "product_aFJYyi",
+        "product_9KXxEa",
         "product_bKpjy6",
         "product_6J3LFB",
-        "product_WCFHid"
+        "product_zVqV7L"
       ],
       "name": "Product Grid",
       "settings": {
@@ -400,7 +390,7 @@
           "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.index.instagram/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
           "settings": {
             "option_galleries_id": "1",
-            "option_galleries_layout": "3"
+            "option_galleries_layout": "2"
           }
         }
       },
