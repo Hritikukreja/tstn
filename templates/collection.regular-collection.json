@@ -42,7 +42,8 @@
     "featured_collection_njGkeJ": {
       "type": "featured-collection",
       "custom_css": [
-        "h1,h2,h3,h4,h5,h6 {color: white;}"
+        "h1,h2,h3,h4,h5,h6 {color: white;}",
+        "p, a {font-size: 24px;}"
       ],
       "name": "t:sections.featured-collection.presets.name",
       "settings": {
