@@ -65,32 +65,34 @@
           "type": "tab",
           "settings": {
             "label": "T-SHIRTS",
-            "link": "shopify://collections"
+            "link": "shopify://products/ssr-tee"
           }
         },
         "tab_3pJpUd": {
           "type": "tab",
           "settings": {
             "label": "HOODIES",
-            "link": ""
+            "link": "shopify://products/tstn-hoodie"
           }
         },
         "tab_BJHEWY": {
           "type": "tab",
+          "disabled": true,
           "settings": {
             "label": "CAPS",
-            "link": ""
+            "link": "shopify://products/tstn-hat-1"
           }
         },
         "tab_RmgzUw": {
           "type": "tab",
           "settings": {
             "label": "HATS",
-            "link": ""
+            "link": "shopify://products/tstn-hat-1"
           }
         },
         "tab_7QnYFJ": {
           "type": "tab",
+          "disabled": true,
           "settings": {
             "label": "COLLABARATIONS",
             "link": ""
@@ -100,14 +102,14 @@
           "type": "tab",
           "settings": {
             "label": "JACKETS",
-            "link": ""
+            "link": "shopify://products/embroidered-champion-packable-jacket"
           }
         },
         "tab_tPTN3y": {
           "type": "tab",
           "settings": {
             "label": "MUGS",
-            "link": ""
+            "link": "shopify://products/tstn-whiskey-glass"
           }
         }
       },
