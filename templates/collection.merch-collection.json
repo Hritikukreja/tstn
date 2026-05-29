@@ -65,56 +65,49 @@
           "type": "tab",
           "settings": {
             "label": "T-SHIRTS",
-            "link": "shopify://collections",
-            "is_active": true
+            "link": "shopify://collections"
           }
         },
         "tab_3pJpUd": {
           "type": "tab",
           "settings": {
             "label": "HOODIES",
-            "link": "",
-            "is_active": false
+            "link": ""
           }
         },
         "tab_BJHEWY": {
           "type": "tab",
           "settings": {
             "label": "CAPS",
-            "link": "",
-            "is_active": false
+            "link": ""
           }
         },
         "tab_RmgzUw": {
           "type": "tab",
           "settings": {
             "label": "HATS",
-            "link": "",
-            "is_active": false
+            "link": ""
           }
         },
         "tab_7QnYFJ": {
           "type": "tab",
           "settings": {
             "label": "COLLABARATIONS",
-            "link": "",
-            "is_active": false
+            "link": ""
           }
         },
         "tab_tAtTFG": {
           "type": "tab",
           "settings": {
             "label": "JACKETS",
-            "link": "",
-            "is_active": false
+            "link": ""
           }
         },
         "tab_tPTN3y": {
           "type": "tab",
           "settings": {
             "label": "MUGS",
-            "link": "",
-            "is_active": false
+            "link": ""
           }
         }
       },
@@ -129,12 +122,11 @@
       ],
       "name": "Collection Filter Bar",
       "settings": {
-        "product_count": "All MERCH",
+        "product_count": "",
         "count_label": "",
         "filters_label": "",
         "sort_label": "",
-        "default_sort": "",
-        "accent_color": "#ff6a1a"
+        "default_sort": ""
       }
     },
     "curated_video_y49Hqq": {
