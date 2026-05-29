@@ -41,6 +41,7 @@
     --tstn-border: {{ section.settings.tstn_border_color }};
     --tstn-heading-font: 'Danger Neue Free Regular', 'Danger Neue', var(--font-heading-family, sans-serif);
     --tstn-heading-size: clamp(2.2rem, 6vw, {{ section.settings.tstn_heading_size }}px);
+    --tstn-product-name-size: {{ section.settings.tstn_product_name_size }}px;
     --tstn-radius: {{ section.settings.tstn_card_radius }}px;
   }
 
@@ -113,12 +114,26 @@
   #shopify-section-{{ section.id }} .card__heading a {
     font-family: var(--tstn-heading-font);
     color: var(--tstn-heading-color) !important;
+    font-size: var(--tstn-product-name-size);
+    line-height: 1.05;
     letter-spacing: 0.02em;
     text-transform: uppercase;
   }
 
   #shopify-section-{{ section.id }} .card__heading a:hover {
     color: var(--tstn-accent) !important;
+  }
+
+  /* Remove the arrow beneath the product name */
+  #shopify-section-{{ section.id }} .card__information svg,
+  #shopify-section-{{ section.id }} .card__content svg,
+  #shopify-section-{{ section.id }} .card__heading .icon,
+  #shopify-section-{{ section.id }} .card__heading svg,
+  #shopify-section-{{ section.id }} .card__information .icon-arrow,
+  #shopify-section-{{ section.id }} .card__heading a::after,
+  #shopify-section-{{ section.id }} .card__heading a::before {
+    display: none !important;
+    content: none !important;
   }
 
   #shopify-section-{{ section.id }} .price,
@@ -500,6 +515,16 @@
       "unit": "px",
       "label": "Heading size (desktop max)",
       "default": 64
+    },
+    {
+      "type": "range",
+      "id": "tstn_product_name_size",
+      "min": 14,
+      "max": 40,
+      "step": 1,
+      "unit": "px",
+      "label": "Product name size",
+      "default": 22
     },
     {
       "type": "range",
