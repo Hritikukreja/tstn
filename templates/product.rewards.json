@@ -346,8 +346,8 @@
         "they_get_value": "$5",
         "they_get_unit": "OFF DISCOUNT",
         "section_bg": "#0a0a0a",
-        "heading_color": "#FFFFFF",
-        "subheading_color": "#CCCCCC",
+        "heading_color": "#ffffff",
+        "subheading_color": "#cccccc",
         "accent_color": "#ff6a1a",
         "card_bg": "#0e0e0e",
         "inner_card_bg": "#161616",
@@ -431,6 +431,7 @@
         },
         "growave_loyalty_wishlist_block_index_instagram_YjtXdA": {
           "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.index.instagram/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "disabled": true,
           "settings": {
             "option_galleries_id": "1",
             "option_galleries_layout": "2"
