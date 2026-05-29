@@ -160,13 +160,13 @@
     "color_schemes": {
       "scheme-1": {
         "settings": {
-          "background": "#121212",
+          "background": "#000000",
           "background_gradient": "",
-          "text": "#121212",
-          "button": "#121212",
-          "button_label": "#121212",
-          "secondary_button_label": "#121212",
-          "shadow": "#121212"
+          "text": "#ffffff",
+          "button": "#ffffff",
+          "button_label": "#ff6a1a",
+          "secondary_button_label": "#ff6a1a",
+          "shadow": "#ff6a1a"
         }
       },
       "scheme-2": {
