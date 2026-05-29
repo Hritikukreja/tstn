@@ -8,6 +8,7 @@
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
   assign product_form_id = 'tstn-pb-form-' | append: section.id
+  assign anchor_id = section.settings.anchor_id | default: 'product-banner'
   assign accent = section.settings.accent_color | default: '#ff6a1a'
   assign bg = section.settings.bg_color | default: '#0a0a0a'
   assign card_bg = section.settings.card_bg | default: '#1a1a1a'
@@ -798,25 +799,44 @@
       letter-spacing: 0.12em !important;
     }
 
-    /* Trust badges: stack, no dividers, tighter spacing */
+    /* Trust badges: keep all 3 in a single row on mobile (icon on top, text centered below) */
     .tstn-pb__trust {
-      grid-template-columns: 1fr !important;
-      gap: 0.875rem;
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 0.5rem;
       margin-top: 1.25rem;
       padding-top: 1.25rem;
     }
     .tstn-pb__badge {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
       padding-right: 0;
-      gap: 0.625rem;
+      gap: 0.5rem;
     }
     .tstn-pb__badge:not(:last-child)::after {
       display: none;
     }
+    .tstn-pb__badge-icon {
+      width: 26px;
+      height: 26px;
+    }
+    .tstn-pb__badge-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+    .tstn-pb__badge-icon img {
+      width: 24px;
+      height: 24px;
+    }
     .tstn-pb__badge-title {
-      font-size: 13px;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      line-height: 1.2;
     }
     .tstn-pb__badge-sub {
-      font-size: 12px;
+      font-size: 10px;
+      line-height: 1.3;
+      margin-top: 0.125rem;
     }
 
     /* Accordion: tighter padding */
@@ -868,7 +888,7 @@
   }
 </style>
 
-<section class="tstn-pb" data-section-id="{{ section.id }}">
+<section class="tstn-pb" id="{{ anchor_id }}" data-section-id="{{ section.id }}">
   <div class="tstn-pb__inner">
 
     {%- if section.settings.show_breadcrumb -%}
@@ -924,6 +944,7 @@
                   type="button"
                   class="tstn-pb__thumb {% if forloop.first %}is-active{% endif %}"
                   data-thumb-index="{{ forloop.index0 }}"
+                  data-media-id="{{ media.id }}"
                   role="tab"
                   aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
                 >
@@ -958,6 +979,7 @@
               <img
                 class="tstn-pb__main-img {% if forloop.first %}is-active{% endif %}"
                 data-main-index="{{ forloop.index0 }}"
+                data-media-id="{{ media.id }}"
                 src="{{ media.preview_image | image_url: width: 1400 }}"
                 alt="{{ media.alt | default: product.title | escape }}"
                 {% if forloop.first %}loading="eager"{% else %}loading="lazy"{% endif %}
@@ -1237,6 +1259,15 @@
         submitBtn.textContent = variant.available ? 'Add to Cart' : 'Sold Out';
       }
 
+      // Swap main image to the variant's featured media if it has one
+      var mediaId = null;
+      if (variant.featured_media && variant.featured_media.id) {
+        mediaId = variant.featured_media.id;
+      } else if (variant.featured_image && variant.featured_image.id) {
+        mediaId = variant.featured_image.id;
+      }
+      if (mediaId) switchToMediaId(mediaId);
+
       // Update URL with variant param
       if (history.replaceState) {
         var url = new URL(window.location.href);
@@ -1248,6 +1279,28 @@
       section.dispatchEvent(new CustomEvent('tstn:variant:change', {
         detail: { variant: variant }
       }));
+    }
+
+    function switchToMediaId(mediaId) {
+      if (mediaId == null) return;
+      var idStr = String(mediaId);
+      var matched = false;
+      section.querySelectorAll('.tstn-pb__thumb').forEach(function(t) {
+        var match = String(t.getAttribute('data-media-id')) === idStr;
+        t.classList.toggle('is-active', match);
+        t.setAttribute('aria-selected', match ? 'true' : 'false');
+        if (match) {
+          matched = true;
+          try {
+            t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+          } catch (e) {}
+        }
+      });
+      section.querySelectorAll('.tstn-pb__main-img').forEach(function(img) {
+        var match = String(img.getAttribute('data-media-id')) === idStr;
+        img.classList.toggle('is-active', match);
+      });
+      return matched;
     }
 
     // Option change listeners
@@ -1379,6 +1432,13 @@
     {
       "type": "header",
       "content": "Display"
+    },
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "default": "product-banner",
+      "info": "Used for in-page links (e.g., link to #product-banner from a button anywhere on the site). Letters, numbers, and dashes only."
     },
     {
       "type": "checkbox",
