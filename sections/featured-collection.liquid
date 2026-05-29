@@ -51,6 +51,17 @@
     color: var(--tstn-text-color);
   }
 
+  /* Match horizontal padding/width to the other TSTN collection sections */
+  #shopify-section-{{ section.id }} .page-width,
+  #shopify-section-{{ section.id }} .page-width-desktop,
+  #shopify-section-{{ section.id }} .collection__title.page-width {
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: clamp(20px, 6vw, 80px) !important;
+    padding-right: clamp(20px, 6vw, 80px) !important;
+  }
+
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top_mobile }}px;
     padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
