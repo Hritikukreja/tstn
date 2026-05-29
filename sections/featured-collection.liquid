@@ -1,6 +1,5 @@
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
-
 {{ 'component-slider.css' | asset_url | stylesheet_tag }}
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
 
@@ -25,9 +24,35 @@
 {%- endif -%}
 
 {%- style -%}
+  @font-face {
+    font-family: 'Danger Neue Free Regular';
+    src: url('https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Danger_Neue_Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  #shopify-section-{{ section.id }} {
+    --tstn-bg: {{ section.settings.tstn_bg_color }};
+    --tstn-card-bg: {{ section.settings.tstn_card_bg }};
+    --tstn-accent: {{ section.settings.tstn_accent_color }};
+    --tstn-heading-color: {{ section.settings.tstn_heading_color }};
+    --tstn-text-color: {{ section.settings.tstn_text_color }};
+    --tstn-border: {{ section.settings.tstn_border_color }};
+    --tstn-heading-font: 'Danger Neue Free Regular', 'Danger Neue', var(--font-heading-family, sans-serif);
+    --tstn-heading-size: clamp(2.2rem, 6vw, {{ section.settings.tstn_heading_size }}px);
+    --tstn-radius: {{ section.settings.tstn_card_radius }}px;
+  }
+
+  /* Section shell */
+  #shopify-section-{{ section.id }} .tstn-collection {
+    background: var(--tstn-bg) !important;
+    color: var(--tstn-text-color);
+  }
+
   .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
   }
 
   @media screen and (min-width: 750px) {
@@ -35,6 +60,156 @@
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
+  }
+
+  /* Heading */
+  #shopify-section-{{ section.id }} .collection__title .tstn-title {
+    font-family: var(--tstn-heading-font);
+    color: var(--tstn-heading-color);
+    font-size: var(--tstn-heading-size);
+    line-height: 1;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .collection__description {
+    color: var(--tstn-text-color);
+    opacity: 0.78;
+  }
+
+  /* Card surface */
+  #shopify-section-{{ section.id }} .card-wrapper,
+  #shopify-section-{{ section.id }} .card {
+    color: var(--tstn-text-color);
+  }
+
+  #shopify-section-{{ section.id }} .card .card__inner,
+  #shopify-section-{{ section.id }} .card__information {
+    background: var(--tstn-card-bg) !important;
+  }
+
+  #shopify-section-{{ section.id }} .card .card__inner {
+    border: 1px solid var(--tstn-border);
+    border-radius: var(--tstn-radius);
+    overflow: hidden;
+    transition: border-color .35s ease;
+  }
+
+  #shopify-section-{{ section.id }} .card-wrapper {
+    transition: transform .4s cubic-bezier(.2,.7,.2,1);
+  }
+
+  #shopify-section-{{ section.id }} .card-wrapper:hover {
+    transform: translateY(-6px);
+  }
+
+  #shopify-section-{{ section.id }} .card-wrapper:hover .card .card__inner {
+    border-color: var(--tstn-accent);
+  }
+
+  /* Card heading + price */
+  #shopify-section-{{ section.id }} .card__heading,
+  #shopify-section-{{ section.id }} .card__heading a {
+    font-family: var(--tstn-heading-font);
+    color: var(--tstn-heading-color) !important;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  #shopify-section-{{ section.id }} .card__heading a:hover {
+    color: var(--tstn-accent) !important;
+  }
+
+  #shopify-section-{{ section.id }} .price,
+  #shopify-section-{{ section.id }} .price .price-item,
+  #shopify-section-{{ section.id }} .price__regular,
+  #shopify-section-{{ section.id }} .card__information .caption-large {
+    color: var(--tstn-text-color) !important;
+  }
+
+  #shopify-section-{{ section.id }} .price--on-sale .price-item--sale {
+    color: var(--tstn-accent) !important;
+  }
+
+  /* Badges */
+  #shopify-section-{{ section.id }} .card__badge .badge {
+    background: var(--tstn-accent);
+    color: #0a0a0a;
+    border: none;
+  }
+
+  /* Slider controls */
+  #shopify-section-{{ section.id }} .slider-button {
+    background: var(--tstn-card-bg);
+    border: 1px solid var(--tstn-border);
+    color: var(--tstn-heading-color);
+    border-radius: 50%;
+    transition: color .25s ease, border-color .25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .slider-button:not([disabled]):hover {
+    color: var(--tstn-accent);
+    border-color: var(--tstn-accent);
+  }
+
+  #shopify-section-{{ section.id }} .slider-button .svg-wrapper,
+  #shopify-section-{{ section.id }} .slider-button svg {
+    color: currentColor;
+  }
+
+  #shopify-section-{{ section.id }} .slider-counter {
+    color: var(--tstn-text-color);
+  }
+
+  #shopify-section-{{ section.id }} .slider-counter--current {
+    color: var(--tstn-accent);
+  }
+
+  /* View all button — neutralize Dawn's injected shadow border */
+  #shopify-section-{{ section.id }} .collection__view-all .button {
+    font-family: var(--tstn-heading-font);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border: none !important;
+    box-shadow: none !important;
+    -webkit-appearance: none;
+    border-radius: 6px;
+    padding: 14px 34px;
+    transition: transform .25s ease, filter .25s ease, border-color .25s ease, color .25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .collection__view-all .button::after,
+  #shopify-section-{{ section.id }} .collection__view-all .button::before {
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  #shopify-section-{{ section.id }} .collection__view-all .button:not(.button--secondary) {
+    background: var(--tstn-accent);
+    color: #0a0a0a;
+  }
+
+  #shopify-section-{{ section.id }} .collection__view-all .button:not(.button--secondary):hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+  }
+
+  #shopify-section-{{ section.id }} .collection__view-all .button--secondary {
+    background: transparent;
+    color: var(--tstn-heading-color);
+    border: 1px solid var(--tstn-border) !important;
+  }
+
+  #shopify-section-{{ section.id }} .collection__view-all .button--secondary:hover {
+    border-color: var(--tstn-accent) !important;
+    color: var(--tstn-accent);
+  }
+
+  #shopify-section-{{ section.id }} .collection__view-all .link.underlined-link {
+    color: var(--tstn-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 {%- endstyle -%}
 
@@ -64,9 +239,7 @@
   endif
 -%}
 
-<div
-  class="color-{{ section.settings.color_scheme }} isolate gradient"
->
+<div class="tstn-collection isolate">
   <div
     class="collection{% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %} section-{{ section.id }}-padding{% if section.settings.full_width %} collection--full-width{% endif %}"
     id="collection-{{ section.id }}"
@@ -74,7 +247,7 @@
   >
     <div class="collection__title title-wrapper title-wrapper--no-top-margin page-width{% if show_mobile_slider %} title-wrapper--self-padded-tablet-down{% endif %}{% if show_desktop_slider %} collection__title--desktop-slider{% endif %}">
       {%- if section.settings.title != blank -%}
-        <h2 class="title inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+        <h2 class="title tstn-title inline-richtext{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
           {{ section.settings.title }}
         </h2>
       {%- endif -%}
@@ -236,44 +409,16 @@
       "step": 1,
       "default": 4,
       "label": "t:sections.featured-collection.settings.products_to_show.label"
-    },     
+    },
     {
       "type": "header",
       "content": "t:sections.featured-collection.settings.header_text.content"
-    },   
+    },
     {
       "type": "inline_richtext",
       "id": "title",
-      "default": "t:sections.featured-collection.settings.title.default",
+      "default": "Featured Gear",
       "label": "t:sections.featured-collection.settings.title.label"
-    },
-    {
-      "type": "select",
-      "id": "heading_size",
-      "options": [
-        {
-          "value": "h2",
-          "label": "t:sections.all.heading_size.options__1.label"
-        },
-        {
-          "value": "h1",
-          "label": "t:sections.all.heading_size.options__2.label"
-        },
-        {
-          "value": "h0",
-          "label": "t:sections.all.heading_size.options__3.label"
-        },
-        {
-          "value": "hxl",
-          "label": "t:sections.all.heading_size.options__4.label"
-        },
-        {
-          "value": "hxxl",
-          "label": "t:sections.all.heading_size.options__5.label"
-        }
-      ],
-      "default": "h1",
-      "label": "t:sections.all.heading_size.label"
     },
     {
       "type": "richtext",
@@ -284,7 +429,7 @@
       "type": "checkbox",
       "id": "show_description",
       "label": "t:sections.featured-collection.settings.show_description.label",
-      "default": false   
+      "default": false
     },
     {
       "type": "select",
@@ -308,8 +453,68 @@
     },
     {
       "type": "header",
+      "content": "TSTN Design"
+    },
+    {
+      "type": "color",
+      "id": "tstn_bg_color",
+      "label": "Section background",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "tstn_card_bg",
+      "label": "Card background",
+      "default": "#141414"
+    },
+    {
+      "type": "color",
+      "id": "tstn_accent_color",
+      "label": "Accent",
+      "default": "#ff6a1a"
+    },
+    {
+      "type": "color",
+      "id": "tstn_heading_color",
+      "label": "Heading text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "tstn_text_color",
+      "label": "Body text",
+      "default": "#c9c9c9"
+    },
+    {
+      "type": "color",
+      "id": "tstn_border_color",
+      "label": "Card border",
+      "default": "#222222"
+    },
+    {
+      "type": "range",
+      "id": "tstn_heading_size",
+      "min": 28,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading size (desktop max)",
+      "default": 64
+    },
+    {
+      "type": "range",
+      "id": "tstn_card_radius",
+      "min": 0,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "label": "Card corner radius",
+      "default": 14
+    },
+    {
+      "type": "header",
       "content": "t:sections.featured-collection.settings.header_collection.content"
-    },    
+    },
     {
       "type": "range",
       "id": "columns_desktop",
@@ -319,7 +524,7 @@
       "default": 4,
       "label": "t:sections.featured-collection.settings.columns_desktop.label"
     },
-        {
+    {
       "type": "checkbox",
       "id": "enable_desktop_slider",
       "label": "t:sections.featured-collection.settings.enable_desktop_slider.label",
@@ -357,13 +562,6 @@
         }
       ],
       "default": "solid"
-    }, 
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "info": "t:sections.all.colors.has_cards_info",
-      "default": "scheme-1"
     },
     {
       "type": "header",
@@ -487,13 +685,13 @@
           "label": "t:sections.featured-collection.settings.columns_mobile.options__2.label"
         }
       ]
-    },    
+    },
     {
       "type": "checkbox",
       "id": "swipe_on_mobile",
       "default": false,
       "label": "t:sections.featured-collection.settings.swipe_on_mobile.label"
-    },          
+    },
     {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"
@@ -517,6 +715,26 @@
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
       "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding top (mobile)",
+      "default": 24
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding bottom (mobile)",
+      "default": 24
     }
   ],
   "presets": [
