@@ -606,6 +606,8 @@
       "block_order": [
         "growave_loyalty_wishlist_block_index_instagram_nDUgnG"
       ],
+      "disabled": true,
+      "name": "Growave Instagram",
       "settings": {
         "include_margins": true
       }
