@@ -1,527 +1,1672 @@
-{% liquid
-  assign section_id = 'ProHero-' | append: section.id
-  assign media_type = section.settings.media_type
-%}
+{% comment %}
+  Section: TSTN Product Banner
+  A lean, premium dark product hero. Replaces the standard main-product section
+  on TSTN product templates. Self-contained: own gallery, variant picker, buy
+  buttons, trust badge row. No Dawn block plumbing.
+{% endcomment %}
 
-<section id="{{ section_id }}" class="pro-hero">
-  <div
-    class="pro-hero__media-wrap"
-    style="
-      --hero-height-desktop: {{ section.settings.hero_height_desktop }};
-      --hero-height-mobile: {{ section.settings.hero_height_mobile }};
-      --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
-      --tint-opacity: {{ section.settings.tint_opacity | divided_by: 100.0 }};
-      --tint-color: {{ section.settings.tint_color }};
-    "
-  >
-    {% if media_type == 'video' and section.settings.hero_video != blank %}
-      <video
-        class="pro-hero__media"
-        autoplay
-        muted
-        loop
-        playsinline
-        {% if section.settings.show_controls %}controls{% endif %}
-      >
-        <source src="{{ section.settings.hero_video.sources[1].url | default: section.settings.hero_video.sources[0].url }}" type="video/mp4">
-      </video>
-    {% elsif section.settings.hero_image != blank %}
-      {{
-        section.settings.hero_image
-        | image_url: width: 3000
-        | image_tag:
-          loading: 'lazy',
-          widths: '750, 1100, 1500, 2000, 3000',
-          sizes: '100vw',
-          class: 'pro-hero__media',
-          alt: section.settings.hero_image.alt | escape
-      }}
-    {% else %}
-      {{ 'lifestyle-2' | placeholder_svg_tag: 'pro-hero__placeholder' }}
-    {% endif %}
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign product_form_id = 'tstn-pb-form-' | append: section.id
+  assign anchor_id = section.settings.anchor_id | default: 'product-banner'
+  assign accent = section.settings.accent_color | default: '#ff6a1a'
+  assign bg = section.settings.bg_color | default: '#0a0a0a'
+  assign card_bg = section.settings.card_bg | default: '#1a1a1a'
+  assign text_color = section.settings.text_color | default: '#ffffff'
+  assign muted_color = section.settings.muted_color | default: '#b0b0b0'
+  assign border_color = section.settings.border_color | default: '#2a2a2a'
+-%}
 
-    <div class="pro-hero__tint" aria-hidden="true">&nbsp;</div>
-    <div class="pro-hero__overlay" aria-hidden="true">&nbsp;</div>
+<style>
+  @font-face {
+    font-family: 'Danger Neue Free Regular';
+    src: url('https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Danger_Neue_Regular.ttf?v=1776280277') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
 
-    <div class="pro-hero__content page-width pro-hero__content--{{ section.settings.content_position }} pro-hero__content-align--{{ section.settings.content_alignment }}">
-      {% if section.settings.kicker != blank %}
-        <p class="pro-hero__kicker">{{ section.settings.kicker }}</p>
-      {% endif %}
-      {% if section.settings.heading != blank %}
-        <h2 class="pro-hero__heading main-heading">{{ section.settings.heading }}</h2>
-      {% endif %}
-      <div class="pro-hero__cta-wrap">
-        {% if section.settings.button_label != blank %}
-          {% if section.settings.product != blank %}
-            {% form 'product', section.settings.product, class: 'pro-hero__buy-form' %}
-              <input type="hidden" name="id" value="{{ section.settings.product.selected_or_first_available_variant.id }}">
-              <button
-                type="submit"
-                name="add"
-                class="pro-hero__button"
-                {% unless section.settings.product.available %}disabled{% endunless %}
-              >
-                {% if section.settings.product.available %}
-                  {{ section.settings.button_label }}
-                {% else %}
-                  Sold out
-                {% endif %}
-              </button>
-            {% endform %}
-          {% else %}
-            
-              class="pro-hero__button"
-              href="{{ section.settings.button_link | default: routes.all_products_collection_url }}"
+  #shopify-section-{{ section.id }} {
+    --tstn-bg: {{ bg }};
+    --tstn-card-bg: {{ card_bg }};
+    --tstn-text: {{ text_color }};
+    --tstn-muted: {{ muted_color }};
+    --tstn-dim: #6e6e73;
+    --tstn-border: {{ border_color }};
+    --tstn-border-strong: #3a3a3a;
+    --tstn-accent: {{ accent }};
+    --tstn-accent-hover: #e85d10;
+    --tstn-heading-font: 'Danger Neue Free Regular', 'Impact', 'Arial Narrow', sans-serif;
+
+    background: var(--tstn-bg);
+    color: var(--tstn-text);
+    padding-top: {{ section.settings.padding_top | times: 0.6 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round: 0 }}px;
+  }
+
+  @media (min-width: 750px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  .tstn-pb {
+    background: var(--tstn-bg);
+    color: var(--tstn-text);
+    width: 100%;
+  }
+
+  .tstn-pb__inner {
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 0 clamp(1rem, 3vw, 3rem);
+  }
+
+  /* Breadcrumb */
+  .tstn-pb__breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 1.25rem 0 1.5rem;
+    font-family: var(--tstn-heading-font);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 14px;
+    line-height: 1;
+  }
+  .tstn-pb__breadcrumb a {
+    color: var(--tstn-text);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  .tstn-pb__breadcrumb a:hover { color: var(--tstn-accent); }
+  .tstn-pb__breadcrumb-sep {
+    color: var(--tstn-dim);
+    margin: 0 0.125rem;
+  }
+  .tstn-pb__breadcrumb-current { color: var(--tstn-accent); }
+
+  /* Grid */
+  .tstn-pb__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+    align-items: start;
+  }
+  @media (min-width: 900px) {
+    .tstn-pb__grid {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 3rem;
+    }
+  }
+
+  /* ---------- Gallery ---------- */
+  .tstn-pb__gallery {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: 0.875rem;
+    align-items: stretch;
+  }
+  @media (max-width: 749px) {
+    .tstn-pb__gallery {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .tstn-pb__thumbs-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-height: 0;
+  }
+  @media (max-width: 749px) {
+    .tstn-pb__thumbs-col {
+      flex-direction: row;
+      order: 2;
+    }
+  }
+
+  .tstn-pb__thumbs-arrow {
+    background: var(--tstn-card-bg);
+    border: 1px solid var(--tstn-border);
+    border-radius: 4px;
+    height: 32px;
+    flex-shrink: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tstn-text);
+    padding: 0;
+    transition: border-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+  }
+  .tstn-pb__thumbs-arrow:hover:not(:disabled) {
+    border-color: var(--tstn-accent);
+    color: var(--tstn-accent);
+  }
+  .tstn-pb__thumbs-arrow:disabled {
+    opacity: 0.25;
+    cursor: not-allowed;
+  }
+  .tstn-pb__thumbs-arrow[hidden] {
+    display: none !important;
+  }
+  .tstn-pb__thumbs-arrow svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
+  }
+  @media (max-width: 749px) {
+    .tstn-pb__thumbs-arrow {
+      width: 32px;
+      height: auto;
+      align-self: stretch;
+    }
+  }
+
+  .tstn-pb__thumbs {
+    flex: 1 1 0;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    /* Hide scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .tstn-pb__thumbs::-webkit-scrollbar {
+    display: none;
+  }
+  @media (max-width: 749px) {
+    .tstn-pb__thumbs {
+      flex-direction: row;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 0.25rem;
+    }
+  }
+  .tstn-pb__thumb {
+    flex-shrink: 0;
+    width: 96px;
+    aspect-ratio: 1 / 1;
+    background: var(--tstn-card-bg);
+    border: 2px solid transparent;
+    border-radius: 4px;
+    padding: 0;
+    cursor: pointer;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+  }
+  .tstn-pb__thumb:hover { border-color: var(--tstn-border-strong); }
+  .tstn-pb__thumb.is-active { border-color: var(--tstn-accent); }
+  .tstn-pb__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .tstn-pb__main {
+    position: relative;
+    background: var(--tstn-card-bg);
+    border-radius: 6px;
+    overflow: hidden;
+    aspect-ratio: 1 / 1;
+    width: 100%;
+  }
+  .tstn-pb__main img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 1.75rem;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+  .tstn-pb__main img.is-active { opacity: 1; }
+
+  /* ---------- Description ---------- */
+  .tstn-pb__description,
+  .tstn-pb__description.rte {
+    color: var(--tstn-muted);
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0;
+    max-width: 100%;
+    width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+  }
+  .tstn-pb__description > *:first-child { margin-top: 0; }
+  .tstn-pb__description > *:last-child { margin-bottom: 0; }
+  .tstn-pb__description p {
+    margin: 0 0 0.75em;
+    max-width: 100%;
+  }
+  .tstn-pb__description * {
+    max-width: 100%;
+  }
+  .tstn-pb__description img {
+    height: auto;
+  }
+  .tstn-pb__description strong { color: var(--tstn-text); }
+  .tstn-pb__description a { color: var(--tstn-accent); text-decoration: underline; }
+  .tstn-pb__description ul,
+  .tstn-pb__description ol {
+    padding-left: 1.25em;
+    margin: 0 0 0.75em;
+  }
+  .tstn-pb__description li { margin-bottom: 0.25em; }
+
+  /* ---------- Info column ---------- */
+  .tstn-pb__info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding-top: 0.5rem;
+  }
+
+  .tstn-pb__title {
+    font-family: var(--tstn-heading-font);
+    font-weight: 400;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    line-height: 0.95;
+    letter-spacing: 0.01em;
+    color: var(--tstn-text);
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .tstn-pb__price-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.875rem;
+    margin: 0;
+  }
+  .tstn-pb__price {
+    font-family: var(--tstn-heading-font);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 400;
+    color: var(--tstn-accent);
+    letter-spacing: 0.02em;
+    line-height: 1.2;
+  }
+  .tstn-pb__price-compare {
+    font-size: 1.125rem;
+    color: var(--tstn-dim);
+    text-decoration: line-through;
+  }
+
+  .tstn-pb__installments {
+    color: var(--tstn-muted);
+    font-size: 14px;
+    line-height: 1.4;
+    margin: -0.5rem 0 0;
+  }
+  .tstn-pb__installments .shopify-installments__content,
+  .tstn-pb__installments a {
+    color: var(--tstn-text);
+  }
+
+  /* ---------- Options ---------- */
+  .tstn-pb__option {
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+  .tstn-pb__option-label {
+    font-family: var(--tstn-heading-font);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 14px;
+    color: var(--tstn-text);
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .tstn-pb__option-selected {
+    color: var(--tstn-muted);
+    margin-left: 0.25rem;
+  }
+
+  /* Color swatches */
+  .tstn-pb__swatches {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+  .tstn-pb__swatch {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    position: relative;
+    transition: border-color 0.2s ease;
+    background-clip: padding-box;
+  }
+  .tstn-pb__swatch input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .tstn-pb__swatch:has(input:checked),
+  .tstn-pb__swatch.is-selected {
+    border-color: var(--tstn-accent);
+    box-shadow: inset 0 0 0 3px var(--tstn-bg);
+  }
+  .tstn-pb__swatch:hover { border-color: var(--tstn-border-strong); }
+  .tstn-pb__swatch:has(input:checked):hover { border-color: var(--tstn-accent); }
+
+  /* Size pills */
+  .tstn-pb__pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+  }
+  .tstn-pb__pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+    padding: 0.875rem 1.5rem;
+    border: 1.5px solid var(--tstn-border-strong);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--tstn-text);
+    font-family: var(--tstn-heading-font);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    position: relative;
+  }
+  .tstn-pb__pill input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .tstn-pb__pill:hover { border-color: var(--tstn-accent); }
+  .tstn-pb__pill:has(input:checked),
+  .tstn-pb__pill.is-selected {
+    border-color: var(--tstn-accent);
+    color: var(--tstn-accent);
+  }
+  .tstn-pb__pill.is-unavailable {
+    opacity: 0.4;
+    text-decoration: line-through;
+    cursor: not-allowed;
+  }
+
+  /* ---------- Buy buttons ---------- */
+  .tstn-pb__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 0;
+  }
+  .tstn-pb__submit {
+    background: var(--tstn-accent);
+    color: var(--tstn-text);
+    border: none;
+    border-radius: 6px;
+    font-family: var(--tstn-heading-font);
+    font-size: 17px;
+    font-weight: 400;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 1.125rem 2rem;
+    min-height: 56px;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease;
+  }
+  .tstn-pb__submit:hover:not([disabled]) {
+    background: var(--tstn-accent-hover);
+    transform: translateY(-1px);
+  }
+  .tstn-pb__submit[disabled] {
+    background: var(--tstn-border);
+    color: var(--tstn-dim);
+    cursor: not-allowed;
+  }
+
+  /* Dynamic checkout button (Shop Pay / Buy it now) — match ADD TO CART */
+  #shopify-section-{{ section.id }} .shopify-payment-button {
+    width: 100%;
+  }
+  #shopify-section-{{ section.id }} .shopify-payment-button__button {
+    border-radius: 6px !important;
+    min-height: 56px !important;
+    height: 56px !important;
+    font-family: var(--tstn-heading-font) !important;
+    font-size: 17px !important;
+    letter-spacing: 0.14em !important;
+    text-transform: uppercase !important;
+    font-weight: 400 !important;
+    width: 100% !important;
+  }
+  #shopify-section-{{ section.id }} .shopify-payment-button__button--hidden {
+    display: none !important;
+  }
+  /* Hide the "More payment options" link */
+  #shopify-section-{{ section.id }} .shopify-payment-button__more-options {
+    display: none !important;
+  }
+
+  /* ---------- Trust badges ---------- */
+  .tstn-pb__trust {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--tstn-border);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+  @media (max-width: 749px) {
+    .tstn-pb__trust {
+      grid-template-columns: 1fr !important;
+    }
+  }
+  .tstn-pb__badge {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding-right: 1.25rem;
+    position: relative;
+  }
+  .tstn-pb__badge:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 70%;
+    background: var(--tstn-border);
+  }
+  @media (max-width: 749px) {
+    .tstn-pb__badge:not(:last-child)::after { display: none; }
+  }
+  .tstn-pb__badge-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tstn-accent);
+  }
+  .tstn-pb__badge-icon img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(54%) sepia(96%) saturate(2459%) hue-rotate(347deg) brightness(98%) contrast(95%);
+  }
+  .tstn-pb__badge-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    fill: none;
+  }
+  .tstn-pb__badge-content { min-width: 0; }
+  .tstn-pb__badge-title {
+    font-family: var(--tstn-heading-font);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 13px;
+    color: var(--tstn-text);
+    line-height: 1.25;
+    margin: 0;
+  }
+  .tstn-pb__badge-sub {
+    font-size: 12px;
+    color: var(--tstn-muted);
+    line-height: 1.4;
+    margin: 0.25rem 0 0;
+  }
+
+  /* ---------- Accordion ---------- */
+  .tstn-pb__accordion {
+    margin-top: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+  .tstn-pb__accordion-item {
+    border: 1px solid var(--tstn-border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: transparent;
+    transition: border-color 0.2s ease;
+  }
+  .tstn-pb__accordion-item:hover {
+    border-color: var(--tstn-border-strong);
+  }
+  .tstn-pb__accordion-item[open] {
+    border-color: var(--tstn-border-strong);
+  }
+  .tstn-pb__accordion-summary {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+  }
+  .tstn-pb__accordion-summary::-webkit-details-marker { display: none; }
+  .tstn-pb__accordion-summary::marker { display: none; content: ''; }
+  .tstn-pb__accordion-icon {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tstn-accent);
+  }
+  .tstn-pb__accordion-icon svg {
+    width: 24px;
+    height: 24px;
+    stroke: currentColor;
+    fill: none;
+  }
+  .tstn-pb__accordion-icon img {
+    width: 24px;
+    height: 24px;
+    object-fit: contain;
+    filter: brightness(0) saturate(100%) invert(54%) sepia(96%) saturate(2459%) hue-rotate(347deg) brightness(98%) contrast(95%);
+  }
+  .tstn-pb__accordion-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+  .tstn-pb__accordion-title {
+    font-family: var(--tstn-heading-font);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 14px;
+    color: var(--tstn-text);
+    line-height: 1.25;
+  }
+  .tstn-pb__accordion-sub {
+    font-size: 13px;
+    color: var(--tstn-muted);
+    line-height: 1.4;
+  }
+  .tstn-pb__accordion-toggle {
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tstn-text);
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+  .tstn-pb__accordion-item[open] .tstn-pb__accordion-toggle {
+    transform: rotate(45deg);
+  }
+  .tstn-pb__accordion-content {
+    padding: 0 1.25rem 1.25rem;
+    color: var(--tstn-muted);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  .tstn-pb__accordion-content p { margin: 0 0 0.75rem; }
+  .tstn-pb__accordion-content p:last-child { margin-bottom: 0; }
+  .tstn-pb__accordion-content a {
+    color: var(--tstn-accent);
+    text-decoration: underline;
+  }
+  .tstn-pb__accordion-content ul,
+  .tstn-pb__accordion-content ol {
+    padding-left: 1.25rem;
+    margin: 0 0 0.75rem;
+  }
+  .tstn-pb__accordion-content li { margin-bottom: 0.25rem; }
+
+  /* ============================================
+     Mobile (< 750px) — comprehensive fixes
+     ============================================ */
+  @media (max-width: 749px) {
+
+    /* Container & section spacing */
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | times: 0.5 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.6 | round: 0 }}px;
+      overflow-x: hidden;
+    }
+    .tstn-pb,
+    .tstn-pb__inner {
+      max-width: 100%;
+      overflow-x: hidden;
+    }
+    .tstn-pb__inner {
+      padding: 0 1rem;
+    }
+    .tstn-pb__grid {
+      gap: 1.25rem;
+      min-width: 0;
+    }
+
+    /* Breadcrumb */
+    .tstn-pb__breadcrumb {
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      padding: 0.75rem 0 0.5rem;
+      gap: 0.375rem;
+    }
+
+    /* Gallery: use flex for reliable stacking — main on top, thumbs below */
+    .tstn-pb__gallery {
+      display: flex !important;
+      flex-direction: column;
+      gap: 0.75rem;
+      grid-template-columns: none;
+      align-items: stretch;
+    }
+    .tstn-pb__main {
+      order: 1;
+      width: 100%;
+      max-width: 100%;
+      aspect-ratio: 1 / 1;
+      min-height: 0;
+    }
+    .tstn-pb__main img {
+      padding: 1rem;
+    }
+
+    /* Thumbs row below main image — small, horizontally scrollable, no arrows */
+    .tstn-pb__thumbs-col {
+      order: 2;
+      display: flex;
+      flex-direction: row;
+      gap: 0;
+      width: 100%;
+      min-height: 0;
+    }
+    .tstn-pb__thumbs-arrow {
+      display: none !important;
+    }
+    .tstn-pb__thumbs {
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      overflow-y: hidden;
+      gap: 0.5rem;
+      padding-bottom: 0.25rem;
+      width: 100%;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+    }
+    .tstn-pb__thumb {
+      width: 56px;
+      height: 56px;
+      flex-shrink: 0;
+      scroll-snap-align: start;
+    }
+
+    /* Info column — prevent overflow */
+    .tstn-pb__info {
+      gap: 1rem;
+      padding-top: 0;
+      min-width: 0;
+      width: 100%;
+      max-width: 100%;
+    }
+    .tstn-pb__form {
+      min-width: 0;
+      width: 100%;
+      max-width: 100%;
+    }
+    .tstn-pb__title {
+      font-size: clamp(2rem, 8vw, 2.75rem);
+      letter-spacing: 0;
+      word-wrap: break-word;
+    }
+    .tstn-pb__price {
+      font-size: 1.5rem;
+    }
+    .tstn-pb__price-row {
+      gap: 0.625rem;
+    }
+
+    /* Variant options */
+    .tstn-pb__option {
+      min-width: 0;
+      max-width: 100%;
+    }
+    .tstn-pb__option-label {
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      margin-bottom: 0.5rem;
+    }
+    .tstn-pb__pills {
+      gap: 0.5rem;
+    }
+    .tstn-pb__pill {
+      min-width: 52px;
+      padding: 0.75rem 1rem;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+    }
+    .tstn-pb__swatches {
+      gap: 0.625rem;
+    }
+    .tstn-pb__swatch {
+      width: 32px;
+      height: 32px;
+    }
+
+    /* Description — readable + no overflow */
+    .tstn-pb__description {
+      font-size: 15px;
+      line-height: 1.55;
+    }
+
+    /* Buy buttons full width on mobile */
+    .tstn-pb__submit {
+      font-size: 15px;
+      letter-spacing: 0.12em;
+      padding: 1rem 1.5rem;
+      min-height: 52px;
+    }
+    #shopify-section-{{ section.id }} .shopify-payment-button__button {
+      font-size: 15px !important;
+      min-height: 52px !important;
+      height: 52px !important;
+      letter-spacing: 0.12em !important;
+    }
+
+    /* Trust badges: keep all 3 in a single row on mobile (icon on top, text centered below) */
+    .tstn-pb__trust {
+      grid-template-columns: repeat(3, 1fr) !important;
+      gap: 0.5rem;
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+    }
+    .tstn-pb__badge {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding-right: 0;
+      gap: 0.5rem;
+    }
+    .tstn-pb__badge:not(:last-child)::after {
+      display: none;
+    }
+    .tstn-pb__badge-icon {
+      width: 26px;
+      height: 26px;
+    }
+    .tstn-pb__badge-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+    .tstn-pb__badge-icon img {
+      width: 24px;
+      height: 24px;
+    }
+    .tstn-pb__badge-title {
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      line-height: 1.2;
+    }
+    .tstn-pb__badge-sub {
+      font-size: 10px;
+      line-height: 1.3;
+      margin-top: 0.125rem;
+    }
+
+    /* Accordion: tighter padding */
+    .tstn-pb__accordion {
+      margin-top: 1.25rem;
+      gap: 0.5rem;
+    }
+    .tstn-pb__accordion-summary {
+      padding: 0.875rem 1rem;
+      gap: 0.75rem;
+    }
+    .tstn-pb__accordion-icon {
+      width: 24px;
+      height: 24px;
+    }
+    .tstn-pb__accordion-icon svg {
+      width: 20px;
+      height: 20px;
+    }
+    .tstn-pb__accordion-title {
+      font-size: 13px;
+    }
+    .tstn-pb__accordion-sub {
+      font-size: 12px;
+    }
+    .tstn-pb__accordion-content {
+      padding: 0 1rem 1rem;
+      font-size: 14px;
+    }
+    .tstn-pb__accordion-toggle {
+      font-size: 22px;
+    }
+  }
+
+  /* Very small phones (< 380px) — extra tightening */
+  @media (max-width: 379px) {
+    .tstn-pb__title {
+      font-size: 1.75rem;
+    }
+    .tstn-pb__pill {
+      min-width: 44px;
+      padding: 0.625rem 0.75rem;
+      font-size: 12px;
+    }
+    .tstn-pb__thumb {
+      width: 48px;
+      height: 48px;
+    }
+  }
+</style>
+
+<section class="tstn-pb" id="{{ anchor_id }}" data-section-id="{{ section.id }}">
+  <div class="tstn-pb__inner">
+
+    {%- if section.settings.show_breadcrumb -%}
+      {%- liquid
+        assign bc_collection = section.settings.breadcrumb_collection
+        if bc_collection == blank
+          assign bc_collection = collection
+        endif
+        if bc_collection == blank
+          for c in product.collections
+            unless c.handle == 'frontpage' or c.handle == 'all'
+              assign bc_collection = c
+              break
+            endunless
+          endfor
+        endif
+        assign home_label = section.settings.home_label | default: 'Home'
+      -%}
+      <nav class="tstn-pb__breadcrumb" aria-label="Breadcrumb">
+        <a href="{{ routes.root_url }}">{{ home_label }}</a>
+
+        {%- if bc_collection != blank -%}
+          <span class="tstn-pb__breadcrumb-sep" aria-hidden="true">&rsaquo;</span>
+          <a href="{{ bc_collection.url }}">{{ bc_collection.title }}</a>
+        {%- endif -%}
+
+        <span class="tstn-pb__breadcrumb-sep" aria-hidden="true">&rsaquo;</span>
+        <span class="tstn-pb__breadcrumb-current" aria-current="page">{{ product.title }}</span>
+      </nav>
+    {%- endif -%}
+
+    <div class="tstn-pb__grid">
+
+      {%- comment -%} ========== Gallery ========== {%- endcomment -%}
+      <div class="tstn-pb__gallery">
+        {%- if product.media.size > 1 -%}
+          <div class="tstn-pb__thumbs-col">
+            <button
+              type="button"
+              class="tstn-pb__thumbs-arrow tstn-pb__thumbs-arrow--up"
+              aria-label="Scroll thumbnails up"
+              data-tstn-thumb-up
+              hidden
             >
-              {{ section.settings.button_label }}
-            </a>
-          {% endif %}
-        {% endif %}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="18 15 12 9 6 15"/>
+              </svg>
+            </button>
 
-        {% if section.settings.price_text != blank %}
-          <p class="pro-hero__price">{{ section.settings.price_text }}</p>
-        {% endif %}
+            <div class="tstn-pb__thumbs" role="tablist" aria-label="Product images" data-tstn-thumbs>
+              {%- for media in product.media -%}
+                <button
+                  type="button"
+                  class="tstn-pb__thumb {% if forloop.first %}is-active{% endif %}"
+                  data-thumb-index="{{ forloop.index0 }}"
+                  data-media-id="{{ media.id }}"
+                  role="tab"
+                  aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                >
+                  <img
+                    src="{{ media.preview_image | image_url: width: 200 }}"
+                    alt="{{ media.alt | default: product.title | escape }}"
+                    loading="lazy"
+                    width="96"
+                    height="96"
+                  >
+                </button>
+              {%- endfor -%}
+            </div>
+
+            <button
+              type="button"
+              class="tstn-pb__thumbs-arrow tstn-pb__thumbs-arrow--down"
+              aria-label="Scroll thumbnails down"
+              data-tstn-thumb-down
+              hidden
+            >
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </button>
+          </div>
+        {%- endif -%}
+
+        <div class="tstn-pb__main">
+          {%- if product.media.size > 0 -%}
+            {%- for media in product.media -%}
+              <img
+                class="tstn-pb__main-img {% if forloop.first %}is-active{% endif %}"
+                data-main-index="{{ forloop.index0 }}"
+                data-media-id="{{ media.id }}"
+                src="{{ media.preview_image | image_url: width: 1400 }}"
+                alt="{{ media.alt | default: product.title | escape }}"
+                {% if forloop.first %}loading="eager"{% else %}loading="lazy"{% endif %}
+                width="800"
+                height="800"
+              >
+            {%- endfor -%}
+          {%- else -%}
+            <img
+              class="tstn-pb__main-img is-active"
+              src="{{ product.featured_image | image_url: width: 1400 | default: 'product-1' | placeholder_svg_tag }}"
+              alt="{{ product.title | escape }}"
+              loading="eager"
+              width="800"
+              height="800"
+            >
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- comment -%} ========== Info ========== {%- endcomment -%}
+      <div class="tstn-pb__info">
+
+        <h1 class="tstn-pb__title">{{ product.title | escape }}</h1>
+
+        <div class="tstn-pb__price-row">
+          <span class="tstn-pb__price" data-tstn-price>
+            {{ current_variant.price | money_with_currency }}
+          </span>
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            <span class="tstn-pb__price-compare" data-tstn-compare>
+              {{ current_variant.compare_at_price | money_with_currency }}
+            </span>
+          {%- endif -%}
+        </div>
+
+        {%- form 'product', product, id: product_form_id, class: 'tstn-pb__form', novalidate: 'novalidate' -%}
+          <input type="hidden" name="id" value="{{ current_variant.id }}" data-tstn-variant-id>
+
+          {%- unless product.has_only_default_variant -%}
+            {%- for option in product.options_with_values -%}
+              {%- assign opt_name_lower = option.name | downcase -%}
+              {%- assign is_color = false -%}
+              {%- if opt_name_lower contains 'color' or opt_name_lower contains 'colour' -%}
+                {%- assign is_color = true -%}
+              {%- endif -%}
+
+              <fieldset class="tstn-pb__option" data-option-position="{{ option.position }}" data-option-name="{{ option.name | escape }}">
+                <legend class="tstn-pb__option-label">
+                  {{ option.name | upcase }}: <span class="tstn-pb__option-selected" data-tstn-option-display="{{ option.position }}">{{ option.selected_value }}</span>
+                </legend>
+
+                {%- if is_color -%}
+                  <div class="tstn-pb__swatches">
+                    {%- for value in option.values -%}
+                      {%- assign swatch_color = value | downcase -%}
+                      {%- if value.swatch.color -%}
+                        {%- assign swatch_color = value.swatch.color -%}
+                      {%- endif -%}
+                      <label class="tstn-pb__swatch {% if value.selected %}is-selected{% endif %}"
+                             style="background-color: {{ swatch_color }};"
+                             title="{{ value | escape }}">
+                        <input
+                          type="radio"
+                          name="tstn-option-{{ option.position }}-{{ section.id }}"
+                          value="{{ value | escape }}"
+                          data-tstn-option-input="{{ option.position }}"
+                          {% if value.selected %}checked{% endif %}
+                        >
+                        <span class="visually-hidden">{{ value }}</span>
+                      </label>
+                    {%- endfor -%}
+                  </div>
+                {%- else -%}
+                  <div class="tstn-pb__pills">
+                    {%- for value in option.values -%}
+                      <label class="tstn-pb__pill {% if value.selected %}is-selected{% endif %}">
+                        <input
+                          type="radio"
+                          name="tstn-option-{{ option.position }}-{{ section.id }}"
+                          value="{{ value | escape }}"
+                          data-tstn-option-input="{{ option.position }}"
+                          {% if value.selected %}checked{% endif %}
+                        >
+                        <span>{{ value }}</span>
+                      </label>
+                    {%- endfor -%}
+                  </div>
+                {%- endif -%}
+              </fieldset>
+            {%- endfor -%}
+          {%- endunless -%}
+
+          {%- if section.settings.show_description and product.description != blank -%}
+            <div class="tstn-pb__description rte">
+              {{ product.description }}
+            </div>
+          {%- endif -%}
+
+          <button
+            type="submit"
+            name="add"
+            class="tstn-pb__submit"
+            data-tstn-submit
+            {% unless current_variant.available %}disabled{% endunless %}
+          >
+            {% if current_variant.available %}Add to Cart{% else %}Sold Out{% endif %}
+          </button>
+
+          {{ form | payment_button }}
+        {%- endform -%}
+
+        {%- assign trust_blocks = section.blocks | where: 'type', 'trust_badge' -%}
+        {%- assign accordion_blocks = section.blocks | where: 'type', 'accordion_item' -%}
+
+        {%- if trust_blocks.size > 0 -%}
+          <div class="tstn-pb__trust" style="grid-template-columns: repeat({{ trust_blocks.size }}, 1fr);">
+            {%- for block in trust_blocks -%}
+              <div class="tstn-pb__badge" {{ block.shopify_attributes }}>
+                <div class="tstn-pb__badge-icon">
+                  {%- if block.settings.icon_image != blank -%}
+                    <img
+                      src="{{ block.settings.icon_image | image_url: width: 80 }}"
+                      alt="{{ block.settings.title | escape }}"
+                      loading="lazy"
+                      width="28"
+                      height="28"
+                    >
+                  {%- else -%}
+                    {%- render 'tstn-pb-icon', icon: block.settings.icon -%}
+                  {%- endif -%}
+                </div>
+                <div class="tstn-pb__badge-content">
+                  {%- if block.settings.title != blank -%}
+                    <p class="tstn-pb__badge-title">{{ block.settings.title }}</p>
+                  {%- endif -%}
+                  {%- if block.settings.subtitle != blank -%}
+                    <p class="tstn-pb__badge-sub">{{ block.settings.subtitle }}</p>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
+        {%- if accordion_blocks.size > 0 -%}
+          <div class="tstn-pb__accordion">
+            {%- for block in accordion_blocks -%}
+              <details class="tstn-pb__accordion-item" {{ block.shopify_attributes }}>
+                <summary class="tstn-pb__accordion-summary">
+                  <span class="tstn-pb__accordion-icon">
+                    {%- if block.settings.icon_image != blank -%}
+                      <img
+                        src="{{ block.settings.icon_image | image_url: width: 64 }}"
+                        alt=""
+                        loading="lazy"
+                        width="24"
+                        height="24"
+                      >
+                    {%- else -%}
+                      {%- render 'tstn-pb-icon', icon: block.settings.icon -%}
+                    {%- endif -%}
+                  </span>
+                  <span class="tstn-pb__accordion-text">
+                    {%- if block.settings.title != blank -%}
+                      <span class="tstn-pb__accordion-title">{{ block.settings.title }}</span>
+                    {%- endif -%}
+                    {%- if block.settings.subtitle != blank -%}
+                      <span class="tstn-pb__accordion-sub">{{ block.settings.subtitle }}</span>
+                    {%- endif -%}
+                  </span>
+                  <span class="tstn-pb__accordion-toggle" aria-hidden="true">+</span>
+                </summary>
+                {%- if block.settings.content != blank -%}
+                  <div class="tstn-pb__accordion-content rte">
+                    {{ block.settings.content }}
+                  </div>
+                {%- endif -%}
+              </details>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
       </div>
     </div>
   </div>
 </section>
 
-<style>
-  @font-face {
-    font-family: 'Danger Neue';
-    src: url('https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Danger_Neue_Regular.ttf?v=1776280277') format('truetype');
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
+{%- comment -%} ========== Variant + gallery JS ========== {%- endcomment -%}
+<script>
+  (function() {
+    var section = document.querySelector('[data-section-id="{{ section.id }}"]');
+    if (!section) return;
 
-  #{{ section_id }} .pro-hero__media-wrap {
-    position: relative;
-    height: calc(var(--hero-height-desktop) * 1vh);
-    margin-top: calc(-1 * var(--header-height, 0px));
-    display: flex;
-    align-items: stretch;
-    overflow: hidden;
-    background: {{ section.settings.section_bg_color }};
-  }
+    var productData = {{ product | json }};
+    var variants = productData.variants || [];
+    var optionCount = (productData.options || []).length;
 
-  #{{ section_id }} .pro-hero__media,
-  #{{ section_id }} .pro-hero__placeholder {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+    var idInput = section.querySelector('[data-tstn-variant-id]');
+    var priceEl = section.querySelector('[data-tstn-price]');
+    var compareEl = section.querySelector('[data-tstn-compare]');
+    var submitBtn = section.querySelector('[data-tstn-submit]');
+    var moneyFormat = '{{ shop.money_format }}';
 
-  #{{ section_id }} .pro-hero__tint {
-    display: block !important;
-    position: absolute !important;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--tint-color, #000000) !important;
-    opacity: var(--tint-opacity, 0) !important;
-    pointer-events: none;
-    z-index: 1;
-    font-size: 0;
-    line-height: 0;
-    color: transparent;
-  }
-
-  #{{ section_id }} .pro-hero__overlay {
-    display: block !important;
-    position: absolute !important;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(180deg, rgba(0,0,0,0) 45%, rgba(0,0,0,0.9) 100%) !important;
-    opacity: var(--overlay-opacity, 0.35) !important;
-    pointer-events: none;
-    z-index: 2;
-    font-size: 0;
-    line-height: 0;
-    color: transparent;
-  }
-
-  #{{ section_id }} .pro-hero__content {
-    position: relative;
-    z-index: 3;
-    width: 100%;
-    padding: 3rem 2rem 2rem;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-  }
-
-#{{ section_id }} .pro-hero__content--top    { justify-content: flex-start; padding-top: calc(var(--header-bar-height, 56px) + 2rem); }
-  #{{ section_id }} .pro-hero__content--middle { justify-content: center; padding-top: var(--header-bar-height, 56px); }
-  #{{ section_id }} .pro-hero__content--bottom { justify-content: flex-end; padding-bottom: 5rem; padding-top: var(--header-bar-height, 56px); }
-
-  #{{ section_id }} .pro-hero__content-align--left   { text-align: left; }
-  #{{ section_id }} .pro-hero__content-align--left   .pro-hero__cta-wrap { align-items: flex-start; }
-  #{{ section_id }} .pro-hero__content-align--center { text-align: center; }
-  #{{ section_id }} .pro-hero__content-align--center .pro-hero__cta-wrap { align-items: center; }
-  #{{ section_id }} .pro-hero__content-align--right  { text-align: right; }
-  #{{ section_id }} .pro-hero__content-align--right  .pro-hero__cta-wrap { align-items: flex-end; }
-
-  #{{ section_id }} .pro-hero__kicker {
-    margin: 0 0 0.5rem;
-    font-family: 'Danger Neue', sans-serif;
-    font-size: clamp(
-      calc({{ section.settings.kicker_size }}px * 0.45),
-      2.2vw,
-      {{ section.settings.kicker_size }}px
-    );
-    font-weight: {{ section.settings.kicker_weight }};
-    line-height: 1;
-    color: {{ section.settings.kicker_color }};
-  }
-
-  #{{ section_id }} .pro-hero__heading {
-    margin: 0;
-    font-family: 'Danger Neue', sans-serif;
-    font-size: clamp(
-      calc({{ section.settings.heading_size }}px * 0.35),
-      8vw,
-      {{ section.settings.heading_size }}px
-    );
-    font-weight: {{ section.settings.heading_weight }};
-    text-transform: uppercase;
-    letter-spacing: -0.02em;
-    line-height: 0.95;
-    color: {{ section.settings.heading_color }};
-  }
-
-  #{{ section_id }} .pro-hero__cta-wrap {
-    margin-top: clamp(2rem, 6vw, 5rem);
-    display: inline-flex;
-    flex-direction: column;
-    gap: 1.1rem;
-  }
-
-  #{{ section_id }} .pro-hero__button {
-    display: inline-block;
-    min-width: 8rem;
-    border-radius: 999px;
-    padding: 0.8rem 1.7rem;
-    border: none !important;
-    box-shadow: none !important;
-    outline: none !important;
-    -webkit-appearance: none;
-    appearance: none;
-    background-color: {{ section.settings.button_bg_color }} !important;
-    color: {{ section.settings.button_text_color }} !important;
-    font-size: {{ section.settings.button_font_size }}px !important;
-    font-weight: {{ section.settings.button_font_weight }} !important;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.2s ease;
-  }
-
-  #{{ section_id }} .pro-hero__button:hover,
-  #{{ section_id }} .pro-hero__button:focus,
-  #{{ section_id }} .pro-hero__button:active {
-    border: none !important;
-    box-shadow: none !important;
-    outline: none !important;
-    background-color: {{ section.settings.button_hover_color }} !important;
-    color: {{ section.settings.button_text_color }} !important;
-  }
-
-  #{{ section_id }} .pro-hero__price {
-    margin: 0;
-    font-size: {{ section.settings.price_size }}px;
-    font-weight: 600;
-    color: {{ section.settings.price_color }};
-  }
-
-  @media screen and (max-width: 749px) {
-    #{{ section_id }} .pro-hero__media-wrap {
-      height: calc(var(--hero-height-mobile) * 1vh);
+    function formatMoney(cents) {
+      try {
+        return new Intl.NumberFormat('{{ request.locale.iso_code | default: "en" }}', {
+          style: 'currency',
+          currency: '{{ cart.currency.iso_code }}'
+        }).format(cents / 100);
+      } catch (e) {
+        return '$' + (cents / 100).toFixed(2);
+      }
     }
-    #{{ section_id }} .pro-hero__content {
-      padding: 2rem 1.5rem 1.8rem;
+
+    function getSelectedOptions() {
+      var opts = [];
+      for (var i = 1; i <= optionCount; i++) {
+        var input = section.querySelector('[data-tstn-option-input="' + i + '"]:checked');
+        opts.push(input ? input.value : null);
+      }
+      return opts;
     }
-  }
-</style>
+
+    function findVariant(opts) {
+      return variants.find(function(v) {
+        return opts.every(function(o, i) {
+          return v.options[i] === o;
+        });
+      });
+    }
+
+    function updateSelectedLabels(opts) {
+      opts.forEach(function(val, i) {
+        var display = section.querySelector('[data-tstn-option-display="' + (i + 1) + '"]');
+        if (display && val) display.textContent = val;
+      });
+    }
+
+    function updateSelectedStyles() {
+      // Sync .is-selected class with checked inputs for browsers without :has()
+      section.querySelectorAll('.tstn-pb__swatch, .tstn-pb__pill').forEach(function(el) {
+        var input = el.querySelector('input[type="radio"]');
+        if (!input) return;
+        el.classList.toggle('is-selected', input.checked);
+      });
+    }
+
+    function updateVariant() {
+      var opts = getSelectedOptions();
+      updateSelectedLabels(opts);
+      updateSelectedStyles();
+
+      var variant = findVariant(opts);
+      if (!variant) {
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Unavailable';
+        }
+        return;
+      }
+
+      if (idInput) idInput.value = variant.id;
+
+      if (priceEl) priceEl.textContent = formatMoney(variant.price);
+      if (compareEl) {
+        if (variant.compare_at_price && variant.compare_at_price > variant.price) {
+          compareEl.textContent = formatMoney(variant.compare_at_price);
+          compareEl.style.display = '';
+        } else {
+          compareEl.style.display = 'none';
+        }
+      }
+
+      if (submitBtn) {
+        submitBtn.disabled = !variant.available;
+        submitBtn.textContent = variant.available ? 'Add to Cart' : 'Sold Out';
+      }
+
+      // Swap main image to the variant's featured media if it has one
+      var mediaId = null;
+      if (variant.featured_media && variant.featured_media.id) {
+        mediaId = variant.featured_media.id;
+      } else if (variant.featured_image && variant.featured_image.id) {
+        mediaId = variant.featured_image.id;
+      }
+      if (mediaId) switchToMediaId(mediaId);
+
+      // Update URL with variant param
+      if (history.replaceState) {
+        var url = new URL(window.location.href);
+        url.searchParams.set('variant', variant.id);
+        history.replaceState({}, '', url.toString());
+      }
+
+      // Fire native variant change event so other apps can react
+      section.dispatchEvent(new CustomEvent('tstn:variant:change', {
+        detail: { variant: variant }
+      }));
+    }
+
+    function switchToMediaId(mediaId) {
+      if (mediaId == null) return;
+      var idStr = String(mediaId);
+      var matched = false;
+      section.querySelectorAll('.tstn-pb__thumb').forEach(function(t) {
+        var match = String(t.getAttribute('data-media-id')) === idStr;
+        t.classList.toggle('is-active', match);
+        t.setAttribute('aria-selected', match ? 'true' : 'false');
+        if (match) {
+          matched = true;
+          try {
+            t.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+          } catch (e) {}
+        }
+      });
+      section.querySelectorAll('.tstn-pb__main-img').forEach(function(img) {
+        var match = String(img.getAttribute('data-media-id')) === idStr;
+        img.classList.toggle('is-active', match);
+      });
+      return matched;
+    }
+
+    // Option change listeners
+    section.addEventListener('change', function(e) {
+      if (e.target.matches('[data-tstn-option-input]')) {
+        updateVariant();
+      }
+    });
+
+    // Gallery thumbnail switching
+    var thumbs = section.querySelectorAll('.tstn-pb__thumb');
+    var mainImgs = section.querySelectorAll('.tstn-pb__main-img');
+
+    thumbs.forEach(function(thumb) {
+      thumb.addEventListener('click', function() {
+        var idx = thumb.getAttribute('data-thumb-index');
+        thumbs.forEach(function(t) {
+          t.classList.toggle('is-active', t === thumb);
+          t.setAttribute('aria-selected', t === thumb ? 'true' : 'false');
+        });
+        mainImgs.forEach(function(img) {
+          img.classList.toggle('is-active', img.getAttribute('data-main-index') === idx);
+        });
+      });
+    });
+
+    // Thumbnail scroll arrows
+    var thumbsBox = section.querySelector('[data-tstn-thumbs]');
+    var arrowUp = section.querySelector('[data-tstn-thumb-up]');
+    var arrowDown = section.querySelector('[data-tstn-thumb-down]');
+
+    function isHorizontal() {
+      return window.matchMedia('(max-width: 749px)').matches;
+    }
+
+    function getScrollMetrics() {
+      if (!thumbsBox) return { current: 0, max: 0, canScroll: false };
+      var horizontal = isHorizontal();
+      var current = horizontal ? thumbsBox.scrollLeft : thumbsBox.scrollTop;
+      var totalSize = horizontal ? thumbsBox.scrollWidth : thumbsBox.scrollHeight;
+      var visibleSize = horizontal ? thumbsBox.clientWidth : thumbsBox.clientHeight;
+      var max = totalSize - visibleSize;
+      return {
+        current: current,
+        max: max,
+        canScroll: max > 2
+      };
+    }
+
+    function updateArrows() {
+      if (!thumbsBox || !arrowUp || !arrowDown) return;
+      var m = getScrollMetrics();
+      arrowUp.hidden = !m.canScroll;
+      arrowDown.hidden = !m.canScroll;
+      arrowUp.disabled = m.current <= 0;
+      arrowDown.disabled = m.current >= m.max - 1;
+    }
+
+    function scrollThumbs(direction) {
+      if (!thumbsBox) return;
+      var horizontal = isHorizontal();
+      // Scroll by ~one thumb (96px + 10px gap = 106px), but jump 2 if room
+      var step = 106 * 2;
+      if (horizontal) {
+        thumbsBox.scrollBy({ left: direction * step, behavior: 'smooth' });
+      } else {
+        thumbsBox.scrollBy({ top: direction * step, behavior: 'smooth' });
+      }
+    }
+
+    if (arrowUp) {
+      arrowUp.addEventListener('click', function() { scrollThumbs(-1); });
+    }
+    if (arrowDown) {
+      arrowDown.addEventListener('click', function() { scrollThumbs(1); });
+    }
+    if (thumbsBox) {
+      thumbsBox.addEventListener('scroll', updateArrows, { passive: true });
+    }
+    window.addEventListener('resize', updateArrows);
+
+    // Initial + after images load (image load changes scrollHeight)
+    updateArrows();
+    if (document.readyState === 'complete') {
+      updateArrows();
+    } else {
+      window.addEventListener('load', updateArrows);
+    }
+    // Re-check shortly after to catch lazy-loaded image dimensions
+    setTimeout(updateArrows, 300);
+    setTimeout(updateArrows, 1000);
+
+    // Initial sync
+    updateSelectedStyles();
+  })();
+</script>
 
 {% schema %}
 {
-  "name": "Pro hero",
+  "name": "TSTN Product Banner",
   "tag": "section",
-  "class": "section",
+  "class": "section-tstn-product-banner",
+  "enabled_on": {
+    "templates": ["product"]
+  },
   "settings": [
     {
-      "type": "select",
-      "id": "media_type",
-      "label": "Media type",
-      "default": "image",
-      "options": [
-        { "value": "image", "label": "Image" },
-        { "value": "video", "label": "Video" }
-      ]
-    },
-    {
-      "type": "image_picker",
-      "id": "hero_image",
-      "label": "Hero image"
-    },
-    {
-      "type": "video",
-      "id": "hero_video",
-      "label": "Hero video"
+      "type": "header",
+      "content": "Breadcrumb"
     },
     {
       "type": "checkbox",
-      "id": "show_controls",
-      "label": "Show video controls",
-      "default": false
-    },
-    {
-      "type": "range",
-      "id": "hero_height_desktop",
-      "label": "Height – desktop (vh)",
-      "min": 40,
-      "max": 120,
-      "step": 5,
-      "unit": "%",
-      "default": 100
-    },
-    {
-      "type": "range",
-      "id": "hero_height_mobile",
-      "label": "Height – mobile (vh)",
-      "min": 40,
-      "max": 120,
-      "step": 5,
-      "unit": "%",
-      "default": 90
-    },
-    {
-      "type": "header",
-      "content": "Overlays"
-    },
-    {
-      "type": "color",
-      "id": "tint_color",
-      "label": "Tint colour",
-      "default": "#000000",
-      "info": "Solid colour overlaid on top of the media"
-    },
-    {
-      "type": "range",
-      "id": "tint_opacity",
-      "label": "Tint opacity",
-      "min": 0,
-      "max": 90,
-      "step": 5,
-      "unit": "%",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "overlay_opacity",
-      "label": "Bottom gradient opacity",
-      "min": 0,
-      "max": 90,
-      "step": 5,
-      "unit": "%",
-      "default": 35
-    },
-    {
-      "type": "header",
-      "content": "Content position"
-    },
-    {
-      "type": "select",
-      "id": "content_position",
-      "label": "Vertical position",
-      "default": "bottom",
-      "options": [
-        { "value": "top",    "label": "Top" },
-        { "value": "middle", "label": "Middle" },
-        { "value": "bottom", "label": "Bottom" }
-      ]
-    },
-    {
-      "type": "select",
-      "id": "content_alignment",
-      "label": "Horizontal alignment",
-      "default": "center",
-      "options": [
-        { "value": "left",   "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "right",  "label": "Right" }
-      ]
-    },
-    {
-      "type": "header",
-      "content": "Kicker text"
+      "id": "show_breadcrumb",
+      "label": "Show breadcrumb",
+      "default": true
     },
     {
       "type": "text",
-      "id": "kicker",
-      "label": "Kicker text",
-      "default": "iPhone 17"
+      "id": "home_label",
+      "label": "Home label",
+      "default": "Home"
+    },
+    {
+      "type": "collection",
+      "id": "breadcrumb_collection",
+      "label": "Pin breadcrumb collection",
+      "info": "Optional. If set, the middle breadcrumb link is always this collection. If empty, it auto-detects: first the collection page the user came from, then the product's first non-system collection."
+    },
+    {
+      "type": "header",
+      "content": "Display"
+    },
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "default": "product-banner",
+      "info": "Used for in-page links (e.g., link to #product-banner from a button anywhere on the site). Letters, numbers, and dashes only."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Show product description after sizes",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Colors"
     },
     {
       "type": "color",
-      "id": "kicker_color",
-      "label": "Kicker colour",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Image card background",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
       "default": "#ffffff"
     },
     {
-      "type": "range",
-      "id": "kicker_size",
-      "label": "Kicker font size (desktop max)",
-      "min": 12,
-      "max": 200,
-      "step": 2,
-      "unit": "px",
-      "default": 48
-    },
-    {
-      "type": "range",
-      "id": "kicker_weight",
-      "label": "Kicker font weight",
-      "min": 100,
-      "max": 900,
-      "step": 100,
-      "default": 400
-    },
-    {
-      "type": "header",
-      "content": "Heading"
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Main heading",
-      "default": "PRO"
+      "type": "color",
+      "id": "muted_color",
+      "label": "Muted text color",
+      "default": "#b0b0b0"
     },
     {
       "type": "color",
-      "id": "heading_color",
-      "label": "Heading colour",
-      "default": "#ff8a2b"
+      "id": "border_color",
+      "label": "Border color",
+      "default": "#2a2a2a"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent (orange)",
+      "default": "#ff6a1a"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
     },
     {
       "type": "range",
-      "id": "heading_size",
-      "label": "Heading font size (desktop max)",
-      "min": 20,
-      "max": 200,
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 120,
       "step": 4,
       "unit": "px",
-      "default": 120
+      "default": 24
     },
     {
       "type": "range",
-      "id": "heading_weight",
-      "label": "Heading font weight",
-      "min": 100,
-      "max": 900,
-      "step": 100,
-      "default": 400
-    },
-    {
-      "type": "header",
-      "content": "Button"
-    },
-    {
-      "type": "text",
-      "id": "button_label",
-      "label": "Button label",
-      "default": "Buy"
-    },
-    {
-      "type": "product",
-      "id": "product",
-      "label": "Product for Buy button"
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Button link (fallback)"
-    },
-    {
-      "type": "color",
-      "id": "button_bg_color",
-      "label": "Button background",
-      "default": "#ffffff"
-    },
-    {
-      "type": "color",
-      "id": "button_hover_color",
-      "label": "Button background (hover)",
-      "default": "#cccccc"
-    },
-    {
-      "type": "color",
-      "id": "button_text_color",
-      "label": "Button text colour",
-      "default": "#000000"
-    },
-    {
-      "type": "range",
-      "id": "button_font_size",
-      "label": "Button font size",
-      "min": 10,
-      "max": 30,
-      "step": 1,
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
       "unit": "px",
-      "default": 15
+      "default": 48
+    }
+  ],
+  "blocks": [
+    {
+      "type": "trust_badge",
+      "name": "Trust Badge",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "truck", "label": "Truck (Shipping)" },
+            { "value": "return", "label": "Return (Refund)" },
+            { "value": "shield", "label": "Shield (Quality)" },
+            { "value": "leaf", "label": "Leaf (Sustainability)" },
+            { "value": "lock", "label": "Lock (Secure)" },
+            { "value": "check", "label": "Check mark" },
+            { "value": "list", "label": "List" },
+            { "value": "grid", "label": "Grid" },
+            { "value": "box", "label": "Box" },
+            { "value": "ruler", "label": "Ruler" },
+            { "value": "none", "label": "None" }
+          ],
+          "default": "truck"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Or upload custom icon",
+          "info": "Overrides the built-in icon. Recommended: 64x64px PNG/SVG with transparent background. Auto-tinted to your accent color."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "On orders over $250"
+        }
+      ]
     },
     {
-      "type": "range",
-      "id": "button_font_weight",
-      "label": "Button font weight",
-      "min": 100,
-      "max": 900,
-      "step": 100,
-      "default": 400
-    },
-    {
-      "type": "header",
-      "content": "Price text"
-    },
-    {
-      "type": "text",
-      "id": "price_text",
-      "label": "Price text",
-      "default": "From $1099 or $45.79/mo. for 24 months"
-    },
-    {
-      "type": "color",
-      "id": "price_color",
-      "label": "Price colour",
-      "default": "#ffffff"
-    },
-    {
-      "type": "range",
-      "id": "price_size",
-      "label": "Price font size",
-      "min": 10,
-      "max": 40,
-      "step": 1,
-      "unit": "px",
-      "default": 17
-    },
-    {
-      "type": "header",
-      "content": "Section background"
-    },
-    {
-      "type": "color",
-      "id": "section_bg_color",
-      "label": "Background colour",
-      "default": "#000000"
+      "type": "accordion_item",
+      "name": "Accordion Item",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "list", "label": "List (Product Details)" },
+            { "value": "grid", "label": "Grid (Materials & Care)" },
+            { "value": "box", "label": "Box (Shipping & Returns)" },
+            { "value": "ruler", "label": "Ruler (Size Guide)" },
+            { "value": "shield", "label": "Shield (Warranty)" },
+            { "value": "truck", "label": "Truck (Shipping)" },
+            { "value": "return", "label": "Return (Returns)" },
+            { "value": "leaf", "label": "Leaf (Sustainability)" },
+            { "value": "lock", "label": "Lock (Secure)" },
+            { "value": "check", "label": "Check mark" },
+            { "value": "none", "label": "None" }
+          ],
+          "default": "list"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Or upload custom icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Product Details"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Fit, feel, and function."
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Expanded content",
+          "info": "Shown when the user opens the accordion"
+        }
+      ]
     }
   ],
   "presets": [
     {
-      "name": "Pro hero"
+      "name": "TSTN Product Banner",
+      "blocks": [
+        {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Shipping",
+            "subtitle": "On orders over $250"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "return",
+            "title": "Easy Returns",
+            "subtitle": "30 day returns"
+          }
+        },
+        {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "shield",
+            "title": "Quality Gear",
+            "subtitle": "Built for adventure"
+          }
+        },
+        {
+          "type": "accordion_item",
+          "settings": {
+            "icon": "list",
+            "title": "Product Details",
+            "subtitle": "Fit, feel, and function."
+          }
+        },
+        {
+          "type": "accordion_item",
+          "settings": {
+            "icon": "grid",
+            "title": "Materials & Care",
+            "subtitle": "What it's made of and how to care for it."
+          }
+        },
+        {
+          "type": "accordion_item",
+          "settings": {
+            "icon": "box",
+            "title": "Shipping & Returns",
+            "subtitle": "Everything you need to know."
+          }
+        },
+        {
+          "type": "accordion_item",
+          "settings": {
+            "icon": "ruler",
+            "title": "Size Guide",
+            "subtitle": "Find your perfect fit."
+          }
+        }
+      ]
     }
   ]
 }
