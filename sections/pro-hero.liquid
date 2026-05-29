@@ -1,6 +1,9 @@
 {% liquid
   assign section_id = 'ProHero-' | append: section.id
   assign media_type = section.settings.media_type
+  assign hero_product = section.settings.product
+  assign sel_variant = hero_product.selected_or_first_available_variant
+  assign scroll_target = section.settings.variant_scroll_target | default: 'product-banner' | strip
 %}
 
 <section id="{{ section_id }}" class="pro-hero">
@@ -52,24 +55,37 @@
       {% endif %}
       <div class="pro-hero__cta-wrap">
         {% if section.settings.button_label != blank %}
-          {% if section.settings.product != blank %}
-            {% form 'product', section.settings.product, class: 'pro-hero__buy-form' %}
-              <input type="hidden" name="id" value="{{ section.settings.product.selected_or_first_available_variant.id }}">
-              <button
-                type="submit"
-                name="add"
-                class="pro-hero__button"
-                {% unless section.settings.product.available %}disabled{% endunless %}
+          {% if hero_product != blank %}
+            {% if hero_product.has_only_default_variant %}
+              {%- comment -%} No variants → add to cart and go straight to checkout {%- endcomment -%}
+              {% form 'product', hero_product, class: 'pro-hero__buy-form' %}
+                <input type="hidden" name="id" value="{{ sel_variant.id }}">
+                <input type="hidden" name="return_to" value="/checkout">
+                <button
+                  type="submit"
+                  name="add"
+                  class="pro-hero__button"
+                  {% unless hero_product.available %}disabled{% endunless %}
+                >
+                  {% if hero_product.available %}
+                    {{ section.settings.button_label }}
+                  {% else %}
+                    Sold out
+                  {% endif %}
+                </button>
+              {% endform %}
+            {% else %}
+              {%- comment -%} Has variants → anchor/scroll to the product banner section so the customer can choose options {%- endcomment -%}
+              <a
+                class="pro-hero__button pro-hero__button--scroll"
+                href="#{{ scroll_target }}"
+                data-scroll-target="{{ scroll_target }}"
               >
-                {% if section.settings.product.available %}
-                  {{ section.settings.button_label }}
-                {% else %}
-                  Sold out
-                {% endif %}
-              </button>
-            {% endform %}
+                {{ section.settings.button_label }}
+              </a>
+            {% endif %}
           {% else %}
-            
+            <a
               class="pro-hero__button"
               href="{{ section.settings.button_link | default: routes.all_products_collection_url }}"
             >
@@ -245,6 +261,34 @@
     }
   }
 </style>
+
+<script>
+  (function () {
+    var root = document.getElementById('{{ section_id }}');
+    if (!root) return;
+
+    var btn = root.querySelector('.pro-hero__button--scroll');
+    if (!btn) return;
+
+    btn.addEventListener('click', function (e) {
+      var raw = (btn.getAttribute('data-scroll-target') || '').replace(/^#/, '').trim();
+      if (!raw) return;
+
+      var target = document.getElementById(raw)
+        || document.getElementById('shopify-section-' + raw);
+
+      if (!target) {
+        try { target = document.querySelector('#' + raw); } catch (err) {}
+      }
+
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      // If no target is found on this page, the default href="#anchor" jump applies.
+    });
+  })();
+</script>
 
 {% schema %}
 {
@@ -441,9 +485,15 @@
       "label": "Product for Buy button"
     },
     {
+      "type": "text",
+      "id": "variant_scroll_target",
+      "label": "Variant scroll target (anchor ID)",
+      "info": "When the selected product HAS variants, the button scrolls to this anchor on the page (use the Anchor ID of your product banner section). When the product has NO variants, the button adds to cart and goes straight to checkout. Default: product-banner"
+    },
+    {
       "type": "url",
       "id": "button_link",
-      "label": "Button link (fallback)"
+      "label": "Button link (fallback when no product selected)"
     },
     {
       "type": "color",
