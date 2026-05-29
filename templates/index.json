@@ -212,13 +212,26 @@
             "badge": "none",
             "link": ""
           }
+        },
+        "product_79rpVR": {
+          "type": "product",
+          "settings": {
+            "product": "embroidered-champion-packable-jacket",
+            "brand": "",
+            "title": "",
+            "price": "",
+            "compare_price": "",
+            "badge": "none",
+            "link": ""
+          }
         }
       },
       "block_order": [
         "product_9KXxEa",
         "product_bKpjy6",
         "product_6J3LFB",
-        "product_zVqV7L"
+        "product_zVqV7L",
+        "product_79rpVR"
       ],
       "name": "Product Grid",
       "settings": {
