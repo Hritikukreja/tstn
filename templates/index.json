@@ -416,6 +416,7 @@
       "custom_css": [
         "h2 {font-size: 40px;}"
       ],
+      "name": "Growave Instagram",
       "settings": {
         "include_margins": true
       }
