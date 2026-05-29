@@ -373,6 +373,7 @@
         "product_mRzj89",
         "product_976Pma"
       ],
+      "disabled": true,
       "name": "Product Grid",
       "settings": {
         "heading": "ALL GEAR",
@@ -391,6 +392,15 @@
         "description": "",
         "show_description": false,
         "description_style": "body",
+        "tstn_bg_color": "#0a0a0a",
+        "tstn_card_bg": "#141414",
+        "tstn_accent_color": "#ff6a1a",
+        "tstn_heading_color": "#ffffff",
+        "tstn_text_color": "#c9c9c9",
+        "tstn_border_color": "#222222",
+        "tstn_heading_size": 36,
+        "tstn_product_name_size": 22,
+        "tstn_card_radius": 14,
         "columns_desktop": 4,
         "enable_desktop_slider": false,
         "full_width": false,
@@ -405,7 +415,9 @@
         "columns_mobile": "2",
         "swipe_on_mobile": false,
         "padding_top": 36,
-        "padding_bottom": 36
+        "padding_bottom": 36,
+        "padding_top_mobile": 24,
+        "padding_bottom_mobile": 24
       }
     },
     "guides_block_M8N9Gw": {
