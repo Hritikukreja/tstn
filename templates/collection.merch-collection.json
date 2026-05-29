@@ -577,8 +577,8 @@
           "type": "shopify://apps/covet-instagram-feed-reviews/blocks/app-block-standard/577480e8-b5be-4890-968c-06ccfb458c74",
           "settings": {
             "gallery_embed_id": 248381,
-            "show_text": false,
-            "title_text": "Covet.pics gallery",
+            "show_text": true,
+            "title_text": "Tag TSTN.OFFICIAL TO GET FEATURED",
             "title_color": "#000000",
             "title_size": 22,
             "subtitle_text": "",
