@@ -276,6 +276,7 @@
     },
     "updated_ways_to_earn_CF9QpD": {
       "type": "updated-ways-to-earn",
+      "disabled": true,
       "custom_css": [
         "p,a {color: #ffffff; font-weight: 600; font-size: 18px;}"
       ],
@@ -391,6 +392,7 @@
         "tier_tJ7XqD",
         "tier_efpDUV"
       ],
+      "disabled": true,
       "custom_css": [
         ".tstn-tier-card__desc {font-size: 18px;}",
         ".tstn-tiers__subheading {font-size: 25px;}",
@@ -468,6 +470,7 @@
             "show_social_proof": true,
             "primary_color": "#f56300",
             "contrast_color": "",
+            "header_text_color": "",
             "text_color": "#ffffff",
             "button_text_color": "#f3f3f3",
             "background_color": "#121212",
