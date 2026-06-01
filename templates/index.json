@@ -17,7 +17,7 @@
         "hero_video": "shopify://files/videos/videoplayback (1).mp4",
         "show_controls": false,
         "hero_height_desktop": 90,
-        "hero_height_mobile": 85,
+        "hero_height_mobile": 90,
         "tint_color": "#000000",
         "tint_opacity": 0,
         "overlay_opacity": 90,
