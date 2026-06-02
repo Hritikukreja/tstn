@@ -127,6 +127,16 @@
     "ways_to_earn_YtGWXx": {
       "type": "ways-to-earn",
       "blocks": {
+        "action_JxWJ9M": {
+          "type": "action",
+          "settings": {
+            "icon": "envelope",
+            "title": "SIGN UP WITH TSTN CLUB",
+            "description": "Sign up and earn points.",
+            "button_label": "EARN 250 POINTS",
+            "button_link": ""
+          }
+        },
         "highlight_aFEKBp": {
           "type": "highlight",
           "settings": {
@@ -194,27 +204,17 @@
             "button_label": "EARN 100 POINTS",
             "button_link": ""
           }
-        },
-        "action_JxWJ9M": {
-          "type": "action",
-          "settings": {
-            "icon": "envelope",
-            "title": "JOIN OUR NEWSLETTER",
-            "description": "Sign up and earn points.",
-            "button_label": "EARN 100 POINTS",
-            "button_link": ""
-          }
         }
       },
       "block_order": [
+        "action_JxWJ9M",
         "highlight_aFEKBp",
         "highlight_LmCXFa",
         "action_DUbRmM",
         "action_PnmcdM",
         "action_nmAPCd",
         "action_mV68yJ",
-        "action_eWWYfW",
-        "action_JxWJ9M"
+        "action_eWWYfW"
       ],
       "name": "TSTN Ways To Earn",
       "settings": {
