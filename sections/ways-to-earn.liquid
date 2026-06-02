@@ -122,6 +122,7 @@
     margin-bottom: clamp(40px, 6vw, 64px);
   }
   #shopify-section-{{ section.id }} .tstn-wte__hcard {
+    cursor: pointer;
     display: flex;
     align-items: center;
     gap: clamp(20px, 4vw, 40px);
@@ -182,6 +183,7 @@
     margin-bottom: clamp(36px, 5vw, 56px);
   }
   #shopify-section-{{ section.id }} .tstn-wte__acard {
+    cursor: pointer;
     background: var(--tstn-card);
     border: 1px solid var(--tstn-border);
     border-radius: 12px;
@@ -229,6 +231,7 @@
 
   /* ---------- ONE-TIME CTA BANNER ---------- */
   #shopify-section-{{ section.id }} .tstn-wte__cta {
+    cursor: pointer;
     position: relative;
     border-radius: 14px;
     overflow: hidden;
@@ -365,7 +368,7 @@
       <div class="tstn-wte__highlights">
         {%- for block in section.blocks -%}
           {%- if block.type == 'highlight' -%}
-            <div class="tstn-wte__hcard" {{ block.shopify_attributes }}>
+            <div class="tstn-wte__hcard" data-open-growave-rewards role="button" tabindex="0" {{ block.shopify_attributes }}>
               <div class="tstn-wte__hicon">
                 {%- case block.settings.icon -%}
                   {%- when 'cart' -%}{{ icon_cart }}
@@ -398,7 +401,7 @@
       <div class="tstn-wte__grid">
         {%- for block in section.blocks -%}
           {%- if block.type == 'action' -%}
-            <div class="tstn-wte__acard" {{ block.shopify_attributes }}>
+            <div class="tstn-wte__acard" data-open-growave-rewards role="button" tabindex="0" {{ block.shopify_attributes }}>
               <div class="tstn-wte__aicon">
                 {%- case block.settings.icon -%}
                   {%- when 'instagram' -%}{{ icon_instagram }}
@@ -415,7 +418,7 @@
               {%- if block.settings.title != blank -%}<h3 class="tstn-wte__atitle">{{ block.settings.title | escape }}</h3>{%- endif -%}
               {%- if block.settings.description != blank -%}<p class="tstn-wte__adesc">{{ block.settings.description | escape }}</p>{%- endif -%}
               {%- if block.settings.button_label != blank -%}
-                <a class="tstn-wte__abtn" href="{{ block.settings.button_link | default: '#' }}">{{ block.settings.button_label | escape }}</a>
+                <a class="tstn-wte__abtn" href="#" data-open-growave-rewards>{{ block.settings.button_label | escape }}</a>
               {%- endif -%}
             </div>
           {%- endif -%}
@@ -425,7 +428,7 @@
 
     {%- comment -%} ---------- ONE-TIME CTA BANNER ---------- {%- endcomment -%}
     {%- if section.settings.cta_title != blank -%}
-      <div class="tstn-wte__cta">
+      <div class="tstn-wte__cta" data-open-growave-rewards role="button" tabindex="0">
         {%- if section.settings.cta_image != blank -%}
           <div class="tstn-wte__cta-bg" style="background-image:url({{ section.settings.cta_image | image_url: width: 1600 }});"></div>
         {%- endif -%}
@@ -436,7 +439,7 @@
           {%- if section.settings.cta_text != blank -%}<p class="tstn-wte__cta-text">{{ section.settings.cta_text | escape }}</p>{%- endif -%}
         </div>
         {%- if section.settings.cta_button_label != blank -%}
-          <a class="tstn-wte__cta-btn" href="{{ section.settings.cta_button_link | default: '#' }}">
+          <a class="tstn-wte__cta-btn" href="#" data-open-growave-rewards>
             {{ section.settings.cta_button_label | escape }}
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
@@ -454,6 +457,48 @@
 
   </div>
 </div>
+
+<script>
+  (function() {
+    function openGrowaveRewards(event) {
+      var trigger = event.target.closest('[data-open-growave-rewards]');
+      if (!trigger) return;
+
+      event.preventDefault();
+
+      var widget = document.querySelector('.gw-rd-popup-widget-placeholder');
+      var launcher = null;
+
+      if (widget && widget.shadowRoot) {
+        launcher =
+          widget.shadowRoot.querySelector('button') ||
+          widget.shadowRoot.querySelector('[role="button"]') ||
+          widget.shadowRoot.querySelector('[class*="launcher"]');
+      }
+
+      if (!launcher) {
+        launcher =
+          document.querySelector('.gw-rd-popup-widget-placeholder button') ||
+          document.querySelector('[class*="gw-rd"] button') ||
+          document.querySelector('[class*="growave"] button');
+      }
+
+      if (launcher) {
+        launcher.click();
+      } else {
+        console.warn('Growave rewards launcher was not found. Keep the Growave launcher enabled in Growave settings.');
+      }
+    }
+
+    document.addEventListener('click', openGrowaveRewards);
+
+    document.addEventListener('keydown', function(event) {
+      if ((event.key === 'Enter' || event.key === ' ') && event.target.matches('[data-open-growave-rewards]')) {
+        openGrowaveRewards(event);
+      }
+    });
+  })();
+</script>
 
 {% schema %}
 {
