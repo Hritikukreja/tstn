@@ -375,6 +375,115 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    <script>
+      /*
+        TSTN Growave Rewards Trigger
+        Makes the "Ways To Earn Points" cards/buttons open the existing Growave rewards launcher.
+        Safe fallback: if Growave changes its selector, this logs the issue instead of breaking the page.
+      */
+      (function () {
+        function getAllShadowRoots() {
+          return Array.from(document.querySelectorAll('*'))
+            .map(function (el) { return el.shadowRoot; })
+            .filter(Boolean);
+        }
+
+        function findInDocumentAndShadow(selector) {
+          var found = document.querySelector(selector);
+          if (found) return found;
+
+          var roots = getAllShadowRoots();
+          for (var i = 0; i < roots.length; i++) {
+            found = roots[i].querySelector(selector);
+            if (found) return found;
+          }
+
+          return null;
+        }
+
+        function clickElement(el) {
+          if (!el) return false;
+
+          try {
+            el.click();
+            el.dispatchEvent(new MouseEvent('click', {
+              bubbles: true,
+              cancelable: true,
+              view: window
+            }));
+            return true;
+          } catch (err) {
+            console.warn('Growave trigger found but could not click:', err);
+            return false;
+          }
+        }
+
+        function openGrowaveRewards() {
+          var directSelectors = [
+            '.gw-widget-placeholder-LC-wrapper button',
+            '.gw-widget-placeholder-LC-wrapper [role="button"]',
+            '.gw-rd-popup-widget-placeholder button',
+            '.gw-rd-popup-widget-placeholder [role="button"]',
+            '[class*="gw-widget-placeholder"] button',
+            '[class*="gw-widget-placeholder"] [role="button"]',
+            '[class*="growave"] button',
+            '[class*="growave"] [role="button"]',
+            '[aria-label*="Rewards"]',
+            '[aria-label*="rewards"]',
+            '[aria-label*="Points"]',
+            '[aria-label*="points"]'
+          ];
+
+          for (var i = 0; i < directSelectors.length; i++) {
+            var directTarget = findInDocumentAndShadow(directSelectors[i]);
+            if (clickElement(directTarget)) return true;
+          }
+
+          var hostSelectors = [
+            '.gw-widget-placeholder-LC-wrapper',
+            '.gw-rd-popup-widget-placeholder',
+            '[class*="gw-widget-placeholder"]',
+            '[class*="growave"]'
+          ];
+
+          for (var h = 0; h < hostSelectors.length; h++) {
+            var host = document.querySelector(hostSelectors[h]);
+            if (!host) continue;
+
+            var innerTarget = host.querySelector('button, [role="button"], a');
+            if (clickElement(innerTarget || host)) return true;
+
+            if (host.shadowRoot) {
+              var shadowTarget = host.shadowRoot.querySelector('button, [role="button"], a');
+              if (clickElement(shadowTarget)) return true;
+            }
+          }
+
+          console.warn('Growave launcher not found. Inspect the floating Growave launcher and send the surrounding HTML/classes.');
+          return false;
+        }
+
+        document.addEventListener('click', function (event) {
+          var trigger = event.target.closest(
+            '.tstn-wte .tstn-wte__hcard, ' +
+            '.tstn-wte .tstn-wte__acard, ' +
+            '.tstn-wte .tstn-wte__abtn, ' +
+            '.tstn-wte .tstn-wte__cta, ' +
+            '.tstn-wte .tstn-wte__cta-btn, ' +
+            '[data-open-growave]'
+          );
+
+          if (!trigger) return;
+
+          event.preventDefault();
+          event.stopPropagation();
+
+          openGrowaveRewards();
+        }, true);
+      })();
+    </script>
+
     <style>
       body:has([href="/products/tstn-club-forum"]) .gw-widget-placeholder-LC-wrapper {
     display: none !important;
