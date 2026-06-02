@@ -536,6 +536,19 @@
         "accent_color": "#ff6a1a"
       }
     },
+    "contact_cta_eMqn8p": {
+      "type": "contact-cta",
+      "name": "Contact CTA",
+      "settings": {
+        "background_image": "shopify://shop_images/3.png",
+        "heading": "WATCH THE ADVENTURE UNFOLD",
+        "description": "From backcountry builds to real overland trips, follow TSTN on YouTube for gear, grit, and the road less traveled.",
+        "button_label": "WATCH ON YOUTUBE",
+        "button_link": "https://www.youtube.com/c/thestorytillnow",
+        "overlay_opacity": 65,
+        "height": 600
+      }
+    },
     "apps_9FcKNW": {
       "type": "apps",
       "blocks": {
@@ -619,19 +632,6 @@
         "button_link": ""
       }
     },
-    "contact_cta_eMqn8p": {
-      "type": "contact-cta",
-      "name": "Contact CTA",
-      "settings": {
-        "background_image": "shopify://shop_images/3.png",
-        "heading": "WATCH THE ADVENTURE UNFOLD",
-        "description": "From backcountry builds to real overland trips, follow TSTN on YouTube for gear, grit, and the road less traveled.",
-        "button_label": "WATCH ON YOUTUBE",
-        "button_link": "https://www.youtube.com/c/thestorytillnow",
-        "overlay_opacity": 65,
-        "height": 600
-      }
-    },
     "1778118660573b4067": {
       "type": "apps",
       "blocks": {
@@ -664,9 +664,9 @@
     "featured_collection_BWVTRg",
     "guides_block_M8N9Gw",
     "trust_badges_cTdDRX",
+    "contact_cta_eMqn8p",
     "apps_9FcKNW",
     "community_grid_rt4UaW",
-    "contact_cta_eMqn8p",
     "1778118660573b4067"
   ]
 }
