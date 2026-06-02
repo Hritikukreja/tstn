@@ -689,19 +689,29 @@
         "script_text": ""
       }
     },
-    "1777934112a409e8e2": {
+    "apps_AAWAEb": {
       "type": "apps",
       "blocks": {
-        "growave_loyalty_wishlist_block_index_instagram_zKbLUA": {
-          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.index.instagram/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+        "covet_instagram_feed_reviews_app_block_standard_3CfJYg": {
+          "type": "shopify://apps/covet-instagram-feed-reviews/blocks/app-block-standard/577480e8-b5be-4890-968c-06ccfb458c74",
           "settings": {
-            "option_galleries_id": "1",
-            "option_galleries_layout": "2"
+            "gallery_embed_id": 248383,
+            "show_text": true,
+            "title_text": "TAG @TSTN.OFFICIAL TO GET FEATURED",
+            "title_color": "#ffffff",
+            "title_size": 32,
+            "subtitle_text": "",
+            "subtitle_color": "#000000",
+            "subtitle_size": 14,
+            "text_alignment": "center",
+            "margin": 37,
+            "custom_html_above": "",
+            "custom_html_below": ""
           }
         }
       },
       "block_order": [
-        "growave_loyalty_wishlist_block_index_instagram_zKbLUA"
+        "covet_instagram_feed_reviews_app_block_standard_3CfJYg"
       ],
       "settings": {
         "include_margins": true
@@ -716,6 +726,6 @@
     "tstn_blog_testimonial_CGmbDD",
     "tstn_community_features_CgHfHH",
     "tstn_journey_cta_adCRhC",
-    "1777934112a409e8e2"
+    "apps_AAWAEb"
   ]
 }
