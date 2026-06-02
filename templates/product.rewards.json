@@ -411,41 +411,29 @@
         "padding_y": 96
       }
     },
-    "177811854801255580": {
+    "apps_f6QMdG": {
       "type": "apps",
       "blocks": {
-        "covet_instagram_feed_reviews_app_block_standard_XmdrLp": {
+        "covet_instagram_feed_reviews_app_block_standard_KiwtGW": {
           "type": "shopify://apps/covet-instagram-feed-reviews/blocks/app-block-standard/577480e8-b5be-4890-968c-06ccfb458c74",
           "settings": {
             "gallery_embed_id": 248383,
             "show_text": true,
-            "title_text": "Covet.pics gallery",
-            "title_color": "#ff8a2b",
-            "title_size": 22,
+            "title_text": "TAG @TSTN.OFFICIAL TO GET FEATURED",
+            "title_color": "#ffffff",
+            "title_size": 32,
             "subtitle_text": "",
-            "subtitle_color": "#ff8a2b",
+            "subtitle_color": "#000000",
             "subtitle_size": 14,
             "text_alignment": "center",
-            "margin": 20,
+            "margin": 37,
             "custom_html_above": "",
             "custom_html_below": ""
-          }
-        },
-        "growave_loyalty_wishlist_block_index_instagram_YjtXdA": {
-          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.index.instagram/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
-          "disabled": true,
-          "settings": {
-            "option_galleries_id": "1",
-            "option_galleries_layout": "2"
           }
         }
       },
       "block_order": [
-        "covet_instagram_feed_reviews_app_block_standard_XmdrLp",
-        "growave_loyalty_wishlist_block_index_instagram_YjtXdA"
-      ],
-      "custom_css": [
-        "h2 {font-size: 40px;}"
+        "covet_instagram_feed_reviews_app_block_standard_KiwtGW"
       ],
       "settings": {
         "include_margins": true
@@ -702,7 +690,7 @@
     "updated_ways_to_earn_CF9QpD",
     "updated_ways_to_earn_Hdxx3x",
     "tstn_tiers_6bALLC",
-    "177811854801255580",
+    "apps_f6QMdG",
     "1776469809e2eb7715",
     "17769202960fc08a45",
     "custom_multicol_dPrTeX",
