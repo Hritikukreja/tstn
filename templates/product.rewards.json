@@ -9,156 +9,6 @@
  */
 {
   "sections": {
-    "product_header_QdtzAB": {
-      "type": "product-header",
-      "disabled": true,
-      "name": "Product-header",
-      "settings": {
-        "image": "shopify://shop_images/image_1_2.png",
-        "url": "/account",
-        "text": "Manage Orders/Account",
-        "url1": "/account/login",
-        "text1": "Log In"
-      }
-    },
-    "main": {
-      "type": "main-product",
-      "blocks": {
-        "title": {
-          "type": "title",
-          "settings": {}
-        },
-        "product_short_description_hyF9Hk": {
-          "type": "product_short_description",
-          "settings": {}
-        },
-        "price": {
-          "type": "price",
-          "settings": {}
-        },
-        "quantity_selector": {
-          "type": "quantity_selector",
-          "settings": {}
-        },
-        "growave_loyalty_wishlist_block_product_earn_points_widget_xcKpAg": {
-          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.earnPointsWidget/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
-          "settings": {
-            "show_icon": true,
-            "font_color": "#121212",
-            "icon_color": "#000000",
-            "background_color": "#f8f8f8",
-            "custom_css": ""
-          }
-        },
-        "growwave_points_mFRkER": {
-          "type": "growwave_points",
-          "disabled": true,
-          "settings": {
-            "icon": "shopify://shop_images/grawewave.svg"
-          }
-        },
-        "delivery_date_time_4ge69g": {
-          "type": "delivery-date-time",
-          "settings": {}
-        },
-        "shipping_CE6cMa": {
-          "type": "shipping",
-          "settings": {
-            "icon_1_image": "shopify://shop_images/HASSLE_FREE_RETURNS.png",
-            "icon_1_title": "Hassle Free Returns",
-            "icon_1_subtitle": "On orders over $250",
-            "icon_2_image": "shopify://shop_images/FAST_FREE_SHIPPING.png",
-            "icon_2_title": "Fast & Free Shipping*",
-            "icon_2_subtitle": "30 day returns",
-            "icon_3_image": "shopify://shop_images/FITMENT_GUARANTEE.png",
-            "icon_3_title": "Fitment Guarantee",
-            "icon_3_subtitle": "Built for adventure"
-          }
-        },
-        "buy_buttons": {
-          "type": "buy_buttons",
-          "disabled": true,
-          "settings": {
-            "show_dynamic_checkout": false,
-            "show_gift_card_recipient": false
-          }
-        },
-        "complementary_nJRtM3": {
-          "type": "complementary",
-          "disabled": true,
-          "settings": {
-            "block_heading": "",
-            "make_collapsible_row": false,
-            "icon": "price_tag",
-            "product_list_limit": 10,
-            "products_per_page": 2,
-            "pagination_style": "counter",
-            "image_ratio": "square",
-            "enable_quick_add": false
-          }
-        }
-      },
-      "block_order": [
-        "title",
-        "product_short_description_hyF9Hk",
-        "price",
-        "quantity_selector",
-        "growave_loyalty_wishlist_block_product_earn_points_widget_xcKpAg",
-        "growwave_points_mFRkER",
-        "delivery_date_time_4ge69g",
-        "shipping_CE6cMa",
-        "buy_buttons",
-        "complementary_nJRtM3"
-      ],
-      "disabled": true,
-      "settings": {
-        "enable_sticky_info": true,
-        "color_scheme": "scheme-1",
-        "media_size": "medium",
-        "constrain_to_viewport": true,
-        "media_fit": "contain",
-        "gallery_layout": "thumbnail_slider",
-        "mobile_thumbnails": "show",
-        "media_position": "left",
-        "image_zoom": "lightbox",
-        "hide_variants": true,
-        "enable_video_looping": false,
-        "padding_top": 76,
-        "padding_bottom": 44
-      }
-    },
-    "related-products": {
-      "type": "related-products",
-      "disabled": true,
-      "settings": {
-        "section_bg": "shopify://shop_images/Frame_36.png",
-        "heading": "Continue the Adventure",
-        "btn_text": "Explore More Gear",
-        "btn_link": "#",
-        "heading_size": "h2",
-        "products_to_show": 2,
-        "columns_desktop": 2,
-        "columns_mobile": "2",
-        "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": false,
-        "show_vendor": false,
-        "show_rating": false,
-        "padding_top": 100,
-        "padding_bottom": 100
-      }
-    },
-    "growave_tiers_BMVmYY": {
-      "type": "growave-tiers",
-      "disabled": true,
-      "name": "Growave Tires",
-      "settings": {
-        "feat_image": "shopify://shop_images/awnex_offroad.png",
-        "gauge_scale": 70,
-        "gauge_opacity": 100
-      }
-    },
     "speedometer_claude_VPmHLG": {
       "type": "speedometer-claude",
       "custom_css": [
@@ -274,141 +124,118 @@
         "step_desc_color": "#f8f8f8"
       }
     },
-    "updated_ways_to_earn_CF9QpD": {
-      "type": "updated-ways-to-earn",
-      "disabled": true,
-      "custom_css": [
-        "p,a {color: #ffffff; font-weight: 600; font-size: 18px;}"
-      ],
-      "name": "Ways To Earn",
-      "settings": {
-        "heading": "Ways To Earn",
-        "subheading": "Earn points every time you shop, share, and engage.",
-        "heading_font_size": 48,
-        "heading_font_size_mobile": 30,
-        "ways_title": "WAYS TO EARN POINTS",
-        "card_title_size": 24,
-        "points_size": 18,
-        "logged_out_message": "Sign up or log in to start earning points and unlock rewards.",
-        "signup_url": "",
-        "login_url": "",
-        "share_heading": "SHARE & EARN",
-        "share_subheading": "SHARE THE JOY OF SHOPPING WITH FRIENDS",
-        "share_description": "Give your friends a discount on their first purchase, and receive a reward for each successful referral!",
-        "referral_heading": "REFER A FRIEND",
-        "referral_step_1": "Copy the referral link",
-        "referral_step_2": "Share it with your friends",
-        "referral_step_3": "Earn rewards for each friend who joins",
-        "you_get_label": "YOU GET",
-        "you_get_value": "500",
-        "you_get_unit": "POINTS",
-        "they_get_label": "THEY GET",
-        "they_get_value": "$5",
-        "they_get_unit": "OFF DISCOUNT",
-        "section_bg": "#000000",
-        "heading_color": "#ffffff",
-        "subheading_color": "#ffffff",
-        "accent_color": "#ff8a2b",
-        "card_bg": "#121212",
-        "inner_card_bg": "#000000",
-        "card_border_color": "#303030",
-        "inner_border_color": "#2a2a2a",
-        "color_scheme": "",
-        "padding_top": 44,
-        "padding_bottom": 28
-      }
-    },
-    "updated_ways_to_earn_Hdxx3x": {
-      "type": "updated-ways-to-earn",
-      "disabled": true,
-      "name": "Ways To Earn",
-      "settings": {
-        "heading": "Ways To Earn",
-        "subheading": "Earn points every time you shop, share, and engage.",
-        "heading_font_size": 48,
-        "heading_font_size_mobile": 30,
-        "ways_title": "WAYS TO EARN POINTS",
-        "card_title_size": 20,
-        "points_size": 26,
-        "logged_out_message": "Sign up or log in to start earning points and unlock rewards.",
-        "signup_url": "",
-        "login_url": "",
-        "share_heading": "SHARE & EARN",
-        "share_subheading": "SHARE THE JOY OF SHOPPING WITH FRIENDS",
-        "share_description": "Give your friends a discount on their first purchase, and receive a reward for each successful referral!",
-        "referral_heading": "REFER A FRIEND",
-        "referral_step_1": "Copy the referral link",
-        "referral_step_2": "Share it with your friends",
-        "referral_step_3": "Earn rewards for each friend who joins",
-        "you_get_label": "YOU GET",
-        "you_get_value": "500",
-        "you_get_unit": "POINTS",
-        "they_get_label": "THEY GET",
-        "they_get_value": "$5",
-        "they_get_unit": "OFF DISCOUNT",
-        "section_bg": "#0a0a0a",
-        "heading_color": "#ffffff",
-        "subheading_color": "#cccccc",
-        "accent_color": "#ff6a1a",
-        "card_bg": "#0e0e0e",
-        "inner_card_bg": "#161616",
-        "card_border_color": "#262626",
-        "inner_border_color": "#2a2a2a",
-        "color_scheme": "",
-        "padding_top": 60,
-        "padding_bottom": 60
-      }
-    },
-    "tstn_tiers_6bALLC": {
-      "type": "tstn-tiers",
+    "ways_to_earn_YtGWXx": {
+      "type": "ways-to-earn",
       "blocks": {
-        "tier_en8z36": {
-          "type": "tier",
+        "highlight_aFEKBp": {
+          "type": "highlight",
           "settings": {
-            "badge_image": "shopify://shop_images/ChatGPT_Image_Jan_22_2026_05_29_18_PM_1_a6b1bf9c-5113-4864-b2aa-53fb77a68341.png",
-            "title": "BASE CAMP",
-            "description": "You're on the map. Access to the shop talk and basic rewards."
+            "icon": "cart",
+            "title": "SHOP FOR EVERY DOLLAR",
+            "points": "5 POINTS",
+            "description": "Earn 5 points for every $1 you spend."
           }
         },
-        "tier_tJ7XqD": {
-          "type": "tier",
+        "highlight_LmCXFa": {
+          "type": "highlight",
           "settings": {
-            "badge_image": "shopify://shop_images/ChatGPT_Image_Jan_22_2026_05_29_18_PM_2_fe25c4de-0871-4b74-8114-8473656bf229.png",
-            "title": "SCOUT",
-            "description": "You're finding new lines. Early access to new lighting drops and limited gear."
+            "icon": "camera",
+            "title": "SUBMIT YOUR RIG, IF SELECTED AND FEATURED",
+            "points": "500 POINTS",
+            "description": "Once a month submission allowed."
           }
         },
-        "tier_efpDUV": {
-          "type": "tier",
+        "action_DUbRmM": {
+          "type": "action",
           "settings": {
-            "badge_image": "shopify://shop_images/ChatGPT_Image_Jan_22_2026_05_29_18_PM_3_3062b154-429b-4483-939f-042e342cf355.png",
-            "title": "EXPEDITION LEAD",
-            "description": "You're leading the convoy. Direct line to Shaun and elite discounts on flagship gear."
+            "icon": "instagram",
+            "title": "FOLLOW ON INSTAGRAM",
+            "description": "Stay in the loop and earn points.",
+            "button_label": "EARN 100 POINTS",
+            "button_link": ""
+          }
+        },
+        "action_PnmcdM": {
+          "type": "action",
+          "settings": {
+            "icon": "youtube",
+            "title": "SUBSCRIBE ON YOUTUBE",
+            "description": "Subscribe and earn points.",
+            "button_label": "EARN 100 POINTS",
+            "button_link": ""
+          }
+        },
+        "action_nmAPCd": {
+          "type": "action",
+          "settings": {
+            "icon": "birthday",
+            "title": "BIRTHDAY BONUS",
+            "description": "Celebrate your day with points.",
+            "button_label": "EARN 100 POINTS",
+            "button_link": ""
+          }
+        },
+        "action_mV68yJ": {
+          "type": "action",
+          "settings": {
+            "icon": "share",
+            "title": "SHARE WITH FRIENDS",
+            "description": "Refer a friend and earn points.",
+            "button_label": "EARN 100 POINTS",
+            "button_link": ""
+          }
+        },
+        "action_eWWYfW": {
+          "type": "action",
+          "settings": {
+            "icon": "star",
+            "title": "LEAVE A REVIEW",
+            "description": "Share your experience and earn points.",
+            "button_label": "EARN 100 POINTS",
+            "button_link": ""
+          }
+        },
+        "action_JxWJ9M": {
+          "type": "action",
+          "settings": {
+            "icon": "envelope",
+            "title": "JOIN OUR NEWSLETTER",
+            "description": "Sign up and earn points.",
+            "button_label": "EARN 100 POINTS",
+            "button_link": ""
           }
         }
       },
       "block_order": [
-        "tier_en8z36",
-        "tier_tJ7XqD",
-        "tier_efpDUV"
+        "highlight_aFEKBp",
+        "highlight_LmCXFa",
+        "action_DUbRmM",
+        "action_PnmcdM",
+        "action_nmAPCd",
+        "action_mV68yJ",
+        "action_eWWYfW",
+        "action_JxWJ9M"
       ],
-      "disabled": true,
-      "custom_css": [
-        ".tstn-tier-card__desc {font-size: 18px;}",
-        ".tstn-tiers__subheading {font-size: 25px;}",
-        "p {color: #ffffff !important; font-weight: 500; font-size: 18px !important;}"
-      ],
-      "name": "TSTN Tiers",
+      "name": "TSTN Ways To Earn",
       "settings": {
-        "heading": "THE TIERS",
-        "subheading": "EARN 1 POINT FOR EVERY $1 SPENT",
-        "bg_color": "#0a0a0a",
+        "logo_text": "TSTN",
+        "show_mountain": false,
+        "eyebrow": "REWARDS",
+        "heading": "WAYS TO EARN POINTS",
+        "subheading": "Rack up points every time you shop, share, and engage.",
+        "grid_label": "MORE WAYS TO EARN",
+        "cta_image": "shopify://shop_images/ChatGPT_Image_May_27_2026_09_58_27_AM.png",
+        "cta_title": "HOW TO REDEEM POINTS",
+        "cta_text": "Spend your points to get Merch, Participate in Giveaways, and shop Overland Gears",
+        "cta_button_label": "DISCOVER NOW",
+        "cta_button_link": "",
+        "tagline": "BUILT FOR THE JOURNEY.",
+        "footer_logo": "TSTN",
         "accent_color": "#ff6a1a",
+        "bg_color": "#0a0a0a",
+        "card_bg_color": "#000000",
         "text_color": "#ffffff",
-        "muted_color": "#ffffff",
-        "card_bg_color": "#111111",
-        "card_border_color": "#1f1f1f",
-        "padding_y": 96
+        "muted_color": "#9a9a9a"
       }
     },
     "apps_f6QMdG": {
@@ -679,22 +506,310 @@
         "padding_top": 40,
         "padding_bottom": 40
       }
+    },
+    "updated_ways_to_earn_Hdxx3x": {
+      "type": "updated-ways-to-earn",
+      "disabled": true,
+      "name": "Ways To Earn",
+      "settings": {
+        "heading": "Ways To Earn",
+        "subheading": "Earn points every time you shop, share, and engage.",
+        "heading_font_size": 48,
+        "heading_font_size_mobile": 30,
+        "ways_title": "WAYS TO EARN POINTS",
+        "card_title_size": 20,
+        "points_size": 26,
+        "logged_out_message": "Sign up or log in to start earning points and unlock rewards.",
+        "signup_url": "",
+        "login_url": "",
+        "share_heading": "SHARE & EARN",
+        "share_subheading": "SHARE THE JOY OF SHOPPING WITH FRIENDS",
+        "share_description": "Give your friends a discount on their first purchase, and receive a reward for each successful referral!",
+        "referral_heading": "REFER A FRIEND",
+        "referral_step_1": "Copy the referral link",
+        "referral_step_2": "Share it with your friends",
+        "referral_step_3": "Earn rewards for each friend who joins",
+        "you_get_label": "YOU GET",
+        "you_get_value": "500",
+        "you_get_unit": "POINTS",
+        "they_get_label": "THEY GET",
+        "they_get_value": "$5",
+        "they_get_unit": "OFF DISCOUNT",
+        "section_bg": "#0a0a0a",
+        "heading_color": "#ffffff",
+        "subheading_color": "#cccccc",
+        "accent_color": "#ff6a1a",
+        "card_bg": "#0e0e0e",
+        "inner_card_bg": "#161616",
+        "card_border_color": "#262626",
+        "inner_border_color": "#2a2a2a",
+        "color_scheme": "",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "updated_ways_to_earn_CF9QpD": {
+      "type": "updated-ways-to-earn",
+      "disabled": true,
+      "custom_css": [
+        "p,a {color: #ffffff; font-weight: 600; font-size: 18px;}"
+      ],
+      "name": "Ways To Earn",
+      "settings": {
+        "heading": "Ways To Earn",
+        "subheading": "Earn points every time you shop, share, and engage.",
+        "heading_font_size": 48,
+        "heading_font_size_mobile": 30,
+        "ways_title": "WAYS TO EARN POINTS",
+        "card_title_size": 24,
+        "points_size": 18,
+        "logged_out_message": "Sign up or log in to start earning points and unlock rewards.",
+        "signup_url": "",
+        "login_url": "",
+        "share_heading": "SHARE & EARN",
+        "share_subheading": "SHARE THE JOY OF SHOPPING WITH FRIENDS",
+        "share_description": "Give your friends a discount on their first purchase, and receive a reward for each successful referral!",
+        "referral_heading": "REFER A FRIEND",
+        "referral_step_1": "Copy the referral link",
+        "referral_step_2": "Share it with your friends",
+        "referral_step_3": "Earn rewards for each friend who joins",
+        "you_get_label": "YOU GET",
+        "you_get_value": "500",
+        "you_get_unit": "POINTS",
+        "they_get_label": "THEY GET",
+        "they_get_value": "$5",
+        "they_get_unit": "OFF DISCOUNT",
+        "section_bg": "#000000",
+        "heading_color": "#ffffff",
+        "subheading_color": "#ffffff",
+        "accent_color": "#ff8a2b",
+        "card_bg": "#121212",
+        "inner_card_bg": "#000000",
+        "card_border_color": "#303030",
+        "inner_border_color": "#2a2a2a",
+        "color_scheme": "",
+        "padding_top": 44,
+        "padding_bottom": 28
+      }
+    },
+    "growave_tiers_BMVmYY": {
+      "type": "growave-tiers",
+      "disabled": true,
+      "name": "Growave Tires",
+      "settings": {
+        "feat_image": "shopify://shop_images/awnex_offroad.png",
+        "gauge_scale": 70,
+        "gauge_opacity": 100
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "disabled": true,
+      "settings": {
+        "section_bg": "shopify://shop_images/Frame_36.png",
+        "heading": "Continue the Adventure",
+        "btn_text": "Explore More Gear",
+        "btn_link": "#",
+        "heading_size": "h2",
+        "products_to_show": 2,
+        "columns_desktop": 2,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    },
+    "product_header_QdtzAB": {
+      "type": "product-header",
+      "disabled": true,
+      "name": "Product-header",
+      "settings": {
+        "image": "shopify://shop_images/image_1_2.png",
+        "url": "/account",
+        "text": "Manage Orders/Account",
+        "url1": "/account/login",
+        "text1": "Log In"
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "product_short_description_hyF9Hk": {
+          "type": "product_short_description",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "growave_loyalty_wishlist_block_product_earn_points_widget_xcKpAg": {
+          "type": "shopify://apps/growave-loyalty-wishlist/blocks/block.product.earnPointsWidget/b3d2efbe-110a-4e27-84a8-1f2ed63996a4",
+          "settings": {
+            "show_icon": true,
+            "font_color": "#121212",
+            "icon_color": "#000000",
+            "background_color": "#f8f8f8",
+            "custom_css": ""
+          }
+        },
+        "growwave_points_mFRkER": {
+          "type": "growwave_points",
+          "disabled": true,
+          "settings": {
+            "icon": "shopify://shop_images/grawewave.svg"
+          }
+        },
+        "delivery_date_time_4ge69g": {
+          "type": "delivery-date-time",
+          "settings": {}
+        },
+        "shipping_CE6cMa": {
+          "type": "shipping",
+          "settings": {
+            "icon_1_image": "shopify://shop_images/HASSLE_FREE_RETURNS.png",
+            "icon_1_title": "Hassle Free Returns",
+            "icon_1_subtitle": "On orders over $250",
+            "icon_2_image": "shopify://shop_images/FAST_FREE_SHIPPING.png",
+            "icon_2_title": "Fast & Free Shipping*",
+            "icon_2_subtitle": "30 day returns",
+            "icon_3_image": "shopify://shop_images/FITMENT_GUARANTEE.png",
+            "icon_3_title": "Fitment Guarantee",
+            "icon_3_subtitle": "Built for adventure"
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "disabled": true,
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": false
+          }
+        },
+        "complementary_nJRtM3": {
+          "type": "complementary",
+          "disabled": true,
+          "settings": {
+            "block_heading": "",
+            "make_collapsible_row": false,
+            "icon": "price_tag",
+            "product_list_limit": 10,
+            "products_per_page": 2,
+            "pagination_style": "counter",
+            "image_ratio": "square",
+            "enable_quick_add": false
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "product_short_description_hyF9Hk",
+        "price",
+        "quantity_selector",
+        "growave_loyalty_wishlist_block_product_earn_points_widget_xcKpAg",
+        "growwave_points_mFRkER",
+        "delivery_date_time_4ge69g",
+        "shipping_CE6cMa",
+        "buy_buttons",
+        "complementary_nJRtM3"
+      ],
+      "disabled": true,
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail_slider",
+        "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 76,
+        "padding_bottom": 44
+      }
+    },
+    "tstn_tiers_6bALLC": {
+      "type": "tstn-tiers",
+      "blocks": {
+        "tier_en8z36": {
+          "type": "tier",
+          "settings": {
+            "badge_image": "shopify://shop_images/ChatGPT_Image_Jan_22_2026_05_29_18_PM_1_a6b1bf9c-5113-4864-b2aa-53fb77a68341.png",
+            "title": "BASE CAMP",
+            "description": "You're on the map. Access to the shop talk and basic rewards."
+          }
+        },
+        "tier_tJ7XqD": {
+          "type": "tier",
+          "settings": {
+            "badge_image": "shopify://shop_images/ChatGPT_Image_Jan_22_2026_05_29_18_PM_2_fe25c4de-0871-4b74-8114-8473656bf229.png",
+            "title": "SCOUT",
+            "description": "You're finding new lines. Early access to new lighting drops and limited gear."
+          }
+        },
+        "tier_efpDUV": {
+          "type": "tier",
+          "settings": {
+            "badge_image": "shopify://shop_images/ChatGPT_Image_Jan_22_2026_05_29_18_PM_3_3062b154-429b-4483-939f-042e342cf355.png",
+            "title": "EXPEDITION LEAD",
+            "description": "You're leading the convoy. Direct line to Shaun and elite discounts on flagship gear."
+          }
+        }
+      },
+      "block_order": [
+        "tier_en8z36",
+        "tier_tJ7XqD",
+        "tier_efpDUV"
+      ],
+      "disabled": true,
+      "custom_css": [
+        ".tstn-tier-card__desc {font-size: 18px;}",
+        ".tstn-tiers__subheading {font-size: 25px;}",
+        "p {color: #ffffff !important; font-weight: 500; font-size: 18px !important;}"
+      ],
+      "name": "TSTN Tiers",
+      "settings": {
+        "heading": "THE TIERS",
+        "subheading": "EARN 1 POINT FOR EVERY $1 SPENT",
+        "bg_color": "#0a0a0a",
+        "accent_color": "#ff6a1a",
+        "text_color": "#ffffff",
+        "muted_color": "#ffffff",
+        "card_bg_color": "#111111",
+        "card_border_color": "#1f1f1f",
+        "padding_y": 96
+      }
     }
   },
   "order": [
-    "product_header_QdtzAB",
-    "main",
-    "related-products",
-    "growave_tiers_BMVmYY",
     "speedometer_claude_VPmHLG",
-    "updated_ways_to_earn_CF9QpD",
-    "updated_ways_to_earn_Hdxx3x",
-    "tstn_tiers_6bALLC",
+    "ways_to_earn_YtGWXx",
     "apps_f6QMdG",
     "1776469809e2eb7715",
     "17769202960fc08a45",
     "custom_multicol_dPrTeX",
     "community_grid_xTzb6M",
-    "feature_gallery_F3hDQE"
+    "feature_gallery_F3hDQE",
+    "updated_ways_to_earn_Hdxx3x",
+    "updated_ways_to_earn_CF9QpD",
+    "growave_tiers_BMVmYY",
+    "related-products",
+    "product_header_QdtzAB",
+    "main",
+    "tstn_tiers_6bALLC"
   ]
 }
