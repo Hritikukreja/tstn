@@ -748,9 +748,9 @@
         "card_W7RHLq": {
           "type": "card",
           "settings": {
-            "kicker": "Delivery and Pickup",
+            "kicker": "Delivery",
             "title": "Free Shipping",
-            "description": "Choose two-hour delivery, free delivery, or easy pickup options.",
+            "description": "Fast and reliable shipping across US and Canada. Most orders are processed quickly so your gear arrives ready for your next adventure.",
             "image": "shopify://shop_images/Free_Shipping.png",
             "link": ""
           }
