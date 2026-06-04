@@ -681,16 +681,23 @@
         "collection": "frontpage",
         "products_to_show": 4,
         "title": "Shaun’s Gear Picks",
-        "heading_size": "h1",
         "description": "",
         "show_description": false,
         "description_style": "body",
+        "tstn_bg_color": "#0a0a0a",
+        "tstn_card_bg": "#141414",
+        "tstn_accent_color": "#ff6a1a",
+        "tstn_heading_color": "#ffffff",
+        "tstn_text_color": "#c9c9c9",
+        "tstn_border_color": "#222222",
+        "tstn_heading_size": 64,
+        "tstn_product_name_size": 22,
+        "tstn_card_radius": 14,
         "columns_desktop": 4,
         "enable_desktop_slider": false,
         "full_width": false,
         "show_view_all": true,
         "view_all_style": "solid",
-        "color_scheme": "scheme-5330df68-7ce6-41b9-9bf9-37d268b32221",
         "image_ratio": "adapt",
         "image_shape": "default",
         "show_secondary_image": false,
@@ -700,7 +707,9 @@
         "columns_mobile": "2",
         "swipe_on_mobile": false,
         "padding_top": 36,
-        "padding_bottom": 36
+        "padding_bottom": 36,
+        "padding_top_mobile": 24,
+        "padding_bottom_mobile": 24
       }
     },
     "feature_cards_casosuel_YkhJH3": {
@@ -720,7 +729,7 @@
           "type": "card",
           "settings": {
             "kicker": "Ways to Buy",
-            "title": "Get 0% APR monthly payments.",
+            "title": "Easy Financing",
             "description": "Spread out the cost of your new Gear with interest-free monthly payments and no hidden fees.",
             "image": "shopify://shop_images/APR_30c5a74c-6a6b-424f-bd78-99d2cf1ddd83.png",
             "link": ""
