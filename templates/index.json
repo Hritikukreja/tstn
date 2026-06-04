@@ -250,7 +250,7 @@
           "type": "stat",
           "settings": {
             "icon": "youtube",
-            "value": "325K+",
+            "value": "491K+",
             "label": "YouTube Subscribers"
           }
         },
@@ -273,28 +273,28 @@
         "video_jWbdQK": {
           "type": "video",
           "settings": {
-            "thumbnail": "shopify://shop_images/EP._42.jpg",
+            "thumbnail": "shopify://shop_images/4.png",
             "episode": "EP. 42",
-            "title": "We Tried Reaching a Remote Alpine Lake Too Early",
-            "video_url": "https://youtu.be/yodmD_fAqVM?si=yb9aYAmbpToXsEQm"
+            "title": "Cold Mornings & Clear Lakes",
+            "video_url": ""
           }
         },
         "video_hK7MPb": {
           "type": "video",
           "settings": {
-            "thumbnail": "shopify://shop_images/EP._41.jpg",
+            "thumbnail": "shopify://shop_images/1.1.png",
             "episode": "EP. 41",
-            "title": "Caught In a Rain Storm & Flash Flood on Can-Ams!",
-            "video_url": "https://youtu.be/ebBJDpA_1ME?si=O55UO_LiUYAN0hJ2"
+            "title": "Testing Gear Where It Matters",
+            "video_url": ""
           }
         },
         "video_j4CTAa": {
           "type": "video",
           "settings": {
-            "thumbnail": "shopify://shop_images/EP._40.jpg",
+            "thumbnail": "shopify://shop_images/2.0.png",
             "episode": "EP. 40",
-            "title": "Axle SNAPS Mid-Climb at EJS (BRUTAL!)",
-            "video_url": "https://youtu.be/0Wl0rW_skzY?si=0GqJEnrFOkd6t5cQ"
+            "title": "Basecamp Setup & Breakdown",
+            "video_url": ""
           }
         }
       },
@@ -311,10 +311,10 @@
         "eyebrow": "Latest From The Trail",
         "heading": "Fresh Drops Every Week.",
         "subheading": "Real adventures. Real gear. Real world-tested.",
-        "featured_image": "shopify://shop_images/Latest_Video.jpg",
+        "featured_image": "shopify://shop_images/unnamed.webp",
         "featured_label": "Latest Video",
-        "featured_title": "STRANDED on a Remote Beach With a Broken Sherp!",
-        "featured_video_url": "https://youtu.be/kzBUxDHHPhg?si=GRkIYj42cpOKZYRj",
+        "featured_title": "Conquering an Unexpected Snowstorm in My Full-Size RAM!",
+        "featured_video_url": "https://youtu.be/2cAOs_P6FEQ?si=bonni_susq66zuSA",
         "cta_text": "View All Videos",
         "cta_url": "",
         "section_padding_y": 56,
