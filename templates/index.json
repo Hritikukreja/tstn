@@ -331,7 +331,7 @@
       "type": "hero-collection",
       "name": "Hero Collection",
       "settings": {
-        "background_image": "shopify://shop_images/6.1.png",
+        "background_image": "shopify://shop_images/sherp_desolate_island.jpg",
         "overlay_opacity": 80,
         "overline": "THE COLLECTION",
         "heading": "Come Behind the Scenes",
