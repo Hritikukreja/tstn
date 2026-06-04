@@ -228,7 +228,7 @@
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/2_0d1efe19-339a-442f-b020-117957fe0d57.png",
-            "category": "Campsites",
+            "category": "CAMP",
             "title": "",
             "author_name": "",
             "photo_count": "",
@@ -242,7 +242,7 @@
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/3_02c98383-7e47-4d64-899c-02ce9d47253b.png",
-            "category": "",
+            "category": "TRIP",
             "title": "",
             "author_name": "",
             "photo_count": "",
