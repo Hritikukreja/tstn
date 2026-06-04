@@ -2,6 +2,7 @@
   TSTN — Latest From The Trail (Videos Section)
   Premium black theme with orange accents
   Uses Danger Neue Free Regular for headings
+  Videos play in-page via lightbox (YouTube / Vimeo / direct video files)
 {% endcomment %}
 
 {%- assign featured_aspect = section.settings.featured_aspect | times: 1.0 | divided_by: 100.0 -%}
@@ -45,7 +46,7 @@
         <a
           href="{{ section.settings.featured_video_url | default: '#' }}"
           class="trail-videos__featured-link"
-          {% if section.settings.featured_video_url contains 'youtube.com' or section.settings.featured_video_url contains 'youtu.be' or section.settings.featured_video_url contains 'vimeo.com' %}target="_blank" rel="noopener"{% endif %}
+          data-tv-video="{{ section.settings.featured_video_url }}"
         >
           <div class="trail-videos__featured-media">
             {%- if section.settings.featured_image != blank -%}
@@ -64,7 +65,7 @@
 
             <div class="trail-videos__overlay"></div>
 
-            <button class="trail-videos__play trail-videos__play--featured" aria-label="Play video">
+            <button type="button" class="trail-videos__play trail-videos__play--featured" aria-label="Play video">
               <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5"/>
                 <path d="M9.5 8L16 12L9.5 16V8Z" fill="currentColor"/>
@@ -144,7 +145,7 @@
           <a
             href="{{ block.settings.video_url | default: '#' }}"
             class="trail-videos__card"
-            {% if block.settings.video_url contains 'youtube.com' or block.settings.video_url contains 'youtu.be' or block.settings.video_url contains 'vimeo.com' %}target="_blank" rel="noopener"{% endif %}
+            data-tv-video="{{ block.settings.video_url }}"
             {{ block.shopify_attributes }}
           >
             <div class="trail-videos__card-media">
@@ -162,7 +163,7 @@
                 </div>
               {%- endif -%}
 
-              <button class="trail-videos__play" aria-label="Play video">
+              <button type="button" class="trail-videos__play" aria-label="Play video">
                 <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                   <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5"/>
                   <path d="M9.5 8L16 12L9.5 16V8Z" fill="currentColor"/>
@@ -207,7 +208,110 @@
     {%- endif -%}
 
   </div>
+
+  {%- comment -%} In-page video lightbox {%- endcomment -%}
+  <div
+    class="trail-videos__modal"
+    id="tv-modal-{{ section.id }}"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Video player"
+    aria-hidden="true"
+  >
+    <div class="trail-videos__modal-backdrop" data-tv-close></div>
+    <div class="trail-videos__modal-dialog">
+      <button type="button" class="trail-videos__modal-close" data-tv-close aria-label="Close video">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M6 6L18 18M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
+      <div class="trail-videos__modal-frame" id="tv-modal-frame-{{ section.id }}"></div>
+    </div>
+  </div>
 </section>
+
+<script>
+  (function () {
+    var sectionId = {{ section.id | json }};
+    var root = document.getElementById('shopify-section-' + sectionId) || document.querySelector('#shopify-section-' + sectionId);
+    if (!root) return;
+
+    var modal = document.getElementById('tv-modal-' + sectionId);
+    var frame = document.getElementById('tv-modal-frame-' + sectionId);
+    if (!modal || !frame) return;
+
+    // Avoid double-binding when the theme editor re-renders the section
+    if (root.dataset.tvBound === 'true') return;
+    root.dataset.tvBound = 'true';
+
+    function buildEmbed(url) {
+      if (!url) return null;
+
+      var yt = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/|v\/)|youtu\.be\/)([\w-]{11})/);
+      if (yt) {
+        return '<iframe src="https://www.youtube.com/embed/' + yt[1] +
+          '?autoplay=1&rel=0&modestbranding=1&playsinline=1" ' +
+          'frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';
+      }
+
+      var vimeo = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+      if (vimeo) {
+        return '<iframe src="https://player.vimeo.com/video/' + vimeo[1] +
+          '?autoplay=1" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+      }
+
+      if (/\.(mp4|webm|ogg|ogv|mov)(\?.*)?$/i.test(url)) {
+        return '<video src="' + url + '" controls autoplay playsinline></video>';
+      }
+
+      return null;
+    }
+
+    function openModal(embedHtml) {
+      frame.innerHTML = embedHtml;
+      modal.classList.add('is-active');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+      modal.classList.remove('is-active');
+      modal.setAttribute('aria-hidden', 'true');
+      frame.innerHTML = ''; // clears iframe/video -> stops playback
+      document.body.style.overflow = '';
+    }
+
+    root.querySelectorAll('[data-tv-video]').forEach(function (el) {
+      el.addEventListener('click', function (e) {
+        var url = (el.getAttribute('data-tv-video') || '').trim();
+
+        // No URL set yet -> stop the placeholder "#" jump
+        if (!url || url === '#') {
+          e.preventDefault();
+          return;
+        }
+
+        var embed = buildEmbed(url);
+
+        // Unrecognized URL (e.g. an internal page link) -> let it navigate normally
+        if (!embed) return;
+
+        e.preventDefault();
+        openModal(embed);
+      });
+    });
+
+    modal.querySelectorAll('[data-tv-close]').forEach(function (el) {
+      el.addEventListener('click', closeModal);
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal.classList.contains('is-active')) {
+        closeModal();
+      }
+    });
+  })();
+</script>
 
 {% stylesheet %}
   /* Font face — Danger Neue Free Regular */
@@ -669,6 +773,96 @@
     transform: translateX(4px);
   }
 
+  /* ---------------------------------------------------------------
+     In-page video lightbox
+  ---------------------------------------------------------------- */
+  .trail-videos__modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: clamp(16px, 4vw, 56px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .trail-videos__modal.is-active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .trail-videos__modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .trail-videos__modal-dialog {
+    position: relative;
+    z-index: 1;
+    width: min(1100px, 100%);
+    transform: scale(0.96);
+    transition: transform 0.3s ease;
+  }
+
+  .trail-videos__modal.is-active .trail-videos__modal-dialog {
+    transform: scale(1);
+  }
+
+  .trail-videos__modal-frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #000;
+    border-radius: clamp(8px, 1vw, 14px);
+    overflow: hidden;
+    border: 1px solid var(--tv-border-hover);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 106, 26, 0.12);
+  }
+
+  .trail-videos__modal-frame iframe,
+  .trail-videos__modal-frame video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+  }
+
+  .trail-videos__modal-close {
+    position: absolute;
+    top: clamp(-52px, -6vw, -44px);
+    right: 0;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--tv-border);
+    background: rgba(20, 20, 20, 0.8);
+    color: var(--tv-text);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+  }
+
+  .trail-videos__modal-close svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .trail-videos__modal-close:hover {
+    background: var(--tv-accent);
+    border-color: var(--tv-accent);
+    color: #0a0a0a;
+    transform: scale(1.06);
+  }
+
   @media (max-width: 749px) {
     .trail-videos {
       padding: calc(var(--tv-section-pad-y) * 0.6) 0;
@@ -687,6 +881,15 @@
     }
     .trail-videos__card-title {
       font-size: calc(var(--tv-card-title-size) * 0.92);
+    }
+    .trail-videos__modal-close {
+      top: 0;
+      right: 0;
+      transform: translate(-8px, 8px);
+      z-index: 2;
+    }
+    .trail-videos__modal-close:hover {
+      transform: translate(-8px, 8px) scale(1.06);
     }
   }
 
@@ -752,7 +955,8 @@
     {
       "type": "url",
       "id": "featured_video_url",
-      "label": "Featured video URL"
+      "label": "Featured video URL",
+      "info": "YouTube, Vimeo, or a direct video file (.mp4). Plays in a pop-up on the page."
     },
     {
       "type": "header",
@@ -918,7 +1122,8 @@
         {
           "type": "url",
           "id": "video_url",
-          "label": "Video URL"
+          "label": "Video URL",
+          "info": "YouTube, Vimeo, or a direct video file (.mp4). Plays in a pop-up on the page."
         }
       ]
     }
