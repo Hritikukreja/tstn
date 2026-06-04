@@ -12,7 +12,8 @@
     "speedometer_claude_VPmHLG": {
       "type": "speedometer-claude",
       "custom_css": [
-        "p,a {color: #ffffff; font-weight: 550;}"
+        "p,a {color: #ffffff; font-weight: 550;}",
+        "cta_primary_label{}"
       ],
       "name": "TSTN Club Dashboard",
       "settings": {
@@ -274,6 +275,7 @@
           "disabled": true,
           "settings": {
             "feed_mode": "pagination",
+            "posts_per_page": 4,
             "font_scale": "normal",
             "spacing_scale": "normal",
             "border_radius": "rounded",
