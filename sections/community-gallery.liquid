@@ -342,6 +342,27 @@
   }
   .tstn-gal__featured-badge svg { width: 11px; height: 11px; }
 
+  .tstn-gal__featured-loc {
+    position: absolute;
+    left: 14px;
+    bottom: 14px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 6px 11px;
+    background: rgba(10,10,10,0.7);
+    -webkit-backdrop-filter: blur(8px);
+            backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .tstn-gal__featured-loc svg { width: 12px; height: 12px; flex-shrink: 0; color: var(--tstn-accent); }
+
   .tstn-gal__featured-body {
     padding: 18px 20px 20px;
     background: var(--tstn-card);
@@ -423,6 +444,22 @@
     gap: 16px;
     align-content: start;
   }
+  .tstn-gal__items.is-list { grid-template-columns: 1fr; }
+  .tstn-gal__items.is-list .tstn-gal__card-img { aspect-ratio: 21 / 9; }
+
+  .tstn-gal__card.is-hidden { display: none !important; }
+
+  .tstn-gal__noresults {
+    grid-column: 1 / -1;
+    display: none;
+    padding: 44px 20px;
+    text-align: center;
+    color: var(--tstn-muted);
+    font-size: 14px;
+    border: 1px dashed var(--tstn-border);
+    border-radius: var(--tstn-radius);
+  }
+  .tstn-gal__noresults.is-visible { display: block; }
 
   .tstn-gal__card {
     position: relative;
@@ -554,6 +591,24 @@
     text-shadow: 0 1px 6px rgba(0,0,0,0.6);
   }
 
+  .tstn-gal__card-loc {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.92);
+    margin: 0 0 8px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.7);
+    max-width: 100%;
+  }
+  .tstn-gal__card-loc svg { width: 12px; height: 12px; flex-shrink: 0; color: var(--tstn-accent); }
+  .tstn-gal__card-loc span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
   .tstn-gal__card-meta {
     display: flex;
     align-items: center;
@@ -625,74 +680,6 @@
     border-color: var(--tstn-accent);
   }
   .tstn-gal__chip svg { width: 12px; height: 12px; flex-shrink: 0; }
-
-  /* Upload card */
-  .tstn-gal__upload {
-    background: linear-gradient(135deg, rgba(255,106,26,0.10), rgba(255,106,26,0.02));
-    border: 1px solid var(--tstn-accent);
-    border-radius: var(--tstn-radius);
-    padding: 18px;
-    position: relative;
-    overflow: hidden;
-  }
-  .tstn-gal__upload-head {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 14px;
-  }
-  .tstn-gal__upload-icon {
-    width: 40px;
-    height: 40px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255,106,26,0.14);
-    border: 1px solid var(--tstn-accent);
-    border-radius: 9px;
-    color: var(--tstn-accent);
-    flex-shrink: 0;
-  }
-  .tstn-gal__upload-icon svg { width: 18px; height: 18px; }
-  .tstn-gal__upload-title {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--tstn-text);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin: 0 0 5px;
-  }
-  .tstn-gal__upload-desc {
-    font-size: 11px;
-    color: var(--tstn-muted);
-    line-height: 1.5;
-    margin: 0;
-  }
-  .tstn-gal__upload-btn {
-    display: block;
-    width: 100%;
-    padding: 11px 16px;
-    background: var(--tstn-accent);
-    border: 1px solid var(--tstn-accent);
-    border-radius: 9px;
-    color: #fff !important;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-align: center;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: none !important;
-    -webkit-appearance: none;
-    appearance: none;
-    font-family: inherit;
-  }
-  .tstn-gal__upload-btn:hover {
-    background: transparent;
-    color: var(--tstn-accent) !important;
-  }
 
   /* Stats panel */
   .tstn-gal__stats {
@@ -1398,254 +1385,6 @@
     border-color: #ffffff;
   }
 
-  /* ===================== UPLOAD MODAL ===================== */
-  .tstn-gal__upmodal {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.85);
-    -webkit-backdrop-filter: blur(8px);
-            backdrop-filter: blur(8px);
-    z-index: 1100;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 20px;
-    opacity: 0;
-    transition: opacity 0.25s ease;
-  }
-  .tstn-gal__upmodal.is-open { display: flex; opacity: 1; }
-  .tstn-gal__upmodal-card {
-    width: 100%;
-    max-width: 580px;
-    max-height: 90vh;
-    overflow-y: auto;
-    background: linear-gradient(180deg, #141414 0%, #0a0a0a 100%);
-    border: 1px solid var(--tstn-border);
-    border-radius: var(--tstn-radius);
-    padding: clamp(24px, 3vw, 36px);
-    position: relative;
-    color: var(--tstn-text);
-  }
-  .tstn-gal__upmodal-close {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid var(--tstn-border);
-    color: var(--tstn-text);
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.18s ease;
-    box-shadow: none !important;
-    -webkit-appearance: none;
-  }
-  .tstn-gal__upmodal-close:hover {
-    background: var(--tstn-accent);
-    border-color: var(--tstn-accent);
-    color: #0a0a0a;
-  }
-  .tstn-gal__upmodal-close svg { width: 16px; height: 16px; }
-  .tstn-gal__upmodal-title {
-    font-family: var(--tstn-heading-font) !important;
-    font-weight: 400;
-    font-size: clamp(22px, 2.5vw, 28px);
-    margin: 0 0 6px;
-    letter-spacing: 0.5px;
-    line-height: 1.1;
-  }
-  .tstn-gal__upmodal-sub {
-    color: var(--tstn-muted);
-    font-size: 13px;
-    margin: 0 0 20px;
-  }
-  .tstn-gal__dropzone {
-    border: 1.5px dashed var(--tstn-border);
-    border-radius: var(--tstn-radius-sm);
-    padding: 28px 18px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    color: var(--tstn-muted);
-    background: rgba(255,255,255,0.02);
-  }
-  .tstn-gal__dropzone:hover, .tstn-gal__dropzone.is-dragover {
-    border-color: var(--tstn-accent);
-    background: rgba(255,106,26,0.06);
-    color: var(--tstn-text);
-  }
-  .tstn-gal__dropzone svg { width: 36px; height: 36px; color: var(--tstn-accent); }
-  .tstn-gal__dropzone-main { font-size: 14px; font-weight: 500; color: var(--tstn-text); }
-  .tstn-gal__dropzone-main em { color: var(--tstn-accent); font-style: normal; text-decoration: underline; }
-  .tstn-gal__dropzone-sub { font-size: 11px; color: var(--tstn-muted); }
-  .tstn-gal__previews {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
-    gap: 8px;
-    margin-top: 14px;
-  }
-  .tstn-gal__previews:empty { display: none; }
-  .tstn-gal__preview {
-    position: relative;
-    aspect-ratio: 1;
-    border-radius: var(--tstn-radius-sm);
-    overflow: hidden;
-    border: 1px solid var(--tstn-border);
-  }
-  .tstn-gal__preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .tstn-gal__preview-remove {
-    position: absolute;
-    top: 4px;
-    right: 4px;
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    background: rgba(0,0,0,0.7);
-    color: #fff;
-    border: none;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    line-height: 1;
-    box-shadow: none !important;
-    -webkit-appearance: none;
-  }
-  .tstn-gal__preview-remove:hover { background: var(--tstn-accent); color: #0a0a0a; }
-  .tstn-gal__upmodal-fields {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-top: 18px;
-  }
-  .tstn-gal__field {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-  .tstn-gal__field > span {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--tstn-muted);
-  }
-  .tstn-gal__field input,
-  .tstn-gal__field textarea,
-  .tstn-gal__field select {
-    background: rgba(255,255,255,0.04);
-    border: 1px solid var(--tstn-border);
-    border-radius: var(--tstn-radius-sm);
-    color: var(--tstn-text);
-    padding: 10px 12px;
-    font-size: 14px;
-    font-family: inherit;
-    transition: border-color 0.18s ease, background 0.18s ease;
-    box-shadow: none !important;
-    -webkit-appearance: none;
-       -moz-appearance: none;
-            appearance: none;
-  }
-  .tstn-gal__field textarea { resize: vertical; min-height: 70px; }
-  .tstn-gal__field input:focus,
-  .tstn-gal__field textarea:focus,
-  .tstn-gal__field select:focus {
-    outline: none;
-    border-color: var(--tstn-accent);
-    background: rgba(255,255,255,0.06);
-  }
-  .tstn-gal__field select {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23b0b0b0' stroke-width='1.6' fill='none' stroke-linecap='round'/></svg>");
-    background-repeat: no-repeat;
-    background-position: right 12px center;
-    padding-right: 32px;
-  }
-  .tstn-gal__upmodal-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 22px;
-    justify-content: flex-end;
-  }
-  .tstn-gal__upmodal-cancel,
-  .tstn-gal__upmodal-submit {
-    padding: 12px 22px;
-    border-radius: 999px;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    box-shadow: none !important;
-    -webkit-appearance: none;
-    border: 1px solid var(--tstn-border);
-  }
-  .tstn-gal__upmodal-cancel {
-    background: transparent;
-    color: var(--tstn-text);
-  }
-  .tstn-gal__upmodal-cancel:hover {
-    background: #ffffff;
-    color: #0a0a0a;
-    border-color: #ffffff;
-  }
-  .tstn-gal__upmodal-submit {
-    background: var(--tstn-accent);
-    color: #0a0a0a;
-    border-color: var(--tstn-accent);
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .tstn-gal__upmodal-submit:hover:not(:disabled) {
-    background: #ffffff;
-    border-color: #ffffff;
-    color: #0a0a0a;
-  }
-  .tstn-gal__upmodal-submit:disabled {
-    opacity: 0.45;
-    cursor: not-allowed;
-  }
-  .tstn-gal__upmodal-spinner {
-    display: none;
-    width: 14px;
-    height: 14px;
-    border: 2px solid rgba(0,0,0,0.2);
-    border-top-color: #0a0a0a;
-    border-radius: 50%;
-    animation: tstn-gal-spin 0.7s linear infinite;
-  }
-  .tstn-gal__upmodal-submit.is-loading .tstn-gal__upmodal-spinner { display: inline-block; }
-  @keyframes tstn-gal-spin { to { transform: rotate(360deg); } }
-  .tstn-gal__upmodal-status {
-    margin-top: 14px;
-    padding: 10px 14px;
-    border-radius: var(--tstn-radius-sm);
-    font-size: 13px;
-    display: none;
-  }
-  .tstn-gal__upmodal-status.is-success {
-    display: block;
-    background: rgba(34,197,94,0.12);
-    border: 1px solid rgba(34,197,94,0.3);
-    color: #4ade80;
-  }
-  .tstn-gal__upmodal-status.is-error {
-    display: block;
-    background: rgba(239,68,68,0.12);
-    border: 1px solid rgba(239,68,68,0.3);
-    color: #f87171;
-  }
-
   /* ===================== RESPONSIVE ===================== */
   @media (max-width: 1280px) {
     .tstn-gal__grid {
@@ -1727,28 +1466,28 @@
   {%- if section.settings.show_filter_bar -%}
     <div class="tstn-gal__filterbar">
       <div class="tstn-gal__pills">
-        <button type="button" class="tstn-gal__pill is-active"><span>All</span></button>
-        <button type="button" class="tstn-gal__pill">
+        <button type="button" class="tstn-gal__pill is-active" data-filter="all"><span>All</span></button>
+        <button type="button" class="tstn-gal__pill" data-filter="rig">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17h2l1-4h12l1 4h2"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M5 13V8h12l2 5"/></svg>
           <span>Rigs</span>
         </button>
-        <button type="button" class="tstn-gal__pill">
+        <button type="button" class="tstn-gal__pill" data-filter="trip">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></svg>
           <span>Trips</span>
         </button>
-        <button type="button" class="tstn-gal__pill">
+        <button type="button" class="tstn-gal__pill" data-filter="build">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
           <span>Builds</span>
         </button>
-        <button type="button" class="tstn-gal__pill">
+        <button type="button" class="tstn-gal__pill" data-filter="campsite">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
           <span>Campsites</span>
         </button>
-        <button type="button" class="tstn-gal__pill">
+        <button type="button" class="tstn-gal__pill" data-filter="community">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           <span>Community</span>
         </button>
-        <button type="button" class="tstn-gal__pill">
+        <button type="button" class="tstn-gal__pill" data-filter="gear">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18l-2 13H5L3 6z"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
           <span>Gear</span>
         </button>
@@ -1839,6 +1578,12 @@
               {{ section.settings.featured_badge }}
             </span>
           {%- endif -%}
+          {%- if section.settings.featured_location_label != blank -%}
+            <span class="tstn-gal__featured-loc">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              <span>{{ section.settings.featured_location_label }}</span>
+            </span>
+          {%- endif -%}
         </div>
         <div class="tstn-gal__featured-body">
           {%- if section.settings.featured_category != blank -%}
@@ -1887,6 +1632,10 @@
                data-location-label="{{ block.settings.location_label | escape }}"
                data-location-url="{{ block.settings.location_url | escape }}"
                data-likes="{{ block.settings.like_count }}"
+               data-photos="{{ block.settings.photo_count }}"
+               data-category="{{ block.settings.category | escape }}"
+               data-community="{{ block.settings.is_community_upload }}"
+               data-search="{{ block.settings.title | escape }} {{ block.settings.category | escape }} {{ block.settings.author_name | escape }} {{ block.settings.location_label | escape }}"
                {{ block.shopify_attributes }}>
             <div class="tstn-gal__card-img">
               {%- if block.settings.image != blank -%}
@@ -1913,6 +1662,12 @@
               {%- endif -%}
             </div>
             <div class="tstn-gal__card-body">
+              {%- if block.settings.location_label != blank -%}
+                <div class="tstn-gal__card-loc">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <span>{{ block.settings.location_label }}</span>
+                </div>
+              {%- endif -%}
               {%- if block.settings.title != blank -%}
                 <div class="tstn-gal__card-title">{{ block.settings.title }}</div>
               {%- endif -%}
@@ -1978,27 +1733,6 @@
           </div>
         </div>
 
-        {%- comment -%} Upload card {%- endcomment -%}
-        <div class="tstn-gal__upload">
-          <div class="tstn-gal__upload-head">
-            <div class="tstn-gal__upload-icon">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-            </div>
-            <div>
-              {%- if section.settings.upload_title != blank -%}
-                <h4 class="tstn-gal__upload-title">{{ section.settings.upload_title }}</h4>
-              {%- endif -%}
-              {%- if section.settings.upload_description != blank -%}
-                <p class="tstn-gal__upload-desc">{{ section.settings.upload_description }}</p>
-              {%- endif -%}
-            </div>
-          </div>
-          {%- if section.settings.upload_button_text != blank -%}
-            <button type="button" class="tstn-gal__upload-btn" data-upload-trigger>{{ section.settings.upload_button_text }}</button>
-            <input type="file" accept="image/*" multiple class="tstn-gal__upload-input" data-upload-input hidden>
-          {%- endif -%}
-        </div>
-
         {%- comment -%} Stats {%- endcomment -%}
         <div class="tstn-gal__panel tstn-gal__stats">
           {%- if section.settings.stat_1_value != blank -%}
@@ -2050,59 +1784,6 @@
       <div class="tstn-gal__strip-side">
         <span>{{ section.settings.powered_by_text }}</span>
         <svg viewBox="0 0 70 14" fill="currentColor" preserveAspectRatio="none" width="70" height="14"><path d="M2 7 Q18 1 35 7 T68 7 L66 10 Q44 14 35 9 T4 9 Z" opacity="0.9"/></svg>
-      </div>
-    </div>
-  {%- endif -%}
-
-  {%- comment -%} =============== UPLOAD MODAL =============== {%- endcomment -%}
-  {%- if customer -%}
-    <div class="tstn-gal__upmodal" id="tstn-upmodal-{{ section.id }}" role="dialog" aria-modal="true" aria-hidden="true">
-      <div class="tstn-gal__upmodal-card">
-        <button type="button" class="tstn-gal__upmodal-close" aria-label="Close" data-upload-close>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-        <h3 class="tstn-gal__upmodal-title">{{ section.settings.upload_modal_title | default: 'Share Your Adventure' }}</h3>
-        <p class="tstn-gal__upmodal-sub">{{ section.settings.upload_modal_sub | default: 'Drag photos in or click to browse. JPG, PNG up to 10MB each.' }}</p>
-
-        <div class="tstn-gal__dropzone" data-upload-dropzone>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          <span class="tstn-gal__dropzone-main">Drop photos here or <em>browse files</em></span>
-          <span class="tstn-gal__dropzone-sub">Up to {{ section.settings.upload_max_files | default: 10 }} images</span>
-        </div>
-
-        <div class="tstn-gal__previews" data-upload-previews></div>
-
-        <div class="tstn-gal__upmodal-fields">
-          <label class="tstn-gal__field">
-            <span>Title</span>
-            <input type="text" data-upload-field="title" placeholder="Snow run in the Rockies" maxlength="80">
-          </label>
-          <label class="tstn-gal__field">
-            <span>Caption</span>
-            <textarea data-upload-field="caption" placeholder="Tell us about this trip…" maxlength="500" rows="3"></textarea>
-          </label>
-          <label class="tstn-gal__field">
-            <span>Category</span>
-            <select data-upload-field="category">
-              <option value="">Choose…</option>
-              <option value="rig">Rig</option>
-              <option value="trip">Trip</option>
-              <option value="build">Build</option>
-              <option value="campsite">Campsite</option>
-              <option value="gear">Gear</option>
-            </select>
-          </label>
-        </div>
-
-        <div class="tstn-gal__upmodal-actions">
-          <button type="button" class="tstn-gal__upmodal-cancel" data-upload-close>Cancel</button>
-          <button type="button" class="tstn-gal__upmodal-submit" data-upload-submit disabled>
-            <span class="tstn-gal__upmodal-submit-label">Submit</span>
-            <span class="tstn-gal__upmodal-spinner" aria-hidden="true"></span>
-          </button>
-        </div>
-
-        <div class="tstn-gal__upmodal-status" data-upload-status role="status"></div>
       </div>
     </div>
   {%- endif -%}
@@ -2250,33 +1931,38 @@
       var customerName = lightbox.dataset.customerName || '';
       var customerId = '{{ customer.id }}';
 
-      // Build the gallery list from all card images in the section
+      // Build the gallery list from currently-visible card images
       var items = [];
-      section.querySelectorAll('img[data-lightbox-src]').forEach(function(img) {
-        var card = img.closest('.tstn-gal__card') || img.closest('.tstn-gal__featured');
-        var title = '', author = '', desc = '', locLabel = '', locUrl = '', baseLikes = 0;
-        if (card) {
-          var t = card.querySelector('.tstn-gal__card-title, .tstn-gal__featured-title');
-          var a = card.querySelector('.tstn-gal__author-name');
-          if (t) title = t.textContent.trim();
-          if (a) author = a.textContent.trim();
-          desc = card.dataset.description || '';
-          locLabel = card.dataset.locationLabel || '';
-          locUrl = card.dataset.locationUrl || '';
-          baseLikes = parseInt(card.dataset.likes, 10) || 0;
-        }
-        items.push({
-          src: img.getAttribute('data-lightbox-src'),
-          thumb: img.src,
-          id: img.getAttribute('data-lightbox-src'),
-          title: title,
-          author: author,
-          desc: desc,
-          locLabel: locLabel,
-          locUrl: locUrl,
-          baseLikes: baseLikes
+      function buildItems() {
+        items = [];
+        section.querySelectorAll('img[data-lightbox-src]').forEach(function(img) {
+          var card = img.closest('.tstn-gal__card') || img.closest('.tstn-gal__featured');
+          if (card && card.classList.contains('is-hidden')) return;
+          var title = '', author = '', desc = '', locLabel = '', locUrl = '', baseLikes = 0;
+          if (card) {
+            var t = card.querySelector('.tstn-gal__card-title, .tstn-gal__featured-title');
+            var a = card.querySelector('.tstn-gal__author-name');
+            if (t) title = t.textContent.trim();
+            if (a) author = a.textContent.trim();
+            desc = card.dataset.description || '';
+            locLabel = card.dataset.locationLabel || '';
+            locUrl = card.dataset.locationUrl || '';
+            baseLikes = parseInt(card.dataset.likes, 10) || 0;
+          }
+          items.push({
+            src: img.getAttribute('data-lightbox-src'),
+            thumb: img.src,
+            id: img.getAttribute('data-lightbox-src'),
+            title: title,
+            author: author,
+            desc: desc,
+            locLabel: locLabel,
+            locUrl: locUrl,
+            baseLikes: baseLikes
+          });
         });
-      });
+      }
+      buildItems();
 
       var currentIndex = 0;
       var activeIdx = 0;
@@ -2555,6 +2241,7 @@
       // ----- Open / Close -----
       function openLightbox(src) {
         if (!src) return;
+        buildItems();
         var idx = items.findIndex(function(it) { return it.src === src; });
         if (idx === -1) idx = 0;
         currentIndex = idx;
@@ -2709,157 +2396,103 @@
       });
     }
 
-    // ===== Upload modal =====
-    var upModal = section.querySelector('.tstn-gal__upmodal');
-    if (upModal) {
-      var upInput = section.querySelector('[data-upload-input]');
-      var upTrigger = section.querySelector('[data-upload-trigger]');
-      var dropzone = upModal.querySelector('[data-upload-dropzone]');
-      var previews = upModal.querySelector('[data-upload-previews]');
-      var submitBtn = upModal.querySelector('[data-upload-submit]');
-      var statusEl = upModal.querySelector('[data-upload-status]');
-      var maxFiles = {{ section.settings.upload_max_files | default: 10 }};
-      var maxSizeMB = {{ section.settings.upload_max_size_mb | default: 10 }};
-      var endpoint = {{ section.settings.upload_endpoint | default: '' | json }};
-      var selectedFiles = [];
+    // ===== Filters / search / sort / view mode =====
+    var filterbar = section.querySelector('.tstn-gal__filterbar');
+    var itemsWrap = section.querySelector('.tstn-gal__items');
+    if (itemsWrap && filterbar) {
+      var pills = filterbar.querySelectorAll('.tstn-gal__pill');
+      var searchInput = filterbar.querySelector('.tstn-gal__search input');
+      var sortSelect = filterbar.querySelector('.tstn-gal__sort');
+      var commToggle = filterbar.querySelector('.tstn-gal__toggle input');
+      var viewBtns = filterbar.querySelectorAll('.tstn-gal__viewbtn');
+      var cards = Array.prototype.slice.call(itemsWrap.querySelectorAll('.tstn-gal__card'));
+      var originalOrder = cards.slice();
 
-      function openUpModal() {
-        upModal.classList.add('is-open');
-        upModal.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
+      var activeFilter = 'all';
+      var searchTerm = '';
+      var communityOnly = false;
+
+      var noResults = document.createElement('div');
+      noResults.className = 'tstn-gal__noresults';
+      noResults.textContent = 'No shots match your filters — try another category or search.';
+      itemsWrap.appendChild(noResults);
+
+      function applyFilters() {
+        var visible = 0;
+        cards.forEach(function(card) {
+          var cat = (card.dataset.category || '').toLowerCase();
+          var text = (card.dataset.search || '').toLowerCase();
+          var isComm = card.dataset.community === 'true';
+          var matchFilter;
+          if (activeFilter === 'all') matchFilter = true;
+          else if (activeFilter === 'community') matchFilter = isComm || cat.indexOf('community') !== -1;
+          else matchFilter = cat.indexOf(activeFilter) !== -1;
+          var matchSearch = !searchTerm || text.indexOf(searchTerm) !== -1;
+          var matchComm = !communityOnly || isComm;
+          var show = matchFilter && matchSearch && matchComm;
+          card.classList.toggle('is-hidden', !show);
+          if (show) visible++;
+        });
+        noResults.classList.toggle('is-visible', visible === 0);
       }
-      function closeUpModal() {
-        upModal.classList.remove('is-open');
-        upModal.setAttribute('aria-hidden', 'true');
-        document.body.style.overflow = '';
-        resetUpModal();
-      }
-      function resetUpModal() {
-        selectedFiles = [];
-        previews.innerHTML = '';
-        upInput.value = '';
-        statusEl.className = 'tstn-gal__upmodal-status';
-        statusEl.textContent = '';
-        upModal.querySelectorAll('[data-upload-field]').forEach(function(f) { f.value = ''; });
-        updateSubmitState();
-      }
-      function updateSubmitState() {
-        submitBtn.disabled = selectedFiles.length === 0;
-      }
-      function renderPreviews() {
-        previews.innerHTML = '';
-        selectedFiles.forEach(function(file, idx) {
-          var wrap = document.createElement('div');
-          wrap.className = 'tstn-gal__preview';
-          var img = document.createElement('img');
-          img.src = URL.createObjectURL(file);
-          img.alt = file.name;
-          wrap.appendChild(img);
-          var rm = document.createElement('button');
-          rm.type = 'button';
-          rm.className = 'tstn-gal__preview-remove';
-          rm.setAttribute('aria-label', 'Remove');
-          rm.innerHTML = '&times;';
-          rm.addEventListener('click', function(e) {
-            e.stopPropagation();
-            selectedFiles.splice(idx, 1);
-            renderPreviews();
-            updateSubmitState();
+
+      function applySort() {
+        if (!sortSelect) return;
+        var val = sortSelect.value;
+        var sorted = originalOrder.slice();
+        if (val === 'Most Liked') {
+          sorted.sort(function(a, b) {
+            return (parseInt(b.dataset.likes, 10) || 0) - (parseInt(a.dataset.likes, 10) || 0);
           });
-          wrap.appendChild(rm);
-          previews.appendChild(wrap);
-        });
-      }
-      function addFiles(files) {
-        var arr = Array.prototype.slice.call(files);
-        arr.forEach(function(f) {
-          if (selectedFiles.length >= maxFiles) return;
-          if (!f.type.startsWith('image/')) return;
-          if (f.size > maxSizeMB * 1024 * 1024) {
-            statusEl.className = 'tstn-gal__upmodal-status is-error';
-            statusEl.textContent = f.name + ' is larger than ' + maxSizeMB + 'MB and was skipped.';
-            return;
-          }
-          selectedFiles.push(f);
-        });
-        renderPreviews();
-        updateSubmitState();
-      }
-
-      if (upTrigger) upTrigger.addEventListener('click', openUpModal);
-      upModal.querySelectorAll('[data-upload-close]').forEach(function(b) {
-        b.addEventListener('click', closeUpModal);
-      });
-      upModal.addEventListener('click', function(e) {
-        if (e.target === upModal) closeUpModal();
-      });
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && upModal.classList.contains('is-open')) closeUpModal();
-      });
-
-      dropzone.addEventListener('click', function() { upInput.click(); });
-      upInput.addEventListener('change', function(e) { addFiles(e.target.files); });
-      ['dragenter', 'dragover'].forEach(function(ev) {
-        dropzone.addEventListener(ev, function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          dropzone.classList.add('is-dragover');
-        });
-      });
-      ['dragleave', 'drop'].forEach(function(ev) {
-        dropzone.addEventListener(ev, function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          dropzone.classList.remove('is-dragover');
-        });
-      });
-      dropzone.addEventListener('drop', function(e) {
-        if (e.dataTransfer && e.dataTransfer.files) addFiles(e.dataTransfer.files);
-      });
-
-      submitBtn.addEventListener('click', function() {
-        if (selectedFiles.length === 0) return;
-        submitBtn.disabled = true;
-        submitBtn.classList.add('is-loading');
-        statusEl.className = 'tstn-gal__upmodal-status';
-        statusEl.textContent = '';
-
-        var fd = new FormData();
-        selectedFiles.forEach(function(f, i) { fd.append('file_' + i, f, f.name); });
-        upModal.querySelectorAll('[data-upload-field]').forEach(function(field) {
-          fd.append(field.dataset.uploadField, field.value);
-        });
-        fd.append('customer_id', '{{ customer.id }}');
-        fd.append('customer_email', '{{ customer.email }}');
-
-        var done = function(success, msg) {
-          submitBtn.classList.remove('is-loading');
-          submitBtn.disabled = false;
-          statusEl.className = 'tstn-gal__upmodal-status ' + (success ? 'is-success' : 'is-error');
-          statusEl.textContent = msg;
-          if (success) {
-            setTimeout(function() {
-              closeUpModal();
-            }, 1800);
-          }
-        };
-
-        if (!endpoint) {
-          // No backend endpoint configured — show success demo state.
-          // Wire the "Upload endpoint URL" setting in the theme editor to your
-          // upload handler (e.g. a Cloudinary upload preset, a custom Shopify app
-          // endpoint, or any service that accepts multipart/form-data POST).
-          setTimeout(function() {
-            done(true, 'Thanks! Your photos were submitted for review.');
-          }, 700);
-          return;
+        } else if (val === 'Most Photos') {
+          sorted.sort(function(a, b) {
+            return (parseInt(b.dataset.photos, 10) || 0) - (parseInt(a.dataset.photos, 10) || 0);
+          });
         }
+        sorted.forEach(function(c) { itemsWrap.appendChild(c); });
+        itemsWrap.appendChild(noResults);
+      }
 
-        fetch(endpoint, { method: 'POST', body: fd })
-          .then(function(r) { return r.ok ? r : Promise.reject(r); })
-          .then(function() { done(true, 'Thanks! Your photos were submitted for review.'); })
-          .catch(function() { done(false, 'Upload failed. Please try again or contact support.'); });
+      pills.forEach(function(pill) {
+        pill.addEventListener('click', function() {
+          pills.forEach(function(p) { p.classList.remove('is-active'); });
+          pill.classList.add('is-active');
+          activeFilter = (pill.dataset.filter || 'all').toLowerCase();
+          applyFilters();
+        });
       });
+
+      if (searchInput) {
+        searchInput.addEventListener('input', function() {
+          searchTerm = (searchInput.value || '').trim().toLowerCase();
+          applyFilters();
+        });
+      }
+
+      if (sortSelect) {
+        sortSelect.addEventListener('change', function() {
+          applySort();
+          applyFilters();
+        });
+      }
+
+      if (commToggle) {
+        commToggle.addEventListener('change', function() {
+          communityOnly = commToggle.checked;
+          applyFilters();
+        });
+      }
+
+      viewBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          viewBtns.forEach(function(b) { b.classList.remove('is-active'); });
+          btn.classList.add('is-active');
+          var isList = (btn.getAttribute('aria-label') || '').toLowerCase().indexOf('column') !== -1;
+          itemsWrap.classList.toggle('is-list', isList);
+        });
+      });
+
+      applyFilters();
     }
   })();
 </script>
@@ -2910,7 +2543,7 @@
     { "type": "paragraph", "content": "Logged-out visitors see a Members Only lock card over the gallery. Logged-in customers see the full interactive gallery." },
     { "type": "text", "id": "gate_pill", "label": "Pill label", "default": "MEMBERS ONLY" },
     { "type": "text", "id": "gate_title", "label": "Title", "default": "Join the TSTN Club to Explore" },
-    { "type": "textarea", "id": "gate_description", "label": "Description", "default": "Sign in or create your free TSTN Club account to browse community rigs, builds and trip stories — and upload your own." },
+    { "type": "textarea", "id": "gate_description", "label": "Description", "default": "Sign in or create your free TSTN Club account to browse community rigs, builds and trip stories." },
     { "type": "text", "id": "gate_join_text", "label": "Join button text", "default": "Join TSTN Club" },
     { "type": "url", "id": "gate_join_link", "label": "Join button link", "info": "Defaults to /account/register if left blank." },
     { "type": "text", "id": "gate_login_text", "label": "Login button text", "default": "Login" },
@@ -2933,16 +2566,6 @@
     { "type": "header", "content": "Sidebar" },
     { "type": "checkbox", "id": "show_sidebar", "label": "Show sidebar", "default": true },
     { "type": "text", "id": "qf_title", "label": "Quick filters title", "default": "QUICK FILTERS" },
-
-    { "type": "header", "content": "Upload Card" },
-    { "type": "text", "id": "upload_title", "label": "Title", "default": "UPLOAD YOUR RIG" },
-    { "type": "textarea", "id": "upload_description", "label": "Description", "default": "Share your build, adventure, or setup with the community." },
-    { "type": "text", "id": "upload_button_text", "label": "Button text", "default": "Upload Now" },
-    { "type": "text", "id": "upload_modal_title", "label": "Modal title", "default": "Share Your Adventure" },
-    { "type": "text", "id": "upload_modal_sub", "label": "Modal subtitle", "default": "Drag photos in or click to browse. JPG, PNG up to 10MB each." },
-    { "type": "range", "id": "upload_max_files", "label": "Max files per upload", "min": 1, "max": 20, "step": 1, "default": 10 },
-    { "type": "range", "id": "upload_max_size_mb", "label": "Max file size (MB)", "min": 1, "max": 25, "step": 1, "default": 10 },
-    { "type": "url", "id": "upload_endpoint", "label": "Upload endpoint URL", "info": "Optional. POST destination for uploaded files (multipart/form-data). If empty, uploads show a success demo state — wire this to your handler (Cloudinary, custom Shopify app, Zapier, etc.)." },
 
     { "type": "header", "content": "Interactions (Likes, Comments, Share)" },
     { "type": "paragraph", "content": "Likes and comments are stored locally in each visitor's browser by default. Wire optional endpoints below to persist them server-side." },
@@ -2980,8 +2603,9 @@
         { "type": "text", "id": "photo_count", "label": "Photo count" },
         { "type": "text", "id": "like_count", "label": "Like count" },
         { "type": "textarea", "id": "description", "label": "Description", "info": "Shown in the lightbox info panel below the title." },
-        { "type": "text", "id": "location_label", "label": "Location", "info": "e.g. 'Yosemite, California'." },
-        { "type": "url", "id": "location_url", "label": "Location URL", "info": "Optional. Defaults to a Google Maps search of the location label." }
+        { "type": "text", "id": "location_label", "label": "Location", "info": "e.g. 'Yosemite, California'. Shown on the photo and in the lightbox." },
+        { "type": "url", "id": "location_url", "label": "Location URL", "info": "Optional. Defaults to a Google Maps search of the location label." },
+        { "type": "checkbox", "id": "is_community_upload", "label": "Mark as community upload", "default": false, "info": "Included when the 'Only community uploads' filter is on." }
       ]
     },
     {
