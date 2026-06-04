@@ -379,6 +379,62 @@
             "location_url": ""
           }
         },
+        "gallery_item_mwchXD": {
+          "type": "gallery_item",
+          "settings": {
+            "image": "shopify://shop_images/How_I_power_everything.jpg",
+            "category": "",
+            "title": "",
+            "author_name": "",
+            "photo_count": "",
+            "like_count": "",
+            "description": "",
+            "location_label": "",
+            "location_url": ""
+          }
+        },
+        "gallery_item_7tLFxe": {
+          "type": "gallery_item",
+          "settings": {
+            "image": "shopify://shop_images/Still_2026-05-19_164522_1.102.1.jpg",
+            "category": "",
+            "title": "",
+            "author_name": "",
+            "photo_count": "",
+            "like_count": "",
+            "description": "",
+            "location_label": "",
+            "location_url": ""
+          }
+        },
+        "gallery_item_DCpgdp": {
+          "type": "gallery_item",
+          "settings": {
+            "image": "shopify://shop_images/Latest_Video.jpg",
+            "category": "TRIP",
+            "title": "",
+            "author_name": "",
+            "photo_count": "",
+            "like_count": "",
+            "description": "",
+            "location_label": "",
+            "location_url": ""
+          }
+        },
+        "gallery_item_EJXw3m": {
+          "type": "gallery_item",
+          "settings": {
+            "image": "shopify://shop_images/Still_2026-05-15_205228_1.202.1.jpg",
+            "category": "BUILD",
+            "title": "",
+            "author_name": "",
+            "photo_count": "",
+            "like_count": "",
+            "description": "",
+            "location_label": "",
+            "location_url": ""
+          }
+        },
         "quick_filter_q8WcKe": {
           "type": "quick_filter",
           "settings": {
@@ -449,6 +505,10 @@
         "gallery_item_UjC74c",
         "gallery_item_wp9iL4",
         "gallery_item_KGDek3",
+        "gallery_item_mwchXD",
+        "gallery_item_7tLFxe",
+        "gallery_item_DCpgdp",
+        "gallery_item_EJXw3m",
         "quick_filter_q8WcKe",
         "quick_filter_abkfet",
         "quick_filter_KeyFjh",
