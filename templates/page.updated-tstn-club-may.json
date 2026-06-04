@@ -299,7 +299,7 @@
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/8.png",
-            "category": "",
+            "category": "FRIEND",
             "title": "",
             "author_name": "",
             "photo_count": "",
