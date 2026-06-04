@@ -829,6 +829,41 @@
     box-sizing: border-box;
   }
 
+  /* Location badge overlaid on the image */
+  .tstn-gal__lightbox-loc {
+    position: absolute;
+    top: 28px;
+    left: 104px;
+    z-index: 7;
+    display: none;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 15px;
+    max-width: calc(100% - 210px);
+    background: rgba(10,10,10,0.62);
+    -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.16);
+    border-radius: 999px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    transition: background 0.2s var(--lb-ease), border-color 0.2s var(--lb-ease), transform 0.2s var(--lb-ease);
+  }
+  .tstn-gal__lightbox-loc.is-visible { display: inline-flex; }
+  .tstn-gal__lightbox-loc:hover {
+    background: var(--tstn-accent);
+    border-color: var(--tstn-accent);
+    color: #0a0a0a;
+    transform: translateY(-1px);
+  }
+  .tstn-gal__lightbox-loc svg { width: 15px; height: 15px; flex-shrink: 0; color: var(--tstn-accent); }
+  .tstn-gal__lightbox-loc:hover svg { color: #0a0a0a; }
+  .tstn-gal__lightbox-loc span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
   .tstn-gal__lightbox-figure {
     position: absolute;
     inset: 16px 90px 16px;
@@ -1250,6 +1285,7 @@
 
   @media (max-width: 700px) {
     .tstn-gal__lightbox-stage { padding: 0 16px; }
+    .tstn-gal__lightbox-loc { top: 16px; left: 24px; font-size: 12px; padding: 7px 12px; max-width: calc(100% - 60px); }
     .tstn-gal__lightbox-figure { inset: 8px 16px; }
     .tstn-gal__lightbox-nav { width: 42px; height: 42px; }
     .tstn-gal__lightbox-nav.is-prev { left: 10px; }
@@ -1825,6 +1861,10 @@
       <div class="tstn-gal__lightbox-figure is-inactive" data-lb-figure="1">
         <img src="" alt="">
       </div>
+      <a class="tstn-gal__lightbox-loc" data-lb-loc-overlay target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span data-lb-loc-overlay-label></span>
+      </a>
     </div>
 
     <div class="tstn-gal__lightbox-info" data-lb-info>
@@ -1910,6 +1950,8 @@
       var authorEl = lightbox.querySelector('[data-lb-author]');
       var locEl = lightbox.querySelector('[data-lb-location]');
       var locLabelEl = lightbox.querySelector('[data-lb-location-label]');
+      var locOverlay = lightbox.querySelector('[data-lb-loc-overlay]');
+      var locOverlayLabel = lightbox.querySelector('[data-lb-loc-overlay-label]');
       var descEl = lightbox.querySelector('[data-lb-desc]');
       var likeBtn = lightbox.querySelector('[data-lb-like]');
       var likeCountEl = lightbox.querySelector('[data-lb-like-count]');
@@ -2035,6 +2077,15 @@
           locLabelEl.textContent = item.locLabel;
         } else {
           locEl.classList.add('is-hidden');
+        }
+        if (locOverlay) {
+          if (item.locLabel) {
+            locOverlay.classList.add('is-visible');
+            locOverlay.href = buildLocationUrl(item);
+            locOverlayLabel.textContent = item.locLabel;
+          } else {
+            locOverlay.classList.remove('is-visible');
+          }
         }
         descEl.textContent = item.desc || '';
         renderLike();
