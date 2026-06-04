@@ -383,7 +383,7 @@
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/How_I_power_everything.jpg",
-            "category": "",
+            "category": "GEAR",
             "title": "",
             "author_name": "",
             "photo_count": "",
@@ -397,7 +397,7 @@
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/Still_2026-05-19_164522_1.102.1.jpg",
-            "category": "",
+            "category": "TRIP",
             "title": "",
             "author_name": "",
             "photo_count": "",
