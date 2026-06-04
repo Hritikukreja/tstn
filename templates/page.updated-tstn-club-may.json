@@ -256,7 +256,7 @@
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/4_9178397a-cb3c-4ed3-ba54-3ad5241c6609.png",
-            "category": "",
+            "category": "TRIP",
             "title": "",
             "author_name": "",
             "avatar": "shopify://shop_images/4_9178397a-cb3c-4ed3-ba54-3ad5241c6609.png",
@@ -271,7 +271,7 @@
           "type": "gallery_item",
           "settings": {
             "image": "shopify://shop_images/6_d378ea8e-cbae-4d37-84f8-ed91ab883bac.png",
-            "category": "",
+            "category": "BUILD",
             "title": "",
             "author_name": "",
             "photo_count": "",
