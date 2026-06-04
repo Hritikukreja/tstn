@@ -273,10 +273,9 @@
         "video_jWbdQK": {
           "type": "video",
           "settings": {
-            "thumbnail": "shopify://shop_images/4.png",
             "episode": "EP. 42",
-            "title": "Cold Mornings & Clear Lakes",
-            "video_url": ""
+            "title": "We Tried Reaching a Remote Alpine Lake Too Early",
+            "video_url": "https://youtu.be/yodmD_fAqVM?si=yb9aYAmbpToXsEQm"
           }
         },
         "video_hK7MPb": {
@@ -311,10 +310,9 @@
         "eyebrow": "Latest From The Trail",
         "heading": "Fresh Drops Every Week.",
         "subheading": "Real adventures. Real gear. Real world-tested.",
-        "featured_image": "shopify://shop_images/unnamed.webp",
         "featured_label": "Latest Video",
-        "featured_title": "Conquering an Unexpected Snowstorm in My Full-Size RAM!",
-        "featured_video_url": "https://youtu.be/2cAOs_P6FEQ?si=bonni_susq66zuSA",
+        "featured_title": "STRANDED on a Remote Beach With a Broken Sherp!",
+        "featured_video_url": "https://youtu.be/kzBUxDHHPhg?si=GRkIYj42cpOKZYRj",
         "cta_text": "View All Videos",
         "cta_url": "",
         "section_padding_y": 56,
