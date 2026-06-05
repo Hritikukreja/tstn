@@ -83,7 +83,7 @@
               {%- if section.settings.featured_label != blank -%}
                 <span class="trail-videos__featured-label">{{ section.settings.featured_label }}</span>
               {%- endif -%}
-              {%- if section.settings.featured_title != blank -%}
+              {%- if section.settings.featured_title != blank or yt_enabled -%}
                 <h3 class="trail-videos__featured-title">{{ section.settings.featured_title }}</h3>
               {%- endif -%}
             </div>
@@ -154,6 +154,7 @@
         data-tv-yt-channel="{{ section.settings.youtube_channel_id | escape }}"
         data-tv-yt-count="{{ section.settings.youtube_count }}"
         data-tv-yt-date="{{ section.settings.youtube_show_date }}"
+        data-tv-yt-min="{{ section.settings.youtube_min_seconds }}"
       >
         {%- for block in video_blocks -%}
           <a
@@ -343,6 +344,59 @@
       return m[d.getMonth()] + ' ' + d.getFullYear();
     }
 
+    function parseDuration(iso) {
+      // ISO 8601 e.g. PT1H2M30S -> seconds
+      var m = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/.exec(iso || '');
+      if (!m) return 0;
+      return (parseInt(m[1] || 0, 10) * 3600) +
+             (parseInt(m[2] || 0, 10) * 60) +
+             parseInt(m[3] || 0, 10);
+    }
+
+    function bestThumb(s) {
+      var t = (s && s.thumbnails) || {};
+      return (t.maxres || t.standard || t.high || t.medium || t.default || {}).url || '';
+    }
+
+    function updateFeatured(item) {
+      var link = root.querySelector('.trail-videos__featured-link');
+      var media = root.querySelector('.trail-videos__featured-media');
+      var titleEl = root.querySelector('.trail-videos__featured-title');
+      if (!link || !media) return;
+
+      var s = item.snippet || {};
+      var vid = (s.resourceId || {}).videoId;
+      var watch = 'https://www.youtube.com/watch?v=' + vid;
+      var thumb = bestThumb(s);
+
+      link.setAttribute('href', watch);
+      link.setAttribute('data-tv-video', watch);
+
+      if (thumb) {
+        var img = media.querySelector('.trail-videos__featured-img');
+        var placeholder = media.querySelector('.trail-videos__placeholder');
+        if (img) {
+          img.removeAttribute('srcset');
+          img.removeAttribute('sizes');
+          img.src = thumb;
+          img.alt = s.title || '';
+        } else {
+          var newImg = document.createElement('img');
+          newImg.className = 'trail-videos__featured-img';
+          newImg.loading = 'lazy';
+          newImg.src = thumb;
+          newImg.alt = s.title || '';
+          if (placeholder) {
+            media.replaceChild(newImg, placeholder);
+          } else {
+            media.insertBefore(newImg, media.firstChild);
+          }
+        }
+      }
+
+      if (titleEl) titleEl.textContent = s.title || '';
+    }
+
     function skeletonHtml(n) {
       var out = '';
       for (var i = 0; i < n; i++) {
@@ -394,44 +448,74 @@
       var channel = (grid.getAttribute('data-tv-yt-channel') || '').trim();
       var count = parseInt(grid.getAttribute('data-tv-yt-count'), 10) || 6;
       var showDate = grid.getAttribute('data-tv-yt-date') === 'true';
+      var minSeconds = parseInt(grid.getAttribute('data-tv-yt-min'), 10);
+      if (isNaN(minSeconds)) minSeconds = 0;
 
       if (key && channel) {
         var fallbackHtml = grid.innerHTML; // manual Video Card blocks
         var uploads = channel.replace(/^UC/, 'UU'); // uploads playlist id
-        var max = Math.min(count + 4, 50);
-        var api = 'https://www.googleapis.com/youtube/v3/playlistItems' +
-          '?part=snippet&maxResults=' + max +
-          '&playlistId=' + encodeURIComponent(uploads) +
-          '&key=' + encodeURIComponent(key);
+        var apiBase = 'https://www.googleapis.com/youtube/v3/';
+
+        function showFallback() {
+          grid.classList.remove('is-loading');
+          if (fallbackHtml && fallbackHtml.trim()) {
+            grid.innerHTML = fallbackHtml; // restore manual blocks
+          } else {
+            grid.style.display = 'none';
+          }
+        }
 
         grid.classList.add('is-loading');
         grid.innerHTML = skeletonHtml(count);
 
-        fetch(api)
-          .then(function (r) { if (!r.ok) throw new Error('YouTube API ' + r.status); return r.json(); })
+        // 1) Latest uploads (newest first). Pull a wide window so we still
+        //    have enough long-form videos left after Shorts are removed.
+        fetch(apiBase + 'playlistItems?part=snippet&maxResults=50&playlistId=' +
+              encodeURIComponent(uploads) + '&key=' + encodeURIComponent(key))
+          .then(function (r) { if (!r.ok) throw new Error('playlistItems ' + r.status); return r.json(); })
           .then(function (data) {
-            var items = (data.items || []).filter(function (it) {
+            var candidates = (data.items || []).filter(function (it) {
               var s = it.snippet || {};
               var rid = s.resourceId || {};
               return rid.videoId &&
                 s.title !== 'Private video' &&
                 s.title !== 'Deleted video' &&
                 s.thumbnails;
-            }).slice(0, count);
+            });
+            if (!candidates.length) throw new Error('No public videos');
 
-            if (!items.length) throw new Error('No public videos returned');
+            var ids = candidates.map(function (it) { return it.snippet.resourceId.videoId; });
 
-            grid.classList.remove('is-loading');
-            grid.innerHTML = items.map(function (it) { return ytCard(it, showDate); }).join('');
+            // 2) Look up durations to separate Shorts from regular videos.
+            return fetch(apiBase + 'videos?part=contentDetails&id=' +
+                         encodeURIComponent(ids.join(',')) + '&key=' + encodeURIComponent(key))
+              .then(function (r) { if (!r.ok) throw new Error('videos ' + r.status); return r.json(); })
+              .then(function (durData) {
+                var durMap = {};
+                (durData.items || []).forEach(function (v) {
+                  durMap[v.id] = parseDuration((v.contentDetails || {}).duration);
+                });
+
+                // Keep only regular (long-form) videos
+                var regular = candidates.filter(function (it) {
+                  var sec = durMap[it.snippet.resourceId.videoId] || 0;
+                  return sec > minSeconds;
+                });
+                if (!regular.length) throw new Error('No regular videos after Shorts filter');
+
+                // Featured = newest regular video; grid = the next ones
+                updateFeatured(regular[0]);
+
+                var gridItems = regular.slice(1, 1 + count);
+                grid.classList.remove('is-loading');
+                if (gridItems.length) {
+                  grid.innerHTML = gridItems.map(function (it) { return ytCard(it, showDate); }).join('');
+                } else {
+                  grid.style.display = 'none';
+                }
+              });
           })
-          .catch(function () {
-            grid.classList.remove('is-loading');
-            if (fallbackHtml && fallbackHtml.trim()) {
-              grid.innerHTML = fallbackHtml; // restore manual blocks
-            } else {
-              grid.style.display = 'none'; // nothing to show
-            }
-          });
+          .catch(function () { showFallback(); });
       }
     }
   })();
@@ -1123,7 +1207,7 @@
     },
     {
       "type": "paragraph",
-      "content": "Auto-fills the grid below the featured video with the channel's latest uploads. Leave the API key blank to use the manual Video Cards instead. If the API ever fails, the manual cards are shown as a fallback."
+      "content": "Auto-fills the featured video and the grid with the channel's latest uploads. The newest regular video becomes the featured video; the rest fill the grid. Leave the API key blank (or if the API fails) to use the manual featured video + Video Cards instead."
     },
     {
       "type": "text",
@@ -1141,11 +1225,23 @@
     {
       "type": "range",
       "id": "youtube_count",
-      "label": "Number of videos to show",
+      "label": "Videos in grid (below featured)",
       "min": 3,
       "max": 12,
       "step": 1,
-      "default": 6
+      "default": 6,
+      "info": "Featured video is shown separately above the grid."
+    },
+    {
+      "type": "range",
+      "id": "youtube_min_seconds",
+      "label": "Hide videos shorter than",
+      "min": 0,
+      "max": 600,
+      "step": 10,
+      "unit": "sec",
+      "default": 180,
+      "info": "Filters out YouTube Shorts (max length 180s). Videos at or under this length are hidden. Lower it if real short videos get hidden."
     },
     {
       "type": "checkbox",
