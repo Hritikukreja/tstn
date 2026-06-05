@@ -189,8 +189,8 @@
       "name": "Video + Buy Now",
       "settings": {
         "video_type": "youtube",
-        "youtube_url": "https://www.youtube.com/watch?v=yodmD_fAqVM&t=962s",
-        "mp4_video": "",
+        "youtube_url": "{{ section.settings.product.metafields.custom.main_video_url_text.value }}",
+        "mp4_video": "{{ section.settings.product.metafields.custom.main_video_url_text.value }}",
         "video_poster": "{{ section.settings.product.featured_image }}",
         "show_video_controls": false,
         "heading": "{{ section.settings.product.title }}",
