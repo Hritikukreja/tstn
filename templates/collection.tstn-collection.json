@@ -538,6 +538,7 @@
     },
     "contact_cta_eMqn8p": {
       "type": "contact-cta",
+      "custom_css": [],
       "name": "Contact CTA",
       "settings": {
         "background_image": "shopify://shop_images/3.png",
