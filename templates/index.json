@@ -317,6 +317,7 @@
         "youtube_api_key": "AIzaSyAhPDftTvsAHAt6ckGLqEhQTnxlmQkggDQ",
         "youtube_channel_id": "UC_QteyvNZKtK5qPWlPbrl-Q",
         "youtube_count": 6,
+        "youtube_min_seconds": 180,
         "youtube_show_date": true,
         "cta_text": "View All Videos",
         "cta_url": "https://www.youtube.com/@TheStoryTillNow",
@@ -336,11 +337,11 @@
       "settings": {
         "background_image": "shopify://shop_images/sherp_desolate_island.jpg",
         "overlay_opacity": 80,
-        "overline": "THE COLLECTION",
-        "heading": "Come Behind the Scenes",
-        "subheading": "<p>Hand-picked gear for real adventures. Tested, trusted, and used out on the trail.</p>",
+        "overline": "",
+        "heading": "Hand-picked gear for real adventures.",
+        "subheading": "",
         "text_alignment": "left",
-        "button_label": "EXPLORE THE GEAR",
+        "button_label": "EXPLORE ALL GEARS",
         "button_link": "https://tstn-1.myshopify.com/collections/collection",
         "height_desktop": 820,
         "height_mobile": 520
