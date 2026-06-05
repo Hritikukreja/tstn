@@ -4,6 +4,11 @@
   - Logged-out: clicking a video opens a "Members Only" gate popup
   - Sidebar: slidable promo carousel; each slide is either a Link CTA OR
              an inline Email Capture form (Shopify built-in newsletter)
+  - Promo CTAs (link button + email form) are now gated:
+      * Logged-in  -> CTA / email form work normally
+      * Logged-out -> CTA shows a locked state that opens the Members gate popup
+  - Optional: email captures can be sent to a Google Sheet (via Apps Script
+              Web App URL) instead of Shopify's customer list.
 {% endcomment %}
 
 <style>
@@ -360,6 +365,9 @@
     font-size: 13px;
     transition: all 0.25s ease;
     align-self: flex-start;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
   }
   .tstn-promo__cta:hover {
     background: var(--tstn-orange-hover);
@@ -415,6 +423,7 @@
     font-family: inherit;
   }
   .tstn-promo__form-btn:hover { background: var(--tstn-orange-hover); }
+  .tstn-promo__form-btn:disabled { opacity: 0.6; cursor: default; }
   .tstn-promo__form-msg {
     font-size: 12px;
     color: var(--tstn-orange);
@@ -423,6 +432,43 @@
   }
   .tstn-promo__form-msg--success { color: #4ade80; }
   .tstn-promo__form-msg--error { color: #ff6b6b; }
+
+  /* Logged-out locked CTA (opens Members gate) */
+  .tstn-promo__gate-row {
+    margin-top: auto;
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font: inherit;
+  }
+  .tstn-promo__form-row--locked {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid var(--tstn-border);
+    border-radius: 999px;
+    padding: 4px;
+    transition: border-color 0.2s ease;
+  }
+  .tstn-promo__gate-row:hover .tstn-promo__form-row--locked {
+    border-color: var(--tstn-orange);
+  }
+  .tstn-promo__form-placeholder {
+    flex: 1;
+    text-align: left;
+    color: rgba(255,255,255,0.4);
+    font-size: 13px;
+    padding: 10px 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tstn-promo__form-placeholder svg { flex-shrink: 0; opacity: 0.7; }
+  .tstn-promo__cta[data-tstn-gate-trigger] svg { transition: transform 0.25s ease; }
+  .tstn-promo__cta[data-tstn-gate-trigger]:hover svg { transform: none; }
 
   /* Carousel controls */
   .tstn-promo__controls {
@@ -676,9 +722,11 @@
     .tstn-fv__item-title { font-size: 16px; }
     .tstn-modal--gate .tstn-modal__inner { padding: 28px 24px; }
     .tstn-gate__lock-bg { width: 160px; height: 160px; }
-    .tstn-promo__form-row { flex-direction: column; border-radius: 14px; padding: 6px; gap: 4px; }
+    .tstn-promo__form-row,
+    .tstn-promo__form-row--locked { flex-direction: column; border-radius: 14px; padding: 6px; gap: 4px; }
     .tstn-promo__form-input { padding: 10px 12px; }
     .tstn-promo__form-btn { width: 100%; justify-content: center; padding: 10px; }
+    .tstn-promo__form-placeholder { width: 100%; }
   }
 </style>
 
@@ -811,40 +859,62 @@
                   <h3 class="tstn-promo__title">{{ block.settings.title }}</h3>
                   <p class="tstn-promo__desc">{{ block.settings.description }}</p>
 
-                  {%- comment -%} CTA mode: link OR email capture {%- endcomment -%}
-                  {% if block.settings.cta_mode == 'email' %}
-                    {% form 'customer', class: 'tstn-promo__form', novalidate: 'novalidate' %}
-                      <input type="hidden" name="contact[tags]" value="newsletter,promo:{{ block.settings.email_tag | default: 'general' | escape }}">
-                      <div class="tstn-promo__form-row">
-                        <input
-                          type="email"
-                          name="contact[email]"
-                          class="tstn-promo__form-input"
-                          placeholder="{{ block.settings.email_placeholder | default: 'Enter your email' | escape }}"
-                          required
-                          autocomplete="email">
-                        <button type="submit" name="commit" class="tstn-promo__form-btn">
-                          {{ block.settings.email_btn_text | default: 'Subscribe' }}
-                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                          </svg>
-                        </button>
-                      </div>
-                      {% if form.posted_successfully? %}
-                        <div class="tstn-promo__form-msg tstn-promo__form-msg--success">{{ block.settings.email_success | default: '✓ Thanks! You’re on the list.' }}</div>
-                      {% elsif form.errors %}
-                        <div class="tstn-promo__form-msg tstn-promo__form-msg--error">{{ form.errors | default_errors }}</div>
-                      {% endif %}
-                    {% endform %}
+                  {%- comment -%} CTA mode: link OR email capture — gated to logged-in members {%- endcomment -%}
+                  {% if customer %}
+                    {% if block.settings.cta_mode == 'email' %}
+                      {% form 'customer', class: 'tstn-promo__form', novalidate: 'novalidate' %}
+                        <input type="hidden" name="contact[tags]" value="newsletter,promo:{{ block.settings.email_tag | default: 'general' | escape }}">
+                        <div class="tstn-promo__form-row">
+                          <input
+                            type="email"
+                            name="contact[email]"
+                            class="tstn-promo__form-input"
+                            placeholder="{{ block.settings.email_placeholder | default: 'Enter your email' | escape }}"
+                            data-tag="{{ block.settings.email_tag | default: 'general' | escape }}"
+                            data-success="{{ block.settings.email_success | default: '✓ Thanks! You’re on the list.' | escape }}"
+                            required
+                            autocomplete="email">
+                          <button type="submit" name="commit" class="tstn-promo__form-btn">
+                            {{ block.settings.email_btn_text | default: 'Subscribe' }}
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                              <line x1="5" y1="12" x2="19" y2="12"></line>
+                              <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                          </button>
+                        </div>
+                        {% if form.posted_successfully? %}
+                          <div class="tstn-promo__form-msg tstn-promo__form-msg--success">{{ block.settings.email_success | default: '✓ Thanks! You’re on the list.' }}</div>
+                        {% elsif form.errors %}
+                          <div class="tstn-promo__form-msg tstn-promo__form-msg--error">{{ form.errors | default_errors }}</div>
+                        {% endif %}
+                      {% endform %}
+                    {% else %}
+                      <a href="{{ block.settings.cta_link | default: '#' }}" class="tstn-promo__cta">
+                        {{ block.settings.cta_text | default: 'Learn More' }}
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                          <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                      </a>
+                    {% endif %}
                   {% else %}
-                    <a href="{{ block.settings.cta_link | default: '#' }}" class="tstn-promo__cta">
-                      {{ block.settings.cta_text | default: 'Learn More' }}
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                      </svg>
-                    </a>
+                    {%- comment -%} Logged-out: locked CTA opens the Members Only gate {%- endcomment -%}
+                    {% if block.settings.cta_mode == 'email' %}
+                      <button type="button" class="tstn-promo__gate-row" data-tstn-gate-trigger aria-label="Members only — log in to subscribe">
+                        <span class="tstn-promo__form-row tstn-promo__form-row--locked">
+                          <span class="tstn-promo__form-placeholder">
+                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                            {{ block.settings.email_placeholder | default: 'Enter your email' }}
+                          </span>
+                          <span class="tstn-promo__form-btn">{{ block.settings.email_btn_text | default: 'Subscribe' }}</span>
+                        </span>
+                      </button>
+                    {% else %}
+                      <button type="button" class="tstn-promo__cta" data-tstn-gate-trigger aria-label="Members only">
+                        {{ block.settings.cta_text | default: 'Learn More' }}
+                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                      </button>
+                    {% endif %}
                   {% endif %}
                 </div>
               </div>
@@ -950,6 +1020,7 @@
   if (!section) return;
 
   var isLoggedIn = {% if customer %}true{% else %}false{% endif %};
+  var sheetEndpoint = {{ section.settings.sheet_endpoint | default: '' | json }};
 
   var videoModal = section.querySelector('#tstn-modal-video-' + sectionId);
   var gateModal  = section.querySelector('#tstn-modal-gate-' + sectionId);
@@ -1008,6 +1079,11 @@
     });
   });
 
+  /* Logged-out promo CTA / email locked state -> open Members gate */
+  section.querySelectorAll('[data-tstn-gate-trigger]').forEach(function(t) {
+    t.addEventListener('click', function() { openModal(gateModal); });
+  });
+
   section.querySelectorAll('.tstn-modal').forEach(function(modal) {
     var closeBtn = modal.querySelector('.tstn-modal__close');
     if (closeBtn) closeBtn.addEventListener('click', function() { closeModal(modal); });
@@ -1020,6 +1096,54 @@
     if (e.key !== 'Escape') return;
     section.querySelectorAll('.tstn-modal.is-open').forEach(function(m) { closeModal(m); });
   });
+
+  /* ----- Optional: send email captures to a Google Sheet (Apps Script Web App) ----- */
+  if (sheetEndpoint) {
+    section.querySelectorAll('.tstn-promo__form').forEach(function(form) {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault(); // intercept Shopify submit, send to the Sheet instead
+        var input = form.querySelector('input[type="email"]');
+        var email = input ? input.value.trim() : '';
+        if (!email) return;
+
+        var btn = form.querySelector('.tstn-promo__form-btn');
+        var successText = (input && input.getAttribute('data-success')) || '✓ Thanks! You’re on the list.';
+        var tag = (input && input.getAttribute('data-tag')) || 'general';
+
+        var msg = form.querySelector('.tstn-promo__form-msg');
+        if (!msg) {
+          msg = document.createElement('div');
+          msg.className = 'tstn-promo__form-msg';
+          form.appendChild(msg);
+        }
+        msg.classList.remove('tstn-promo__form-msg--success', 'tstn-promo__form-msg--error');
+
+        if (btn) btn.disabled = true;
+
+        var payload = new URLSearchParams();
+        payload.append('email', email);
+        payload.append('tag', tag);
+        payload.append('source', 'TSTN Featured Videos');
+        payload.append('page', window.location.href);
+
+        fetch(sheetEndpoint, {
+          method: 'POST',
+          mode: 'no-cors', // Apps Script Web App; response is opaque, treat as success
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+          body: payload.toString()
+        }).then(function() {
+          msg.textContent = successText;
+          msg.classList.add('tstn-promo__form-msg--success');
+          if (input) input.value = '';
+          if (btn) btn.disabled = false;
+        }).catch(function() {
+          msg.textContent = 'Something went wrong. Please try again.';
+          msg.classList.add('tstn-promo__form-msg--error');
+          if (btn) btn.disabled = false;
+        });
+      });
+    });
+  }
 
   /* Promo Carousel */
   var promo = section.querySelector('[data-tstn-promo]');
@@ -1108,7 +1232,10 @@
     { "type": "text", "id": "gate_title", "label": "Title", "default": "Unlock Exclusive Content & Perks" },
     { "type": "text", "id": "gate_cta_text", "label": "CTA Button Text", "default": "Join TSTN Club" },
     { "type": "url", "id": "gate_cta_link", "label": "CTA Button Link" },
-    { "type": "paragraph", "content": "Add 'Members Perk' blocks below to populate the checkmark list." },
+    { "type": "paragraph", "content": "Add 'Members Perk' blocks below to populate the checkmark list. Logged-out visitors who click any promo CTA or email form will see this popup." },
+
+    { "type": "header", "content": "Email → Google Sheet (optional)" },
+    { "type": "text", "id": "sheet_endpoint", "label": "Google Apps Script Web App URL", "info": "Paste your deployed Apps Script /exec URL. When set, promo email submissions are sent here (e.g. appended to a Google Sheet) instead of Shopify's customer list. Leave blank to keep using Shopify." },
 
     { "type": "header", "content": "Promo Carousel" },
     { "type": "checkbox", "id": "promo_autoplay", "label": "Auto-rotate slides", "default": true },
@@ -1155,6 +1282,7 @@
         { "type": "text", "id": "title", "label": "Title", "default": "Promo Title" },
         { "type": "textarea", "id": "description", "label": "Description", "default": "Short description of the promo." },
         { "type": "header", "content": "Call to Action" },
+        { "type": "paragraph", "content": "Promo CTAs are members-only: logged-out visitors get the Members gate popup." },
         {
           "type": "select",
           "id": "cta_mode",
@@ -1168,10 +1296,10 @@
         { "type": "paragraph", "content": "▼ If 'Link Button' is selected:" },
         { "type": "text", "id": "cta_text", "label": "Button Text", "default": "Learn More" },
         { "type": "url", "id": "cta_link", "label": "Button Link" },
-        { "type": "paragraph", "content": "▼ If 'Email Capture Form' is selected — emails go to your Shopify customer list:" },
+        { "type": "paragraph", "content": "▼ If 'Email Capture Form' is selected — emails go to Shopify, or to your Google Sheet if a Web App URL is set above:" },
         { "type": "text", "id": "email_placeholder", "label": "Input Placeholder", "default": "Enter your email" },
         { "type": "text", "id": "email_btn_text", "label": "Submit Button Text", "default": "Subscribe" },
-        { "type": "text", "id": "email_tag", "label": "Customer Tag (segments emails)", "default": "general", "info": "Submitted emails are tagged so you can segment them in Shopify Admin (e.g. 'live-video', 'giveaway-jan')." },
+        { "type": "text", "id": "email_tag", "label": "Customer Tag (segments emails)", "default": "general", "info": "Submitted emails are tagged so you can segment them in Shopify Admin or in your Google Sheet (e.g. 'live-video', 'giveaway-jan')." },
         { "type": "text", "id": "email_success", "label": "Success Message", "default": "✓ Thanks! You’re on the list." }
       ]
     }
