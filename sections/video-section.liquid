@@ -3,10 +3,17 @@
   Premium black theme with orange accents
   Uses Danger Neue Free Regular for headings
   Videos play in-page via lightbox (YouTube / Vimeo / direct video files)
+  Secondary grid can auto-feed the latest uploads from a YouTube channel
+  (YouTube Data API v3). Falls back to manual Video Card blocks.
 {% endcomment %}
 
 {%- assign featured_aspect = section.settings.featured_aspect | times: 1.0 | divided_by: 100.0 -%}
 {%- assign card_aspect = section.settings.card_aspect | times: 1.0 | divided_by: 100.0 -%}
+
+{%- assign yt_enabled = false -%}
+{%- if section.settings.youtube_api_key != blank and section.settings.youtube_channel_id != blank -%}
+  {%- assign yt_enabled = true -%}
+{%- endif -%}
 
 <section
   id="shopify-section-{{ section.id }}"
@@ -137,10 +144,17 @@
 
     </div>
 
-    {%- comment -%} Secondary video grid {%- endcomment -%}
+    {%- comment -%} Secondary video grid (auto-fed from YouTube, manual blocks as fallback) {%- endcomment -%}
     {%- assign video_blocks = section.blocks | where: 'type', 'video' -%}
-    {%- if video_blocks.size > 0 -%}
-      <div class="trail-videos__grid">
+    {%- if video_blocks.size > 0 or yt_enabled -%}
+      <div
+        class="trail-videos__grid"
+        data-tv-grid
+        data-tv-yt-key="{{ section.settings.youtube_api_key | escape }}"
+        data-tv-yt-channel="{{ section.settings.youtube_channel_id | escape }}"
+        data-tv-yt-count="{{ section.settings.youtube_count }}"
+        data-tv-yt-date="{{ section.settings.youtube_show_date }}"
+      >
         {%- for block in video_blocks -%}
           <a
             href="{{ block.settings.video_url | default: '#' }}"
@@ -281,24 +295,26 @@
       document.body.style.overflow = '';
     }
 
-    root.querySelectorAll('[data-tv-video]').forEach(function (el) {
-      el.addEventListener('click', function (e) {
-        var url = (el.getAttribute('data-tv-video') || '').trim();
+    // Event delegation so dynamically injected YouTube cards work too
+    root.addEventListener('click', function (e) {
+      var el = e.target.closest ? e.target.closest('[data-tv-video]') : null;
+      if (!el || !root.contains(el)) return;
 
-        // No URL set yet -> stop the placeholder "#" jump
-        if (!url || url === '#') {
-          e.preventDefault();
-          return;
-        }
+      var url = (el.getAttribute('data-tv-video') || '').trim();
 
-        var embed = buildEmbed(url);
-
-        // Unrecognized URL (e.g. an internal page link) -> let it navigate normally
-        if (!embed) return;
-
+      // No URL set yet -> stop the placeholder "#" jump
+      if (!url || url === '#') {
         e.preventDefault();
-        openModal(embed);
-      });
+        return;
+      }
+
+      var embed = buildEmbed(url);
+
+      // Unrecognized URL (e.g. an internal page link) -> let it navigate normally
+      if (!embed) return;
+
+      e.preventDefault();
+      openModal(embed);
     });
 
     modal.querySelectorAll('[data-tv-close]').forEach(function (el) {
@@ -310,6 +326,114 @@
         closeModal();
       }
     });
+
+    /* -------------------------------------------------------------
+       YouTube auto-feed for the secondary grid
+    -------------------------------------------------------------- */
+    function escHtml(str) {
+      return String(str).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+
+    function fmtDate(iso) {
+      var d = new Date(iso);
+      if (isNaN(d.getTime())) return '';
+      var m = ['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+      return m[d.getMonth()] + ' ' + d.getFullYear();
+    }
+
+    function skeletonHtml(n) {
+      var out = '';
+      for (var i = 0; i < n; i++) {
+        out += '<div class="trail-videos__card trail-videos__card--skeleton" aria-hidden="true">' +
+          '<div class="trail-videos__card-media"></div>' +
+          '<div class="trail-videos__card-footer"><span class="trail-videos__skel"></span></div>' +
+          '</div>';
+      }
+      return out;
+    }
+
+    function ytCard(item, showDate) {
+      var s = item.snippet || {};
+      var rid = s.resourceId || {};
+      var vid = rid.videoId;
+      var t = s.thumbnails || {};
+      var thumb = (t.maxres || t.standard || t.high || t.medium || t.default || {}).url || '';
+      var title = s.title || '';
+      var watch = 'https://www.youtube.com/watch?v=' + vid;
+      var meta = (showDate && s.publishedAt) ?
+        '<span class="trail-videos__card-episode">' + escHtml(fmtDate(s.publishedAt)) + '</span>' : '';
+
+      return '<a href="' + watch + '" class="trail-videos__card" data-tv-video="' + watch + '">' +
+        '<div class="trail-videos__card-media">' +
+          (thumb
+            ? '<img src="' + escHtml(thumb) + '" loading="lazy" class="trail-videos__card-img" alt="' + escHtml(title) + '">'
+            : '<div class="trail-videos__placeholder"></div>') +
+          '<button type="button" class="trail-videos__play" aria-label="Play video">' +
+            '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">' +
+            '<circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5"/>' +
+            '<path d="M9.5 8L16 12L9.5 16V8Z" fill="currentColor"/></svg>' +
+          '</button>' +
+        '</div>' +
+        '<div class="trail-videos__card-footer">' +
+          '<div class="trail-videos__card-meta">' + meta +
+            '<span class="trail-videos__card-title">' + escHtml(title) + '</span>' +
+          '</div>' +
+          '<span class="trail-videos__card-arrow" aria-hidden="true">' +
+            '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">' +
+            '<path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>' +
+          '</span>' +
+        '</div>' +
+      '</a>';
+    }
+
+    var grid = root.querySelector('[data-tv-grid]');
+    if (grid) {
+      var key = (grid.getAttribute('data-tv-yt-key') || '').trim();
+      var channel = (grid.getAttribute('data-tv-yt-channel') || '').trim();
+      var count = parseInt(grid.getAttribute('data-tv-yt-count'), 10) || 6;
+      var showDate = grid.getAttribute('data-tv-yt-date') === 'true';
+
+      if (key && channel) {
+        var fallbackHtml = grid.innerHTML; // manual Video Card blocks
+        var uploads = channel.replace(/^UC/, 'UU'); // uploads playlist id
+        var max = Math.min(count + 4, 50);
+        var api = 'https://www.googleapis.com/youtube/v3/playlistItems' +
+          '?part=snippet&maxResults=' + max +
+          '&playlistId=' + encodeURIComponent(uploads) +
+          '&key=' + encodeURIComponent(key);
+
+        grid.classList.add('is-loading');
+        grid.innerHTML = skeletonHtml(count);
+
+        fetch(api)
+          .then(function (r) { if (!r.ok) throw new Error('YouTube API ' + r.status); return r.json(); })
+          .then(function (data) {
+            var items = (data.items || []).filter(function (it) {
+              var s = it.snippet || {};
+              var rid = s.resourceId || {};
+              return rid.videoId &&
+                s.title !== 'Private video' &&
+                s.title !== 'Deleted video' &&
+                s.thumbnails;
+            }).slice(0, count);
+
+            if (!items.length) throw new Error('No public videos returned');
+
+            grid.classList.remove('is-loading');
+            grid.innerHTML = items.map(function (it) { return ytCard(it, showDate); }).join('');
+          })
+          .catch(function () {
+            grid.classList.remove('is-loading');
+            if (fallbackHtml && fallbackHtml.trim()) {
+              grid.innerHTML = fallbackHtml; // restore manual blocks
+            } else {
+              grid.style.display = 'none'; // nothing to show
+            }
+          });
+      }
+    }
   })();
 </script>
 
@@ -731,6 +855,41 @@
     opacity: 0.95;
   }
 
+  /* Skeleton loading state for auto-fed YouTube cards */
+  .trail-videos__card--skeleton {
+    pointer-events: none;
+    cursor: default;
+  }
+
+  .trail-videos__card--skeleton:hover {
+    border-color: var(--tv-border);
+    transform: none;
+  }
+
+  .trail-videos__card--skeleton .trail-videos__card-media,
+  .trail-videos__skel {
+    background: linear-gradient(
+      90deg,
+      var(--tv-surface-2) 25%,
+      rgba(255, 255, 255, 0.07) 37%,
+      var(--tv-surface-2) 63%
+    );
+    background-size: 400% 100%;
+    animation: tvShimmer 1.4s ease infinite;
+  }
+
+  .trail-videos__skel {
+    display: block;
+    height: 14px;
+    width: 70%;
+    border-radius: 4px;
+  }
+
+  @keyframes tvShimmer {
+    0% { background-position: 100% 0; }
+    100% { background-position: 0 0; }
+  }
+
   .trail-videos__cta-wrap {
     margin-top: clamp(32px, 4vw, 56px);
     display: flex;
@@ -960,6 +1119,42 @@
     },
     {
       "type": "header",
+      "content": "YouTube Auto-Feed (Videos Grid)"
+    },
+    {
+      "type": "paragraph",
+      "content": "Auto-fills the grid below the featured video with the channel's latest uploads. Leave the API key blank to use the manual Video Cards instead. If the API ever fails, the manual cards are shown as a fallback."
+    },
+    {
+      "type": "text",
+      "id": "youtube_api_key",
+      "label": "YouTube Data API key",
+      "info": "Google Cloud Console → enable 'YouTube Data API v3' → create an API key → restrict it to your store domain (HTTP referrers)."
+    },
+    {
+      "type": "text",
+      "id": "youtube_channel_id",
+      "label": "YouTube Channel ID",
+      "default": "UC_QteyvNZKtK5qPWlPbrl-Q",
+      "info": "Starts with UC… (The Story Till Now is pre-filled)."
+    },
+    {
+      "type": "range",
+      "id": "youtube_count",
+      "label": "Number of videos to show",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "youtube_show_date",
+      "label": "Show upload date label",
+      "default": true
+    },
+    {
+      "type": "header",
       "content": "Call to Action"
     },
     {
@@ -1099,7 +1294,7 @@
     },
     {
       "type": "video",
-      "name": "Video Card",
+      "name": "Video Card (Fallback)",
       "limit": 6,
       "settings": [
         {
@@ -1123,7 +1318,7 @@
           "type": "url",
           "id": "video_url",
           "label": "Video URL",
-          "info": "YouTube, Vimeo, or a direct video file (.mp4). Plays in a pop-up on the page."
+          "info": "YouTube, Vimeo, or a direct video file (.mp4). Plays in a pop-up on the page. Used only when the YouTube Auto-Feed key is blank or the API is unavailable."
         }
       ]
     }
