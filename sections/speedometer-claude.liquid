@@ -1,10 +1,3 @@
-{% if customer %}
-  {% assign vip_tier = customer.metafields["app--144550"]["growave_vip_tier"] %}
-  {% if vip_tier != blank %}
-    <div class="vip_tier_new_updated">{{ vip_tier }}</div>
-  {% endif %}
-{% endif %}
-
 <div class="visibility_hidden">
   <span
     class="gw-rd-customer-points-balance-inline-widget-placeholder"
@@ -42,7 +35,7 @@
         {% endif %}
         <div class="tstn-ctas">
           {% if section.settings.cta_primary_label != blank %}
-            <a href="{{ section.settings.cta_primary_url | default: '#tstn-how-it-works' }}" class="tstn-btn tstn-btn--gold">{{ section.settings.cta_primary_label }} <span>›</span></a>
+            <a href="{{ section.settings.cta_primary_url | default: '#tstn-how-it-works' }}" class="tstn-btn tstn-btn--primary">{{ section.settings.cta_primary_label }} <span>›</span></a>
           {% endif %}
           {% if section.settings.cta_secondary_label != blank %}
             <a href="{{ section.settings.cta_secondary_url | default: '/collections/merch' }}" class="tstn-btn tstn-btn--outline">{{ section.settings.cta_secondary_label }}</a>
@@ -78,55 +71,9 @@
           {% endif %}
         </div>
 
-        <!-- ══════════════════ STATUS + POINTS CARDS ══════════════ -->
+        <!-- ══════════════════ POINTS CARD ══════════════ -->
         {% if customer %}
         <div class="tstn-cards-row">
-          <div class="tstn-status-card">
-            {% if section.settings.status_card_label != blank %}
-              <div class="tstn-card-label">{{ section.settings.status_card_label }}</div>
-            {% endif %}
-            <div class="tstn-status-tier">
-              <span
-                class="tstn-current-tier-name"
-                id="display_tier_name"
-                data-tier-base="{{ section.settings.tier_base_name | default: 'BASE CAMP' }}"
-                data-tier-scout="{{ section.settings.tier_scout_name | default: 'SCOUT' }}"
-                data-tier-lead="{{ section.settings.tier_lead_name | default: 'LEAD' }}"
-              >{{ section.settings.tier_base_name | default: 'BASE CAMP' }}</span>
-            </div>
-            <div class="tstn-status-icons">
-              <div class="tstn-tier-icon" id="base-icon-wrap">
-                {% if section.settings.tier_base_icon != blank %}
-                  <img src="{{ section.settings.tier_base_icon | img_url:'master' }}" alt="{{ section.settings.tier_base_name | default: 'Base Camp' }}">
-                {% else %}
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 22h20L12 2z"/><path d="M12 8v6"/></svg>
-                {% endif %}
-                <span>{{ section.settings.tier_base_name | default: 'BASE CAMP' }}</span>
-              </div>
-              <div class="tstn-tier-icon" id="scout-icon-wrap">
-                {% if section.settings.tier_scout_icon != blank %}
-                  <img src="{{ section.settings.tier_scout_icon | img_url:'master' }}" alt="{{ section.settings.tier_scout_name | default: 'Scout' }}">
-                {% else %}
-                  <img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726226.png?v=1770370711" alt="Scout">
-                {% endif %}
-                <span>{{ section.settings.tier_scout_name | default: 'SCOUT' }}</span>
-              </div>
-              <div class="tstn-tier-icon" id="lead-icon-wrap">
-                {% if section.settings.tier_lead_icon != blank %}
-                  <img src="{{ section.settings.tier_lead_icon | img_url:'master' }}" alt="{{ section.settings.tier_lead_name | default: 'Lead' }}">
-                {% else %}
-                  <img src="https://cdn.shopify.com/s/files/1/0994/4979/8950/files/Group_143726227.png?v=1770370813" alt="Lead">
-                {% endif %}
-                <span>{{ section.settings.tier_lead_name | default: 'LEAD' }}</span>
-              </div>
-            </div>
-            <div
-              class="tstn-tier-thresholds"
-              data-scout-min="{{ section.settings.scout_min_points | default: 1500 }}"
-              data-lead-min="{{ section.settings.lead_min_points | default: 2500 }}"
-              style="display:none;"
-            ></div>
-          </div>
           <div class="tstn-points-card">
             {% if section.settings.points_card_label != blank %}
               <div class="tstn-card-label">{{ section.settings.points_card_label }}</div>
@@ -232,7 +179,6 @@
     --bg3:      #1c1a16;
     --card-bg:  rgba(20, 20, 20, 0.85);
     --border:   rgba(255,255,255,0.08);
-    --border-gold: rgba(200,146,42,0.25);
     --text:     #e6e1d6;
     --muted:    #7a7060;
     --muted-2:  #6a6258;
@@ -240,6 +186,10 @@
     --ff-head:  "Danger Neue Free Regular","Danger Neue",sans-serif;
     --ff-body:  "Rajdhani","ABC Diatype",sans-serif;
     --hero-min-height: {{ section.settings.hero_height | default: 75 }}vh;
+
+    /* Primary button (orange) */
+    --tstn-btn-primary-bg:    {{ section.settings.btn_primary_bg    | default: '#ff6a1a' }};
+    --tstn-btn-primary-hover: {{ section.settings.btn_primary_hover | default: '#ff7f33' }};
 
     /* ─── Typography Variables (size / weight / color) ─────────────────── */
     /* Welcome label */
@@ -260,7 +210,7 @@
     /* Buttons */
     --tstn-btn-size:    {{ section.settings.btn_size    | default: 12 }}px;
     --tstn-btn-weight:  {{ section.settings.btn_weight  | default: '700' }};
-    --tstn-btn-gold-color:    {{ section.settings.btn_gold_color    | default: '#111111' }};
+    --tstn-btn-primary-color: {{ section.settings.btn_primary_color | default: '#ffffff' }};
     --tstn-btn-outline-color: {{ section.settings.btn_outline_color | default: '#e6e1d6' }};
 
     /* Badges */
@@ -286,26 +236,15 @@
     --tstn-guest-cta-weight:    {{ section.settings.guest_cta_weight    | default: '700' }};
     --tstn-guest-cta-color:     {{ section.settings.guest_cta_color     | default: '#ffffff' }};
 
-    /* Card labels (Status / Points) */
+    /* Card labels (Points) */
     --tstn-card-label-size:   {{ section.settings.card_label_size   | default: 10 }}px;
     --tstn-card-label-weight: {{ section.settings.card_label_weight | default: '600' }};
     --tstn-card-label-color:  {{ section.settings.card_label_color  | default: '#7a7060' }};
 
-    /* Tier name (current display) */
-    --tstn-tier-name-size:   {{ section.settings.tier_name_size   | default: 30 }}px;
-    --tstn-tier-name-weight: {{ section.settings.tier_name_weight | default: '400' }};
-    --tstn-tier-name-color:  {{ section.settings.tier_name_color  | default: '#c8922a' }};
-
-    /* Tier icon labels */
-    --tstn-tier-icon-size:   {{ section.settings.tier_icon_size   | default: 9 }}px;
-    --tstn-tier-icon-weight: {{ section.settings.tier_icon_weight | default: '600' }};
-    --tstn-tier-icon-color:  {{ section.settings.tier_icon_color  | default: '#7a7060' }};
-    --tstn-tier-icon-active-color: {{ section.settings.tier_icon_active_color | default: '#c8922a' }};
-
     /* Points value */
     --tstn-points-size:   {{ section.settings.points_size   | default: 44 }}px;
     --tstn-points-weight: {{ section.settings.points_weight | default: '400' }};
-    --tstn-points-color:  {{ section.settings.points_color  | default: '#c8922a' }};
+    --tstn-points-color:  {{ section.settings.points_color  | default: '#ff6a1a' }};
 
     /* Points subtitle */
     --tstn-points-sub-size:   {{ section.settings.points_sub_size   | default: 11 }}px;
@@ -467,12 +406,15 @@
     transition: all 0.2s;
     border-radius: 2px;
   }
-  #shopify-section-{{ section.id }} .tstn-btn--gold {
-    background: var(--gold);
-    color: var(--tstn-btn-gold-color) !important;
-    border: 2px solid var(--gold);
+  #shopify-section-{{ section.id }} .tstn-btn--primary {
+    background: var(--tstn-btn-primary-bg);
+    color: var(--tstn-btn-primary-color) !important;
+    border: 2px solid var(--tstn-btn-primary-bg);
   }
-  #shopify-section-{{ section.id }} .tstn-btn--gold:hover { background: var(--gold-lt); border-color: var(--gold-lt); }
+  #shopify-section-{{ section.id }} .tstn-btn--primary:hover {
+    background: var(--tstn-btn-primary-hover);
+    border-color: var(--tstn-btn-primary-hover);
+  }
   #shopify-section-{{ section.id }} .tstn-btn--outline {
     background: transparent;
     color: var(--tstn-btn-outline-color) !important;
@@ -596,32 +538,24 @@
     box-shadow: 0 8px 28px rgba(236,86,7,0.5);
   }
 
-  /* ═══════════════ STATUS + POINTS CARDS ═══════════════════════════════ */
+  /* ═══════════════ POINTS CARD ═════════════════════════════════════════ */
   #shopify-section-{{ section.id }} .tstn-cards-row {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 220px;
-    gap: 0;
+    display: flex;
     width: 100%;
-    max-width: 640px;
     margin: 0;
-  }
-  #shopify-section-{{ section.id }} .tstn-status-card,
-  #shopify-section-{{ section.id }} .tstn-points-card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    padding: 22px 26px;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-  }
-  #shopify-section-{{ section.id }} .tstn-status-card {
-    border-right: none;
   }
   #shopify-section-{{ section.id }} .tstn-points-card {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    align-items: flex-start;
+    text-align: left;
+    width: 100%;
+    max-width: 320px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    padding: 24px 28px;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
   }
 
   #shopify-section-{{ section.id }} .tstn-card-label {
@@ -631,53 +565,6 @@
     color: var(--tstn-card-label-color) !important;
     text-transform: uppercase;
     margin-bottom: 10px;
-  }
-
-  /* Status (current tier) display */
-  #shopify-section-{{ section.id }} .tstn-status-tier {
-    margin-bottom: 16px;
-  }
-  #shopify-section-{{ section.id }} .tstn-current-tier-name {
-    font-family: var(--ff-head) !important;
-    font-size: var(--tstn-tier-name-size) !important;
-    font-weight: var(--tstn-tier-name-weight) !important;
-    color: var(--tstn-tier-name-color) !important;
-    letter-spacing: 1.5px;
-    line-height: 1;
-    text-transform: uppercase;
-  }
-
-  /* Tier track icons */
-  #shopify-section-{{ section.id }} .tstn-status-icons {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-  }
-  #shopify-section-{{ section.id }} .tstn-tier-icon {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    opacity: 0.35;
-    transition: opacity 0.4s;
-  }
-  #shopify-section-{{ section.id }} .tstn-tier-icon.active { opacity: 1; }
-  #shopify-section-{{ section.id }} .tstn-tier-icon img,
-  #shopify-section-{{ section.id }} .tstn-tier-icon svg {
-    width: 32px;
-    height: 32px;
-    object-fit: contain;
-    color: var(--gold);
-  }
-  #shopify-section-{{ section.id }} .tstn-tier-icon span {
-    font-size: var(--tstn-tier-icon-size) !important;
-    font-weight: var(--tstn-tier-icon-weight) !important;
-    letter-spacing: 1.2px;
-    color: var(--tstn-tier-icon-color) !important;
-    text-transform: uppercase;
-  }
-  #shopify-section-{{ section.id }} .tstn-tier-icon.active span {
-    color: var(--tstn-tier-icon-active-color) !important;
   }
 
   #shopify-section-{{ section.id }} .tstn-points-value {
@@ -698,7 +585,6 @@
   }
 
   /* ─── Hidden utility ─────────────────────────────────────────────────── */
-  #shopify-section-{{ section.id }} .vip_tier_new_updated { display: none !important; }
   #shopify-section-{{ section.id }} .visibility_hidden {
     position: absolute !important;
     width: 1px !important;
@@ -816,14 +702,9 @@
     #shopify-section-{{ section.id }} .tstn-ctas { flex-direction: column; align-items: stretch; }
     #shopify-section-{{ section.id }} .tstn-ctas .tstn-btn { justify-content: center; }
     #shopify-section-{{ section.id }} .tstn-badges { gap: 16px; }
-    #shopify-section-{{ section.id }} .tstn-cards-row {
-      grid-template-columns: 1fr;
-      max-width: 100%;
-    }
-    #shopify-section-{{ section.id }} .tstn-status-card { border-right: 1px solid var(--border); border-bottom: none; }
+    #shopify-section-{{ section.id }} .tstn-points-card { max-width: 100%; }
     #shopify-section-{{ section.id }} .tstn-steps-grid { grid-template-columns: 1fr; }
     #shopify-section-{{ section.id }} .tstn-how-header { flex-direction: column; align-items: flex-start; gap: 8px; }
-    #shopify-section-{{ section.id }} .tstn-status-icons { gap: 12px; }
   }
 </style>
 
@@ -832,64 +713,10 @@
 (function() {
   'use strict';
 
-  /* ───────── storage helpers ───────── */
-  const STORAGE_KEYS = {
-    tier: "tstn_cs_vp_m_t",
-  };
-  function getStoredTier() { return sessionStorage.getItem(STORAGE_KEYS.tier); }
-  function setStoredTier(tier) { sessionStorage.setItem(STORAGE_KEYS.tier, tier); }
-
-  const TIER_ORDER = ["base", "scout", "lead"];
-  function getHigherTier(t1, t2) {
-    if (!t1) return t2;
-    if (!t2) return t1;
-    const i1 = TIER_ORDER.indexOf(t1);
-    const i2 = TIER_ORDER.indexOf(t2);
-    return i1 > i2 ? t1 : t2;
-  }
-
-  /* ───────── DOM refs (lazy-resolved) ───────── */
-  let cardPointsEl, cardTierNameEl, baseIcon, scoutIcon, leadIcon, thresholdsEl;
+  let cardPointsEl;
 
   function resolveDom() {
-    cardPointsEl     = document.getElementById('display_points');
-    cardTierNameEl   = document.getElementById('display_tier_name');
-    baseIcon         = document.getElementById('base-icon-wrap');
-    scoutIcon        = document.getElementById('scout-icon-wrap');
-    leadIcon         = document.getElementById('lead-icon-wrap');
-    thresholdsEl     = document.querySelector('.tstn-tier-thresholds');
-  }
-
-  /* ───────── Tier configuration ───────── */
-  function getTierConfig() {
-    const scoutMin = thresholdsEl ? Number(thresholdsEl.dataset.scoutMin) || 1500 : 1500;
-    const leadMin  = thresholdsEl ? Number(thresholdsEl.dataset.leadMin)  || 2500 : 2500;
-
-    const baseName  = cardTierNameEl ? (cardTierNameEl.dataset.tierBase  || 'BASE CAMP') : 'BASE CAMP';
-    const scoutName = cardTierNameEl ? (cardTierNameEl.dataset.tierScout || 'SCOUT')     : 'SCOUT';
-    const leadName  = cardTierNameEl ? (cardTierNameEl.dataset.tierLead  || 'LEAD')      : 'LEAD';
-
-    return {
-      scoutMin: scoutMin,
-      leadMin:  leadMin,
-      base:  { regex: /\b(base|base\s*camp)\b/i, name: baseName  },
-      scout: { regex: /\b(scout)\b/i,             name: scoutName },
-      lead:  { regex: /\b(lead|leader)\b/i,       name: leadName  },
-    };
-  }
-
-  function getTierFromPoints(points, cfg) {
-    if (points >= cfg.leadMin)  return "lead";
-    if (points >= cfg.scoutMin) return "scout";
-    return "base";
-  }
-
-  function getTierFromText(text, cfg) {
-    if (!text) return null;
-    if (cfg.lead.regex.test(text))  return "lead";
-    if (cfg.scout.regex.test(text)) return "scout";
-    if (cfg.base.regex.test(text))  return "base";
-    return null;
+    cardPointsEl = document.getElementById('display_points');
   }
 
   /* ───────── Animated counter ───────── */
@@ -905,43 +732,14 @@
     })(t0);
   }
 
-  /* ───────── Apply tier UI ───────── */
-  function applyTierUI(tierKey, cfg) {
-    if (!tierKey) return;
-    const storedTier = getStoredTier();
-    const finalTier = getHigherTier(storedTier, tierKey);
-    setStoredTier(finalTier);
-
-    if (cardTierNameEl) {
-      cardTierNameEl.textContent = cfg[finalTier].name;
-    }
-    if (baseIcon)  baseIcon.classList.add('active');
-    if (scoutIcon) scoutIcon.classList.toggle('active', finalTier === 'scout' || finalTier === 'lead');
-    if (leadIcon)  leadIcon.classList.toggle('active',  finalTier === 'lead');
-  }
-
-  /* ───────── Master update function ───────── */
   function setValue(newValue) {
-    const cfg = getTierConfig();
     const points = Math.max(0, Number(newValue) || 0);
-
     animateCount(cardPointsEl, points);
-
-    let tier = null;
-    const vipEl = document.querySelector(".vip_tier_new_updated");
-    if (vipEl) {
-      tier = getTierFromText(vipEl.innerText.trim(), cfg);
-    }
-    if (!tier) {
-      tier = getTierFromPoints(points, cfg);
-    }
-    applyTierUI(tier, cfg);
   }
 
   /* ───────── Boot ───────── */
   function boot() {
     resolveDom();
-
     const target = document.querySelector(".gw-rd-customer-points-balance-inline-widget-placeholder");
     if (target) {
       const match = target.textContent.match(/\d+/);
@@ -951,17 +749,6 @@
         setValue(newPoints);
       }
     }
-
-    const vipEl = document.querySelector(".vip_tier_new_updated");
-    if (vipEl && (window.newPoints1 == null)) {
-      const cfg = getTierConfig();
-      const tier = getTierFromText(vipEl.innerText.trim(), cfg);
-      if (tier) {
-        applyTierUI(tier, cfg);
-      }
-    }
-
-    if (baseIcon) baseIcon.classList.add('active');
   }
 
   if (document.readyState === 'loading') {
@@ -1062,12 +849,36 @@
       "type": "text",
       "id": "cta_primary_label",
       "label": "Primary button label",
-      "default": "HOW IT WORKS"
+      "default": "WAYS TO EARN"
     },
     {
       "type": "url",
       "id": "cta_primary_url",
       "label": "Primary button link"
+    },
+    {
+      "type": "color",
+      "id": "btn_primary_bg",
+      "label": "Primary button background",
+      "default": "#ff6a1a"
+    },
+    {
+      "type": "color",
+      "id": "btn_primary_hover",
+      "label": "Primary button hover background",
+      "default": "#ff7f33"
+    },
+    {
+      "type": "color",
+      "id": "btn_primary_color",
+      "label": "Primary button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_outline_color",
+      "label": "Outline button text color",
+      "default": "#e6e1d6"
     },
     {
       "type": "text",
@@ -1157,61 +968,6 @@
       "type": "url",
       "id": "guest_cta_url",
       "label": "Guest CTA link"
-    },
-    {
-      "type": "header",
-      "content": "Status Card"
-    },
-    {
-      "type": "text",
-      "id": "status_card_label",
-      "label": "Status card label",
-      "default": "YOUR STATUS"
-    },
-    {
-      "type": "text",
-      "id": "tier_base_name",
-      "label": "Tier 1 name (lowest)",
-      "default": "BASE CAMP"
-    },
-    {
-      "type": "text",
-      "id": "tier_scout_name",
-      "label": "Tier 2 name (middle)",
-      "default": "SCOUT"
-    },
-    {
-      "type": "text",
-      "id": "tier_lead_name",
-      "label": "Tier 3 name (highest)",
-      "default": "LEAD"
-    },
-    {
-      "type": "image_picker",
-      "id": "tier_base_icon",
-      "label": "Base Camp tier icon"
-    },
-    {
-      "type": "image_picker",
-      "id": "tier_scout_icon",
-      "label": "Scout tier icon"
-    },
-    {
-      "type": "image_picker",
-      "id": "tier_lead_icon",
-      "label": "Lead tier icon"
-    },
-    {
-      "type": "number",
-      "id": "scout_min_points",
-      "label": "Points required to reach Scout",
-      "default": 1500
-    },
-    {
-      "type": "number",
-      "id": "lead_min_points",
-      "label": "Points required to reach Lead",
-      "default": 2500
     },
     {
       "type": "header",
@@ -1356,7 +1112,7 @@
       "type": "color",
       "id": "welcome_color",
       "label": "Color",
-      "default": "#c8922a"
+      "default": "#ff6a1a"
     },
 
     {
@@ -1457,18 +1213,6 @@
       ],
       "default": "700"
     },
-    {
-      "type": "color",
-      "id": "btn_gold_color",
-      "label": "Gold button text color",
-      "default": "#111111"
-    },
-    {
-      "type": "color",
-      "id": "btn_outline_color",
-      "label": "Outline button text color",
-      "default": "#e6e1d6"
-    },
 
     {
       "type": "header",
@@ -1506,8 +1250,8 @@
     {
       "type": "color",
       "id": "badge_title_gold_color",
-      "label": "Gold color (badges 1 & 3)",
-      "default": "#c8922a"
+      "label": "Accent color (badges 1 & 3)",
+      "default": "#ff6a1a"
     },
 
     {
@@ -1574,7 +1318,7 @@
       "type": "color",
       "id": "guest_brand_color",
       "label": "Color",
-      "default": "#c8922a"
+      "default": "#ff6a1a"
     },
 
     {
@@ -1684,7 +1428,7 @@
 
     {
       "type": "header",
-      "content": "✏️ Typography — Card Labels (Status & Points)"
+      "content": "✏️ Typography — Points Card Label"
     },
     {
       "type": "range",
@@ -1713,80 +1457,6 @@
       "id": "card_label_color",
       "label": "Color",
       "default": "#7a7060"
-    },
-
-    {
-      "type": "header",
-      "content": "✏️ Typography — Current Tier Name"
-    },
-    {
-      "type": "range",
-      "id": "tier_name_size",
-      "label": "Size (px)",
-      "min": 18,
-      "max": 60,
-      "step": 1,
-      "default": 30,
-      "unit": "px"
-    },
-    {
-      "type": "select",
-      "id": "tier_name_weight",
-      "label": "Weight",
-      "options": [
-        { "value": "300", "label": "Light (300)" },
-        { "value": "400", "label": "Regular (400)" },
-        { "value": "500", "label": "Medium (500)" },
-        { "value": "600", "label": "Semibold (600)" },
-        { "value": "700", "label": "Bold (700)" }
-      ],
-      "default": "400"
-    },
-    {
-      "type": "color",
-      "id": "tier_name_color",
-      "label": "Color",
-      "default": "#c8922a"
-    },
-
-    {
-      "type": "header",
-      "content": "✏️ Typography — Tier Track Icon Labels"
-    },
-    {
-      "type": "range",
-      "id": "tier_icon_size",
-      "label": "Size (px)",
-      "min": 7,
-      "max": 16,
-      "step": 1,
-      "default": 9,
-      "unit": "px"
-    },
-    {
-      "type": "select",
-      "id": "tier_icon_weight",
-      "label": "Weight",
-      "options": [
-        { "value": "400", "label": "Regular (400)" },
-        { "value": "500", "label": "Medium (500)" },
-        { "value": "600", "label": "Semibold (600)" },
-        { "value": "700", "label": "Bold (700)" },
-        { "value": "800", "label": "Extra Bold (800)" }
-      ],
-      "default": "600"
-    },
-    {
-      "type": "color",
-      "id": "tier_icon_color",
-      "label": "Inactive color",
-      "default": "#7a7060"
-    },
-    {
-      "type": "color",
-      "id": "tier_icon_active_color",
-      "label": "Active color",
-      "default": "#c8922a"
     },
 
     {
@@ -1820,7 +1490,7 @@
       "type": "color",
       "id": "points_color",
       "label": "Color",
-      "default": "#c8922a"
+      "default": "#ff6a1a"
     },
 
     {
@@ -1922,7 +1592,7 @@
       "type": "color",
       "id": "view_all_color",
       "label": "Color",
-      "default": "#c8922a"
+      "default": "#ff6a1a"
     },
 
     {
