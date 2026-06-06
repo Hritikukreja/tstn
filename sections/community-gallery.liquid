@@ -1744,14 +1744,6 @@
 
     </div>
 
-    {%- if section.settings.show_load_more -%}
-      <div class="tstn-gal__loadmore-wrap">
-        <button type="button" class="tstn-gal__loadmore" data-load-more hidden>
-          {{ section.settings.load_more_text | default: 'Load more' }}
-        </button>
-      </div>
-    {%- endif -%}
-
     {%- comment -%} ----- SIDEBAR ----- {%- endcomment -%}
     {%- if section.settings.show_sidebar -%}
       <aside class="tstn-gal__sidebar">
@@ -1832,6 +1824,14 @@
       </aside>
     {%- endif -%}
   </div>
+
+  {%- if section.settings.show_load_more -%}
+    <div class="tstn-gal__loadmore-wrap">
+      <button type="button" class="tstn-gal__loadmore" data-load-more hidden>
+        {{ section.settings.load_more_text | default: 'Load more' }}
+      </button>
+    </div>
+  {%- endif -%}
 
   {%- comment -%} =============== BOTTOM STRIP =============== {%- endcomment -%}
   {%- if section.settings.show_bottom_strip -%}
