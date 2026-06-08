@@ -76,6 +76,7 @@
         },
         "accordion_item_NWRYQa": {
           "type": "accordion_item",
+          "disabled": true,
           "settings": {
             "icon": "list",
             "title": "Size GUIDE",
