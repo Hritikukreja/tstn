@@ -145,6 +145,8 @@
     letter-spacing: 0.22em;
   }
   .tstn-footer__nav-link.active { color: var(--f-gold) !important; }
+  /* Two menus directly adjacent (no divider between) collapse to one rule */
+  nav + nav .tstn-footer__nav { border-top: 0; }
   /* Forces a flex line break — item after it starts a new row */
   .tstn-footer__nav-break {
     flex-basis: 100%;
@@ -446,47 +448,36 @@
       {%- endif -%}
     </div>
 
-    <!-- ══ HORIZONTAL NAV ══ -->
-    {%- assign has_links = false -%}
+    <!-- ══ NAV MENUS + DIVIDERS (rendered in block order) ══ -->
+    {%- assign nav_break = section.settings.nav_break_item | strip | downcase -%}
     {%- for block in section.blocks -%}
+
       {%- if block.type == 'link_list' and block.settings.menu != blank -%}
-        {%- assign has_links = true -%}
-      {%- endif -%}
-    {%- endfor -%}
+        <nav aria-label="Footer navigation" {{ block.shopify_attributes }}>
+          <ul class="tstn-footer__nav">
+            {%- for link in block.settings.menu.links -%}
+              {%- assign this_title = link.title | strip | downcase -%}
+              {%- if nav_break != blank and this_title == nav_break -%}
+                <li class="tstn-footer__nav-break" aria-hidden="true"></li>
+              {%- endif -%}
+              <li class="tstn-footer__nav-item">
+                <a href="{{ link.url }}"
+                   class="tstn-footer__nav-link{% if link.active %} active{% endif %}">
+                  {{ link.title | escape }}
+                </a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </nav>
 
-    {%- if has_links -%}
-      {%- assign nav_break = section.settings.nav_break_item | strip | downcase -%}
-      <nav aria-label="Footer navigation">
-        <ul class="tstn-footer__nav">
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'link_list' and block.settings.menu != blank -%}
-              {%- for link in block.settings.menu.links -%}
-                {%- assign this_title = link.title | strip | downcase -%}
-                {%- if nav_break != blank and this_title == nav_break -%}
-                  <li class="tstn-footer__nav-break" aria-hidden="true"></li>
-                {%- endif -%}
-                <li class="tstn-footer__nav-item" {{ block.shopify_attributes }}>
-                  <a href="{{ link.url }}"
-                     class="tstn-footer__nav-link{% if link.active %} active{% endif %}">
-                    {{ link.title | escape }}
-                  </a>
-                </li>
-              {%- endfor -%}
-            {%- endif -%}
-          {%- endfor -%}
-        </ul>
-      </nav>
-    {%- endif -%}
-
-    <!-- ══ DIVIDER BLOCK(S) ══ -->
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'divider' -%}
+      {%- elsif block.type == 'divider' -%}
         <div class="tstn-footer__divider-block" {{ block.shopify_attributes }}
              style="padding: {{ block.settings.space_top }}px 0 {{ block.settings.space_bottom }}px;">
           <span class="tstn-footer__divider-line tstn-footer__divider-line--{{ block.settings.style }}"
                 style="width: {{ block.settings.width }}%; height: {{ block.settings.thickness }}px; --d-color: {{ block.settings.color }};"></span>
         </div>
       {%- endif -%}
+
     {%- endfor -%}
 
     <!-- ══ MID ROW: Newsletter | Divider | Social ══ -->
