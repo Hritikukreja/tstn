@@ -1,0 +1,344 @@
+{%- comment -%}
+  TSTN — Product Body HTML (collapsible)
+  Renders the product's Body HTML (description) inside a collapsible accordion.
+  If the Body HTML is empty (incl. whitespace / empty <p></p>), the whole
+  section is hidden.
+{%- endcomment -%}
+
+{%- liquid
+  assign desc_check = product.description | strip_html | strip
+-%}
+
+{%- if desc_check != blank -%}
+
+  {%- style -%}
+    @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+
+    @font-face {
+      font-family: 'Danger Neue Free Regular';
+      src: url('https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Danger_Neue_Regular.ttf') format('truetype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    #shopify-section-{{ section.id }} {
+      --tstn-bg: {{ section.settings.bg_color }};
+      --tstn-card: {{ section.settings.card_color }};
+      --tstn-accent: {{ section.settings.accent_color }};
+      --tstn-text: {{ section.settings.text_color }};
+      --tstn-heading: {{ section.settings.heading_color }};
+      --tstn-border: {{ section.settings.border_color }};
+      --tstn-radius: {{ section.settings.border_radius }}px;
+    }
+
+    #shopify-section-{{ section.id }} .tstn-desc-wrap {
+      background: var(--tstn-bg);
+      padding: {{ section.settings.padding_top }}px clamp(16px, 5vw, 48px) {{ section.settings.padding_bottom }}px;
+    }
+
+    #shopify-section-{{ section.id }} .tstn-desc {
+      max-width: {{ section.settings.max_width }}px;
+      margin: 0 auto;
+      background: var(--tstn-card);
+      border: 1px solid var(--tstn-border);
+      border-radius: var(--tstn-radius);
+      overflow: hidden;
+    }
+
+    #shopify-section-{{ section.id }} .tstn-desc__toggle {
+      all: unset;
+      box-sizing: border-box;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      width: 100%;
+      cursor: pointer;
+      padding: clamp(16px, 3vw, 24px) clamp(18px, 3.5vw, 32px);
+      font-family: 'Danger Neue Free Regular', 'Rajdhani', sans-serif !important;
+      font-size: {{ section.settings.heading_size }}px;
+      line-height: 1.1;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--tstn-heading);
+      transition: color 0.25s ease;
+    }
+
+    #shopify-section-{{ section.id }} .tstn-desc__toggle:hover,
+    #shopify-section-{{ section.id }} .tstn-desc__toggle:focus-visible {
+      color: var(--tstn-accent);
+    }
+
+    #shopify-section-{{ section.id }} .tstn-desc__chevron {
+      flex: 0 0 auto;
+      width: 22px;
+      height: 22px;
+      color: var(--tstn-accent);
+      transition: transform 0.35s ease;
+    }
+
+    #shopify-section-{{ section.id }} .tstn-desc__panel.is-open
+      .tstn-desc__chevron {
+      transform: rotate(180deg);
+    }
+
+    /* grid 0fr -> 1fr animation for smooth, reliable collapse */
+    #shopify-section-{{ section.id }} .tstn-desc__panel {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.4s ease;
+    }
+
+    #shopify-section-{{ section.id }} .tstn-desc__panel.is-open {
+      grid-template-rows: 1fr;
+    }
+
+    #shopify-section-{{ section.id }} .tstn-desc__inner {
+      overflow: hidden;
+    }
+
+    #shopify-section-{{ section.id }} .tstn-desc__content {
+      padding: 0 clamp(18px, 3.5vw, 32px) clamp(20px, 3.5vw, 32px);
+      font-family: 'Rajdhani', sans-serif;
+      font-size: clamp(15px, 1.6vw, 17px);
+      font-weight: 500;
+      line-height: 1.7;
+      letter-spacing: 0.01em;
+      color: var(--tstn-text);
+    }
+
+    #shopify-section-{{ section.id }} .tstn-desc__content > *:first-child {
+      margin-top: 0;
+    }
+    #shopify-section-{{ section.id }} .tstn-desc__content > *:last-child {
+      margin-bottom: 0;
+    }
+    #shopify-section-{{ section.id }} .tstn-desc__content a {
+      color: var(--tstn-accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+    #shopify-section-{{ section.id }} .tstn-desc__content h1,
+    #shopify-section-{{ section.id }} .tstn-desc__content h2,
+    #shopify-section-{{ section.id }} .tstn-desc__content h3,
+    #shopify-section-{{ section.id }} .tstn-desc__content h4 {
+      font-family: 'Danger Neue Free Regular', 'Rajdhani', sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--tstn-heading);
+    }
+    #shopify-section-{{ section.id }} .tstn-desc__content img {
+      max-width: 100%;
+      height: auto;
+      border-radius: calc(var(--tstn-radius) / 1.5);
+    }
+    #shopify-section-{{ section.id }} .tstn-desc__content ul,
+    #shopify-section-{{ section.id }} .tstn-desc__content ol {
+      padding-left: 1.25em;
+    }
+    #shopify-section-{{ section.id }} .tstn-desc__content table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    #shopify-section-{{ section.id }} .tstn-desc__content td,
+    #shopify-section-{{ section.id }} .tstn-desc__content th {
+      border: 1px solid var(--tstn-border);
+      padding: 8px 12px;
+      text-align: left;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #shopify-section-{{ section.id }} .tstn-desc__panel,
+      #shopify-section-{{ section.id }} .tstn-desc__chevron {
+        transition: none;
+      }
+    }
+  {%- endstyle -%}
+
+  <div class="tstn-desc-wrap">
+    <div class="tstn-desc" data-tstn-desc>
+      <button
+        type="button"
+        class="tstn-desc__toggle"
+        aria-expanded="{% if section.settings.open_by_default %}true{% else %}false{% endif %}"
+        aria-controls="tstn-desc-panel-{{ section.id }}"
+        data-tstn-desc-toggle
+      >
+        <span>{{ section.settings.heading | escape }}</span>
+        <svg
+          class="tstn-desc__chevron"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          aria-hidden="true"
+        >
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+
+      <div
+        id="tstn-desc-panel-{{ section.id }}"
+        class="tstn-desc__panel{% if section.settings.open_by_default %} is-open{% endif %}"
+        data-tstn-desc-panel
+        role="region"
+      >
+        <div class="tstn-desc__inner">
+          <div class="tstn-desc__content">
+            {{ product.description }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var root = document.getElementById('shopify-section-{{ section.id }}');
+      if (!root || root.dataset.tstnDescBound === 'true') return;
+      root.dataset.tstnDescBound = 'true';
+
+      var toggle = root.querySelector('[data-tstn-desc-toggle]');
+      var panel = root.querySelector('[data-tstn-desc-panel]');
+      if (!toggle || !panel) return;
+
+      toggle.addEventListener('click', function () {
+        var isOpen = panel.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+    })();
+  </script>
+
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "TSTN Description",
+  "tag": "section",
+  "class": "tstn-section-description",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Description"
+    },
+    {
+      "type": "checkbox",
+      "id": "open_by_default",
+      "label": "Open by default",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 16,
+      "max": 48,
+      "step": 1,
+      "unit": "px",
+      "label": "Heading size",
+      "default": 24
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "color",
+      "id": "card_color",
+      "label": "Card background",
+      "default": "#141414"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#ff6a1a"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body text",
+      "default": "#c9c9c9"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Border",
+      "default": "#262626"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 600,
+      "max": 1400,
+      "step": 20,
+      "unit": "px",
+      "label": "Max width",
+      "default": 1000
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Corner radius",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 40
+    }
+  ],
+  "presets": [
+    {
+      "name": "TSTN Description"
+    }
+  ]
+}
+{% endschema %}
