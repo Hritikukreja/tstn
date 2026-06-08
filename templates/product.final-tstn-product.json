@@ -235,15 +235,6 @@
         "padding_bottom": 40
       }
     },
-    "home_bg_text_7FgzN8": {
-      "type": "home-bg-text",
-      "name": "Home bg text",
-      "settings": {
-        "main_heading": "Meet Shaun",
-        "subheading": "",
-        "description": ""
-      }
-    },
     "feature_gallery_T3DUzd": {
       "type": "feature-gallery",
       "blocks": {
@@ -826,7 +817,6 @@
     "pro_hero_ye7RgN",
     "video_buy_section_fh7rn3",
     "newbodyhtml_ig34hh",
-    "home_bg_text_7FgzN8",
     "feature_gallery_T3DUzd",
     "product_faq_h3Cdgd",
     "custom_multicol_VFKWpH",
