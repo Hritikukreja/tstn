@@ -220,7 +220,7 @@
       "type": "newbodyhtml",
       "name": "TSTN Description",
       "settings": {
-        "heading": "Description",
+        "heading": "Product Details",
         "open_by_default": false,
         "heading_size": 24,
         "bg_color": "#0a0a0a",
