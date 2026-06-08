@@ -29,6 +29,17 @@
             "menu": "footer"
           }
         },
+        "divider_RFnVyC": {
+          "type": "divider",
+          "settings": {
+            "style": "shimmer",
+            "color": "#b8922a",
+            "thickness": 1,
+            "width": 100,
+            "space_top": 24,
+            "space_bottom": 24
+          }
+        },
         "link_list_RhwqDC": {
           "type": "link_list",
           "settings": {
@@ -38,6 +49,7 @@
       },
       "block_order": [
         "link_list_dVnRUt",
+        "divider_RFnVyC",
         "link_list_RhwqDC"
       ],
       "custom_css": [],
@@ -45,6 +57,7 @@
         "color_scheme": "scheme-1",
         "footer_logo": "shopify://shop_images/image_1_2.png",
         "tagline": "The Official Destination",
+        "nav_break_item": "",
         "bg_logo_size": 100,
         "bg_logo_opacity": 15,
         "footer_bg_color": "#060606",
