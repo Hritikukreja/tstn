@@ -166,7 +166,7 @@
             "brand": "",
             "title": "",
             "description": "The benchmark rooftop tent for comfort, durability, and adventure.",
-            "price": "",
+            "price": "{{ block.settings.product.metafields.custom.emi_text.value }}",
             "link": "shopify://products/skycamp-4-0",
             "button_label": ""
           }
@@ -174,12 +174,12 @@
         "product_Gq8UJk": {
           "type": "product",
           "settings": {
-            "product": "",
+            "product": "thule-hullavator-pro-kayak-rack-modula-racks",
             "image": "shopify://shop_images/Hulla.png",
             "brand": "Thule",
             "title": "Hullavator Pro",
             "description": "Gas-assisted lifting makes kayak loading safer and effortless.",
-            "price": "$1,299.00",
+            "price": "{{ block.settings.product.metafields.custom.emi_text.value }}",
             "link": "shopify://products/thule-hullavator-pro-kayak-rack-modula-racks",
             "button_label": "VIEW PRODUCT"
           }
@@ -191,7 +191,7 @@
             "brand": "",
             "title": "",
             "description": "BLUETTI Elite 30 V2 | 288Wh 600W Portable Power Station",
-            "price": "",
+            "price": "{{ block.settings.product.metafields.custom.emi_text.value }}",
             "link": "shopify://products/bluetti-elite-30-v2",
             "button_label": "VIEW PRODUCT"
           }
@@ -199,7 +199,7 @@
         "product_gRpP3F": {
           "type": "product",
           "settings": {
-            "product": "",
+            "product": "epic-crow-molle",
             "image": "shopify://shop_images/epic.png",
             "brand": "EPIC Crow",
             "title": "Molle Panel",
