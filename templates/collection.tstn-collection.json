@@ -542,7 +542,7 @@
       "settings": {
         "background_image": "shopify://shop_images/3.png",
         "heading": "WATCH THE ADVENTURE UNFOLD",
-        "description": "From backcountry builds to real overland trips, follow TSTN on YouTube for gear, grit, and the road less traveled.",
+        "description": "",
         "button_label": "WATCH ON YOUTUBE",
         "button_link": "https://www.youtube.com/c/thestorytillnow",
         "overlay_opacity": 65,
