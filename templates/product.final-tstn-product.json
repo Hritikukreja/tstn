@@ -430,6 +430,7 @@
         },
         "accordion_item_Ta6BYc": {
           "type": "accordion_item",
+          "disabled": true,
           "settings": {
             "icon": "list",
             "title": "Product Details",
