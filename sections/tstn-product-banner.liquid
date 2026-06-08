@@ -278,6 +278,16 @@
     padding-top: 0.5rem;
   }
 
+  .tstn-pb__vendor {
+    font-family: var(--tstn-heading-font);
+    font-size: clamp(0.95rem, 1.4vw, 1.15rem);
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    color: var(--tstn-accent);
+    margin: 0 0 -0.35rem;
+    line-height: 1;
+  }
+
   .tstn-pb__title {
     font-family: var(--tstn-heading-font);
     font-weight: 400;
@@ -524,12 +534,11 @@
     line-height: 1.3;
   }
   .tstn-pb__points-value {
-    font-family: var(--tstn-heading-font);
-    font-size: 1.15rem;
-    font-weight: 400;
-    letter-spacing: 0.03em;
+    font-family: inherit;
+    font-size: 1em;
+    font-weight: 700;
+    letter-spacing: 0.04em;
     color: var(--tstn-accent);
-    margin: 0 0.1em;
   }
 
   /* ---------- Trust badges ---------- */
@@ -881,9 +890,6 @@
       font-size: 12px;
       letter-spacing: 0.04em;
     }
-    .tstn-pb__points-value {
-      font-size: 1.05rem;
-    }
 
     /* Trust badges: keep all 3 in a single row on mobile (icon on top, text centered below) */
     .tstn-pb__trust {
@@ -1088,6 +1094,10 @@
 
       {%- comment -%} ========== Info ========== {%- endcomment -%}
       <div class="tstn-pb__info">
+
+        {%- if section.settings.show_vendor and product.vendor != blank -%}
+          <p class="tstn-pb__vendor">{{ product.vendor | escape }}</p>
+        {%- endif -%}
 
         <h1 class="tstn-pb__title">{{ product.title | escape }}</h1>
 
@@ -1577,6 +1587,12 @@
       "label": "Anchor ID",
       "default": "product-banner",
       "info": "Used for in-page links (e.g., link to #product-banner from a button anywhere on the site). Letters, numbers, and dashes only."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show brand / vendor name above title",
+      "default": true
     },
     {
       "type": "checkbox",
