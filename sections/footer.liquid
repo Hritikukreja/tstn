@@ -145,6 +145,15 @@
     letter-spacing: 0.22em;
   }
   .tstn-footer__nav-link.active { color: var(--f-gold) !important; }
+  /* Forces a flex line break — item after it starts a new row */
+  .tstn-footer__nav-break {
+    flex-basis: 100%;
+    width: 100%;
+    height: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
   @media screen and (max-width: 600px) {
     .tstn-footer__nav-item + .tstn-footer__nav-item::before { margin: 0 0.8rem; }
   }
@@ -429,11 +438,16 @@
     {%- endfor -%}
 
     {%- if has_links -%}
+      {%- assign nav_break = section.settings.nav_break_item | strip | downcase -%}
       <nav aria-label="Footer navigation">
         <ul class="tstn-footer__nav">
           {%- for block in section.blocks -%}
             {%- if block.type == 'link_list' and block.settings.menu != blank -%}
               {%- for link in block.settings.menu.links -%}
+                {%- assign this_title = link.title | strip | downcase -%}
+                {%- if nav_break != blank and this_title == nav_break -%}
+                  <li class="tstn-footer__nav-break" aria-hidden="true"></li>
+                {%- endif -%}
                 <li class="tstn-footer__nav-item" {{ block.shopify_attributes }}>
                   <a href="{{ link.url }}"
                      class="tstn-footer__nav-link{% if link.active %} active{% endif %}">
@@ -646,6 +660,12 @@
       "id": "tagline",
       "label": "Tagline",
       "default": "The Official Destination"
+    },
+    {
+      "type": "text",
+      "id": "nav_break_item",
+      "label": "Nav: start new line at this item",
+      "info": "Enter the exact menu link title that should drop onto its own line (case-insensitive). Leave blank for a single row."
     },
 
     { "type": "header", "content": "Background Watermark" },
