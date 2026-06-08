@@ -58,7 +58,6 @@
         },
         "accordion_item_gJdKfW": {
           "type": "accordion_item",
-          "disabled": true,
           "settings": {
             "icon": "list",
             "title": "Product Details",
@@ -100,7 +99,7 @@
         "breadcrumb_collection": "",
         "anchor_id": "product-banner",
         "show_vendor": true,
-        "show_description": true,
+        "show_description": false,
         "show_points": true,
         "points_multiplier": 5,
         "points_label": "TSTN Club Points",
