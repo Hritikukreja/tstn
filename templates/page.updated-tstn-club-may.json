@@ -191,10 +191,10 @@
       ],
       "name": "TSTN Featured Videos",
       "settings": {
-        "heading": "Featured Videos",
+        "heading": "TSTN PODCASTS",
         "viewall_text": "View all videos",
         "viewall_link": "",
-        "main_image": "shopify://shop_images/1_ca459672-715a-4b89-a702-86b5b1a43cfd.png",
+        "main_image": "shopify://shop_images/05637e5d-f96e-48b2-8495-7e885bd73f68.jpg",
         "main_title": "Full-Size Overlanding: Lessons From the Road",
         "main_author": "Shaun Walford with Clay Croft",
         "main_duration": "",
@@ -203,6 +203,7 @@
         "gate_title": "Unlock Exclusive Content & Perks",
         "gate_cta_text": "Join TSTN Club",
         "gate_cta_link": "",
+        "sheet_endpoint": "",
         "promo_autoplay": true,
         "promo_autoplay_speed": 5000
       }
@@ -221,7 +222,8 @@
             "like_count": "",
             "description": "",
             "location_label": "",
-            "location_url": "https://maps.app.goo.gl/3JHLPWowiWz3fDuBA"
+            "location_url": "https://maps.app.goo.gl/3JHLPWowiWz3fDuBA",
+            "is_community_upload": false
           }
         },
         "gallery_item_Gq4Tcz": {
@@ -235,7 +237,8 @@
             "like_count": "",
             "description": "",
             "location_label": "",
-            "location_url": ""
+            "location_url": "",
+            "is_community_upload": false
           }
         },
         "gallery_item_ApQKFM": {
@@ -249,7 +252,8 @@
             "like_count": "",
             "description": "",
             "location_label": "",
-            "location_url": ""
+            "location_url": "",
+            "is_community_upload": false
           }
         },
         "gallery_item_xeYapg": {
@@ -264,7 +268,8 @@
             "like_count": "",
             "description": "",
             "location_label": "",
-            "location_url": ""
+            "location_url": "",
+            "is_community_upload": false
           }
         },
         "gallery_item_YCjmXy": {
@@ -278,7 +283,8 @@
             "like_count": "",
             "description": "",
             "location_label": "",
-            "location_url": ""
+            "location_url": "",
+            "is_community_upload": false
           }
         },
         "gallery_item_Tbw8Nz": {
@@ -292,7 +298,8 @@
             "like_count": "",
             "description": "",
             "location_label": "",
-            "location_url": ""
+            "location_url": "",
+            "is_community_upload": false
           }
         },
         "gallery_item_WHjTdG": {
@@ -306,7 +313,8 @@
             "like_count": "",
             "description": "",
             "location_label": "",
-            "location_url": ""
+            "location_url": "",
+            "is_community_upload": false
           }
         },
         "gallery_item_GWGk8A": {
@@ -320,7 +328,8 @@
             "like_count": "",
             "description": "",
             "location_label": "",
-            "location_url": ""
+            "location_url": "",
+            "is_community_upload": false
           }
         },
         "gallery_item_EqBHFM": {
@@ -334,7 +343,8 @@
             "like_count": "",
             "description": "",
             "location_label": "",
-            "location_url": ""
+            "location_url": "",
+            "is_community_upload": false
           }
         },
         "gallery_item_UjC74c": {
@@ -348,7 +358,8 @@
             "like_count": "",
             "description": "",
             "location_label": "",
-            "location_url": ""
+            "location_url": "",
+            "is_community_upload": false
           }
         },
         "gallery_item_wp9iL4": {
@@ -362,7 +373,8 @@
             "like_count": "",
             "description": "",
             "location_label": "",
-            "location_url": ""
+            "location_url": "",
+            "is_community_upload": false
           }
         },
         "gallery_item_KGDek3": {
@@ -376,7 +388,8 @@
             "like_count": "",
             "description": "",
             "location_label": "",
-            "location_url": ""
+            "location_url": "",
+            "is_community_upload": false
           }
         },
         "gallery_item_mwchXD": {
@@ -390,7 +403,8 @@
             "like_count": "",
             "description": "",
             "location_label": "",
-            "location_url": ""
+            "location_url": "",
+            "is_community_upload": false
           }
         },
         "gallery_item_7tLFxe": {
@@ -404,7 +418,8 @@
             "like_count": "",
             "description": "",
             "location_label": "",
-            "location_url": ""
+            "location_url": "",
+            "is_community_upload": false
           }
         },
         "gallery_item_DCpgdp": {
@@ -418,7 +433,8 @@
             "like_count": "",
             "description": "",
             "location_label": "",
-            "location_url": ""
+            "location_url": "",
+            "is_community_upload": false
           }
         },
         "gallery_item_EJXw3m": {
@@ -432,7 +448,8 @@
             "like_count": "",
             "description": "",
             "location_label": "",
-            "location_url": ""
+            "location_url": "",
+            "is_community_upload": false
           }
         },
         "quick_filter_q8WcKe": {
@@ -546,6 +563,13 @@
         "accent_color": "#ff6a1a",
         "text_color": "#ffffff",
         "text_muted_color": "#9a9a9a",
+        "gallery_source": "both",
+        "metaobject_type": "gallery_photo",
+        "max_items": 120,
+        "show_load_more": true,
+        "initial_visible": 12,
+        "load_more_count": 12,
+        "load_more_text": "Load More",
         "show_filter_bar": true,
         "search_placeholder": "Search the gallery",
         "gate_pill": "MEMBERS ONLY",
@@ -568,14 +592,6 @@
         "featured_location_url": "https://maps.app.goo.gl/3JHLPWowiWz3fDuBA",
         "show_sidebar": true,
         "qf_title": "QUICK FILTERS",
-        "upload_title": "UPLOAD YOUR RIG",
-        "upload_description": "Share your build, adventure, or setup with the community.",
-        "upload_button_text": "Upload Now",
-        "upload_modal_title": "Share Your Adventure",
-        "upload_modal_sub": "Drag photos in or click to browse. JPG, PNG up to 10MB each.",
-        "upload_max_files": 10,
-        "upload_max_size_mb": 10,
-        "upload_endpoint": "",
         "show_likes": true,
         "show_comments": true,
         "show_share": true,
