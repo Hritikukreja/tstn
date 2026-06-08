@@ -137,8 +137,8 @@
     margin: 0 auto;
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
-    padding-left: {{ section.settings.padding_x }}px;
-    padding-right: {{ section.settings.padding_x }}px;
+    padding-left: clamp(20px, 6vw, 80px);
+    padding-right: clamp(20px, 6vw, 80px);
   }
 
   #shopify-section-{{ section.id }} .join-crew-content {
@@ -304,8 +304,8 @@
     }
 
     #shopify-section-{{ section.id }} .join-crew-container {
-      padding-left: 24px;
-      padding-right: 24px;
+      padding-left: clamp(20px, 6vw, 80px);
+      padding-right: clamp(20px, 6vw, 80px);
       padding-top: 70px;
       padding-bottom: 46px;
     }
@@ -543,16 +543,6 @@
       "step": 10,
       "unit": "px",
       "default": 120
-    },
-    {
-      "type": "range",
-      "id": "padding_x",
-      "label": "Side padding",
-      "min": 20,
-      "max": 140,
-      "step": 4,
-      "unit": "px",
-      "default": 72
     },
     {
       "type": "range",
