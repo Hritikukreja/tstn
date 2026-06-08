@@ -137,8 +137,8 @@
     margin: 0 auto;
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
-    padding-left: clamp(20px, 6vw, 80px);
-    padding-right: clamp(20px, 6vw, 80px);
+    padding-left: clamp(28px, 4vw, 64px);
+    padding-right: clamp(28px, 4vw, 64px);
   }
 
   #shopify-section-{{ section.id }} .join-crew-content {
@@ -184,9 +184,11 @@
   #shopify-section-{{ section.id }} .join-crew-subheading {
     max-width: {{ section.settings.subheading_width }}px;
     margin: 0 0 42px;
+    font-family: 'Danger Neue Free Regular', Impact, 'Arial Narrow', sans-serif !important;
     font-size: {{ section.settings.subheading_size }}px;
-    line-height: 1.55;
-    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0.03em;
+    font-weight: 400;
     color: rgba(255,255,255,0.86);
     text-shadow: 0 3px 16px rgba(0,0,0,0.65);
   }
@@ -304,8 +306,8 @@
     }
 
     #shopify-section-{{ section.id }} .join-crew-container {
-      padding-left: clamp(20px, 6vw, 80px);
-      padding-right: clamp(20px, 6vw, 80px);
+      padding-left: clamp(28px, 4vw, 64px);
+      padding-right: clamp(28px, 4vw, 64px);
       padding-top: 70px;
       padding-bottom: 46px;
     }
