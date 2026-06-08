@@ -58,6 +58,7 @@
         },
         "accordion_item_gJdKfW": {
           "type": "accordion_item",
+          "disabled": true,
           "settings": {
             "icon": "list",
             "title": "Product Details",
@@ -95,6 +96,14 @@
       "name": "TSTN Product Banner",
       "settings": {
         "show_breadcrumb": true,
+        "home_label": "Home",
+        "breadcrumb_collection": "",
+        "anchor_id": "product-banner",
+        "show_vendor": true,
+        "show_description": true,
+        "show_points": true,
+        "points_multiplier": 5,
+        "points_label": "TSTN Club Points",
         "bg_color": "#0a0a0a",
         "card_bg": "#1a1a1a",
         "text_color": "#ffffff",
@@ -197,6 +206,7 @@
         "heading_weight": 400,
         "button_label": "Buy Now",
         "product": "thule-hullavator-pro-kayak-rack-modula-racks",
+        "variant_scroll_target": "",
         "button_link": "",
         "button_bg_color": "#f56300",
         "button_hover_color": "#ffffff",
