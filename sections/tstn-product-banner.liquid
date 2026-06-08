@@ -17,8 +17,14 @@
   assign border_color = section.settings.border_color | default: '#2a2a2a'
   assign points_multiplier = section.settings.points_multiplier | default: 5
   assign sg_content = section.settings.size_guide_content | strip_html | strip
+  assign sg_img1 = section.settings.size_guide_image
+  assign sg_img2 = section.settings.size_guide_image_2
+  assign sg_two_images = false
+  if sg_img1 != blank and sg_img2 != blank
+    assign sg_two_images = true
+  endif
   assign has_size_guide = false
-  if section.settings.size_guide_image != blank or sg_content != blank
+  if sg_img1 != blank or sg_img2 != blank or sg_content != blank
     assign has_size_guide = true
   endif
 -%}
@@ -557,6 +563,42 @@
     margin-bottom: 1.25rem;
   }
   .tstn-pb__sg-image:last-child { margin-bottom: 0; }
+
+  /* Size guide tabs (two images) */
+  .tstn-pb__sg-tabs {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--tstn-border);
+    margin-bottom: 1.25rem;
+  }
+  .tstn-pb__sg-tab {
+    background: none;
+    border: 0;
+    padding: 0 0 0.625rem;
+    cursor: pointer;
+    font-family: var(--tstn-heading-font);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 14px;
+    line-height: 1;
+    color: var(--tstn-muted);
+    position: relative;
+    transition: color 0.2s ease;
+  }
+  .tstn-pb__sg-tab:hover { color: var(--tstn-text); }
+  .tstn-pb__sg-tab.is-active { color: var(--tstn-text); }
+  .tstn-pb__sg-tab.is-active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 2px;
+    background: var(--tstn-accent);
+  }
+  .tstn-pb__sg-pane { display: none; }
+  .tstn-pb__sg-pane.is-active { display: block; }
   .tstn-pb__sg-content > *:first-child { margin-top: 0; }
   .tstn-pb__sg-content > *:last-child { margin-bottom: 0; }
   .tstn-pb__sg-content strong { color: var(--tstn-text); }
@@ -1510,10 +1552,40 @@
           </button>
         </div>
         <div class="tstn-pb__sg-body">
-          {%- if section.settings.size_guide_image != blank -%}
+          {%- if sg_two_images -%}
+            {%- assign sg_tab1 = section.settings.size_guide_tab_label_1 | default: 'Inches' -%}
+            {%- assign sg_tab2 = section.settings.size_guide_tab_label_2 | default: 'Centimeters' -%}
+            <div class="tstn-pb__sg-tabs" role="tablist">
+              <button type="button" class="tstn-pb__sg-tab is-active" data-tstn-sg-tab="0" role="tab" aria-selected="true">{{ sg_tab1 }}</button>
+              <button type="button" class="tstn-pb__sg-tab" data-tstn-sg-tab="1" role="tab" aria-selected="false">{{ sg_tab2 }}</button>
+            </div>
+            <div class="tstn-pb__sg-pane is-active" data-tstn-sg-pane="0" role="tabpanel">
+              <img
+                class="tstn-pb__sg-image"
+                src="{{ sg_img1 | image_url: width: 1200 }}"
+                alt="{{ sg_tab1 | escape }} size chart"
+                loading="lazy"
+              >
+            </div>
+            <div class="tstn-pb__sg-pane" data-tstn-sg-pane="1" role="tabpanel">
+              <img
+                class="tstn-pb__sg-image"
+                src="{{ sg_img2 | image_url: width: 1200 }}"
+                alt="{{ sg_tab2 | escape }} size chart"
+                loading="lazy"
+              >
+            </div>
+          {%- elsif sg_img1 != blank -%}
             <img
               class="tstn-pb__sg-image"
-              src="{{ section.settings.size_guide_image | image_url: width: 1200 }}"
+              src="{{ sg_img1 | image_url: width: 1200 }}"
+              alt="{{ sg_heading | escape }}"
+              loading="lazy"
+            >
+          {%- elsif sg_img2 != blank -%}
+            <img
+              class="tstn-pb__sg-image"
+              src="{{ sg_img2 | image_url: width: 1200 }}"
               alt="{{ sg_heading | escape }}"
               loading="lazy"
             >
@@ -1809,6 +1881,25 @@
       }
     });
 
+    // Size guide tabs (two images)
+    if (sgOverlay) {
+      var sgTabs = sgOverlay.querySelectorAll('[data-tstn-sg-tab]');
+      var sgPanes = sgOverlay.querySelectorAll('[data-tstn-sg-pane]');
+      sgTabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          var idx = tab.getAttribute('data-tstn-sg-tab');
+          sgTabs.forEach(function(t) {
+            var active = t === tab;
+            t.classList.toggle('is-active', active);
+            t.setAttribute('aria-selected', active ? 'true' : 'false');
+          });
+          sgPanes.forEach(function(p) {
+            p.classList.toggle('is-active', p.getAttribute('data-tstn-sg-pane') === idx);
+          });
+        });
+      });
+    }
+
     // Initial sync
     updateSelectedStyles();
 
@@ -1927,14 +2018,32 @@
     {
       "type": "image_picker",
       "id": "size_guide_image",
-      "label": "Size chart image",
-      "info": "Recommended for size tables. Shown at the top of the popup."
+      "label": "Size chart image 1",
+      "info": "Recommended for size tables. If you also add image 2, tabs appear to switch between them."
+    },
+    {
+      "type": "image_picker",
+      "id": "size_guide_image_2",
+      "label": "Size chart image 2",
+      "info": "Optional. When both images are set, the popup shows tabs (e.g. Inches / Centimeters)."
+    },
+    {
+      "type": "text",
+      "id": "size_guide_tab_label_1",
+      "label": "Tab 1 label",
+      "default": "Inches"
+    },
+    {
+      "type": "text",
+      "id": "size_guide_tab_label_2",
+      "label": "Tab 2 label",
+      "default": "Centimeters"
     },
     {
       "type": "html",
       "id": "size_guide_content",
       "label": "Additional content",
-      "info": "Optional notes, measuring tips, or an HTML table. Shown below the image."
+      "info": "Optional notes, measuring tips, or an HTML table. Shown below the image(s)."
     },
     {
       "type": "header",
