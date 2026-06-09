@@ -235,6 +235,7 @@
           "type": "feature",
           "settings": {
             "media_type": "video",
+            "image": "{{ product.metafields.custom.primary_feature_gallery_image_2.value }}",
             "show_controls": false,
             "title": "{{ product.metafields.custom.primary_feature_gallery_title_2.value }}",
             "description": "<p>{{ product.metafields.custom.primary_feature_gallery_description.value }}</p>",
@@ -247,7 +248,6 @@
           "settings": {
             "media_type": "image",
             "image": "{{ product.metafields.custom.primary_feature_gallery_image_3.value }}",
-            "video": "shopify://files/videos/Hero Video.mp4",
             "show_controls": false,
             "title": "{{ product.metafields.custom.primary_feature_gallery_title_3.value }}",
             "description": "<p>{{ product.metafields.custom.primary_feature_gallery_3_description.value }}</p>",
