@@ -84,9 +84,16 @@
     display: grid;
     grid-template-columns: 1.4fr 1fr;
     gap: clamp(16px, 2vw, 24px);
+    align-items: start;
   }
 
-  /* Main video trigger */
+  /* Main video column (cover + caption below) */
+  .tstn-fv__main-col {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Main video trigger (cover only) */
   .tstn-fv__main {
     position: relative;
     border-radius: 12px;
@@ -110,13 +117,6 @@
     transition: transform 0.4s ease;
   }
   .tstn-fv__main:hover img { transform: scale(1.04); }
-  .tstn-fv__main::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%);
-    pointer-events: none;
-  }
   .tstn-fv__play {
     position: absolute;
     top: 50%; left: 50%;
@@ -135,28 +135,28 @@
   .tstn-fv__play svg { color: #000; transition: color 0.25s ease; }
   .tstn-fv__main:hover .tstn-fv__play svg { color: #fff; }
 
+  /* Caption below the main video */
   .tstn-fv__main-info {
-    position: absolute;
-    bottom: 18px;
-    left: 18px;
-    right: 18px;
-    z-index: 2;
+    margin-top: 14px;
   }
   .tstn-fv__main-title {
     font-family: var(--tstn-font-display);
     font-weight: 400;
     font-size: clamp(24px, 2.6vw, 32px);
     line-height: 1.05;
-    margin: 0 0 10px;
+    margin: 0 0 8px;
     letter-spacing: 0.4px;
+    color: var(--tstn-text);
   }
   .tstn-fv__main-meta {
     font-size: 13px;
-    color: rgba(255,255,255,0.85);
+    color: var(--tstn-muted);
     display: flex;
-    flex-direction: column;
-    gap: 2px;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
   }
+  .tstn-fv__main-meta .tstn-fv__dot { opacity: 0.5; }
 
   /* Side video list */
   .tstn-fv__list {
@@ -748,29 +748,33 @@
 
       <div class="tstn-fv__grid">
 
-        <button
-          class="tstn-fv__main"
-          type="button"
-          data-tstn-video-trigger
-          data-video-url="{{ section.settings.main_link }}"
-          data-video-title="{{ section.settings.main_title | default: 'The Mindset That Changes Everything' | escape }}"
-          data-video-author="{{ section.settings.main_author | default: 'By Pratham Mittal' | escape }}">
-          {% if section.settings.main_image %}
-            <img src="{{ section.settings.main_image | image_url: width: 800 }}" alt="{{ section.settings.main_title }}">
-          {% else %}
-            <div style="width:100%;height:100%;background:linear-gradient(135deg,#222,#111);"></div>
-          {% endif %}
-          <div class="tstn-fv__play">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg>
-          </div>
+        <div class="tstn-fv__main-col">
+          <button
+            class="tstn-fv__main"
+            type="button"
+            data-tstn-video-trigger
+            data-video-url="{{ section.settings.main_link }}"
+            data-video-title="{{ section.settings.main_title | default: 'The Mindset That Changes Everything' | escape }}"
+            data-video-author="{{ section.settings.main_author | default: 'By Pratham Mittal' | escape }}">
+            {% if section.settings.main_image %}
+              <img src="{{ section.settings.main_image | image_url: width: 800 }}" alt="{{ section.settings.main_title }}">
+            {% else %}
+              <div style="width:100%;height:100%;background:linear-gradient(135deg,#222,#111);"></div>
+            {% endif %}
+            <div class="tstn-fv__play">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><polygon points="6,4 20,12 6,20"/></svg>
+            </div>
+          </button>
+
           <div class="tstn-fv__main-info">
             <h3 class="tstn-fv__main-title">{{ section.settings.main_title | default: 'The Mindset That Changes Everything' }}</h3>
             <div class="tstn-fv__main-meta">
-              <span>{{ section.settings.main_author | default: 'By Pratham Mittal' }}</span>
-              <span>{{ section.settings.main_duration | default: '12:45' }}</span>
+              {% if section.settings.main_author != blank %}<span>{{ section.settings.main_author | default: 'By Pratham Mittal' }}</span>{% endif %}
+              {% if section.settings.main_author != blank and section.settings.main_duration != blank %}<span class="tstn-fv__dot" aria-hidden="true">•</span>{% endif %}
+              {% if section.settings.main_duration != blank %}<span>{{ section.settings.main_duration | default: '12:45' }}</span>{% endif %}
             </div>
           </div>
-        </button>
+        </div>
 
         <div class="tstn-fv__list">
           {% for block in section.blocks %}
