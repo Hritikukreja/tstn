@@ -1,13 +1,11 @@
 {% comment %}
   TSTN Promo Slides (Promo carousel only)
-  - Slidable promo carousel; each slide is either a Link CTA OR an inline
-    Email Capture form (Shopify built-in newsletter).
+  - Full-width horizontal banner carousel (matches the Clubhouse section width).
+  - Each slide: image on the left, content + CTA on the right. Short height.
   - Promo CTAs are gated:
       * Logged-in  -> CTA / email form work normally
       * Logged-out -> CTA shows a locked state that opens the Members gate popup
-  - Optional: email captures can be sent to a Google Sheet (via Apps Script
-    Web App URL) instead of Shopify's customer list.
-  Split from the original combined section.
+  - Optional: email captures can be sent to a Google Sheet (Apps Script Web App URL).
 {% endcomment %}
 
 <style>
@@ -27,24 +25,21 @@
     --tstn-card-bg: #141414;
     --tstn-card-bg-2: #161616;
     --tstn-text: #ffffff;
-    --tstn-muted: #b0b0b0;
-    --tstn-border: rgba(255,255,255,0.1);
+    --tstn-muted: #9a9a9a;
+    --tstn-border: rgba(255,255,255,0.08);
     --tstn-font-display: "Danger Neue Free Regular", "Inter", sans-serif;
   }
 
   .tstn-ps {
     background: var(--tstn-bg);
     color: var(--tstn-text);
-    padding: clamp(20px, 3vw, 40px) clamp(28px, 4vw, 64px);
+    padding: clamp(16px, 2vw, 28px) clamp(16px, 4vw, 56px) clamp(20px, 3vw, 48px);
   }
   .tstn-ps__inner {
-    max-width: 480px;
+    max-width: 1600px;
     margin: 0 auto;
   }
-  .tstn-ps__head {
-    text-align: center;
-    margin-bottom: clamp(18px, 2.5vw, 26px);
-  }
+  .tstn-ps__head { margin-bottom: clamp(16px, 1.8vw, 24px); }
   .tstn-ps__eyebrow {
     color: var(--tstn-orange);
     font-size: 11px;
@@ -56,51 +51,46 @@
   .tstn-ps__title {
     font-family: var(--tstn-font-display);
     font-weight: 400;
-    font-size: clamp(28px, 3vw, 40px);
-    line-height: 1;
-    letter-spacing: 0.03em;
+    font-size: clamp(28px, 3.4vw, 46px);
+    line-height: 0.98;
+    letter-spacing: 0.02em;
     margin: 0;
     text-transform: uppercase;
   }
 
   /* ============================================================
-     Promo Carousel
+     Promo Carousel (wide + short, horizontal slides)
      ============================================================ */
   .tstn-promo {
-    background: var(--tstn-card-bg);
-    border: 1px solid var(--tstn-border);
-    border-radius: 16px;
-    overflow: hidden;
     position: relative;
-    display: flex;
-    flex-direction: column;
-    min-height: 480px;
+    background: linear-gradient(180deg, #101010, #0b0b0b);
+    border: 1px solid var(--tstn-border);
+    border-radius: clamp(16px, 1.8vw, 22px);
+    overflow: hidden;
   }
   .tstn-promo__track-wrap {
     position: relative;
-    flex: 1;
     overflow: hidden;
   }
   .tstn-promo__track {
     display: flex;
-    height: 100%;
     transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     touch-action: pan-y;
   }
   .tstn-promo__slide {
     flex: 0 0 100%;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 42%) 1fr;
+    min-height: clamp(230px, 24vw, 300px);
   }
+
   .tstn-promo__media {
     position: relative;
-    width: 100%;
-    aspect-ratio: 16/10;
+    height: 100%;
+    min-height: 100%;
     background: var(--tstn-card-bg-2);
     overflow: hidden;
-    flex-shrink: 0;
   }
   .tstn-promo__media img {
     width: 100%;
@@ -120,14 +110,14 @@
   }
   .tstn-promo__badge {
     position: absolute;
-    top: 14px;
-    left: 14px;
+    top: 16px;
+    left: 16px;
     background: var(--tstn-orange);
     color: #fff;
     font-size: 10px;
     font-weight: 700;
     letter-spacing: 1.2px;
-    padding: 5px 11px;
+    padding: 6px 12px;
     border-radius: 999px;
     text-transform: uppercase;
     z-index: 2;
@@ -149,10 +139,11 @@
   }
 
   .tstn-promo__body {
-    padding: clamp(20px, 2.5vw, 26px);
+    padding: clamp(22px, 2.8vw, 44px);
+    padding-right: clamp(22px, 2.8vw, 88px);
     display: flex;
     flex-direction: column;
-    flex: 1;
+    justify-content: center;
   }
   .tstn-promo__eyebrow {
     color: var(--tstn-orange);
@@ -165,19 +156,19 @@
   .tstn-promo__title {
     font-family: var(--tstn-font-display);
     font-weight: 400;
-    font-size: clamp(22px, 2.4vw, 28px);
-    line-height: 1.1;
+    font-size: clamp(22px, 2.6vw, 32px);
+    line-height: 1.04;
     margin: 0 0 10px;
     color: var(--tstn-text);
-    letter-spacing: 0.03em;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
   }
   .tstn-promo__desc {
-    font-size: 13px;
+    font-size: 14px;
     color: var(--tstn-muted);
     line-height: 1.5;
     margin: 0 0 18px;
-    flex: 1;
+    max-width: 540px;
   }
 
   /* CTA Link button */
@@ -187,7 +178,7 @@
     gap: 8px;
     background: var(--tstn-orange);
     color: #fff;
-    padding: 11px 20px;
+    padding: 11px 22px;
     border-radius: 999px;
     text-decoration: none;
     font-weight: 600;
@@ -206,7 +197,7 @@
   .tstn-promo__cta:hover svg { transform: translateX(3px); }
 
   /* Email capture form */
-  .tstn-promo__form { margin-top: auto; }
+  .tstn-promo__form { width: 100%; max-width: 460px; }
   .tstn-promo__form-row {
     display: flex;
     gap: 6px;
@@ -258,8 +249,8 @@
 
   /* Logged-out locked CTA (opens Members gate) */
   .tstn-promo__gate-row {
-    margin-top: auto;
     width: 100%;
+    max-width: 460px;
     background: none;
     border: none;
     padding: 0;
@@ -291,24 +282,25 @@
   .tstn-promo__cta[data-tstn-gate-trigger] svg { transition: transform 0.25s ease; }
   .tstn-promo__cta[data-tstn-gate-trigger]:hover svg { transform: none; }
 
-  /* Carousel controls */
+  /* Carousel controls (tucked bottom-right, overlaying the body) */
   .tstn-promo__controls {
+    position: absolute;
+    right: clamp(16px, 2vw, 28px);
+    bottom: clamp(14px, 1.8vw, 22px);
+    z-index: 4;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 clamp(20px, 2.5vw, 26px) 20px;
-    gap: 12px;
+    gap: 14px;
   }
   .tstn-promo__dots {
     display: flex;
     gap: 6px;
-    flex: 1;
   }
   .tstn-promo__dot {
     width: 6px;
     height: 6px;
     border-radius: 50%;
-    background: rgba(255,255,255,0.2);
+    background: rgba(255,255,255,0.25);
     border: none;
     cursor: pointer;
     padding: 0;
@@ -325,7 +317,9 @@
     height: 32px;
     border-radius: 50%;
     border: 1px solid rgba(255,255,255,0.2);
-    background: transparent;
+    background: rgba(0,0,0,0.35);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     color: var(--tstn-text);
     cursor: pointer;
     display: flex;
@@ -363,28 +357,20 @@
     transition: transform 0.25s ease;
   }
   .tstn-modal.is-open .tstn-modal__inner { transform: translateY(0); }
-
   .tstn-modal__close {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 40px;
-    height: 40px;
+    top: 12px; right: 12px;
+    width: 40px; height: 40px;
     border-radius: 50%;
     background: rgba(0, 0, 0, 0.6);
     border: 1px solid rgba(255,255,255,0.2);
     color: #fff;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     z-index: 10;
     transition: background 0.2s ease, transform 0.2s ease;
   }
-  .tstn-modal__close:hover {
-    background: var(--tstn-orange);
-    transform: rotate(90deg);
-  }
+  .tstn-modal__close:hover { background: var(--tstn-orange); transform: rotate(90deg); }
 
   .tstn-modal--gate .tstn-modal__inner {
     width: 100%;
@@ -397,20 +383,16 @@
   }
   .tstn-gate__lock-bg {
     position: absolute;
-    right: -10px;
-    bottom: -20px;
+    right: -10px; bottom: -20px;
     color: var(--tstn-orange);
     opacity: 0.35;
-    width: 220px;
-    height: 220px;
+    width: 220px; height: 220px;
     pointer-events: none;
   }
   .tstn-gate__glow {
     position: absolute;
-    right: -60px;
-    bottom: -60px;
-    width: 360px;
-    height: 360px;
+    right: -60px; bottom: -60px;
+    width: 360px; height: 360px;
     background: radial-gradient(circle, rgba(255,106,26,0.18) 0%, transparent 65%);
     pointer-events: none;
   }
@@ -435,7 +417,7 @@
     line-height: 1.05;
     margin: 0 0 26px;
     color: var(--tstn-text);
-    letter-spacing: 0.03em;
+    letter-spacing: 0.02em;
     position: relative;
     z-index: 2;
     text-transform: uppercase;
@@ -474,18 +456,17 @@
     position: relative;
     z-index: 2;
   }
-  .tstn-gate__cta:hover {
-    background: var(--tstn-orange-hover);
-    transform: translateY(-2px);
-  }
+  .tstn-gate__cta:hover { background: var(--tstn-orange-hover); transform: translateY(-2px); }
   .tstn-gate__cta svg { transition: transform 0.25s ease; }
   .tstn-gate__cta:hover svg { transform: translateX(4px); }
 
   body.tstn-modal-open { overflow: hidden; }
 
-  /* Mobile */
-  @media (max-width: 1024px) {
-    .tstn-promo { min-height: auto; }
+  /* ----- Responsive: stack to vertical on small screens ----- */
+  @media (max-width: 760px) {
+    .tstn-promo__slide { grid-template-columns: 1fr; min-height: 0; }
+    .tstn-promo__media { aspect-ratio: 16/9; height: auto; min-height: 0; }
+    .tstn-promo__body { padding: clamp(20px, 5vw, 28px); padding-bottom: 64px; }
   }
   @media (max-width: 460px) {
     .tstn-modal--gate .tstn-modal__inner { padding: 28px 24px; }
@@ -526,7 +507,7 @@
               <div class="tstn-promo__slide" {{ block.shopify_attributes }}>
                 <div class="tstn-promo__media">
                   {% if block.settings.image %}
-                    <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.title }}">
+                    <img src="{{ block.settings.image | image_url: width: 900 }}" alt="{{ block.settings.title }}">
                   {% else %}
                     <div class="tstn-promo__media-fallback">
                       {% case block.settings.badge_type %}
@@ -741,7 +722,7 @@
   if (sheetEndpoint) {
     section.querySelectorAll('.tstn-promo__form').forEach(function(form) {
       form.addEventListener('submit', function(e) {
-        e.preventDefault(); // intercept Shopify submit, send to the Sheet instead
+        e.preventDefault();
         var input = form.querySelector('input[type="email"]');
         var email = input ? input.value.trim() : '';
         if (!email) return;
