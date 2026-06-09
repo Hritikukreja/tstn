@@ -203,11 +203,12 @@
         "promo_gzMc8k": {
           "type": "promo",
           "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_May_27_2026_09_58_27_AM.png",
             "badge_type": "giveaway",
             "badge_text": "GIVEAWAY",
             "eyebrow": "This Month",
-            "title": "Win a TSTN Merch Bundle",
-            "description": "Enter your email for a chance to win exclusive TSTN merch worth ₹10,000.",
+            "title": "Win iKamper 4.0 Tent",
+            "description": "Enter your email for a chance to win exclusive iKAMPER 4.0 Tent worth $5799",
             "cta_mode": "email",
             "cta_text": "Learn More",
             "cta_link": "",
@@ -220,6 +221,7 @@
         "promo_ayUbWC": {
           "type": "promo",
           "settings": {
+            "image": "shopify://shop_images/12.png",
             "badge_type": "live",
             "badge_text": "LIVE SOON",
             "eyebrow": "Live Session",
@@ -237,11 +239,12 @@
         "promo_4w3fUK": {
           "type": "promo",
           "settings": {
+            "image": "shopify://shop_images/BLUETTI_Elite_30_V2__Shaun.png",
             "badge_type": "default",
-            "badge_text": "EVENT",
-            "eyebrow": "Coming Up",
-            "title": "TSTN Meetup 2026",
-            "description": "Join the community in person. Limited seats available for our annual meetup.",
+            "badge_text": "Special Price",
+            "eyebrow": "Limited Quantity",
+            "title": "SAVE $250",
+            "description": "TSTN Club members get Bluetti Power Station at a special price",
             "cta_mode": "link",
             "cta_text": "Reserve Spot",
             "cta_link": "",
