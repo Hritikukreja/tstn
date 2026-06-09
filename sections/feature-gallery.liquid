@@ -53,17 +53,19 @@
             {% endif %}
           </div>
 
-          <div class="feature-gallery__content">
-            {% if block.settings.title != blank %}
-              <h3 class="feature-gallery__card-title">{{ block.settings.title }}</h3>
-            {% endif %}
-            {% if block.settings.description != blank %}
-              <div class="feature-gallery__card-text rte">{{ block.settings.description }}</div>
-            {% endif %}
-            {% if block.settings.link_label != blank %}
-              <a class="link underlined-link" href="{{ block.settings.link | default: '#' }}">{{ block.settings.link_label }}</a>
-            {% endif %}
-          </div>
+          {% if section.settings.show_content %}
+            <div class="feature-gallery__content">
+              {% if block.settings.title != blank %}
+                <h3 class="feature-gallery__card-title">{{ block.settings.title }}</h3>
+              {% endif %}
+              {% if block.settings.description != blank %}
+                <div class="feature-gallery__card-text rte">{{ block.settings.description }}</div>
+              {% endif %}
+              {% if block.settings.link_label != blank %}
+                <a class="link underlined-link" href="{{ block.settings.link | default: '#' }}">{{ block.settings.link_label }}</a>
+              {% endif %}
+            </div>
+          {% endif %}
         </article>
       {% endfor %}
     </div>
@@ -280,6 +282,12 @@
         { "value": "left", "label": "Left" },
         { "value": "center", "label": "Center" }
       ]
+    },
+    {
+      "type": "checkbox",
+      "id": "show_content",
+      "label": "Show card content (title, description, link)",
+      "default": true
     },
     {
       "type": "text",
