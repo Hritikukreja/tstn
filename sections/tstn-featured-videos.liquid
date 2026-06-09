@@ -1,30 +1,26 @@
 {% comment %}
-  TSTN Featured Videos
-  - Logged-in: clicking a video opens a video modal player
+  TSTN Featured Videos (Videos only)
+  - Logged-in:  clicking a video opens a video modal player
   - Logged-out: clicking a video opens a "Members Only" gate popup
-  - Sidebar: slidable promo carousel; each slide is either a Link CTA OR
-             an inline Email Capture form (Shopify built-in newsletter)
-  - Promo CTAs (link button + email form) are now gated:
-      * Logged-in  -> CTA / email form work normally
-      * Logged-out -> CTA shows a locked state that opens the Members gate popup
-  - Optional: email captures can be sent to a Google Sheet (via Apps Script
-              Web App URL) instead of Shopify's customer list.
+  Split from the original combined section. Promo slides now live in their
+  own section file (tstn-promo-slides.liquid).
 {% endcomment %}
 
 <style>
   @font-face {
     font-family: 'Danger Neue Free Regular';
-    src: url('https://cdn.shopify.com/s/files/1/0000/0000/files/danger-neue-free-regular.woff2?v=1') format('woff2');
+    src: url('{{ "DangerNeueFree-Regular.woff2" | asset_url }}') format('woff2'),
+         url('https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Danger_Neue_Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
   }
 
   #shopify-section-{{ section.id }} {
-    --tstn-orange: #F56300;
+    --tstn-orange: #ff6a1a;
     --tstn-orange-hover: #ff7a1f;
     --tstn-bg: #0a0a0a;
-    --tstn-card-bg: #111111;
+    --tstn-card-bg: #141414;
     --tstn-card-bg-2: #161616;
     --tstn-text: #ffffff;
     --tstn-muted: #b0b0b0;
@@ -35,14 +31,11 @@
   .tstn-fv {
     background: var(--tstn-bg);
     color: var(--tstn-text);
-    padding: clamp(20px, 3vw, 40px) clamp(16px, 4vw, 40px);
+    padding: clamp(20px, 3vw, 40px) clamp(28px, 4vw, 64px);
   }
   .tstn-fv__inner {
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 2.2fr 1fr;
-    gap: clamp(20px, 2vw, 28px);
   }
 
   /* ----- Featured Videos card ----- */
@@ -63,8 +56,9 @@
     font-weight: 400;
     font-size: clamp(28px, 3vw, 38px);
     margin: 0;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.03em;
     line-height: 1;
+    text-transform: uppercase;
   }
   .tstn-fv__viewall {
     color: var(--tstn-text);
@@ -92,8 +86,6 @@
     display: flex;
     flex-direction: column;
   }
-
-  /* Main video trigger (cover only) */
   .tstn-fv__main {
     position: relative;
     border-radius: 12px;
@@ -135,18 +127,16 @@
   .tstn-fv__play svg { color: #000; transition: color 0.25s ease; }
   .tstn-fv__main:hover .tstn-fv__play svg { color: #fff; }
 
-  /* Caption below the main video */
-  .tstn-fv__main-info {
-    margin-top: 14px;
-  }
+  .tstn-fv__main-info { margin-top: 14px; }
   .tstn-fv__main-title {
     font-family: var(--tstn-font-display);
     font-weight: 400;
     font-size: clamp(24px, 2.6vw, 32px);
     line-height: 1.05;
     margin: 0 0 8px;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.03em;
     color: var(--tstn-text);
+    text-transform: uppercase;
   }
   .tstn-fv__main-meta {
     font-size: 13px;
@@ -228,301 +218,14 @@
     line-height: 1.15;
     margin: 0;
     color: var(--tstn-text);
-    letter-spacing: 0.3px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
   }
   .tstn-fv__item-meta { font-size: 12px; color: var(--tstn-muted); }
   .tstn-fv__item-time { font-size: 12px; color: var(--tstn-muted); }
 
   /* ============================================================
-     Promo Carousel
-     ============================================================ */
-  .tstn-promo {
-    background: var(--tstn-card-bg);
-    border: 1px solid var(--tstn-border);
-    border-radius: 16px;
-    overflow: hidden;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    min-height: 480px;
-  }
-
-  .tstn-promo__track-wrap {
-    position: relative;
-    flex: 1;
-    overflow: hidden;
-  }
-  .tstn-promo__track {
-    display: flex;
-    height: 100%;
-    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-    touch-action: pan-y;
-  }
-  .tstn-promo__slide {
-    flex: 0 0 100%;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-  }
-
-  .tstn-promo__media {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16/10;
-    background: var(--tstn-card-bg-2);
-    overflow: hidden;
-    flex-shrink: 0;
-  }
-  .tstn-promo__media img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  .tstn-promo__media-fallback {
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(circle at 70% 30%, rgba(245,99,0,0.25) 0%, transparent 60%), linear-gradient(135deg, #1a1a1a, #0a0a0a);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--tstn-orange);
-    opacity: 0.5;
-  }
-  .tstn-promo__badge {
-    position: absolute;
-    top: 14px;
-    left: 14px;
-    background: var(--tstn-orange);
-    color: #fff;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.2px;
-    padding: 5px 11px;
-    border-radius: 999px;
-    text-transform: uppercase;
-    z-index: 2;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-  }
-  .tstn-promo__badge--live { background: #ff2d2d; }
-  .tstn-promo__badge-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #fff;
-    animation: tstn-pulse 1.4s ease-in-out infinite;
-  }
-  @keyframes tstn-pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.3); }
-  }
-
-  .tstn-promo__body {
-    padding: clamp(20px, 2.5vw, 26px);
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-  }
-  .tstn-promo__eyebrow {
-    color: var(--tstn-orange);
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-  .tstn-promo__title {
-    font-family: var(--tstn-font-display);
-    font-weight: 400;
-    font-size: clamp(22px, 2.4vw, 28px);
-    line-height: 1.1;
-    margin: 0 0 10px;
-    color: var(--tstn-text);
-    letter-spacing: 0.4px;
-  }
-  .tstn-promo__desc {
-    font-size: 13px;
-    color: var(--tstn-muted);
-    line-height: 1.5;
-    margin: 0 0 18px;
-    flex: 1;
-  }
-
-  /* CTA Link button */
-  .tstn-promo__cta {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: var(--tstn-orange);
-    color: #fff;
-    padding: 11px 20px;
-    border-radius: 999px;
-    text-decoration: none;
-    font-weight: 600;
-    font-size: 13px;
-    transition: all 0.25s ease;
-    align-self: flex-start;
-    border: none;
-    cursor: pointer;
-    font-family: inherit;
-  }
-  .tstn-promo__cta:hover {
-    background: var(--tstn-orange-hover);
-    transform: translateY(-2px);
-  }
-  .tstn-promo__cta svg { transition: transform 0.25s ease; }
-  .tstn-promo__cta:hover svg { transform: translateX(3px); }
-
-  /* Email capture form */
-  .tstn-promo__form {
-    margin-top: auto;
-  }
-  .tstn-promo__form-row {
-    display: flex;
-    gap: 6px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid var(--tstn-border);
-    border-radius: 999px;
-    padding: 4px;
-    transition: border-color 0.2s ease;
-  }
-  .tstn-promo__form-row:focus-within {
-    border-color: var(--tstn-orange);
-  }
-  .tstn-promo__form-input {
-    flex: 1;
-    background: transparent;
-    border: none;
-    outline: none;
-    color: var(--tstn-text);
-    font-size: 13px;
-    padding: 10px 14px;
-    font-family: inherit;
-    min-width: 0;
-  }
-  .tstn-promo__form-input::placeholder {
-    color: rgba(255,255,255,0.4);
-  }
-  .tstn-promo__form-btn {
-    background: var(--tstn-orange);
-    color: #fff;
-    border: none;
-    border-radius: 999px;
-    padding: 10px 16px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    transition: background 0.2s ease;
-    flex-shrink: 0;
-    font-family: inherit;
-  }
-  .tstn-promo__form-btn:hover { background: var(--tstn-orange-hover); }
-  .tstn-promo__form-btn:disabled { opacity: 0.6; cursor: default; }
-  .tstn-promo__form-msg {
-    font-size: 12px;
-    color: var(--tstn-orange);
-    margin-top: 8px;
-    padding-left: 6px;
-  }
-  .tstn-promo__form-msg--success { color: #4ade80; }
-  .tstn-promo__form-msg--error { color: #ff6b6b; }
-
-  /* Logged-out locked CTA (opens Members gate) */
-  .tstn-promo__gate-row {
-    margin-top: auto;
-    width: 100%;
-    background: none;
-    border: none;
-    padding: 0;
-    cursor: pointer;
-    font: inherit;
-  }
-  .tstn-promo__form-row--locked {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(255,255,255,0.06);
-    border: 1px solid var(--tstn-border);
-    border-radius: 999px;
-    padding: 4px;
-    transition: border-color 0.2s ease;
-  }
-  .tstn-promo__gate-row:hover .tstn-promo__form-row--locked {
-    border-color: var(--tstn-orange);
-  }
-  .tstn-promo__form-placeholder {
-    flex: 1;
-    text-align: left;
-    color: rgba(255,255,255,0.4);
-    font-size: 13px;
-    padding: 10px 14px;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .tstn-promo__form-placeholder svg { flex-shrink: 0; opacity: 0.7; }
-  .tstn-promo__cta[data-tstn-gate-trigger] svg { transition: transform 0.25s ease; }
-  .tstn-promo__cta[data-tstn-gate-trigger]:hover svg { transform: none; }
-
-  /* Carousel controls */
-  .tstn-promo__controls {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 clamp(20px, 2.5vw, 26px) 20px;
-    gap: 12px;
-  }
-  .tstn-promo__dots {
-    display: flex;
-    gap: 6px;
-    flex: 1;
-  }
-  .tstn-promo__dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.2);
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    transition: background 0.2s ease, width 0.2s ease;
-  }
-  .tstn-promo__dot.is-active {
-    background: var(--tstn-orange);
-    width: 18px;
-    border-radius: 3px;
-  }
-  .tstn-promo__arrows {
-    display: flex;
-    gap: 6px;
-  }
-  .tstn-promo__arrow {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,0.2);
-    background: transparent;
-    color: var(--tstn-text);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-  }
-  .tstn-promo__arrow:hover {
-    background: var(--tstn-orange);
-    border-color: var(--tstn-orange);
-    color: #fff;
-  }
-
-  /* ============================================================
-     Modals
+     Modals (shared base)
      ============================================================ */
   .tstn-modal {
     position: fixed;
@@ -605,8 +308,9 @@
     font-size: clamp(20px, 2.2vw, 26px);
     margin: 0;
     color: var(--tstn-text);
-    letter-spacing: 0.3px;
+    letter-spacing: 0.03em;
     line-height: 1.15;
+    text-transform: uppercase;
   }
   .tstn-modal__author { font-size: 13px; color: var(--tstn-muted); }
 
@@ -636,7 +340,7 @@
     bottom: -60px;
     width: 360px;
     height: 360px;
-    background: radial-gradient(circle, rgba(245,99,0,0.18) 0%, transparent 65%);
+    background: radial-gradient(circle, rgba(255,106,26,0.18) 0%, transparent 65%);
     pointer-events: none;
   }
   .tstn-gate__pill {
@@ -660,9 +364,10 @@
     line-height: 1.05;
     margin: 0 0 26px;
     color: var(--tstn-text);
-    letter-spacing: 0.5px;
+    letter-spacing: 0.03em;
     position: relative;
     z-index: 2;
+    text-transform: uppercase;
   }
   .tstn-gate__list {
     list-style: none;
@@ -708,10 +413,6 @@
   body.tstn-modal-open { overflow: hidden; }
 
   /* Mobile */
-  @media (max-width: 1024px) {
-    .tstn-fv__inner { grid-template-columns: 1fr; }
-    .tstn-promo { min-height: auto; }
-  }
   @media (max-width: 720px) {
     .tstn-fv__grid { grid-template-columns: 1fr; }
     .tstn-fv__item { grid-template-columns: 110px 1fr; }
@@ -722,18 +423,12 @@
     .tstn-fv__item-title { font-size: 16px; }
     .tstn-modal--gate .tstn-modal__inner { padding: 28px 24px; }
     .tstn-gate__lock-bg { width: 160px; height: 160px; }
-    .tstn-promo__form-row,
-    .tstn-promo__form-row--locked { flex-direction: column; border-radius: 14px; padding: 6px; gap: 4px; }
-    .tstn-promo__form-input { padding: 10px 12px; }
-    .tstn-promo__form-btn { width: 100%; justify-content: center; padding: 10px; }
-    .tstn-promo__form-placeholder { width: 100%; }
   }
 </style>
 
 <section class="tstn-fv">
   <div class="tstn-fv__inner">
 
-    <!-- Featured Videos card -->
     <div class="tstn-fv__videos">
       <div class="tstn-fv__head">
         <h2 class="tstn-fv__title">{{ section.settings.heading | default: 'Featured Videos' }}</h2>
@@ -813,143 +508,6 @@
       </div>
     </div>
 
-    <!-- Promo Carousel -->
-    {%- assign promo_count = 0 -%}
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'promo' -%}{%- assign promo_count = promo_count | plus: 1 -%}{%- endif -%}
-    {%- endfor -%}
-
-    <div
-      class="tstn-promo"
-      data-tstn-promo
-      data-autoplay="{{ section.settings.promo_autoplay }}"
-      data-autoplay-speed="{{ section.settings.promo_autoplay_speed | default: 5000 }}">
-
-      <div class="tstn-promo__track-wrap">
-        <div class="tstn-promo__track" data-tstn-promo-track>
-          {% for block in section.blocks %}
-            {% if block.type == 'promo' %}
-              <div class="tstn-promo__slide" {{ block.shopify_attributes }}>
-                <div class="tstn-promo__media">
-                  {% if block.settings.image %}
-                    <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.title }}">
-                  {% else %}
-                    <div class="tstn-promo__media-fallback">
-                      {% case block.settings.badge_type %}
-                        {% when 'live' %}
-                          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
-                        {% when 'giveaway' %}
-                          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 12 20 22 4 22 4 12"></polyline><rect x="2" y="7" width="20" height="5"></rect><line x1="12" y1="22" x2="12" y2="7"></line><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
-                        {% else %}
-                          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
-                      {% endcase %}
-                    </div>
-                  {% endif %}
-
-                  {% if block.settings.badge_text != blank %}
-                    <span class="tstn-promo__badge {% if block.settings.badge_type == 'live' %}tstn-promo__badge--live{% endif %}">
-                      {% if block.settings.badge_type == 'live' %}
-                        <span class="tstn-promo__badge-dot"></span>
-                      {% endif %}
-                      {{ block.settings.badge_text }}
-                    </span>
-                  {% endif %}
-                </div>
-
-                <div class="tstn-promo__body">
-                  {% if block.settings.eyebrow != blank %}
-                    <span class="tstn-promo__eyebrow">{{ block.settings.eyebrow }}</span>
-                  {% endif %}
-                  <h3 class="tstn-promo__title">{{ block.settings.title }}</h3>
-                  <p class="tstn-promo__desc">{{ block.settings.description }}</p>
-
-                  {%- comment -%} CTA mode: link OR email capture — gated to logged-in members {%- endcomment -%}
-                  {% if customer %}
-                    {% if block.settings.cta_mode == 'email' %}
-                      {% form 'customer', class: 'tstn-promo__form', novalidate: 'novalidate' %}
-                        <input type="hidden" name="contact[tags]" value="newsletter,promo:{{ block.settings.email_tag | default: 'general' | escape }}">
-                        <div class="tstn-promo__form-row">
-                          <input
-                            type="email"
-                            name="contact[email]"
-                            class="tstn-promo__form-input"
-                            placeholder="{{ block.settings.email_placeholder | default: 'Enter your email' | escape }}"
-                            data-tag="{{ block.settings.email_tag | default: 'general' | escape }}"
-                            data-success="{{ block.settings.email_success | default: '✓ Thanks! You’re on the list.' | escape }}"
-                            required
-                            autocomplete="email">
-                          <button type="submit" name="commit" class="tstn-promo__form-btn">
-                            {{ block.settings.email_btn_text | default: 'Subscribe' }}
-                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                              <line x1="5" y1="12" x2="19" y2="12"></line>
-                              <polyline points="12 5 19 12 12 19"></polyline>
-                            </svg>
-                          </button>
-                        </div>
-                        {% if form.posted_successfully? %}
-                          <div class="tstn-promo__form-msg tstn-promo__form-msg--success">{{ block.settings.email_success | default: '✓ Thanks! You’re on the list.' }}</div>
-                        {% elsif form.errors %}
-                          <div class="tstn-promo__form-msg tstn-promo__form-msg--error">{{ form.errors | default_errors }}</div>
-                        {% endif %}
-                      {% endform %}
-                    {% else %}
-                      <a href="{{ block.settings.cta_link | default: '#' }}" class="tstn-promo__cta">
-                        {{ block.settings.cta_text | default: 'Learn More' }}
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                          <line x1="5" y1="12" x2="19" y2="12"></line>
-                          <polyline points="12 5 19 12 12 19"></polyline>
-                        </svg>
-                      </a>
-                    {% endif %}
-                  {% else %}
-                    {%- comment -%} Logged-out: locked CTA opens the Members Only gate {%- endcomment -%}
-                    {% if block.settings.cta_mode == 'email' %}
-                      <button type="button" class="tstn-promo__gate-row" data-tstn-gate-trigger aria-label="Members only — log in to subscribe">
-                        <span class="tstn-promo__form-row tstn-promo__form-row--locked">
-                          <span class="tstn-promo__form-placeholder">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                            {{ block.settings.email_placeholder | default: 'Enter your email' }}
-                          </span>
-                          <span class="tstn-promo__form-btn">{{ block.settings.email_btn_text | default: 'Subscribe' }}</span>
-                        </span>
-                      </button>
-                    {% else %}
-                      <button type="button" class="tstn-promo__cta" data-tstn-gate-trigger aria-label="Members only">
-                        {{ block.settings.cta_text | default: 'Learn More' }}
-                        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                      </button>
-                    {% endif %}
-                  {% endif %}
-                </div>
-              </div>
-            {% endif %}
-          {% endfor %}
-        </div>
-      </div>
-
-      {% if promo_count > 1 %}
-        <div class="tstn-promo__controls">
-          <div class="tstn-promo__dots" data-tstn-promo-dots>
-            {% assign d_idx = 0 %}
-            {% for block in section.blocks %}
-              {% if block.type == 'promo' %}
-                <button class="tstn-promo__dot {% if d_idx == 0 %}is-active{% endif %}" type="button" data-tstn-promo-dot="{{ d_idx }}" aria-label="Slide {{ d_idx | plus: 1 }}"></button>
-                {% assign d_idx = d_idx | plus: 1 %}
-              {% endif %}
-            {% endfor %}
-          </div>
-          <div class="tstn-promo__arrows">
-            <button class="tstn-promo__arrow" type="button" data-tstn-promo-prev aria-label="Previous">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-            </button>
-            <button class="tstn-promo__arrow" type="button" data-tstn-promo-next aria-label="Next">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-            </button>
-          </div>
-        </div>
-      {% endif %}
-    </div>
-
   </div>
 
   <!-- Video Modal -->
@@ -1021,10 +579,10 @@
 (function() {
   var sectionId = '{{ section.id }}';
   var section = document.getElementById('shopify-section-' + sectionId);
-  if (!section) return;
+  if (!section || section.dataset.tstnVideosBound === 'true') return;
+  section.dataset.tstnVideosBound = 'true';
 
   var isLoggedIn = {% if customer %}true{% else %}false{% endif %};
-  var sheetEndpoint = {{ section.settings.sheet_endpoint | default: '' | json }};
 
   var videoModal = section.querySelector('#tstn-modal-video-' + sectionId);
   var gateModal  = section.querySelector('#tstn-modal-gate-' + sectionId);
@@ -1083,11 +641,6 @@
     });
   });
 
-  /* Logged-out promo CTA / email locked state -> open Members gate */
-  section.querySelectorAll('[data-tstn-gate-trigger]').forEach(function(t) {
-    t.addEventListener('click', function() { openModal(gateModal); });
-  });
-
   section.querySelectorAll('.tstn-modal').forEach(function(modal) {
     var closeBtn = modal.querySelector('.tstn-modal__close');
     if (closeBtn) closeBtn.addEventListener('click', function() { closeModal(modal); });
@@ -1100,118 +653,6 @@
     if (e.key !== 'Escape') return;
     section.querySelectorAll('.tstn-modal.is-open').forEach(function(m) { closeModal(m); });
   });
-
-  /* ----- Optional: send email captures to a Google Sheet (Apps Script Web App) ----- */
-  if (sheetEndpoint) {
-    section.querySelectorAll('.tstn-promo__form').forEach(function(form) {
-      form.addEventListener('submit', function(e) {
-        e.preventDefault(); // intercept Shopify submit, send to the Sheet instead
-        var input = form.querySelector('input[type="email"]');
-        var email = input ? input.value.trim() : '';
-        if (!email) return;
-
-        var btn = form.querySelector('.tstn-promo__form-btn');
-        var successText = (input && input.getAttribute('data-success')) || '✓ Thanks! You’re on the list.';
-        var tag = (input && input.getAttribute('data-tag')) || 'general';
-
-        var msg = form.querySelector('.tstn-promo__form-msg');
-        if (!msg) {
-          msg = document.createElement('div');
-          msg.className = 'tstn-promo__form-msg';
-          form.appendChild(msg);
-        }
-        msg.classList.remove('tstn-promo__form-msg--success', 'tstn-promo__form-msg--error');
-
-        if (btn) btn.disabled = true;
-
-        var payload = new URLSearchParams();
-        payload.append('email', email);
-        payload.append('tag', tag);
-        payload.append('source', 'TSTN Featured Videos');
-        payload.append('page', window.location.href);
-
-        fetch(sheetEndpoint, {
-          method: 'POST',
-          mode: 'no-cors', // Apps Script Web App; response is opaque, treat as success
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
-          body: payload.toString()
-        }).then(function() {
-          msg.textContent = successText;
-          msg.classList.add('tstn-promo__form-msg--success');
-          if (input) input.value = '';
-          if (btn) btn.disabled = false;
-        }).catch(function() {
-          msg.textContent = 'Something went wrong. Please try again.';
-          msg.classList.add('tstn-promo__form-msg--error');
-          if (btn) btn.disabled = false;
-        });
-      });
-    });
-  }
-
-  /* Promo Carousel */
-  var promo = section.querySelector('[data-tstn-promo]');
-  if (promo) {
-    var track = promo.querySelector('[data-tstn-promo-track]');
-    var slides = track.querySelectorAll('.tstn-promo__slide');
-    var dots = promo.querySelectorAll('[data-tstn-promo-dot]');
-    var prevBtn = promo.querySelector('[data-tstn-promo-prev]');
-    var nextBtn = promo.querySelector('[data-tstn-promo-next]');
-    var index = 0;
-    var total = slides.length;
-    var autoplay = promo.getAttribute('data-autoplay') === 'true';
-    var autoplaySpeed = parseInt(promo.getAttribute('data-autoplay-speed'), 10) || 5000;
-    var timer = null;
-
-    function goTo(i) {
-      index = (i + total) % total;
-      track.style.transform = 'translateX(-' + (index * 100) + '%)';
-      dots.forEach(function(d, di) { d.classList.toggle('is-active', di === index); });
-    }
-    function next() { goTo(index + 1); }
-    function prev() { goTo(index - 1); }
-    function startAuto() {
-      if (!autoplay || total < 2) return;
-      stopAuto();
-      timer = setInterval(next, autoplaySpeed);
-    }
-    function stopAuto() { if (timer) { clearInterval(timer); timer = null; } }
-
-    if (nextBtn) nextBtn.addEventListener('click', function() { next(); startAuto(); });
-    if (prevBtn) prevBtn.addEventListener('click', function() { prev(); startAuto(); });
-    dots.forEach(function(d) {
-      d.addEventListener('click', function() {
-        goTo(parseInt(d.getAttribute('data-tstn-promo-dot'), 10));
-        startAuto();
-      });
-    });
-
-    promo.addEventListener('mouseenter', stopAuto);
-    promo.addEventListener('mouseleave', startAuto);
-
-    // Don't pause/swipe when interacting with form fields
-    track.querySelectorAll('input, button').forEach(function(el) {
-      el.addEventListener('focus', stopAuto);
-      el.addEventListener('blur', startAuto);
-    });
-
-    var touchStartX = 0, touchEndX = 0;
-    track.addEventListener('touchstart', function(e) {
-      // Don't intercept swipe on form fields
-      if (e.target.closest('.tstn-promo__form')) return;
-      touchStartX = e.changedTouches[0].screenX;
-      stopAuto();
-    }, { passive: true });
-    track.addEventListener('touchend', function(e) {
-      if (e.target.closest('.tstn-promo__form')) return;
-      touchEndX = e.changedTouches[0].screenX;
-      var diff = touchStartX - touchEndX;
-      if (Math.abs(diff) > 40) { if (diff > 0) next(); else prev(); }
-      startAuto();
-    }, { passive: true });
-
-    startAuto();
-  }
 })();
 </script>
 
@@ -1236,14 +677,7 @@
     { "type": "text", "id": "gate_title", "label": "Title", "default": "Unlock Exclusive Content & Perks" },
     { "type": "text", "id": "gate_cta_text", "label": "CTA Button Text", "default": "Join TSTN Club" },
     { "type": "url", "id": "gate_cta_link", "label": "CTA Button Link" },
-    { "type": "paragraph", "content": "Add 'Members Perk' blocks below to populate the checkmark list. Logged-out visitors who click any promo CTA or email form will see this popup." },
-
-    { "type": "header", "content": "Email → Google Sheet (optional)" },
-    { "type": "text", "id": "sheet_endpoint", "label": "Google Apps Script Web App URL", "info": "Paste your deployed Apps Script /exec URL. When set, promo email submissions are sent here (e.g. appended to a Google Sheet) instead of Shopify's customer list. Leave blank to keep using Shopify." },
-
-    { "type": "header", "content": "Promo Carousel" },
-    { "type": "checkbox", "id": "promo_autoplay", "label": "Auto-rotate slides", "default": true },
-    { "type": "range", "id": "promo_autoplay_speed", "label": "Auto-rotate speed (ms)", "min": 2000, "max": 9000, "step": 500, "default": 5000 }
+    { "type": "paragraph", "content": "Add 'Members Perk' blocks below to populate the checkmark list. Logged-out visitors who click a video will see this popup." }
   ],
   "blocks": [
     {
@@ -1264,48 +698,6 @@
       "settings": [
         { "type": "text", "id": "text", "label": "Perk", "default": "Exclusive Videos" }
       ]
-    },
-    {
-      "type": "promo",
-      "name": "Promo Slide",
-      "settings": [
-        { "type": "image_picker", "id": "image", "label": "Slide Image" },
-        {
-          "type": "select",
-          "id": "badge_type",
-          "label": "Badge Style",
-          "default": "default",
-          "options": [
-            { "value": "default", "label": "Standard (orange)" },
-            { "value": "live", "label": "LIVE (red, pulsing)" },
-            { "value": "giveaway", "label": "Giveaway" }
-          ]
-        },
-        { "type": "text", "id": "badge_text", "label": "Badge Text (optional)", "default": "GIVEAWAY" },
-        { "type": "text", "id": "eyebrow", "label": "Eyebrow Text", "default": "Don't miss out" },
-        { "type": "text", "id": "title", "label": "Title", "default": "Promo Title" },
-        { "type": "textarea", "id": "description", "label": "Description", "default": "Short description of the promo." },
-        { "type": "header", "content": "Call to Action" },
-        { "type": "paragraph", "content": "Promo CTAs are members-only: logged-out visitors get the Members gate popup." },
-        {
-          "type": "select",
-          "id": "cta_mode",
-          "label": "CTA Style",
-          "default": "link",
-          "options": [
-            { "value": "link", "label": "Link Button" },
-            { "value": "email", "label": "Email Capture Form" }
-          ]
-        },
-        { "type": "paragraph", "content": "▼ If 'Link Button' is selected:" },
-        { "type": "text", "id": "cta_text", "label": "Button Text", "default": "Learn More" },
-        { "type": "url", "id": "cta_link", "label": "Button Link" },
-        { "type": "paragraph", "content": "▼ If 'Email Capture Form' is selected — emails go to Shopify, or to your Google Sheet if a Web App URL is set above:" },
-        { "type": "text", "id": "email_placeholder", "label": "Input Placeholder", "default": "Enter your email" },
-        { "type": "text", "id": "email_btn_text", "label": "Submit Button Text", "default": "Subscribe" },
-        { "type": "text", "id": "email_tag", "label": "Customer Tag (segments emails)", "default": "general", "info": "Submitted emails are tagged so you can segment them in Shopify Admin or in your Google Sheet (e.g. 'live-video', 'giveaway-jan')." },
-        { "type": "text", "id": "email_success", "label": "Success Message", "default": "✓ Thanks! You’re on the list." }
-      ]
     }
   ],
   "max_blocks": 16,
@@ -1320,10 +712,7 @@
         { "type": "perk", "settings": { "text": "In-depth Blogs" } },
         { "type": "perk", "settings": { "text": "Live Sessions" } },
         { "type": "perk", "settings": { "text": "Member Discounts" } },
-        { "type": "perk", "settings": { "text": "Early Access to Events" } },
-        { "type": "promo", "settings": { "badge_type": "giveaway", "badge_text": "GIVEAWAY", "eyebrow": "This Month", "title": "Win a TSTN Merch Bundle", "description": "Enter your email for a chance to win exclusive TSTN merch worth ₹10,000.", "cta_mode": "email", "email_btn_text": "Enter", "email_tag": "giveaway" } },
-        { "type": "promo", "settings": { "badge_type": "live", "badge_text": "LIVE SOON", "eyebrow": "Live Session", "title": "Subscribe for Live Q&A", "description": "Get notified when we go live. Real-time conversations, real questions, real answers.", "cta_mode": "email", "email_btn_text": "Notify Me", "email_tag": "live-video" } },
-        { "type": "promo", "settings": { "badge_type": "default", "badge_text": "EVENT", "eyebrow": "Coming Up", "title": "TSTN Meetup 2026", "description": "Join the community in person. Limited seats available for our annual meetup.", "cta_mode": "link", "cta_text": "Reserve Spot" } }
+        { "type": "perk", "settings": { "text": "Early Access to Events" } }
       ]
     }
   ]
