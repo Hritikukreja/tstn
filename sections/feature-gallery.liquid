@@ -1,7 +1,18 @@
 {% liquid
   assign section_id = 'FeatureGallery-' | append: section.id
+
+  # ── Detect whether any block actually carries media ──
+  # If no block has an image (or video) the entire section is hidden.
+  assign has_media = false
+  for block in section.blocks
+    if block.settings.image != blank or block.settings.video != blank
+      assign has_media = true
+      break
+    endif
+  endfor
 %}
 
+{% if has_media %}
 <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
 <link href="https://fonts.cdnfonts.com/css/danger-neue" rel="stylesheet">
 
@@ -22,6 +33,10 @@
     <div class="feature-gallery__grid feature-gallery__grid--{{ section.settings.columns_desktop }}">
       {% for block in section.blocks %}
         {%- liquid
+          # Skip blocks with no media so the grid never renders an empty placeholder card
+          if block.settings.image == blank and block.settings.video == blank
+            continue
+          endif
           assign img_sizes = '(min-width: 990px) calc(100vw / ' | append: section.settings.columns_desktop | append: '), 100vw'
         -%}
         <article class="feature-gallery__card feature-gallery__card--align-{{ section.settings.card_alignment }}" {{ block.shopify_attributes }}>
@@ -48,8 +63,6 @@
                   class: 'feature-gallery__media',
                   alt: block.settings.image.alt
               }}
-            {% else %}
-              {{ 'image' | placeholder_svg_tag: 'feature-gallery__placeholder' }}
             {% endif %}
           </div>
 
@@ -236,6 +249,7 @@
     text-transform: uppercase;
   }
 </style>
+{% endif %}
 
 {% schema %}
 {
