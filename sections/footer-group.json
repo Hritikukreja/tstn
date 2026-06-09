@@ -31,9 +31,10 @@
         },
         "divider_RFnVyC": {
           "type": "divider",
+          "disabled": true,
           "settings": {
             "style": "shimmer",
-            "color": "#b8922a",
+            "color": "#ff6a1a",
             "thickness": 1,
             "width": 100,
             "space_top": 24,
