@@ -1,0 +1,416 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "product_banner_XPWEW8": {
+      "type": "main-product",
+      "disabled": true,
+      "name": "Product Banner",
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "stacked",
+        "mobile_thumbnails": "hide",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": false,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "tstn_product_banner_HTPx8E": {
+      "type": "tstn-product-banner",
+      "blocks": {
+        "trust_badge_NRxzyH": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "truck",
+            "title": "Free Shipping",
+            "subtitle": "On orders over $250"
+          }
+        },
+        "trust_badge_7ag9t4": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "truck",
+            "title": "Easy Returns",
+            "subtitle": "30 day returns"
+          }
+        },
+        "trust_badge_gQLkEi": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "truck",
+            "title": "Quality Gear",
+            "subtitle": "Built for adventure"
+          }
+        },
+        "accordion_item_gJdKfW": {
+          "type": "accordion_item",
+          "settings": {
+            "icon": "list",
+            "title": "Product Details",
+            "subtitle": "Fit, feel, and function.",
+            "content": "<p>Who knew that the softest hoodie you'll ever own comes with such a cool design. You won't regret buying this classic streetwear piece of apparel with a convenient pouch pocket and warm hood for chilly evenings.<br/><br/></p>"
+          }
+        },
+        "accordion_item_xPYW4w": {
+          "type": "accordion_item",
+          "settings": {
+            "icon": "list",
+            "title": "Materials & CARE",
+            "subtitle": "What's it made of and how to care for it.",
+            "content": "<p>• 100% cotton face<br/>• 65% ring-spun cotton, 35% polyester</p>"
+          }
+        },
+        "accordion_item_NWRYQa": {
+          "type": "accordion_item",
+          "disabled": true,
+          "settings": {
+            "icon": "list",
+            "title": "Size GUIDE",
+            "subtitle": "Find your perfect fit.",
+            "content": "<p>Hoodie Size Guide<br/><br/>XS: Chest 32-34\", Length 26\"<br/>Perfect for petite frames and those who prefer a fitted silhouette.<br/><br/>S: Chest 34-36\", Length 27\"<br/>Ideal for smaller builds with a comfortable, close fit.<br/><br/>M: Chest 38-40\", Length 28\"<br/>Our most popular size, offering a relaxed everyday fit.<br/><br/>L: Chest 42-44\", Length 29\"<br/>Great for a roomier, oversized feel while maintaining proportion.<br/><br/>XL: Chest 46-48\", Length 30\"<br/>Designed for larger frames with plenty of movement.<br/><br/>2XL: Chest 50-52\", Length 31\"<br/>Extra room through the body and sleeves for maximum comfort.<br/><br/>Fit Tips: If you're between sizes, consider your preferred style. Choose the smaller size for a fitted look or the larger size for an oversized, relaxed fit. Hoodies typically shrink slightly after washing, so account for this when selecting your size.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "trust_badge_NRxzyH",
+        "trust_badge_7ag9t4",
+        "trust_badge_gQLkEi",
+        "accordion_item_gJdKfW",
+        "accordion_item_xPYW4w",
+        "accordion_item_NWRYQa"
+      ],
+      "name": "TSTN Product Banner",
+      "settings": {
+        "show_breadcrumb": true,
+        "home_label": "Home",
+        "breadcrumb_collection": "",
+        "anchor_id": "product-banner",
+        "show_vendor": true,
+        "show_description": false,
+        "show_points": true,
+        "points_multiplier": 5,
+        "points_label": "TSTN Club Points",
+        "show_size_guide": true,
+        "size_guide_link_label": "Size Guide",
+        "size_guide_heading": "Size Guide",
+        "size_guide_image": "shopify://shop_images/Screenshot_2026-06-08_195302_22a07b6f-81f4-4c85-b112-9fee96160ab4.png",
+        "size_guide_image_2": "shopify://shop_images/2_0bfa59f2-b4f0-4a66-88fe-c72052a23af9.png",
+        "size_guide_tab_label_1": "Inches",
+        "size_guide_tab_label_2": "Centimeters",
+        "size_guide_content": "",
+        "bg_color": "#0a0a0a",
+        "card_bg": "#1a1a1a",
+        "text_color": "#ffffff",
+        "muted_color": "#b0b0b0",
+        "border_color": "#2a2a2a",
+        "accent_color": "#ff6a1a",
+        "padding_top": 24,
+        "padding_bottom": 48
+      }
+    },
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "product_short_description_hyF9Hk": {
+          "type": "product_short_description",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "delivery_date_time_4ge69g": {
+          "type": "delivery-date-time",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": false,
+            "show_gift_card_recipient": false
+          }
+        },
+        "complementary_nJRtM3": {
+          "type": "complementary",
+          "disabled": true,
+          "settings": {
+            "block_heading": "",
+            "make_collapsible_row": false,
+            "icon": "price_tag",
+            "product_list_limit": 10,
+            "products_per_page": 2,
+            "pagination_style": "counter",
+            "image_ratio": "square",
+            "enable_quick_add": false
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "product_short_description_hyF9Hk",
+        "price",
+        "delivery_date_time_4ge69g",
+        "buy_buttons",
+        "complementary_nJRtM3"
+      ],
+      "disabled": true,
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "medium",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail_slider",
+        "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 76,
+        "padding_bottom": 44
+      }
+    },
+    "pro_hero_ye7RgN": {
+      "type": "pro-hero",
+      "disabled": true,
+      "custom_css": [],
+      "name": "Pro hero",
+      "settings": {
+        "media_type": "video",
+        "hero_video": "shopify://files/videos/Thule - Made with Clipchamp Full Width.mp4",
+        "show_controls": false,
+        "hero_height_desktop": 85,
+        "hero_height_mobile": 80,
+        "tint_color": "#121212",
+        "tint_opacity": 30,
+        "overlay_opacity": 90,
+        "content_position": "bottom",
+        "content_alignment": "center",
+        "kicker": "Thule",
+        "kicker_color": "#ffffff",
+        "kicker_size": 36,
+        "kicker_weight": 400,
+        "heading": "hullavator pro",
+        "heading_color": "#ffffff",
+        "heading_size": 120,
+        "heading_weight": 400,
+        "button_label": "Buy Now",
+        "product": "thule-hullavator-pro-kayak-rack-modula-racks",
+        "variant_scroll_target": "",
+        "button_link": "",
+        "button_bg_color": "#f56300",
+        "button_hover_color": "#ffffff",
+        "button_text_color": "#f8f8f8",
+        "button_font_size": 15,
+        "button_font_weight": 800,
+        "price_text": "From $1099 or $45.79/mo. for 24 mo.*",
+        "price_color": "#ffffff",
+        "price_size": 22,
+        "section_bg_color": "#0a0a0a"
+      }
+    },
+    "video_buy_section_fh7rn3": {
+      "type": "video-buy-section",
+      "blocks": {
+        "trust_badge_mqD7Bq": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "✓",
+            "text": "0% APR Financing"
+          }
+        },
+        "trust_badge_rj9Jji": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "✓",
+            "text": "Free shipping"
+          }
+        },
+        "trust_badge_ENiQfA": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "↩",
+            "text": "30-day returns"
+          }
+        },
+        "trust_badge_tWkPkf": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "✓",
+            "text": "Free shipping on orders over $99"
+          }
+        }
+      },
+      "block_order": [
+        "trust_badge_mqD7Bq",
+        "trust_badge_rj9Jji",
+        "trust_badge_ENiQfA",
+        "trust_badge_tWkPkf"
+      ],
+      "disabled": true,
+      "custom_css": [
+        "p {font-size: 16px;}"
+      ],
+      "name": "Video + Buy Now",
+      "settings": {
+        "video_type": "youtube",
+        "youtube_url": "https://youtu.be/TRtR_j5dqcU?si=Hh17jORefVurzyok",
+        "mp4_video": "",
+        "show_video_controls": false,
+        "heading": "Thule Hallvator",
+        "subheading": "<p><em>I’ve used a lot of racks over the years, and the Thule Hullavator Pro is one of those pieces of gear that actually changes how often you go out. Being able to load and unload a kayak without wrecking your shoulders—it sounds small, but it makes a huge difference. - </em><strong>Shaun</strong></p>",
+        "subheading_color": "#ffffff",
+        "product": "",
+        "custom_price": "$45.79/mo. for 24 mo.*",
+        "button_label": "Buy Now",
+        "button_url": "shopify://products/thule-hullavator-pro-kayak-rack-modula-racks",
+        "show_buy_button": true,
+        "richtext": "",
+        "bg_color": "#121212",
+        "panel_bg_color": "#111111",
+        "text_color": "#ffffff",
+        "accent_color": "#f8f8f8",
+        "badge_text_color": "#f87720",
+        "badge_icon_color": "#ffffff",
+        "badge_font_size": 16,
+        "badge_font_weight": "700",
+        "video_split": 70,
+        "max_width": 1520,
+        "padding_top": 32,
+        "padding_bottom": 32
+      }
+    },
+    "feature_gallery_xpJVXd": {
+      "type": "feature-gallery",
+      "blocks": {
+        "feature_4UN7bL": {
+          "type": "feature",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/1_7c8ff83e-59a5-421a-95c8-d5f0e95ae197.png",
+            "show_controls": false,
+            "title": "MADE FOR OUTDOORS",
+            "description": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "feature_XwaB6Y": {
+          "type": "feature",
+          "settings": {
+            "media_type": "video",
+            "image": "shopify://shop_images/2_4de9a49e-453c-426c-9584-336f95bb8c09.png",
+            "show_controls": false,
+            "title": "ALL DAY COMFORT",
+            "description": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "feature_EVxyAD": {
+          "type": "feature",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/3_390e7451-dfa9-48fe-bcd8-9368b7f8032d.png",
+            "show_controls": false,
+            "title": "FOR THE EVERYDAY EXPLORER",
+            "description": "",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_4UN7bL",
+        "feature_XwaB6Y",
+        "feature_EVxyAD"
+      ],
+      "name": "Feature gallery",
+      "settings": {
+        "kicker": "Feature gallery",
+        "heading": "BUILT FOR EVERY ADVENTURE",
+        "text": "<p>Thoughtful details and premium materials make this your go-to layer, wherever the road takes you.</p>",
+        "columns_desktop": "3",
+        "card_alignment": "left",
+        "media_aspect_ratio": "4 / 5",
+        "color_scheme": "scheme-5330df68-7ce6-41b9-9bf9-37d268b32221",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "hero_collection_CK8zUV": {
+      "type": "hero-collection",
+      "name": "Hero Collection",
+      "settings": {
+        "background_image": "shopify://shop_images/6.png",
+        "overlay_opacity": 55,
+        "overline": "THE COLLECTION",
+        "heading": "GEAR THAT GOES FURTHER",
+        "subheading": "<p>Hand-picked gear for real adventures. Tested, trusted, and used out on the trail.</p>",
+        "text_alignment": "left",
+        "button_label": "EXPLORE THE GEAR",
+        "button_link": "",
+        "height_desktop": 640,
+        "height_mobile": 520
+      }
+    },
+    "product_faq_h3Cdgd": {
+      "type": "product-faq",
+      "name": "Product FAQ",
+      "settings": {
+        "title": ""
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "disabled": true,
+      "settings": {
+        "section_bg": "shopify://shop_images/Frame_36.png",
+        "heading": "Continue the Adventure",
+        "btn_text": "Explore More Gear",
+        "btn_link": "#",
+        "heading_size": "h2",
+        "products_to_show": 2,
+        "columns_desktop": 2,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "adapt",
+        "image_shape": "default",
+        "show_secondary_image": false,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 100,
+        "padding_bottom": 100
+      }
+    }
+  },
+  "order": [
+    "product_banner_XPWEW8",
+    "tstn_product_banner_HTPx8E",
+    "main",
+    "pro_hero_ye7RgN",
+    "video_buy_section_fh7rn3",
+    "feature_gallery_xpJVXd",
+    "hero_collection_CK8zUV",
+    "product_faq_h3Cdgd",
+    "related-products"
+  ]
+}
