@@ -757,9 +757,9 @@
       ],
       "name": "TSTN Journey CTA",
       "settings": {
-        "heading": "REFER AND EARN MORE",
-        "sub": "Refer your friends to get 200 points for each of your friends who join!",
-        "cta_text": "EARN POINTS",
+        "heading": "BRING THE CREW. STACK THE POINTS.",
+        "sub": "Share TSTN with your friends. When they join the club, you earn 200 points for each referral.",
+        "cta_text": "START REFERRING",
         "cta_link": "",
         "image": "shopify://shop_images/13.png",
         "script_text": ""
