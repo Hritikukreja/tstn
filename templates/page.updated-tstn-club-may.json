@@ -77,9 +77,9 @@
           "type": "video_item",
           "settings": {
             "image": "shopify://shop_images/2.png",
+            "episode": "Episode 02",
             "title": "Building a Rig That Can Actually Handle the Trip",
             "author": "Shaun Walford with Brad Kowitz",
-            "time": "42 min",
             "duration": "Episode 02",
             "link": ""
           }
@@ -88,9 +88,9 @@
           "type": "video_item",
           "settings": {
             "image": "shopify://shop_images/3_2db77255-8fc6-4bd8-b4d9-9623c369f84f.png",
+            "episode": "Episode 02",
             "title": "Remote Travel, Recovery Gear & Smart Decisions",
             "author": "Shaun Walford with Scott Brady",
-            "time": "55 min",
             "duration": "Episode 03",
             "link": ""
           }
@@ -99,53 +99,18 @@
           "type": "video_item",
           "settings": {
             "image": "shopify://shop_images/4_d57e7ef3-55b6-4891-ab36-c3561b4889e0.png",
+            "episode": "Episode 02",
             "title": "Living on the Road Without Overcomplicating It",
             "author": "Shaun Walford with Clay Croft",
-            "time": "39 min",
             "duration": "Episode 04",
             "link": ""
-          }
-        },
-        "perk_KjwDjb": {
-          "type": "perk",
-          "settings": {
-            "text": "Exclusive Videos"
-          }
-        },
-        "perk_iWjfUq": {
-          "type": "perk",
-          "settings": {
-            "text": "In-depth Blogs"
-          }
-        },
-        "perk_m9thFg": {
-          "type": "perk",
-          "settings": {
-            "text": "Live Sessions"
-          }
-        },
-        "perk_qkdjRi": {
-          "type": "perk",
-          "settings": {
-            "text": "Member Discounts"
-          }
-        },
-        "perk_YigMxP": {
-          "type": "perk",
-          "settings": {
-            "text": "Early Access to Events"
           }
         }
       },
       "block_order": [
         "video_item_3bQX7M",
         "video_item_eTMzKr",
-        "video_item_D3XrKU",
-        "perk_KjwDjb",
-        "perk_iWjfUq",
-        "perk_m9thFg",
-        "perk_qkdjRi",
-        "perk_YigMxP"
+        "video_item_D3XrKU"
       ],
       "custom_css": [
         "h1,h2,h3,h4,h5,h6,a {color: white;}",
@@ -154,12 +119,16 @@
       "name": "TSTN Featured Videos",
       "settings": {
         "heading": "TSTN PODCASTS",
-        "viewall_text": "View all videos",
-        "viewall_link": "",
+        "subtitle": "Real stories, gear insights, and hard-earned lessons from the road.",
+        "explore_text": "Explore Clubhouse",
+        "explore_link": "",
         "main_image": "shopify://shop_images/05637e5d-f96e-48b2-8495-7e885bd73f68.jpg",
+        "main_badge": "Featured Episode",
         "main_title": "Full-Size Overlanding: Lessons From the Road",
         "main_author": "Shaun Walford with Clay Croft",
+        "main_desc": "Real-world lessons on building, outfitting, and living on the road with confidence.",
         "main_duration": "",
+        "main_episode": "Episode 04",
         "main_link": "https://www.youtube.com/watch?v=isaqCTbK-mo",
         "gate_pill": "MEMBERS ONLY",
         "gate_title": "Unlock Exclusive Content & Perks",
