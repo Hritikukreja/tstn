@@ -8,29 +8,30 @@
 <style>
   @font-face {
     font-family: 'Danger Neue Free Regular';
-    src: url('https://cdn.shopify.com/s/files/1/0000/0000/files/danger-neue-free-regular.woff2?v=1') format('woff2');
+    src: url('{{ "DangerNeueFree-Regular.woff2" | asset_url }}') format('woff2'),
+         url('https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Danger_Neue_Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
   }
 
   #shopify-section-{{ section.id }} {
-    --tstn-orange: #F56300;
+    --tstn-orange: #ff6a1a;
     --tstn-bg: #0a0a0a;
-    --tstn-card-bg: #111111;
+    --tstn-card-bg: #141414;
     --tstn-text: #ffffff;
-    --tstn-muted: #b0b0b0;
-    --tstn-border: rgba(255,255,255,0.1);
+    --tstn-muted: #9a9a9a;
+    --tstn-border: rgba(255,255,255,0.08);
     --tstn-font-display: "Danger Neue Free Regular", "Inter", sans-serif;
   }
 
   .tstn-cf {
     background: var(--tstn-bg);
     color: var(--tstn-text);
-    padding: clamp(20px, 3vw, 30px) clamp(16px, 4vw, 40px);
+    padding: clamp(20px, 3vw, 30px) clamp(16px, 4vw, 56px);
   }
   .tstn-cf__inner {
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
     background: var(--tstn-card-bg);
     border: 1px solid var(--tstn-border);
@@ -45,9 +46,9 @@
   .tstn-cf__heading {
     font-family: var(--tstn-font-display);
     font-weight: 400;
-    font-size: clamp(22px, 2.4vw, 30px);
+    font-size: clamp(26px, 2.8vw, 36px);
     margin: 0;
-    line-height: 1.2;
+    line-height: 1.05;
     letter-spacing: 0.5px;
   }
 
@@ -72,10 +73,13 @@
     margin-bottom: 6px;
   }
   .tstn-cf__feat-title {
-    font-size: 14px;
-    font-weight: 700;
+    font-family: var(--tstn-font-display);
+    font-weight: 400;
+    font-size: clamp(17px, 1.5vw, 20px);
+    line-height: 1.1;
     margin: 0;
     color: var(--tstn-text);
+    letter-spacing: 0.3px;
   }
   .tstn-cf__feat-text {
     font-size: 12px;
