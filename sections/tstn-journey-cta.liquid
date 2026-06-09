@@ -168,7 +168,7 @@
       <h2 class="tstn-journey__heading">{{ section.settings.heading | default: "Your Journey. Our Support. Let us Build the Best Version of You." }}</h2>
       <p class="tstn-journey__sub">{{ section.settings.sub | default: 'Join thousands of members already growing with TSTN Club.' }}</p>
 
-      <a href="#" class="tstn-journey__btn" data-open-growave-rewards role="button">
+      <a href="#" class="tstn-journey__btn" data-open-growave role="button">
         {{ section.settings.cta_text | default: 'Join TSTN Club Today' }}
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -191,48 +191,6 @@
     </div>
   </div>
 </section>
-
-<script>
-  (function() {
-    function openGrowaveRewards(event) {
-      var trigger = event.target.closest('[data-open-growave-rewards]');
-      if (!trigger) return;
-
-      event.preventDefault();
-
-      var widget = document.querySelector('.gw-rd-popup-widget-placeholder');
-      var launcher = null;
-
-      if (widget && widget.shadowRoot) {
-        launcher =
-          widget.shadowRoot.querySelector('button') ||
-          widget.shadowRoot.querySelector('[role="button"]') ||
-          widget.shadowRoot.querySelector('[class*="launcher"]');
-      }
-
-      if (!launcher) {
-        launcher =
-          document.querySelector('.gw-rd-popup-widget-placeholder button') ||
-          document.querySelector('[class*="gw-rd"] button') ||
-          document.querySelector('[class*="growave"] button');
-      }
-
-      if (launcher) {
-        launcher.click();
-      } else {
-        console.warn('Growave rewards launcher was not found. Keep the Growave launcher enabled in Growave settings.');
-      }
-    }
-
-    document.addEventListener('click', openGrowaveRewards);
-
-    document.addEventListener('keydown', function(event) {
-      if ((event.key === 'Enter' || event.key === ' ') && event.target.matches('[data-open-growave-rewards]')) {
-        openGrowaveRewards(event);
-      }
-    });
-  })();
-</script>
 
 {% schema %}
 {
