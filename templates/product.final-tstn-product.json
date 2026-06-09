@@ -237,8 +237,8 @@
             "media_type": "video",
             "image": "shopify://shop_images/ChatGPT_Image_May_28_2026_03_09_12_PM_2.png",
             "show_controls": false,
-            "title": "Breathable blackout fabric",
-            "description": "<p>The extended awning adds shade and weather protection around the tent entrance, giving you a more usable camp setup without needing extra shelter.</p>",
+            "title": "{{ product.metafields.custom.primary_feature_gallery_title_2.value }}",
+            "description": "<p>{{ product.metafields.custom.primary_feature_gallery_description.value }}</p>",
             "link_label": "",
             "link": ""
           }
