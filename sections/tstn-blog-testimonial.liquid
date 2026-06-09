@@ -7,31 +7,32 @@
 <style>
   @font-face {
     font-family: 'Danger Neue Free Regular';
-    src: url('https://cdn.shopify.com/s/files/1/0000/0000/files/danger-neue-free-regular.woff2?v=1') format('woff2');
+    src: url('{{ "DangerNeueFree-Regular.woff2" | asset_url }}') format('woff2'),
+         url('https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Danger_Neue_Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
   }
 
   #shopify-section-{{ section.id }} {
-    --tstn-orange: #F56300;
+    --tstn-orange: #ff6a1a;
     --tstn-orange-hover: #ff7a1f;
     --tstn-bg: #0a0a0a;
-    --tstn-card-bg: #111111;
-    --tstn-card-bg-2: #1a1a1a;
+    --tstn-card-bg: #141414;
+    --tstn-card-bg-2: #161616;
     --tstn-text: #ffffff;
-    --tstn-muted: #b0b0b0;
-    --tstn-border: rgba(255,255,255,0.1);
+    --tstn-muted: #9a9a9a;
+    --tstn-border: rgba(255,255,255,0.08);
     --tstn-font-display: "Danger Neue Free Regular", "Inter", sans-serif;
   }
 
   .tstn-bt {
     background: var(--tstn-bg);
     color: var(--tstn-text);
-    padding: clamp(20px, 3vw, 40px) clamp(16px, 4vw, 40px);
+    padding: clamp(20px, 3vw, 48px) clamp(16px, 4vw, 56px);
   }
   .tstn-bt__inner {
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 2.5fr 1fr;
@@ -97,7 +98,7 @@
   }
   .tstn-blog__card:hover {
     transform: translateY(-4px);
-    border-color: rgba(245,99,0,0.4);
+    border-color: rgba(255,106,26,0.4);
   }
 
   .tstn-blog__cover {
@@ -439,7 +440,7 @@
     bottom: -60px;
     width: 360px;
     height: 360px;
-    background: radial-gradient(circle, rgba(245,99,0,0.18) 0%, transparent 65%);
+    background: radial-gradient(circle, rgba(255,106,26,0.18) 0%, transparent 65%);
     pointer-events: none;
   }
   .tstn-gate__pill {
@@ -711,7 +712,8 @@
 (function() {
   var sectionId = '{{ section.id }}';
   var section = document.getElementById('shopify-section-' + sectionId);
-  if (!section) return;
+  if (!section || section.dataset.tstnBtBound === 'true') return;
+  section.dataset.tstnBtBound = 'true';
 
   var isLoggedIn = {% if customer %}true{% else %}false{% endif %};
 
@@ -906,12 +908,12 @@
     {
       "name": "TSTN Blog & Testimonial",
       "blocks": [
-        { "type": "post", "settings": { "category": "MINDSET", "title": "Consistency Over Motivation", "excerpt": "Why showing up every day matters more than feeling ready.", "content": "Motivation is unreliable. It comes and goes with mood, weather, sleep, and what you ate for breakfast.\n\nConsistency is the opposite. It doesn’t care how you feel. It just shows up.\n\nThis is the post-it on the bathroom mirror moment — the boring truth that nobody wants to hear because it’s not exciting. There is no shortcut. There is no perfect routine. There is only doing the work, day after day, even when you don’t feel like it.\n\nThat’s the whole game.", "read_time": "5 min read" } },
-        { "type": "post", "settings": { "category": "NUTRITION", "title": "Protein: How Much Do You Really Need?", "excerpt": "Simple guide to hitting your protein goals without overthinking.", "content": "Most people massively overcomplicate protein.\n\nA simple rule: aim for around 1.6–2.2g of protein per kg of body weight if you’re training hard.\n\nDon’t obsess. Just make sure protein shows up in every meal.", "read_time": "6 min read" } },
-        { "type": "post", "settings": { "category": "TRAINING", "title": "Progressive Overload Made Simple", "excerpt": "The key to getting stronger, without getting confused.", "content": "Progressive overload sounds technical. It isn’t.\n\nIt means: do a little more this week than you did last week.", "read_time": "4 min read" } },
-        { "type": "post", "settings": { "category": "LIFESTYLE", "title": "Balance Is the New Hustle", "excerpt": "How to build a life you don’t need a vacation from.", "content": "The hustle culture lied to us.\n\nReal balance isn’t about working less. It’s about working on the right things, then logging off.", "read_time": "5 min read" } },
-        { "type": "testimonial", "settings": { "text": "TSTN Club isn’t just content, it’s a community that pushes you to be better.", "name": "Rohit Verma", "role": "Member" } },
-        { "type": "testimonial", "settings": { "text": "Joining TSTN Club changed how I think about training. The community keeps me showing up even on the days I don’t feel like it.", "name": "Anjali Sharma", "role": "Member since 2024" } },
+        { "type": "post", "settings": { "category": "MINDSET", "title": "Consistency Over Motivation", "excerpt": "Why showing up every day matters more than feeling ready.", "content": "Motivation is unreliable. It comes and goes with mood, weather, sleep, and what you ate for breakfast.\n\nConsistency is the opposite. It doesn't care how you feel. It just shows up.\n\nThis is the post-it on the bathroom mirror moment — the boring truth that nobody wants to hear because it's not exciting. There is no shortcut. There is no perfect routine. There is only doing the work, day after day, even when you don't feel like it.\n\nThat's the whole game.", "read_time": "5 min read" } },
+        { "type": "post", "settings": { "category": "NUTRITION", "title": "Protein: How Much Do You Really Need?", "excerpt": "Simple guide to hitting your protein goals without overthinking.", "content": "Most people massively overcomplicate protein.\n\nA simple rule: aim for around 1.6-2.2g of protein per kg of body weight if you're training hard.\n\nDon't obsess. Just make sure protein shows up in every meal.", "read_time": "6 min read" } },
+        { "type": "post", "settings": { "category": "TRAINING", "title": "Progressive Overload Made Simple", "excerpt": "The key to getting stronger, without getting confused.", "content": "Progressive overload sounds technical. It isn't.\n\nIt means: do a little more this week than you did last week.", "read_time": "4 min read" } },
+        { "type": "post", "settings": { "category": "LIFESTYLE", "title": "Balance Is the New Hustle", "excerpt": "How to build a life you don't need a vacation from.", "content": "The hustle culture lied to us.\n\nReal balance isn't about working less. It's about working on the right things, then logging off.", "read_time": "5 min read" } },
+        { "type": "testimonial", "settings": { "text": "TSTN Club isn't just content, it's a community that pushes you to be better.", "name": "Rohit Verma", "role": "Member" } },
+        { "type": "testimonial", "settings": { "text": "Joining TSTN Club changed how I think about training. The community keeps me showing up even on the days I don't feel like it.", "name": "Anjali Sharma", "role": "Member since 2024" } },
         { "type": "testimonial", "settings": { "text": "The blogs alone are worth it. Real, honest advice — no fluff, no nonsense, just stuff that actually works.", "name": "Karan Malhotra", "role": "Founding Member" } },
         { "type": "testimonial", "settings": { "text": "Finally a place where the conversations are about real progress, not just highlight reels.", "name": "Priya Nair", "role": "Member" } },
         { "type": "perk", "settings": { "text": "Exclusive Videos" } },
