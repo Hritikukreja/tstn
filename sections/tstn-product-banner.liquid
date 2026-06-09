@@ -354,7 +354,7 @@
     font-size: 14px;
     color: var(--tstn-text);
     font-weight: 400;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0;
     display: block;
   }
   .tstn-pb__option-selected {
@@ -434,16 +434,20 @@
   }
 
   /* ---------- Size guide ---------- */
-  .tstn-pb__option--size {
-    position: relative;
+  .tstn-pb__option-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin-bottom: 0.75rem;
   }
   .tstn-pb__sizeguide-trigger {
-    position: absolute;
-    top: 0;
-    right: 0;
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
+    flex-shrink: 0;
+    white-space: nowrap;
     background: none;
     border: 0;
     padding: 0;
@@ -1040,10 +1044,12 @@
       min-width: 0;
       max-width: 100%;
     }
+    .tstn-pb__option-head {
+      margin-bottom: 0.5rem;
+    }
     .tstn-pb__option-label {
       font-size: 13px;
       letter-spacing: 0.1em;
-      margin-bottom: 0.5rem;
     }
     .tstn-pb__sizeguide-trigger {
       font-size: 11px;
@@ -1358,23 +1364,25 @@
                 {%- assign is_size = true -%}
               {%- endif -%}
 
-              <fieldset class="tstn-pb__option{% if is_size %} tstn-pb__option--size{% endif %}" data-option-position="{{ option.position }}" data-option-name="{{ option.name | escape }}">
-                <legend class="tstn-pb__option-label">
-                  {{ option.name | upcase }}: <span class="tstn-pb__option-selected" data-tstn-option-display="{{ option.position }}">{{ option.selected_value }}</span>
-                </legend>
+              <fieldset class="tstn-pb__option{% if is_size %} tstn-pb__option--size{% endif %}" data-option-position="{{ option.position }}" data-option-name="{{ option.name | escape }}" aria-label="{{ option.name | escape }}">
+                <div class="tstn-pb__option-head">
+                  <span class="tstn-pb__option-label">
+                    {{ option.name | upcase }}: <span class="tstn-pb__option-selected" data-tstn-option-display="{{ option.position }}">{{ option.selected_value }}</span>
+                  </span>
 
-                {%- if is_size and section.settings.show_size_guide and has_size_guide -%}
-                  <button type="button" class="tstn-pb__sizeguide-trigger" data-tstn-sizeguide-open aria-haspopup="dialog">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                      <path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/>
-                      <path d="m14.5 12.5 2-2"/>
-                      <path d="m11.5 9.5 2-2"/>
-                      <path d="m8.5 6.5 2-2"/>
-                      <path d="m17.5 15.5 2-2"/>
-                    </svg>
-                    <span>{{ section.settings.size_guide_link_label | default: 'Size Guide' }}</span>
-                  </button>
-                {%- endif -%}
+                  {%- if is_size and section.settings.show_size_guide and has_size_guide -%}
+                    <button type="button" class="tstn-pb__sizeguide-trigger" data-tstn-sizeguide-open aria-haspopup="dialog">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/>
+                        <path d="m14.5 12.5 2-2"/>
+                        <path d="m11.5 9.5 2-2"/>
+                        <path d="m8.5 6.5 2-2"/>
+                        <path d="m17.5 15.5 2-2"/>
+                      </svg>
+                      <span>{{ section.settings.size_guide_link_label | default: 'Size Guide' }}</span>
+                    </button>
+                  {%- endif -%}
+                </div>
 
                 {%- if is_color -%}
                   <div class="tstn-pb__swatches">
