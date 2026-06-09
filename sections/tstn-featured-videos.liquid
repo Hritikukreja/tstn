@@ -638,15 +638,19 @@
     </div>
 
     <!-- Feature strip -->
-    {%- assign feat_count = 0 -%}
-    {%- for block in section.blocks -%}{%- if block.type == 'feature' -%}{%- assign feat_count = feat_count | plus: 1 -%}{%- endif -%}{%- endfor -%}
-    {% if feat_count > 0 %}
+    {%- assign feat_icons = section.settings.feature1_icon | append: '|~|' | append: section.settings.feature2_icon | append: '|~|' | append: section.settings.feature3_icon | split: '|~|' -%}
+    {%- assign feat_titles = section.settings.feature1_heading | append: '|~|' | append: section.settings.feature2_heading | append: '|~|' | append: section.settings.feature3_heading | split: '|~|' -%}
+    {%- assign feat_texts = section.settings.feature1_text | append: '|~|' | append: section.settings.feature2_text | append: '|~|' | append: section.settings.feature3_text | split: '|~|' -%}
+
+    {% if section.settings.feature1_heading != blank or section.settings.feature2_heading != blank or section.settings.feature3_heading != blank %}
       <div class="tstn-club__features">
-        {% for block in section.blocks %}
-          {% if block.type == 'feature' %}
-            <div class="tstn-club__feat" {{ block.shopify_attributes }}>
+        {% for icon in feat_icons %}
+          {%- assign f_title = feat_titles[forloop.index0] -%}
+          {%- assign f_text = feat_texts[forloop.index0] -%}
+          {% if f_title != blank %}
+            <div class="tstn-club__feat">
               <span class="tstn-club__feat-icon">
-                {% case block.settings.icon %}
+                {% case icon %}
                   {% when 'headphones' %}
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"></path><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path></svg>
                   {% when 'mountains' %}
@@ -664,8 +668,8 @@
                 {% endcase %}
               </span>
               <div>
-                <p class="tstn-club__feat-title">{{ block.settings.heading }}</p>
-                <p class="tstn-club__feat-text">{{ block.settings.text }}</p>
+                <p class="tstn-club__feat-title">{{ f_title }}</p>
+                {% if f_text != blank %}<p class="tstn-club__feat-text">{{ f_text }}</p>{% endif %}
               </div>
             </div>
           {% endif %}
@@ -841,6 +845,35 @@
     { "type": "text", "id": "main_episode", "label": "Episode Label", "default": "Episode 04" },
     { "type": "url", "id": "main_link", "label": "Video URL (YouTube, Vimeo, or direct .mp4)" },
 
+    { "type": "header", "content": "Bottom Feature Strip" },
+    { "type": "paragraph", "content": "The three icons below the grid. Clear a heading to hide that column." },
+    { "type": "select", "id": "feature1_icon", "label": "Icon 1", "default": "headphones",
+      "options": [
+        { "value": "headphones", "label": "Headphones" }, { "value": "mountains", "label": "Mountains" },
+        { "value": "compass", "label": "Compass" }, { "value": "map", "label": "Map" },
+        { "value": "shield", "label": "Shield" }, { "value": "gear", "label": "Gear" }, { "value": "star", "label": "Star" }
+      ] },
+    { "type": "text", "id": "feature1_heading", "label": "Heading 1", "default": "Real Conversations" },
+    { "type": "text", "id": "feature1_text", "label": "Text 1", "default": "Unfiltered talk with experts and builders." },
+
+    { "type": "select", "id": "feature2_icon", "label": "Icon 2", "default": "mountains",
+      "options": [
+        { "value": "headphones", "label": "Headphones" }, { "value": "mountains", "label": "Mountains" },
+        { "value": "compass", "label": "Compass" }, { "value": "map", "label": "Map" },
+        { "value": "shield", "label": "Shield" }, { "value": "gear", "label": "Gear" }, { "value": "star", "label": "Star" }
+      ] },
+    { "type": "text", "id": "feature2_heading", "label": "Heading 2", "default": "Field Tested Insights" },
+    { "type": "text", "id": "feature2_text", "label": "Text 2", "default": "Gear, rigs, and strategies that work." },
+
+    { "type": "select", "id": "feature3_icon", "label": "Icon 3", "default": "compass",
+      "options": [
+        { "value": "headphones", "label": "Headphones" }, { "value": "mountains", "label": "Mountains" },
+        { "value": "compass", "label": "Compass" }, { "value": "map", "label": "Map" },
+        { "value": "shield", "label": "Shield" }, { "value": "gear", "label": "Gear" }, { "value": "star", "label": "Star" }
+      ] },
+    { "type": "text", "id": "feature3_heading", "label": "Heading 3", "default": "Stories From The Road" },
+    { "type": "text", "id": "feature3_text", "label": "Text 3", "default": "Experience that goes beyond the map." },
+
     { "type": "header", "content": "Members Only Gate Popup (logged-out)" },
     { "type": "text", "id": "gate_pill", "label": "Pill Label", "default": "MEMBERS ONLY" },
     { "type": "text", "id": "gate_title", "label": "Title", "default": "Unlock Exclusive Content & Perks" },
@@ -862,29 +895,6 @@
       ]
     },
     {
-      "type": "feature",
-      "name": "Bottom Feature",
-      "settings": [
-        {
-          "type": "select",
-          "id": "icon",
-          "label": "Icon",
-          "default": "headphones",
-          "options": [
-            { "value": "headphones", "label": "Headphones" },
-            { "value": "mountains", "label": "Mountains" },
-            { "value": "compass", "label": "Compass" },
-            { "value": "map", "label": "Map" },
-            { "value": "shield", "label": "Shield" },
-            { "value": "gear", "label": "Gear" },
-            { "value": "star", "label": "Star" }
-          ]
-        },
-        { "type": "text", "id": "heading", "label": "Heading", "default": "Real Conversations" },
-        { "type": "text", "id": "text", "label": "Text", "default": "Unfiltered talk with experts and builders." }
-      ]
-    },
-    {
       "type": "perk",
       "name": "Members Perk",
       "settings": [
@@ -900,9 +910,6 @@
         { "type": "video_item", "settings": { "episode": "Episode 02", "title": "Building A Rig That Can Actually Handle The Trip", "author": "Shaun Walford with Brad Kowitz", "duration": "42 MIN" } },
         { "type": "video_item", "settings": { "episode": "Episode 03", "title": "Remote Travel, Recovery Gear & Smart Decisions", "author": "Shaun Walford with Scott Brady", "duration": "55 MIN" } },
         { "type": "video_item", "settings": { "episode": "Episode 01", "title": "Living On The Road Without Overcomplicating It", "author": "Shaun Walford with Clay Croft", "duration": "39 MIN" } },
-        { "type": "feature", "settings": { "icon": "headphones", "heading": "Real Conversations", "text": "Unfiltered talk with experts and builders." } },
-        { "type": "feature", "settings": { "icon": "mountains", "heading": "Field Tested Insights", "text": "Gear, rigs, and strategies that work." } },
-        { "type": "feature", "settings": { "icon": "compass", "heading": "Stories From The Road", "text": "Experience that goes beyond the map." } },
         { "type": "perk", "settings": { "text": "Exclusive Videos" } },
         { "type": "perk", "settings": { "text": "In-depth Blogs" } },
         { "type": "perk", "settings": { "text": "Live Sessions" } },
