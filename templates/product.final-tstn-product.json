@@ -223,7 +223,7 @@
           "type": "feature",
           "settings": {
             "media_type": "image",
-            "image": "shopify://shop_images/ChatGPT_Image_May_28_2026_03_09_12_PM_1.png",
+            "image": "{{ product.metafields.custom.primary_feature_gallery_image_1.value }}",
             "show_controls": false,
             "title": "{{ product.metafields.custom.primary_feature_gallery_title_1.value }}",
             "description": "<p>{{ product.metafields.custom.primary_feature_gallery_description.value }}</p>",
@@ -235,7 +235,6 @@
           "type": "feature",
           "settings": {
             "media_type": "video",
-            "image": "shopify://shop_images/ChatGPT_Image_May_28_2026_03_09_12_PM_2.png",
             "show_controls": false,
             "title": "{{ product.metafields.custom.primary_feature_gallery_title_2.value }}",
             "description": "<p>{{ product.metafields.custom.primary_feature_gallery_description.value }}</p>",
@@ -247,7 +246,7 @@
           "type": "feature",
           "settings": {
             "media_type": "image",
-            "image": "shopify://shop_images/ChatGPT_Image_May_28_2026_03_09_12_PM_3.png",
+            "image": "{{ product.metafields.custom.primary_feature_gallery_image_3.value }}",
             "video": "shopify://files/videos/Hero Video.mp4",
             "show_controls": false,
             "title": "{{ product.metafields.custom.primary_feature_gallery_title_3.value }}",
