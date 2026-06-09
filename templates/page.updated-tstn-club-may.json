@@ -73,42 +73,6 @@
     "tstn_featured_videos_DRAEaX": {
       "type": "tstn-featured-videos",
       "blocks": {
-        "promo_PqDAUj": {
-          "type": "promo",
-          "settings": {
-            "image": "shopify://shop_images/BLUETTI_Elite_30_V2__Shaun.png",
-            "badge_type": "default",
-            "badge_text": "BLUETTI V2",
-            "eyebrow": "LIMITED TIME DEAL",
-            "title": "SPECIAL PRICE $499 ONLY",
-            "description": "Power your campsite, road trip, or emergency setup with the BLUETTI Elite 30 V2. Compact, reliable, and ready to keep your essentials running wherever you go.",
-            "cta_mode": "link",
-            "cta_text": "SECURE NOW!",
-            "cta_link": "",
-            "email_placeholder": "Enter your email",
-            "email_btn_text": "Subscribe",
-            "email_tag": "general",
-            "email_success": "✓ Thanks! You’re on the list."
-          }
-        },
-        "promo_aV6dmX": {
-          "type": "promo",
-          "settings": {
-            "image": "shopify://shop_images/hullavator.avif",
-            "badge_type": "giveaway",
-            "badge_text": "GIVEAWAY",
-            "eyebrow": "Participate now",
-            "title": "THULE HULLAVATOR GIVEAWAY",
-            "description": "We’re giving away a Thule Hullavator Pro to help make loading and unloading your kayak easier, safer, and faster.",
-            "cta_mode": "email",
-            "cta_text": "Learn More",
-            "cta_link": "",
-            "email_placeholder": "Enter your email",
-            "email_btn_text": "ENTER NOW",
-            "email_tag": "general",
-            "email_success": "✓ Thanks! You’re on the list."
-          }
-        },
         "video_item_3bQX7M": {
           "type": "video_item",
           "settings": {
@@ -174,8 +138,6 @@
         }
       },
       "block_order": [
-        "promo_PqDAUj",
-        "promo_aV6dmX",
         "video_item_3bQX7M",
         "video_item_eTMzKr",
         "video_item_D3XrKU",
@@ -202,8 +164,113 @@
         "gate_pill": "MEMBERS ONLY",
         "gate_title": "Unlock Exclusive Content & Perks",
         "gate_cta_text": "Join TSTN Club",
+        "gate_cta_link": ""
+      }
+    },
+    "promo_MnUffU": {
+      "type": "promo",
+      "blocks": {
+        "perk_MmxKFq": {
+          "type": "perk",
+          "settings": {
+            "text": "Exclusive Videos"
+          }
+        },
+        "perk_Nc7eP6": {
+          "type": "perk",
+          "settings": {
+            "text": "In-depth Blogs"
+          }
+        },
+        "perk_QqTJdp": {
+          "type": "perk",
+          "settings": {
+            "text": "Live Sessions"
+          }
+        },
+        "perk_BWVyXE": {
+          "type": "perk",
+          "settings": {
+            "text": "Member Discounts"
+          }
+        },
+        "perk_JWag48": {
+          "type": "perk",
+          "settings": {
+            "text": "Early Access to Events"
+          }
+        },
+        "promo_gzMc8k": {
+          "type": "promo",
+          "settings": {
+            "badge_type": "giveaway",
+            "badge_text": "GIVEAWAY",
+            "eyebrow": "This Month",
+            "title": "Win a TSTN Merch Bundle",
+            "description": "Enter your email for a chance to win exclusive TSTN merch worth ₹10,000.",
+            "cta_mode": "email",
+            "cta_text": "Learn More",
+            "cta_link": "",
+            "email_placeholder": "Enter your email",
+            "email_btn_text": "Enter",
+            "email_tag": "giveaway",
+            "email_success": "✓ Thanks! You’re on the list."
+          }
+        },
+        "promo_ayUbWC": {
+          "type": "promo",
+          "settings": {
+            "badge_type": "live",
+            "badge_text": "LIVE SOON",
+            "eyebrow": "Live Session",
+            "title": "Subscribe for Live Q&A",
+            "description": "Get notified when we go live. Real-time conversations, real questions, real answers.",
+            "cta_mode": "email",
+            "cta_text": "Learn More",
+            "cta_link": "",
+            "email_placeholder": "Enter your email",
+            "email_btn_text": "Notify Me",
+            "email_tag": "live-video",
+            "email_success": "✓ Thanks! You’re on the list."
+          }
+        },
+        "promo_4w3fUK": {
+          "type": "promo",
+          "settings": {
+            "badge_type": "default",
+            "badge_text": "EVENT",
+            "eyebrow": "Coming Up",
+            "title": "TSTN Meetup 2026",
+            "description": "Join the community in person. Limited seats available for our annual meetup.",
+            "cta_mode": "link",
+            "cta_text": "Reserve Spot",
+            "cta_link": "",
+            "email_placeholder": "Enter your email",
+            "email_btn_text": "Subscribe",
+            "email_tag": "general",
+            "email_success": "✓ Thanks! You’re on the list."
+          }
+        }
+      },
+      "block_order": [
+        "perk_MmxKFq",
+        "perk_Nc7eP6",
+        "perk_QqTJdp",
+        "perk_BWVyXE",
+        "perk_JWag48",
+        "promo_gzMc8k",
+        "promo_ayUbWC",
+        "promo_4w3fUK"
+      ],
+      "name": "TSTN Promo Slides",
+      "settings": {
+        "eyebrow": "Don't miss out",
+        "heading": "What's Happening",
+        "gate_pill": "MEMBERS ONLY",
+        "gate_title": "Unlock Exclusive Content & Perks",
+        "gate_cta_text": "Join TSTN Club",
         "gate_cta_link": "",
-        "sheet_endpoint": "https://script.google.com/macros/s/AKfycbzvLihAcZr8SdXH1iYcdV9ciHWMZdmnzxdA8XaFmbihu8TZIKBOSyArPIpcShBh5hk8/exec",
+        "sheet_endpoint": "",
         "promo_autoplay": true,
         "promo_autoplay_speed": 5000
       }
@@ -534,6 +601,7 @@
         "quick_filter_bYJzQc",
         "quick_filter_BRYLg8"
       ],
+      "disabled": true,
       "custom_css": [
         "h1,h2,h3,h4,h5,h6,a {color: white;}",
         "p {color: #ffffff; font-weight: 550;}"
@@ -798,6 +866,7 @@
     "main",
     "tstn_club_hero_bR43kc",
     "tstn_featured_videos_DRAEaX",
+    "promo_MnUffU",
     "community_gallery_xFcGVL",
     "tstn_blog_testimonial_CGmbDD",
     "tstn_community_features_CgHfHH",
