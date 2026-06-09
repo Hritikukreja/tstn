@@ -112,6 +112,7 @@
         "video_item_eTMzKr",
         "video_item_D3XrKU"
       ],
+      "disabled": true,
       "custom_css": [
         "h1,h2,h3,h4,h5,h6,a {color: white;}",
         "p {color: #ffffff; font-weight: 550;}"
@@ -130,6 +131,15 @@
         "main_duration": "",
         "main_episode": "Episode 04",
         "main_link": "https://www.youtube.com/watch?v=isaqCTbK-mo",
+        "feature1_icon": "headphones",
+        "feature1_heading": "Real Conversations",
+        "feature1_text": "Unfiltered talk with experts and builders.",
+        "feature2_icon": "mountains",
+        "feature2_heading": "Field Tested Insights",
+        "feature2_text": "Gear, rigs, and strategies that work.",
+        "feature3_icon": "compass",
+        "feature3_heading": "Stories From The Road",
+        "feature3_text": "Experience that goes beyond the map.",
         "gate_pill": "MEMBERS ONLY",
         "gate_title": "Unlock Exclusive Content & Perks",
         "gate_cta_text": "Join TSTN Club",
