@@ -571,6 +571,72 @@
         "padding_bottom": 48
       }
     },
+    "trust_badges_qazgFn": {
+      "type": "trust-badges",
+      "blocks": {
+        "badge_y3n9Wm": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "rewards",
+            "title": "TSTN CLUB REWARDS",
+            "description": "Earn points on every order. Unlock exclusive gear and perks.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        },
+        "badge_bDDMNV": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "financing",
+            "title": "Easy Financing",
+            "description": "Flexible payments. More adventures. Pay over time with Shop Pay.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        },
+        "badge_rtJtQm": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "tested",
+            "title": "TESTED & TRUSTED",
+            "description": "We run it, break it in, and only keep what works.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        },
+        "badge_BGFXDy": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "shipping",
+            "title": "FAST SHIPPING",
+            "description": "Ships quick from our warehouse. Free shipping on orders $99+.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        },
+        "badge_PxrAEr": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "returns",
+            "title": "EASY RETURNS",
+            "description": "60-day returns on most items. No hassle. No stress.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "badge_y3n9Wm",
+        "badge_bDDMNV",
+        "badge_rtJtQm",
+        "badge_BGFXDy",
+        "badge_PxrAEr"
+      ],
+      "name": "Trust Badges",
+      "settings": {
+        "accent_color": "#ff6a1a"
+      }
+    },
     "newbodyhtml_ig34hh": {
       "type": "newbodyhtml",
       "name": "TSTN Description",
@@ -901,13 +967,14 @@
     "1767174510346020cc",
     "176682539376c70439",
     "related-products",
-    "tstn_product_banner_xWi4bj",
+    "trust_badges_qazgFn",
     "newbodyhtml_ig34hh",
     "feature_gallery_xpJVXd",
     "image_banner_xT3dyb",
     "product_showcase_dczdxa",
     "custom_coll_jdyER7",
     "featured_collection_MFMxnR",
-    "feature_cards_casosuel_YkhJH3"
+    "feature_cards_casosuel_YkhJH3",
+    "tstn_product_banner_xWi4bj"
   ]
 }
