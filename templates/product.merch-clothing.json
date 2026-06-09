@@ -300,81 +300,6 @@
         "padding_bottom": 32
       }
     },
-    "feature_gallery_xpJVXd": {
-      "type": "feature-gallery",
-      "blocks": {
-        "feature_4UN7bL": {
-          "type": "feature",
-          "settings": {
-            "media_type": "image",
-            "image": "shopify://shop_images/1_7c8ff83e-59a5-421a-95c8-d5f0e95ae197.png",
-            "show_controls": false,
-            "title": "",
-            "description": "",
-            "link_label": "Shop Hoodies",
-            "link": "shopify://products/tstn-hoodie"
-          }
-        },
-        "feature_XwaB6Y": {
-          "type": "feature",
-          "settings": {
-            "media_type": "video",
-            "image": "shopify://shop_images/2_4de9a49e-453c-426c-9584-336f95bb8c09.png",
-            "show_controls": false,
-            "title": "ALL DAY COMFORT",
-            "description": "",
-            "link_label": "",
-            "link": ""
-          }
-        },
-        "feature_EVxyAD": {
-          "type": "feature",
-          "settings": {
-            "media_type": "image",
-            "image": "shopify://shop_images/3_390e7451-dfa9-48fe-bcd8-9368b7f8032d.png",
-            "show_controls": false,
-            "title": "FOR THE EVERYDAY EXPLORER",
-            "description": "",
-            "link_label": "",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "feature_4UN7bL",
-        "feature_XwaB6Y",
-        "feature_EVxyAD"
-      ],
-      "name": "Feature gallery",
-      "settings": {
-        "kicker": "Feature gallery",
-        "heading": "BUILT FOR EVERY ADVENTURE",
-        "text": "<p>Thoughtful details and premium materials make this your go-to layer, wherever the road takes you.</p>",
-        "columns_desktop": "3",
-        "card_alignment": "left",
-        "show_content": true,
-        "media_aspect_ratio": "4 / 5",
-        "color_scheme": "scheme-5330df68-7ce6-41b9-9bf9-37d268b32221",
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
-    "hero_collection_CK8zUV": {
-      "type": "hero-collection",
-      "name": "Hero Collection",
-      "settings": {
-        "background_image": "shopify://shop_images/6.png",
-        "overlay_opacity": 55,
-        "overline": "THE COLLECTION",
-        "heading": "GEAR THAT GOES FURTHER",
-        "subheading": "<p>Hand-picked gear for real adventures. Tested, trusted, and used out on the trail.</p>",
-        "text_alignment": "left",
-        "button_label": "EXPLORE THE GEAR",
-        "button_link": "",
-        "height_desktop": 640,
-        "height_mobile": 520
-      }
-    },
     "feature_gallery_yCDUcG": {
       "type": "feature-gallery",
       "blocks": {
@@ -434,6 +359,82 @@
         "padding_bottom": 80
       }
     },
+    "feature_gallery_xpJVXd": {
+      "type": "feature-gallery",
+      "blocks": {
+        "feature_4UN7bL": {
+          "type": "feature",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/1_7c8ff83e-59a5-421a-95c8-d5f0e95ae197.png",
+            "show_controls": false,
+            "title": "",
+            "description": "",
+            "link_label": "Shop Hoodies",
+            "link": "shopify://products/tstn-hoodie"
+          }
+        },
+        "feature_XwaB6Y": {
+          "type": "feature",
+          "settings": {
+            "media_type": "video",
+            "image": "shopify://shop_images/2_4de9a49e-453c-426c-9584-336f95bb8c09.png",
+            "show_controls": false,
+            "title": "ALL DAY COMFORT",
+            "description": "",
+            "link_label": "",
+            "link": ""
+          }
+        },
+        "feature_EVxyAD": {
+          "type": "feature",
+          "settings": {
+            "media_type": "image",
+            "image": "shopify://shop_images/3_390e7451-dfa9-48fe-bcd8-9368b7f8032d.png",
+            "show_controls": false,
+            "title": "FOR THE EVERYDAY EXPLORER",
+            "description": "",
+            "link_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_4UN7bL",
+        "feature_XwaB6Y",
+        "feature_EVxyAD"
+      ],
+      "disabled": true,
+      "name": "Feature gallery",
+      "settings": {
+        "kicker": "Feature gallery",
+        "heading": "BUILT FOR EVERY ADVENTURE",
+        "text": "<p>Thoughtful details and premium materials make this your go-to layer, wherever the road takes you.</p>",
+        "columns_desktop": "3",
+        "card_alignment": "left",
+        "show_content": true,
+        "media_aspect_ratio": "4 / 5",
+        "color_scheme": "scheme-5330df68-7ce6-41b9-9bf9-37d268b32221",
+        "padding_top": 80,
+        "padding_bottom": 80
+      }
+    },
+    "hero_collection_CK8zUV": {
+      "type": "hero-collection",
+      "name": "Hero Collection",
+      "settings": {
+        "background_image": "shopify://shop_images/1.30.1_1.30.1.jpg",
+        "overlay_opacity": 80,
+        "overline": "THE COLLECTION",
+        "heading": "GEAR THAT GOES FURTHER",
+        "subheading": "",
+        "text_alignment": "left",
+        "button_label": "EXPLORE THE GEAR",
+        "button_link": "",
+        "height_desktop": 640,
+        "height_mobile": 520
+      }
+    },
     "product_faq_h3Cdgd": {
       "type": "product-faq",
       "name": "Product FAQ",
@@ -470,9 +471,9 @@
     "main",
     "pro_hero_ye7RgN",
     "video_buy_section_fh7rn3",
+    "feature_gallery_yCDUcG",
     "feature_gallery_xpJVXd",
     "hero_collection_CK8zUV",
-    "feature_gallery_yCDUcG",
     "product_faq_h3Cdgd",
     "related-products"
   ]
