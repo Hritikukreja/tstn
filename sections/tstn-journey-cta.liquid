@@ -5,31 +5,32 @@
 <style>
   @font-face {
     font-family: 'Danger Neue Free Regular';
-    src: url('https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Danger_Neue_Regular.ttf?v=1776280277') format('truetype');
+    src: url('{{ "DangerNeueFree-Regular.woff2" | asset_url }}') format('woff2'),
+         url('https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Danger_Neue_Regular.ttf') format('truetype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
   }
 
   #shopify-section-{{ section.id }} {
-    --tstn-orange: #F56300;
+    --tstn-orange: #ff6a1a;
     --tstn-orange-hover: #ff7a1f;
     --tstn-bg: #0a0a0a;
-    --tstn-card-bg: #111111;
+    --tstn-card-bg: #141414;
     --tstn-text: #ffffff;
-    --tstn-muted: #b0b0b0;
-    --tstn-border: rgba(255,255,255,0.1);
+    --tstn-muted: #9a9a9a;
+    --tstn-border: rgba(255,255,255,0.08);
     --tstn-font-display: "Danger Neue Free Regular", "Inter", sans-serif;
   }
 
   .tstn-journey {
     background: var(--tstn-bg);
     color: var(--tstn-text);
-    padding: clamp(20px, 3vw, 30px) clamp(16px, 4vw, 40px) clamp(40px, 5vw, 60px);
+    padding: clamp(20px, 3vw, 30px) clamp(16px, 4vw, 56px) clamp(40px, 5vw, 60px);
   }
 
   .tstn-journey__inner {
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
     background: var(--tstn-card-bg);
     border: 1px solid var(--tstn-border);
@@ -111,7 +112,7 @@
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(90deg, var(--tstn-card-bg) 0%, rgba(17,17,17,0.5) 25%, transparent 60%);
+    background: linear-gradient(90deg, var(--tstn-card-bg) 0%, rgba(20,20,20,0.5) 25%, transparent 60%);
     z-index: 1;
   }
 
@@ -151,7 +152,7 @@
     }
 
     .tstn-journey__visual::before {
-      background: linear-gradient(180deg, var(--tstn-card-bg) 0%, rgba(17,17,17,0.4) 30%, transparent 70%);
+      background: linear-gradient(180deg, var(--tstn-card-bg) 0%, rgba(20,20,20,0.4) 30%, transparent 70%);
     }
 
     .tstn-journey__script {
@@ -168,7 +169,7 @@
       <h2 class="tstn-journey__heading">{{ section.settings.heading | default: "Your Journey. Our Support. Let us Build the Best Version of You." }}</h2>
       <p class="tstn-journey__sub">{{ section.settings.sub | default: 'Join thousands of members already growing with TSTN Club.' }}</p>
 
-      <a href="#" class="tstn-journey__btn" data-open-growave role="button">
+      <a href="{{ section.settings.cta_link | default: '#' }}" class="tstn-journey__btn" data-open-growave role="button">
         {{ section.settings.cta_text | default: 'Join TSTN Club Today' }}
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="5" y1="12" x2="19" y2="12"></line>
