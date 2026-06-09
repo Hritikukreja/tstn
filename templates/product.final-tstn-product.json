@@ -216,6 +216,72 @@
         "padding_bottom": 32
       }
     },
+    "trust_badges_m7PPdc": {
+      "type": "trust-badges",
+      "blocks": {
+        "badge_ikVnTM": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "rewards",
+            "title": "TSTN CLUB REWARDS",
+            "description": "Earn points on every order. Unlock exclusive gear and perks.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        },
+        "badge_iiKqFL": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "financing",
+            "title": "Easy Financing",
+            "description": "Flexible payments. More adventures. Pay over time with Shop Pay.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        },
+        "badge_ef4HGT": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "tested",
+            "title": "TESTED & TRUSTED",
+            "description": "We run it, break it in, and only keep what works.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        },
+        "badge_DnrX9E": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "shipping",
+            "title": "FAST SHIPPING",
+            "description": "Ships quick from our warehouse. Free shipping on orders $99+.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        },
+        "badge_dcMDTY": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "returns",
+            "title": "EASY RETURNS",
+            "description": "60-day returns on most items. No hassle. No stress.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "badge_ikVnTM",
+        "badge_iiKqFL",
+        "badge_ef4HGT",
+        "badge_DnrX9E",
+        "badge_dcMDTY"
+      ],
+      "name": "Trust Badges",
+      "settings": {
+        "accent_color": "#ff6a1a"
+      }
+    },
     "feature_gallery_T3DUzd": {
       "type": "feature-gallery",
       "blocks": {
@@ -828,6 +894,7 @@
     "main",
     "pro_hero_ye7RgN",
     "video_buy_section_fh7rn3",
+    "trust_badges_m7PPdc",
     "feature_gallery_T3DUzd",
     "product_faq_h3Cdgd",
     "custom_multicol_VFKWpH",
