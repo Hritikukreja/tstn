@@ -58,6 +58,7 @@
         },
         "accordion_item_gJdKfW": {
           "type": "accordion_item",
+          "disabled": true,
           "settings": {
             "icon": "list",
             "title": "Product Details",
@@ -67,6 +68,7 @@
         },
         "accordion_item_xPYW4w": {
           "type": "accordion_item",
+          "disabled": true,
           "settings": {
             "icon": "list",
             "title": "Materials & CARE",
