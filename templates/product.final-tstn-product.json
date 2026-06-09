@@ -250,8 +250,8 @@
             "image": "shopify://shop_images/ChatGPT_Image_May_28_2026_03_09_12_PM_3.png",
             "video": "shopify://files/videos/Hero Video.mp4",
             "show_controls": false,
-            "title": "Quick Ladder Access",
-            "description": "<p>The telescoping ladder makes entry fast and stable, helping you get in and out of the rooftop tent easily even on uneven trail-side terrain.</p>",
+            "title": "{{ product.metafields.custom.primary_feature_gallery_title_3.value }}",
+            "description": "<p>{{ product.metafields.custom.primary_feature_gallery_3_description.value }}</p>",
             "link_label": "",
             "link": ""
           }
