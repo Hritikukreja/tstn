@@ -757,10 +757,10 @@
       ],
       "name": "TSTN Journey CTA",
       "settings": {
-        "heading": "More than a club. A signal.",
-        "sub": "Not everyone gets it. That is the point.",
-        "cta_text": "Join TSTN Club Today",
-        "cta_link": "https://tstn-1.myshopify.com/products/tstn-club-forum",
+        "heading": "REFER AND EARN MORE",
+        "sub": "Refer your friends to get 200 points for each of your friends who join!",
+        "cta_text": "EARN POINTS",
+        "cta_link": "",
         "image": "shopify://shop_images/13.png",
         "script_text": ""
       }
