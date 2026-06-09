@@ -236,7 +236,7 @@
           "settings": {
             "gallery_embed_id": 248383,
             "show_text": true,
-            "title_text": "TAG @TSTN.OFFICIAL TO GET FEATURED",
+            "title_text": "TAG @TSTN.CLUB TO GET FEATURED",
             "title_color": "#ffffff",
             "title_size": 32,
             "subtitle_text": "",
@@ -492,6 +492,7 @@
         "text": "",
         "columns_desktop": "3",
         "card_alignment": "left",
+        "show_content": true,
         "media_aspect_ratio": "4 / 5",
         "color_scheme": "scheme-bbdc3f91-244c-4f61-af87-3937c9960992",
         "padding_top": 40,
