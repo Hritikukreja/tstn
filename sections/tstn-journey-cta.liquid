@@ -5,7 +5,7 @@
 <style>
   @font-face {
     font-family: 'Danger Neue Free Regular';
-    src: url('https://cdn.shopify.com/s/files/1/0000/0000/files/danger-neue-free-regular.woff2?v=1') format('woff2');
+    src: url('https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Danger_Neue_Regular.ttf?v=1776280277') format('truetype');
     font-weight: 400;
     font-style: normal;
     font-display: swap;
@@ -75,6 +75,7 @@
     text-decoration: none;
     font-weight: 600;
     font-size: 14px;
+    cursor: pointer;
     transition: all 0.25s ease;
   }
 
@@ -167,7 +168,7 @@
       <h2 class="tstn-journey__heading">{{ section.settings.heading | default: "Your Journey. Our Support. Let us Build the Best Version of You." }}</h2>
       <p class="tstn-journey__sub">{{ section.settings.sub | default: 'Join thousands of members already growing with TSTN Club.' }}</p>
 
-      <a href="#growave" class="tstn-journey__btn">
+      <a href="#" class="tstn-journey__btn" data-open-growave-rewards role="button">
         {{ section.settings.cta_text | default: 'Join TSTN Club Today' }}
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -192,25 +193,45 @@
 </section>
 
 <script>
-(function() {
-  document.addEventListener('click', function(e) {
-    var trigger = e.target.closest('.tstn-journey__btn');
-    if (!trigger) return;
-    e.preventDefault();
+  (function() {
+    function openGrowaveRewards(event) {
+      var trigger = event.target.closest('[data-open-growave-rewards]');
+      if (!trigger) return;
 
-    var launcher =
-      document.querySelector('.gw-widget-placeholder-LC-wrapper') ||
-      document.querySelector('.gw-rd-popup-widget-placeholder') ||
-      document.querySelector('[class*="gw-widget"]') ||
-      document.querySelector('[class*="growave"]');
+      event.preventDefault();
 
-    if (launcher) {
-      launcher.click();
-      return;
+      var widget = document.querySelector('.gw-rd-popup-widget-placeholder');
+      var launcher = null;
+
+      if (widget && widget.shadowRoot) {
+        launcher =
+          widget.shadowRoot.querySelector('button') ||
+          widget.shadowRoot.querySelector('[role="button"]') ||
+          widget.shadowRoot.querySelector('[class*="launcher"]');
+      }
+
+      if (!launcher) {
+        launcher =
+          document.querySelector('.gw-rd-popup-widget-placeholder button') ||
+          document.querySelector('[class*="gw-rd"] button') ||
+          document.querySelector('[class*="growave"] button');
+      }
+
+      if (launcher) {
+        launcher.click();
+      } else {
+        console.warn('Growave rewards launcher was not found. Keep the Growave launcher enabled in Growave settings.');
+      }
     }
-    console.warn('Growave launcher not found.');
-  });
-})();
+
+    document.addEventListener('click', openGrowaveRewards);
+
+    document.addEventListener('keydown', function(event) {
+      if ((event.key === 'Enter' || event.key === ' ') && event.target.matches('[data-open-growave-rewards]')) {
+        openGrowaveRewards(event);
+      }
+    });
+  })();
 </script>
 
 {% schema %}
