@@ -203,7 +203,7 @@
         "gate_title": "Unlock Exclusive Content & Perks",
         "gate_cta_text": "Join TSTN Club",
         "gate_cta_link": "",
-        "sheet_endpoint": "",
+        "sheet_endpoint": "https://script.google.com/macros/s/AKfycbzvLihAcZr8SdXH1iYcdV9ciHWMZdmnzxdA8XaFmbihu8TZIKBOSyArPIpcShBh5hk8/exec",
         "promo_autoplay": true,
         "promo_autoplay_speed": 5000
       }
