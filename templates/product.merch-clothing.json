@@ -309,10 +309,10 @@
             "media_type": "image",
             "image": "shopify://shop_images/1_7c8ff83e-59a5-421a-95c8-d5f0e95ae197.png",
             "show_controls": false,
-            "title": "MADE FOR OUTDOORS",
+            "title": "",
             "description": "",
-            "link_label": "",
-            "link": ""
+            "link_label": "Shop Hoodies",
+            "link": "shopify://products/tstn-hoodie"
           }
         },
         "feature_XwaB6Y": {
@@ -367,7 +367,7 @@
             "media_type": "image",
             "image": "shopify://shop_images/1_49e19666-d0bd-400a-b451-a724377313ea.png",
             "show_controls": false,
-            "title": "MADE FOR OUTDOORS",
+            "title": "",
             "description": "",
             "link_label": "",
             "link": ""
