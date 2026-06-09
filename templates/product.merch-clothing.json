@@ -359,6 +359,22 @@
         "padding_bottom": 80
       }
     },
+    "hero_collection_CK8zUV": {
+      "type": "hero-collection",
+      "name": "Hero Collection",
+      "settings": {
+        "background_image": "shopify://shop_images/6.png",
+        "overlay_opacity": 55,
+        "overline": "THE COLLECTION",
+        "heading": "GEAR THAT GOES FURTHER",
+        "subheading": "<p>Hand-picked gear for real adventures. Tested, trusted, and used out on the trail.</p>",
+        "text_alignment": "left",
+        "button_label": "EXPLORE THE GEAR",
+        "button_link": "",
+        "height_desktop": 640,
+        "height_mobile": 520
+      }
+    },
     "feature_gallery_yCDUcG": {
       "type": "feature-gallery",
       "blocks": {
@@ -418,22 +434,6 @@
         "padding_bottom": 80
       }
     },
-    "hero_collection_CK8zUV": {
-      "type": "hero-collection",
-      "name": "Hero Collection",
-      "settings": {
-        "background_image": "shopify://shop_images/6.png",
-        "overlay_opacity": 55,
-        "overline": "THE COLLECTION",
-        "heading": "GEAR THAT GOES FURTHER",
-        "subheading": "<p>Hand-picked gear for real adventures. Tested, trusted, and used out on the trail.</p>",
-        "text_alignment": "left",
-        "button_label": "EXPLORE THE GEAR",
-        "button_link": "",
-        "height_desktop": 640,
-        "height_mobile": 520
-      }
-    },
     "product_faq_h3Cdgd": {
       "type": "product-faq",
       "name": "Product FAQ",
@@ -471,8 +471,8 @@
     "pro_hero_ye7RgN",
     "video_buy_section_fh7rn3",
     "feature_gallery_xpJVXd",
-    "feature_gallery_yCDUcG",
     "hero_collection_CK8zUV",
+    "feature_gallery_yCDUcG",
     "product_faq_h3Cdgd",
     "related-products"
   ]
