@@ -112,7 +112,6 @@
         "video_item_eTMzKr",
         "video_item_D3XrKU"
       ],
-      "disabled": true,
       "custom_css": [
         "h1,h2,h3,h4,h5,h6,a {color: white;}",
         "p {color: #ffffff; font-weight: 550;}"
@@ -822,8 +821,8 @@
     "tstn_featured_videos_DRAEaX",
     "promo_MnUffU",
     "community_gallery_xFcGVL",
-    "tstn_blog_testimonial_CGmbDD",
     "tstn_community_features_CgHfHH",
+    "tstn_blog_testimonial_CGmbDD",
     "tstn_journey_cta_adCRhC"
   ]
 }
