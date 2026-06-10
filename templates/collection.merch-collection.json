@@ -570,34 +570,6 @@
         "overlay_opacity": 65,
         "height": 600
       }
-    },
-    "1780007098a078617b": {
-      "type": "apps",
-      "blocks": {
-        "covet_instagram_feed_reviews_app_block_standard_AJkFGa": {
-          "type": "shopify://apps/covet-instagram-feed-reviews/blocks/app-block-standard/577480e8-b5be-4890-968c-06ccfb458c74",
-          "settings": {
-            "gallery_embed_id": 248381,
-            "show_text": true,
-            "title_text": "Tag @TSTN.CLUB TO GET FEATURED",
-            "title_color": "#ff6a1a",
-            "title_size": 32,
-            "subtitle_text": "",
-            "subtitle_color": "#000000",
-            "subtitle_size": 14,
-            "text_alignment": "center",
-            "margin": 20,
-            "custom_html_above": "",
-            "custom_html_below": ""
-          }
-        }
-      },
-      "block_order": [
-        "covet_instagram_feed_reviews_app_block_standard_AJkFGa"
-      ],
-      "settings": {
-        "include_margins": true
-      }
     }
   },
   "order": [
@@ -612,7 +584,6 @@
     "trust_badges_cTdDRX",
     "community_grid_rt4UaW",
     "177811872523257940",
-    "contact_cta_eMqn8p",
-    "1780007098a078617b"
+    "contact_cta_eMqn8p"
   ]
 }
