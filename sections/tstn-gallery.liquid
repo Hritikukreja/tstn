@@ -1,0 +1,505 @@
+{% comment %}
+  ============================================================
+  TSTN Gallery — Simple Elegant Image Grid
+  ------------------------------------------------------------
+  - Dynamic image blocks (up to 5)
+  - "Images per row" setting controls layout; rows derive
+    automatically from the number of images added
+  - Danger Neue Free Regular headings, Rajdhani body
+  - Fully self-contained, scoped to this section instance
+  ============================================================
+{% endcomment %}
+
+{%- liquid
+  assign sid = section.id
+  assign heading = section.settings.heading | default: ''
+  assign eyebrow = section.settings.eyebrow | default: ''
+  assign subheading_check = section.settings.subheading | strip_html | strip
+  assign cols_desktop = section.settings.images_per_row | default: 3
+  assign cols_mobile = section.settings.images_per_row_mobile | default: '1'
+-%}
+
+<style>
+  #shopify-section-{{ sid }} {
+    --tstn-bg: {{ section.settings.background_color | default: '#0a0a0a' }};
+    --tstn-surface: #141414;
+    --tstn-accent: #ff6a1a;
+    --tstn-border: rgba(255, 255, 255, 0.08);
+    --tstn-text: #ffffff;
+    --tstn-muted: #9a9a9a;
+    --tstn-gap: {{ section.settings.grid_gap | default: 16 }}px;
+    --tstn-radius: {{ section.settings.corner_radius | default: 14 }}px;
+  }
+
+  #shopify-section-{{ sid }} .tstn-gallery {
+    background: var(--tstn-bg);
+    padding-top: {{ section.settings.padding_top | default: 80 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | default: 80 }}px;
+  }
+
+  #shopify-section-{{ sid }} .tstn-gallery__inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding-left: clamp(20px, 6vw, 80px);
+    padding-right: clamp(20px, 6vw, 80px);
+  }
+
+  /* ---------- Heading group ---------- */
+  #shopify-section-{{ sid }} .tstn-gallery__head {
+    margin-bottom: clamp(28px, 4vw, 52px);
+    {% if section.settings.heading_alignment == 'center' %}
+    text-align: center;
+    {% endif %}
+  }
+
+  #shopify-section-{{ sid }} .tstn-gallery__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--tstn-accent);
+    margin: 0 0 14px;
+  }
+
+  #shopify-section-{{ sid }} .tstn-gallery__eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 2px;
+    background: var(--tstn-accent);
+  }
+
+  {% if section.settings.heading_alignment == 'center' %}
+  #shopify-section-{{ sid }} .tstn-gallery__eyebrow::after {
+    content: '';
+    display: inline-block;
+    width: 28px;
+    height: 2px;
+    background: var(--tstn-accent);
+  }
+  {% endif %}
+
+  #shopify-section-{{ sid }} .tstn-gallery__heading {
+    font-family: 'Danger Neue Free Regular', 'Rajdhani', sans-serif;
+    font-size: clamp(32px, 4.5vw, 60px);
+    font-weight: 400;
+    line-height: 1.05;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--tstn-text);
+    margin: 0;
+  }
+
+  #shopify-section-{{ sid }} .tstn-gallery__subheading {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(15px, 1.4vw, 18px);
+    font-weight: 500;
+    line-height: 1.6;
+    color: var(--tstn-muted);
+    max-width: 640px;
+    margin: 14px 0 0;
+    {% if section.settings.heading_alignment == 'center' %}
+    margin-left: auto;
+    margin-right: auto;
+    {% endif %}
+  }
+
+  #shopify-section-{{ sid }} .tstn-gallery__subheading p {
+    margin: 0;
+  }
+
+  /* ---------- Grid ---------- */
+  #shopify-section-{{ sid }} .tstn-gallery__grid {
+    display: grid;
+    grid-template-columns: repeat({{ cols_desktop }}, minmax(0, 1fr));
+    gap: var(--tstn-gap);
+  }
+
+  #shopify-section-{{ sid }} .tstn-gallery__item {
+    position: relative;
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    border-radius: var(--tstn-radius);
+    background: var(--tstn-surface);
+    border: 1px solid var(--tstn-border);
+    text-decoration: none;
+  }
+
+  {% case section.settings.aspect_ratio %}
+    {% when 'square' %}
+  #shopify-section-{{ sid }} .tstn-gallery__item { aspect-ratio: 1 / 1; }
+    {% when 'portrait' %}
+  #shopify-section-{{ sid }} .tstn-gallery__item { aspect-ratio: 4 / 5; }
+    {% when 'landscape' %}
+  #shopify-section-{{ sid }} .tstn-gallery__item { aspect-ratio: 16 / 10; }
+    {% else %}
+  #shopify-section-{{ sid }} .tstn-gallery__item { aspect-ratio: 4 / 5; }
+  {% endcase %}
+
+  #shopify-section-{{ sid }} .tstn-gallery__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.001);
+    transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  #shopify-section-{{ sid }} .tstn-gallery__item:hover .tstn-gallery__img,
+  #shopify-section-{{ sid }} .tstn-gallery__item:focus-visible .tstn-gallery__img {
+    transform: scale(1.05);
+  }
+
+  /* Subtle bottom scrim — always present, deepens on hover */
+  #shopify-section-{{ sid }} .tstn-gallery__scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      rgba(10, 10, 10, 0.72) 0%,
+      rgba(10, 10, 10, 0.0) 42%
+    );
+    opacity: 0;
+    transition: opacity 0.45s ease;
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ sid }} .tstn-gallery__item:hover .tstn-gallery__scrim,
+  #shopify-section-{{ sid }} .tstn-gallery__item:focus-visible .tstn-gallery__scrim {
+    opacity: 1;
+  }
+
+  #shopify-section-{{ sid }} .tstn-gallery__caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 18px 20px;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--tstn-text);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    pointer-events: none;
+  }
+
+  #shopify-section-{{ sid }} .tstn-gallery__caption::before {
+    content: '';
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--tstn-accent);
+    margin-bottom: 8px;
+  }
+
+  #shopify-section-{{ sid }} .tstn-gallery__item:hover .tstn-gallery__caption,
+  #shopify-section-{{ sid }} .tstn-gallery__item:focus-visible .tstn-gallery__caption {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #shopify-section-{{ sid }} .tstn-gallery__item:focus-visible {
+    outline: 2px solid var(--tstn-accent);
+    outline-offset: 3px;
+  }
+
+  /* Placeholder state (theme editor, no image selected) */
+  #shopify-section-{{ sid }} .tstn-gallery__placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--tstn-muted);
+  }
+
+  #shopify-section-{{ sid }} .tstn-gallery__placeholder svg {
+    width: 38%;
+    height: 38%;
+    opacity: 0.35;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 989px) {
+    #shopify-section-{{ sid }} .tstn-gallery__grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 749px) {
+    #shopify-section-{{ sid }} .tstn-gallery {
+      padding-top: {{ section.settings.padding_top | default: 80 | times: 0.6 | round }}px;
+      padding-bottom: {{ section.settings.padding_bottom | default: 80 | times: 0.6 | round }}px;
+    }
+
+    #shopify-section-{{ sid }} .tstn-gallery__inner {
+      padding-left: clamp(16px, 4vw, 56px);
+      padding-right: clamp(16px, 4vw, 56px);
+    }
+
+    #shopify-section-{{ sid }} .tstn-gallery__grid {
+      grid-template-columns: repeat({{ cols_mobile }}, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    /* Captions visible by default on touch — hover doesn't exist */
+    #shopify-section-{{ sid }} .tstn-gallery__scrim,
+    #shopify-section-{{ sid }} .tstn-gallery__caption {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ sid }} .tstn-gallery__img,
+    #shopify-section-{{ sid }} .tstn-gallery__caption,
+    #shopify-section-{{ sid }} .tstn-gallery__scrim {
+      transition: none;
+    }
+  }
+</style>
+
+<section class="tstn-gallery">
+  <div class="tstn-gallery__inner">
+
+    {%- if eyebrow != blank or heading != blank or subheading_check != blank -%}
+      <header class="tstn-gallery__head">
+        {%- if eyebrow != blank -%}
+          <p class="tstn-gallery__eyebrow">{{ eyebrow }}</p>
+        {%- endif -%}
+        {%- if heading != blank -%}
+          <h2 class="tstn-gallery__heading">{{ heading }}</h2>
+        {%- endif -%}
+        {%- if subheading_check != blank -%}
+          <div class="tstn-gallery__subheading">{{ section.settings.subheading }}</div>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="tstn-gallery__grid">
+        {%- for block in section.blocks -%}
+          {%- liquid
+            assign caption_check = block.settings.caption | strip
+            assign has_link = false
+            if block.settings.link != blank
+              assign has_link = true
+            endif
+          -%}
+
+          {%- if has_link -%}
+            <a
+              href="{{ block.settings.link }}"
+              class="tstn-gallery__item"
+              {{ block.shopify_attributes }}
+              {%- if caption_check != blank %} aria-label="{{ caption_check | escape }}"{% endif -%}
+            >
+          {%- else -%}
+            <div class="tstn-gallery__item" {{ block.shopify_attributes }}>
+          {%- endif -%}
+
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 1600
+                | image_tag:
+                  class: 'tstn-gallery__img',
+                  loading: 'lazy',
+                  widths: '400, 600, 800, 1000, 1200, 1600',
+                  sizes: '(max-width: 749px) 100vw, (max-width: 989px) 50vw, 33vw'
+              }}
+            {%- else -%}
+              <div class="tstn-gallery__placeholder">
+                {{ 'image' | placeholder_svg_tag }}
+              </div>
+            {%- endif -%}
+
+            <span class="tstn-gallery__scrim" aria-hidden="true"></span>
+
+            {%- if caption_check != blank -%}
+              <span class="tstn-gallery__caption">{{ caption_check }}</span>
+            {%- endif -%}
+
+          {%- if has_link -%}
+            </a>
+          {%- else -%}
+            </div>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "TSTN Gallery",
+  "tag": "section",
+  "class": "tstn-gallery-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "The Collection"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Gallery"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "select",
+      "id": "heading_alignment",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "images_per_row",
+      "label": "Images per row (desktop)",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 3,
+      "info": "Rows are created automatically based on how many images you add."
+    },
+    {
+      "type": "select",
+      "id": "images_per_row_mobile",
+      "label": "Images per row (mobile)",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio",
+      "label": "Image shape",
+      "options": [
+        { "value": "portrait", "label": "Portrait (4:5)" },
+        { "value": "square", "label": "Square (1:1)" },
+        { "value": "landscape", "label": "Landscape (16:10)" }
+      ],
+      "default": "portrait"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Gap between images",
+      "min": 8,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "corner_radius",
+      "label": "Corner radius",
+      "min": 0,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Section"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#0a0a0a"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Caption",
+          "info": "Shown on hover (always visible on mobile). Leave blank to hide."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "TSTN Gallery",
+      "blocks": [
+        { "type": "image" },
+        { "type": "image" },
+        { "type": "image" }
+      ]
+    }
+  ]
+}
+{% endschema %}
