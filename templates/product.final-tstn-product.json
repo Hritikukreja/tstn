@@ -265,15 +265,15 @@
       ],
       "name": "Feature gallery",
       "settings": {
-        "kicker": "WHAT TO KNOW",
+        "kicker": "PRODUCT DETAILS",
         "heading": "FEATURES THAT MATTER",
-        "text": "<p>Explore the practical details, build quality, and thoughtful design choices behind this product.</p>",
+        "text": "<p>A closer look at the materials, functions, and design choices that shape how this product performs in real use.</p>",
         "columns_desktop": "3",
         "card_alignment": "left",
         "show_content": true,
         "media_aspect_ratio": "4 / 5",
         "color_scheme": "scheme-5330df68-7ce6-41b9-9bf9-37d268b32221",
-        "padding_top": 80,
+        "padding_top": 60,
         "padding_bottom": 80
       }
     },
