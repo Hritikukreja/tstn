@@ -216,72 +216,6 @@
         "padding_bottom": 32
       }
     },
-    "trust_badges_m7PPdc": {
-      "type": "trust-badges",
-      "blocks": {
-        "badge_ikVnTM": {
-          "type": "badge",
-          "settings": {
-            "icon_preset": "rewards",
-            "title": "TSTN CLUB REWARDS",
-            "description": "Earn points on every order. Unlock exclusive gear and perks.",
-            "link_label": "LEARN MORE",
-            "link": ""
-          }
-        },
-        "badge_iiKqFL": {
-          "type": "badge",
-          "settings": {
-            "icon_preset": "financing",
-            "title": "Easy Financing",
-            "description": "Flexible payments. More adventures. Pay over time with Shop Pay.",
-            "link_label": "LEARN MORE",
-            "link": ""
-          }
-        },
-        "badge_ef4HGT": {
-          "type": "badge",
-          "settings": {
-            "icon_preset": "tested",
-            "title": "TESTED & TRUSTED",
-            "description": "We run it, break it in, and only keep what works.",
-            "link_label": "LEARN MORE",
-            "link": ""
-          }
-        },
-        "badge_DnrX9E": {
-          "type": "badge",
-          "settings": {
-            "icon_preset": "shipping",
-            "title": "FAST SHIPPING",
-            "description": "Ships quick from our warehouse. Free shipping on orders $99+.",
-            "link_label": "LEARN MORE",
-            "link": ""
-          }
-        },
-        "badge_dcMDTY": {
-          "type": "badge",
-          "settings": {
-            "icon_preset": "returns",
-            "title": "EASY RETURNS",
-            "description": "60-day returns on most items. No hassle. No stress.",
-            "link_label": "LEARN MORE",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "badge_ikVnTM",
-        "badge_iiKqFL",
-        "badge_ef4HGT",
-        "badge_DnrX9E",
-        "badge_dcMDTY"
-      ],
-      "name": "Trust Badges",
-      "settings": {
-        "accent_color": "#ff6a1a"
-      }
-    },
     "feature_gallery_T3DUzd": {
       "type": "feature-gallery",
       "blocks": {
@@ -589,85 +523,6 @@
         "padding_bottom": 32
       }
     },
-    "feature_cards_casosuel_YkhJH3": {
-      "type": "feature-cards-casosuel",
-      "blocks": {
-        "card_zFFGch": {
-          "type": "card",
-          "settings": {
-            "kicker": "Save Money",
-            "title": "Earn Rewards Points",
-            "description": "Earn 5 reward points for every dollar spent on TSTN and redeem them for exclusive merch, premium gear, discounts, and more.",
-            "image": "shopify://shop_images/Rewards.avif",
-            "link": "https://tstn-1.myshopify.com/products/tstn-club-forum"
-          }
-        },
-        "card_6tJzW9": {
-          "type": "card",
-          "settings": {
-            "kicker": "Ways to Buy",
-            "title": "Easy Financing",
-            "description": "Spread out the cost of your new Gear with interest-free monthly payments and no hidden fees.",
-            "image": "shopify://shop_images/APR_30c5a74c-6a6b-424f-bd78-99d2cf1ddd83.png",
-            "link": ""
-          }
-        },
-        "card_YAFPQn": {
-          "type": "card",
-          "settings": {
-            "kicker": "Personal Setup",
-            "title": "Support your Creator",
-            "description": "Talk one on one with a Specialist to set up your device and discover new features.",
-            "image": "shopify://shop_images/TSTN.png",
-            "link": "https://www.youtube.com/@TheStoryTillNow"
-          }
-        },
-        "card_W7RHLq": {
-          "type": "card",
-          "settings": {
-            "kicker": "Delivery",
-            "title": "Free Shipping",
-            "description": "Fast and reliable shipping across US and Canada. Most orders are processed quickly so your gear arrives ready for your next adventure.",
-            "image": "shopify://shop_images/Free_Shipping.png",
-            "link": ""
-          }
-        },
-        "card_E7raUP": {
-          "type": "card",
-          "settings": {
-            "kicker": "Feature",
-            "title": "Easy Returns",
-            "description": "A short supporting sentence that adds context to the title above.",
-            "image": "shopify://shop_images/ChatGPT_Image_Apr_9_2026_06_45_03_PM.png",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "card_zFFGch",
-        "card_6tJzW9",
-        "card_YAFPQn",
-        "card_W7RHLq",
-        "card_E7raUP"
-      ],
-      "name": "Feature cards carousel",
-      "settings": {
-        "heading": "Why we're the best place to buy.",
-        "cta_label": "Shop now",
-        "cta_url": "",
-        "card_width": 328,
-        "card_height": 376,
-        "bg_color": "#eaeaea",
-        "card_bg": "#ffffff",
-        "heading_color": "#1d1d1f",
-        "cta_color": "#0066cc",
-        "kicker_color": "#6e6e73",
-        "card_title_color": "#1d1d1f",
-        "card_desc_color": "#1d1d1f",
-        "padding_top": 64,
-        "padding_bottom": 64
-      }
-    },
     "tstn_product_banner_xWi4bj": {
       "type": "tstn-product-banner",
       "blocks": {
@@ -771,6 +626,151 @@
         "padding_top": 24,
         "padding_bottom": 48
       }
+    },
+    "trust_badges_m7PPdc": {
+      "type": "trust-badges",
+      "blocks": {
+        "badge_ikVnTM": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "rewards",
+            "title": "TSTN CLUB REWARDS",
+            "description": "Earn points on every order. Unlock exclusive gear and perks.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        },
+        "badge_iiKqFL": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "financing",
+            "title": "Easy Financing",
+            "description": "Flexible payments. More adventures. Pay over time with Shop Pay.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        },
+        "badge_ef4HGT": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "tested",
+            "title": "TESTED & TRUSTED",
+            "description": "We run it, break it in, and only keep what works.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        },
+        "badge_DnrX9E": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "shipping",
+            "title": "FAST SHIPPING",
+            "description": "Ships quick from our warehouse. Free shipping on orders $99+.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        },
+        "badge_dcMDTY": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "returns",
+            "title": "EASY RETURNS",
+            "description": "60-day returns on most items. No hassle. No stress.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "badge_ikVnTM",
+        "badge_iiKqFL",
+        "badge_ef4HGT",
+        "badge_DnrX9E",
+        "badge_dcMDTY"
+      ],
+      "name": "Trust Badges",
+      "settings": {
+        "accent_color": "#ff6a1a"
+      }
+    },
+    "feature_cards_casosuel_YkhJH3": {
+      "type": "feature-cards-casosuel",
+      "blocks": {
+        "card_zFFGch": {
+          "type": "card",
+          "settings": {
+            "kicker": "Save Money",
+            "title": "Earn Rewards Points",
+            "description": "Earn 5 reward points for every dollar spent on TSTN and redeem them for exclusive merch, premium gear, discounts, and more.",
+            "image": "shopify://shop_images/Rewards.avif",
+            "link": "https://tstn-1.myshopify.com/products/tstn-club-forum"
+          }
+        },
+        "card_6tJzW9": {
+          "type": "card",
+          "settings": {
+            "kicker": "Ways to Buy",
+            "title": "Easy Financing",
+            "description": "Spread out the cost of your new Gear with interest-free monthly payments and no hidden fees.",
+            "image": "shopify://shop_images/APR_30c5a74c-6a6b-424f-bd78-99d2cf1ddd83.png",
+            "link": ""
+          }
+        },
+        "card_YAFPQn": {
+          "type": "card",
+          "settings": {
+            "kicker": "Personal Setup",
+            "title": "Support your Creator",
+            "description": "Talk one on one with a Specialist to set up your device and discover new features.",
+            "image": "shopify://shop_images/TSTN.png",
+            "link": "https://www.youtube.com/@TheStoryTillNow"
+          }
+        },
+        "card_W7RHLq": {
+          "type": "card",
+          "settings": {
+            "kicker": "Delivery",
+            "title": "Free Shipping",
+            "description": "Fast and reliable shipping across US and Canada. Most orders are processed quickly so your gear arrives ready for your next adventure.",
+            "image": "shopify://shop_images/Free_Shipping.png",
+            "link": ""
+          }
+        },
+        "card_E7raUP": {
+          "type": "card",
+          "settings": {
+            "kicker": "Feature",
+            "title": "Easy Returns",
+            "description": "A short supporting sentence that adds context to the title above.",
+            "image": "shopify://shop_images/ChatGPT_Image_Apr_9_2026_06_45_03_PM.png",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_zFFGch",
+        "card_6tJzW9",
+        "card_YAFPQn",
+        "card_W7RHLq",
+        "card_E7raUP"
+      ],
+      "name": "Feature cards carousel",
+      "settings": {
+        "heading": "Why we're the best place to buy.",
+        "cta_label": "Shop now",
+        "cta_url": "",
+        "card_width": 328,
+        "card_height": 376,
+        "bg_color": "#eaeaea",
+        "card_bg": "#ffffff",
+        "heading_color": "#1d1d1f",
+        "cta_color": "#0066cc",
+        "kicker_color": "#6e6e73",
+        "card_title_color": "#1d1d1f",
+        "card_desc_color": "#1d1d1f",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
     }
   },
   "order": [
@@ -785,9 +785,9 @@
     "trust_badges_qazgFn",
     "newbodyhtml_ig34hh",
     "feature_gallery_xpJVXd",
-    "product_showcase_dczdxa",
-    "feature_cards_casosuel_YkhJH3",
     "tstn_product_banner_xWi4bj",
-    "trust_badges_m7PPdc"
+    "trust_badges_m7PPdc",
+    "product_showcase_dczdxa",
+    "feature_cards_casosuel_YkhJH3"
   ]
 }
