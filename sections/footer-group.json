@@ -11,6 +11,21 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "instagram_tag_mayPPY": {
+      "type": "instagram-tag",
+      "name": "TSTN Tag Promo",
+      "settings": {
+        "heading": "Tag <strong>@tstn.club</strong> to get featured and earn <strong>500 points</strong> if your picture get selected",
+        "subtext": "",
+        "show_mark": true,
+        "mark_image": "shopify://shop_images/TSTN_Bomber_Jacket.png",
+        "bg_color": "#000000",
+        "text_size": 44,
+        "text_size_mobile": 24,
+        "pad_top": 64,
+        "pad_bottom": 64
+      }
+    },
     "tstn_community_features_QrPt3k": {
       "type": "tstn-community-features",
       "blocks": {
@@ -57,6 +72,7 @@
         "feature_HFNyGb",
         "feature_pWG7AC"
       ],
+      "disabled": true,
       "name": "TSTN Community Features",
       "settings": {
         "heading": "TAG @TSTN.CLUB TO GET FEATURED AND EARN 500 POINTS IF YOUR PICTURE GET SELECTED"
@@ -178,6 +194,7 @@
     }
   },
   "order": [
+    "instagram_tag_mayPPY",
     "tstn_community_features_QrPt3k",
     "1781085814a676ff05",
     "product_logo_image_U3zYtB",
