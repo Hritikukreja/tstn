@@ -545,7 +545,7 @@
             "title": "FAST SHIPPING",
             "description": "Ships quick from our warehouse. Free shipping on orders $99+.",
             "link_label": "LEARN MORE",
-            "link": ""
+            "link": "shopify://pages/shipping-policy"
           }
         },
         "badge_dcMDTY": {
@@ -555,7 +555,7 @@
             "title": "EASY RETURNS",
             "description": "60-day returns on most items. No hassle. No stress.",
             "link_label": "LEARN MORE",
-            "link": ""
+            "link": "shopify://pages/returns-amp-refund-policy"
           }
         }
       },
