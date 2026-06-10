@@ -122,30 +122,30 @@
         "padding_bottom": 48
       }
     },
-    "trust_badges_tjLiXk": {
+    "trust_badges_TYXiBQ": {
       "type": "trust-badges",
       "blocks": {
-        "badge_NVBeeN": {
+        "badge_KPnE9K": {
           "type": "badge",
           "settings": {
             "icon_preset": "rewards",
             "title": "TSTN CLUB REWARDS",
             "description": "Earn points on every order. Unlock exclusive gear and perks.",
             "link_label": "LEARN MORE",
-            "link": ""
+            "link": "shopify://pages/tstn-club-1"
           }
         },
-        "badge_UdG97p": {
+        "badge_eBiPjq": {
           "type": "badge",
           "settings": {
             "icon_preset": "financing",
             "title": "Easy Financing",
             "description": "Flexible payments. More adventures. Pay over time with Shop Pay.",
             "link_label": "LEARN MORE",
-            "link": ""
+            "link": "shopify://pages/financing-policy"
           }
         },
-        "badge_3qTJB3": {
+        "badge_kzFQCc": {
           "type": "badge",
           "settings": {
             "icon_preset": "tested",
@@ -155,33 +155,33 @@
             "link": ""
           }
         },
-        "badge_99pVkE": {
+        "badge_eM6dTt": {
           "type": "badge",
           "settings": {
             "icon_preset": "shipping",
             "title": "FAST SHIPPING",
             "description": "Ships quick from our warehouse. Free shipping on orders $99+.",
             "link_label": "LEARN MORE",
-            "link": ""
+            "link": "shopify://pages/shipping-policy"
           }
         },
-        "badge_bj6egB": {
+        "badge_zccp79": {
           "type": "badge",
           "settings": {
             "icon_preset": "returns",
             "title": "EASY RETURNS",
             "description": "60-day returns on most items. No hassle. No stress.",
             "link_label": "LEARN MORE",
-            "link": ""
+            "link": "shopify://pages/returns-amp-refund-policy"
           }
         }
       },
       "block_order": [
-        "badge_NVBeeN",
-        "badge_UdG97p",
-        "badge_3qTJB3",
-        "badge_99pVkE",
-        "badge_bj6egB"
+        "badge_KPnE9K",
+        "badge_eBiPjq",
+        "badge_kzFQCc",
+        "badge_eM6dTt",
+        "badge_zccp79"
       ],
       "name": "Trust Badges",
       "settings": {
@@ -472,7 +472,7 @@
   "order": [
     "product_banner_XPWEW8",
     "tstn_product_banner_HTPx8E",
-    "trust_badges_tjLiXk",
+    "trust_badges_TYXiBQ",
     "main",
     "pro_hero_ye7RgN",
     "video_buy_section_fh7rn3",
