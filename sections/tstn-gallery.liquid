@@ -246,6 +246,121 @@
     opacity: 0.35;
   }
 
+  /* ---------- Zoom button reset ---------- */
+  #shopify-section-{{ sid }} button.tstn-gallery__item {
+    appearance: none;
+    -webkit-appearance: none;
+    padding: 0;
+    margin: 0;
+    font: inherit;
+    text-align: left;
+    color: inherit;
+    cursor: zoom-in;
+    width: 100%;
+  }
+
+  /* ---------- Lightbox ---------- */
+  html.tstn-lb-open,
+  html.tstn-lb-open body {
+    overflow: hidden;
+  }
+
+  .tstn-gallery-lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.22s ease;
+  }
+
+  .tstn-gallery-lightbox.is-visible {
+    opacity: 1;
+  }
+
+  .tstn-gallery-lightbox__backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.94);
+    cursor: zoom-out;
+  }
+
+  .tstn-gallery-lightbox__figure {
+    position: relative;
+    margin: 0;
+    max-width: min(92vw, 1600px);
+    max-height: 88vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    pointer-events: none;
+  }
+
+  .tstn-gallery-lightbox__img {
+    max-width: 100%;
+    max-height: 82vh;
+    object-fit: contain;
+    border-radius: 10px;
+    cursor: zoom-in;
+    pointer-events: auto;
+    user-select: none;
+    transform: scale(1);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .tstn-gallery-lightbox__img.is-zoomed {
+    transform: scale(2.2);
+    cursor: zoom-out;
+  }
+
+  .tstn-gallery-lightbox__caption {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #9a9a9a;
+    text-align: center;
+  }
+
+  .tstn-gallery-lightbox__close {
+    position: absolute;
+    top: clamp(14px, 3vw, 28px);
+    right: clamp(14px, 3vw, 28px);
+    z-index: 2;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 50%;
+    color: #ffffff;
+    cursor: pointer;
+    transition: border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  }
+
+  .tstn-gallery-lightbox__close svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .tstn-gallery-lightbox__close:hover,
+  .tstn-gallery-lightbox__close:focus-visible {
+    border-color: #ff6a1a;
+    color: #ff6a1a;
+    transform: rotate(90deg);
+  }
+
+  .tstn-gallery-lightbox__close:focus-visible {
+    outline: 2px solid #ff6a1a;
+    outline-offset: 3px;
+  }
+
   /* ---------- Mobile: swipeable single row ---------- */
   @media (max-width: 749px) {
     #shopify-section-{{ sid }} .tstn-gallery {
@@ -320,7 +435,10 @@
   @media (prefers-reduced-motion: reduce) {
     #shopify-section-{{ sid }} .tstn-gallery__img,
     #shopify-section-{{ sid }} .tstn-gallery__caption,
-    #shopify-section-{{ sid }} .tstn-gallery__scrim {
+    #shopify-section-{{ sid }} .tstn-gallery__scrim,
+    .tstn-gallery-lightbox,
+    .tstn-gallery-lightbox__img,
+    .tstn-gallery-lightbox__close {
       transition: none;
     }
   }
@@ -356,6 +474,10 @@
             if block.settings.image != blank
               assign img_ratio = block.settings.image.aspect_ratio | round: 4
             endif
+            assign is_zoom = false
+            if section.settings.enable_zoom and has_link == false and block.settings.image != blank
+              assign is_zoom = true
+            endif
           -%}
 
           {%- if has_link -%}
@@ -365,6 +487,18 @@
               style="--tstn-ratio: {{ img_ratio }};"
               {{ block.shopify_attributes }}
               {%- if caption_check != blank %} aria-label="{{ caption_check | escape }}"{% endif -%}
+            >
+          {%- elsif is_zoom -%}
+            <button
+              type="button"
+              class="tstn-gallery__item tstn-gallery__item--zoom"
+              style="--tstn-ratio: {{ img_ratio }};"
+              data-tstn-zoom
+              data-tstn-full="{{ block.settings.image | image_url: width: 2400 }}"
+              data-tstn-caption="{{ caption_check | escape }}"
+              aria-haspopup="dialog"
+              aria-label="{% if caption_check != blank %}{{ caption_check | escape }} — {% endif %}View full size"
+              {{ block.shopify_attributes }}
             >
           {%- else -%}
             <div class="tstn-gallery__item" style="--tstn-ratio: {{ img_ratio }};" {{ block.shopify_attributes }}>
@@ -394,6 +528,8 @@
 
           {%- if has_link -%}
             </a>
+          {%- elsif is_zoom -%}
+            </button>
           {%- else -%}
             </div>
           {%- endif -%}
@@ -403,6 +539,109 @@
 
   </div>
 </section>
+
+{%- if section.settings.enable_zoom -%}
+  <div
+    class="tstn-gallery-lightbox"
+    id="TstnGalleryLightbox-{{ sid }}"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Image viewer"
+    hidden
+  >
+    <div class="tstn-gallery-lightbox__backdrop" data-tstn-lb-close></div>
+    <button type="button" class="tstn-gallery-lightbox__close" data-tstn-lb-close aria-label="Close image viewer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <line x1="5" y1="5" x2="19" y2="19"></line>
+        <line x1="19" y1="5" x2="5" y2="19"></line>
+      </svg>
+    </button>
+    <figure class="tstn-gallery-lightbox__figure">
+      <img class="tstn-gallery-lightbox__img" src="" alt="" draggable="false">
+      <figcaption class="tstn-gallery-lightbox__caption"></figcaption>
+    </figure>
+  </div>
+
+  <script>
+    (function () {
+      var section = document.getElementById('shopify-section-{{ sid }}');
+      if (!section || section.dataset.tstnGalleryZoomBound === 'true') return;
+      section.dataset.tstnGalleryZoomBound = 'true';
+
+      var lightbox = document.getElementById('TstnGalleryLightbox-{{ sid }}');
+      if (!lightbox) return;
+
+      var img = lightbox.querySelector('.tstn-gallery-lightbox__img');
+      var captionEl = lightbox.querySelector('.tstn-gallery-lightbox__caption');
+      var lastTrigger = null;
+
+      function open(trigger) {
+        lastTrigger = trigger;
+        img.src = trigger.getAttribute('data-tstn-full') || '';
+        var caption = trigger.getAttribute('data-tstn-caption') || '';
+        img.alt = caption;
+        captionEl.textContent = caption;
+        captionEl.style.display = caption ? '' : 'none';
+        resetZoom();
+        lightbox.hidden = false;
+        document.documentElement.classList.add('tstn-lb-open');
+        requestAnimationFrame(function () {
+          lightbox.classList.add('is-visible');
+        });
+      }
+
+      function close() {
+        lightbox.classList.remove('is-visible');
+        document.documentElement.classList.remove('tstn-lb-open');
+        window.setTimeout(function () {
+          lightbox.hidden = true;
+          img.src = '';
+          resetZoom();
+          if (lastTrigger && typeof lastTrigger.focus === 'function') lastTrigger.focus();
+        }, 220);
+      }
+
+      function resetZoom() {
+        img.classList.remove('is-zoomed');
+        img.style.transformOrigin = '';
+      }
+
+      function toggleZoom(event) {
+        if (img.classList.contains('is-zoomed')) {
+          resetZoom();
+          return;
+        }
+        var rect = img.getBoundingClientRect();
+        var x = ((event.clientX - rect.left) / rect.width) * 100;
+        var y = ((event.clientY - rect.top) / rect.height) * 100;
+        img.style.transformOrigin = x + '% ' + y + '%';
+        img.classList.add('is-zoomed');
+      }
+
+      section.addEventListener('click', function (event) {
+        var trigger = event.target.closest('[data-tstn-zoom]');
+        if (trigger) {
+          event.preventDefault();
+          open(trigger);
+        }
+      });
+
+      lightbox.addEventListener('click', function (event) {
+        if (event.target.closest('[data-tstn-lb-close]')) {
+          close();
+          return;
+        }
+        if (event.target === img) {
+          toggleZoom(event);
+        }
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && !lightbox.hidden) close();
+      });
+    })();
+  </script>
+{%- endif -%}
 
 {% schema %}
 {
@@ -473,6 +712,13 @@
       ],
       "default": "scroll",
       "info": "Swipeable keeps the single-row design on phones."
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_zoom",
+      "label": "Enable image zoom",
+      "default": true,
+      "info": "Tap an image to view it full screen, then tap again to magnify. Images with a link navigate instead."
     },
     {
       "type": "range",
