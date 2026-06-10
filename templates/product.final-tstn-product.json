@@ -184,7 +184,9 @@
         "trust_badge_ENiQfA"
       ],
       "custom_css": [
-        "p {font-size: 18px;}"
+        "p {font-size: 18px;}",
+        "h2{font-size: 50px;}",
+        ".vb-price--current {font-size: 38px;}"
       ],
       "name": "Video + Buy Now",
       "settings": {
