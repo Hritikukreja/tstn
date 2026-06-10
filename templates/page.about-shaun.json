@@ -23,7 +23,7 @@
       "settings": {
         "eyebrow": "ABOUT TSTN",
         "heading": "BUILT ON EXPERIENCE. SHARED FOR THE ROAD.",
-        "body": "<p>I'm Shaun Walford, founder of TSTN, overlander, and creator. Everything we share comes from real-world lessons — years on the road, plenty of mistakes, and what actually works when it matters.</p>",
+        "body": "<p>I’m <strong>Shaun Walford</strong>, founder and creator of <strong>The Story Till Now</strong>.</p><p>Before this became my life, I worked as a corporate project manager, structured days, safe routines, and weekend escapes whenever I could find them. Those escapes slowly turned into something bigger: years of remote trails, hard lessons, broken parts, and stories worth sharing.</p><p>TSTN was built from that experience — real gear, real travel, real mistakes, and the kind of knowledge you only earn by getting out there.</p>",
         "signature_text": "Shaun Walford",
         "role": "Founder / Creator of The Story Till Now",
         "button_label": "EXPLORE CLUBHOUSE",
@@ -96,10 +96,11 @@
     },
     "about_shaun_story_hhz4Bm": {
       "type": "about-shaun-story",
+      "disabled": true,
       "name": "About Shaun • Story",
       "settings": {
         "heading": "THE ROAD THAT SHAPED TSTN",
-        "body": "<p>I started as a tradesman — hands-on work, problem solving, and getting the job done. Overlanding pulled me in, and I never looked back. Out there, things break, plans change, and the only way forward is to adapt.</p><p>That's where TSTN was born — from learning by doing and a drive to share the gear, knowledge, and lessons that actually make a difference on the road.</p>",
+        "body": "",
         "video_thumb": "shopify://shop_images/Still_2026-05-19_164522_1.160.1.jpg",
         "video_url": "",
         "caption": "The road teaches you what spec sheets can't. Experience is the best teacher.",
