@@ -167,32 +167,37 @@
       "blocks": {
         "logo_HRTdFF": {
           "type": "logo",
+          "name": "Expedition Portal",
           "settings": {
-            "name": "4X4 AUSTRALIA"
+            "name": "Expedition Portal"
           }
         },
         "logo_WMhFwN": {
           "type": "logo",
+          "name": "The Adventure Portal",
           "settings": {
-            "name": "THE ADVENTURIST"
+            "name": "The Adventure Portal"
           }
         },
         "logo_ykt3Mk": {
           "type": "logo",
+          "name": "Stories.stream",
           "settings": {
-            "name": "OVERLAND JOURNAL"
+            "name": "Stories.stream"
           }
         },
         "logo_XUFH9b": {
           "type": "logo",
+          "name": "MoparInsiders",
           "settings": {
-            "name": "UNSEALED 4X4"
+            "name": "MoparInsiders"
           }
         },
         "logo_RqktUD": {
           "type": "logo",
+          "name": "Hooniverse",
           "settings": {
-            "name": "DRIVE"
+            "name": "Hooniverse"
           }
         }
       },
