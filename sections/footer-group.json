@@ -11,6 +11,34 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "1781085814a676ff05": {
+      "type": "apps",
+      "blocks": {
+        "covet_instagram_feed_reviews_app_block_standard_M7mckX": {
+          "type": "shopify://apps/covet-instagram-feed-reviews/blocks/app-block-standard/577480e8-b5be-4890-968c-06ccfb458c74",
+          "settings": {
+            "gallery_embed_id": 248383,
+            "show_text": false,
+            "title_text": "",
+            "title_color": "#ffffff",
+            "title_size": 32,
+            "subtitle_text": "",
+            "subtitle_color": "#000000",
+            "subtitle_size": 14,
+            "text_alignment": "center",
+            "margin": 37,
+            "custom_html_above": "",
+            "custom_html_below": ""
+          }
+        }
+      },
+      "block_order": [
+        "covet_instagram_feed_reviews_app_block_standard_M7mckX"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
     "product_logo_image_U3zYtB": {
       "type": "product-logo-image",
       "disabled": true,
@@ -99,6 +127,7 @@
     }
   },
   "order": [
+    "1781085814a676ff05",
     "product_logo_image_U3zYtB",
     "footer",
     "product_footer_8GDRyG"
