@@ -8,6 +8,7 @@
 {%- liquid
   assign sid = section.id
   assign st = section.settings
+  assign mark_opacity = st.mark_opacity | divided_by: 100.0
 -%}
 
 <style>
@@ -27,6 +28,7 @@
     --tstn-orange: #ff6a1a;
     --tstn-text: #f5f5f5;
     --tstn-muted: #9a9a9a;
+    --tstn-mark-opacity: {{ mark_opacity }};
   }
 
   #shopify-section-{{ sid }} .tstn-tagpromo {
@@ -144,7 +146,7 @@
   #shopify-section-{{ sid }} .tstn-tagpromo__mark {
     flex: 0 0 auto;
     width: clamp(110px, 13vw, 200px);
-    opacity: 0.16;
+    opacity: var(--tstn-mark-opacity);
     pointer-events: none;
     user-select: none;
   }
@@ -191,7 +193,7 @@
       right: 18px;
       bottom: 18px;
       width: 72px;
-      opacity: 0.1;
+      opacity: calc(var(--tstn-mark-opacity) * 0.7);
     }
   }
 </style>
@@ -316,6 +318,16 @@
       "id": "mark_image",
       "label": "Custom mark image",
       "info": "Leave empty to use the built-in TSTN mark. A transparent PNG/SVG of your logo works best."
+    },
+    {
+      "type": "range",
+      "id": "mark_opacity",
+      "label": "Mark opacity",
+      "min": 2,
+      "max": 100,
+      "step": 2,
+      "unit": "%",
+      "default": 16
     },
     {
       "type": "header",
