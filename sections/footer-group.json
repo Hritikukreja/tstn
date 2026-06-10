@@ -11,6 +11,17 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
+    "tstn_journey_cta_ftnkhG": {
+      "type": "tstn-journey-cta",
+      "name": "TSTN Journey CTA",
+      "settings": {
+        "heading": "TAG @TSTN.CLUB TO GET FEATURED",
+        "sub": "Join thousands of members already growing with TSTN Club.",
+        "cta_text": "",
+        "cta_link": "",
+        "script_text": "Stronger Together"
+      }
+    },
     "1781085814a676ff05": {
       "type": "apps",
       "blocks": {
@@ -127,6 +138,7 @@
     }
   },
   "order": [
+    "tstn_journey_cta_ftnkhG",
     "1781085814a676ff05",
     "product_logo_image_U3zYtB",
     "footer",
