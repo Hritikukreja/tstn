@@ -550,34 +550,6 @@
         "height": 600
       }
     },
-    "apps_9FcKNW": {
-      "type": "apps",
-      "blocks": {
-        "covet_instagram_feed_reviews_app_block_standard_jFjXjj": {
-          "type": "shopify://apps/covet-instagram-feed-reviews/blocks/app-block-standard/577480e8-b5be-4890-968c-06ccfb458c74",
-          "settings": {
-            "gallery_embed_id": 248383,
-            "show_text": true,
-            "title_text": "TAG @TSTN.CLUB TO GET FEATURED",
-            "title_color": "#ffffff",
-            "title_size": 32,
-            "subtitle_text": "",
-            "subtitle_color": "#000000",
-            "subtitle_size": 14,
-            "text_alignment": "center",
-            "margin": 37,
-            "custom_html_above": "",
-            "custom_html_below": ""
-          }
-        }
-      },
-      "block_order": [
-        "covet_instagram_feed_reviews_app_block_standard_jFjXjj"
-      ],
-      "settings": {
-        "include_margins": true
-      }
-    },
     "community_grid_rt4UaW": {
       "type": "community-grid",
       "blocks": {
@@ -666,7 +638,6 @@
     "guides_block_M8N9Gw",
     "trust_badges_cTdDRX",
     "contact_cta_eMqn8p",
-    "apps_9FcKNW",
     "community_grid_rt4UaW",
     "1778118660573b4067"
   ]

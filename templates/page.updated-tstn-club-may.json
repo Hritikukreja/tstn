@@ -814,34 +814,6 @@
         "image": "shopify://shop_images/13.png",
         "script_text": ""
       }
-    },
-    "apps_AAWAEb": {
-      "type": "apps",
-      "blocks": {
-        "covet_instagram_feed_reviews_app_block_standard_3CfJYg": {
-          "type": "shopify://apps/covet-instagram-feed-reviews/blocks/app-block-standard/577480e8-b5be-4890-968c-06ccfb458c74",
-          "settings": {
-            "gallery_embed_id": 248383,
-            "show_text": true,
-            "title_text": "TAG @TSTN.CLUB TO GET FEATURED",
-            "title_color": "#ffffff",
-            "title_size": 32,
-            "subtitle_text": "",
-            "subtitle_color": "#000000",
-            "subtitle_size": 14,
-            "text_alignment": "center",
-            "margin": 37,
-            "custom_html_above": "",
-            "custom_html_below": ""
-          }
-        }
-      },
-      "block_order": [
-        "covet_instagram_feed_reviews_app_block_standard_3CfJYg"
-      ],
-      "settings": {
-        "include_margins": true
-      }
     }
   },
   "order": [
@@ -852,7 +824,6 @@
     "community_gallery_xFcGVL",
     "tstn_blog_testimonial_CGmbDD",
     "tstn_community_features_CgHfHH",
-    "tstn_journey_cta_adCRhC",
-    "apps_AAWAEb"
+    "tstn_journey_cta_adCRhC"
   ]
 }
