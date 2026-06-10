@@ -1,10 +1,11 @@
 {% comment %}
   ============================================================
-  TSTN Gallery — Simple Elegant Image Grid
+  TSTN Gallery — Single Row Edition
   ------------------------------------------------------------
-  - Dynamic image blocks (up to 5)
-  - "Images per row" setting controls layout; rows derive
-    automatically from the number of images added
+  - One elegant row, always: columns auto-fit the number of
+    image blocks added (up to 5)
+  - Mobile: the row becomes a swipeable scroll-snap strip,
+    preserving the single-row design on small screens
   - Danger Neue Free Regular headings, Rajdhani body
   - Fully self-contained, scoped to this section instance
   ============================================================
@@ -15,8 +16,11 @@
   assign heading = section.settings.heading | default: ''
   assign eyebrow = section.settings.eyebrow | default: ''
   assign subheading_check = section.settings.subheading | strip_html | strip
-  assign cols_desktop = section.settings.images_per_row | default: 3
-  assign cols_mobile = section.settings.images_per_row_mobile | default: '1'
+  assign image_count = section.blocks.size
+  if image_count < 1
+    assign image_count = 1
+  endif
+  assign img_sizes = '(max-width: 749px) 78vw, (max-width: 1600px) calc(100vw / ' | append: image_count | append: '), calc(1600px / ' | append: image_count | append: ')'
 -%}
 
 <style>
@@ -112,10 +116,10 @@
     margin: 0;
   }
 
-  /* ---------- Grid ---------- */
-  #shopify-section-{{ sid }} .tstn-gallery__grid {
+  /* ---------- Single row ---------- */
+  #shopify-section-{{ sid }} .tstn-gallery__row {
     display: grid;
-    grid-template-columns: repeat({{ cols_desktop }}, minmax(0, 1fr));
+    grid-template-columns: repeat({{ image_count }}, minmax(0, 1fr));
     gap: var(--tstn-gap);
   }
 
@@ -135,6 +139,8 @@
   #shopify-section-{{ sid }} .tstn-gallery__item { aspect-ratio: 1 / 1; }
     {% when 'portrait' %}
   #shopify-section-{{ sid }} .tstn-gallery__item { aspect-ratio: 4 / 5; }
+    {% when 'tall' %}
+  #shopify-section-{{ sid }} .tstn-gallery__item { aspect-ratio: 3 / 4; }
     {% when 'landscape' %}
   #shopify-section-{{ sid }} .tstn-gallery__item { aspect-ratio: 16 / 10; }
     {% else %}
@@ -157,7 +163,7 @@
     transform: scale(1.05);
   }
 
-  /* Subtle bottom scrim — always present, deepens on hover */
+  /* Subtle bottom scrim — appears on hover */
   #shopify-section-{{ sid }} .tstn-gallery__scrim {
     position: absolute;
     inset: 0;
@@ -230,13 +236,7 @@
     opacity: 0.35;
   }
 
-  /* ---------- Responsive ---------- */
-  @media (max-width: 989px) {
-    #shopify-section-{{ sid }} .tstn-gallery__grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
+  /* ---------- Mobile: swipeable single row ---------- */
   @media (max-width: 749px) {
     #shopify-section-{{ sid }} .tstn-gallery {
       padding-top: {{ section.settings.padding_top | default: 80 | times: 0.6 | round }}px;
@@ -248,10 +248,38 @@
       padding-right: clamp(16px, 4vw, 56px);
     }
 
-    #shopify-section-{{ sid }} .tstn-gallery__grid {
-      grid-template-columns: repeat({{ cols_mobile }}, minmax(0, 1fr));
+    {% if section.settings.mobile_layout == 'scroll' %}
+    /* Scroll-snap strip: the row stays a row */
+    #shopify-section-{{ sid }} .tstn-gallery__row {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      /* Bleed to the screen edges so swiping feels native */
+      margin-left: calc(-1 * clamp(16px, 4vw, 56px));
+      margin-right: calc(-1 * clamp(16px, 4vw, 56px));
+      padding-left: clamp(16px, 4vw, 56px);
+      padding-right: clamp(16px, 4vw, 56px);
+    }
+
+    #shopify-section-{{ sid }} .tstn-gallery__row::-webkit-scrollbar {
+      display: none;
+    }
+
+    #shopify-section-{{ sid }} .tstn-gallery__item {
+      flex: 0 0 78vw;
+      max-width: 420px;
+      scroll-snap-align: center;
+    }
+    {% else %}
+    /* Stacked: one image per row */
+    #shopify-section-{{ sid }} .tstn-gallery__row {
+      grid-template-columns: 1fr;
       gap: 12px;
     }
+    {% endif %}
 
     /* Captions visible by default on touch — hover doesn't exist */
     #shopify-section-{{ sid }} .tstn-gallery__scrim,
@@ -288,7 +316,7 @@
     {%- endif -%}
 
     {%- if section.blocks.size > 0 -%}
-      <div class="tstn-gallery__grid">
+      <div class="tstn-gallery__row">
         {%- for block in section.blocks -%}
           {%- liquid
             assign caption_check = block.settings.caption | strip
@@ -317,7 +345,7 @@
                   class: 'tstn-gallery__img',
                   loading: 'lazy',
                   widths: '400, 600, 800, 1000, 1200, 1600',
-                  sizes: '(max-width: 749px) 100vw, (max-width: 989px) 50vw, 33vw'
+                  sizes: img_sizes
               }}
             {%- else -%}
               <div class="tstn-gallery__placeholder">
@@ -385,24 +413,8 @@
       "content": "Layout"
     },
     {
-      "type": "range",
-      "id": "images_per_row",
-      "label": "Images per row (desktop)",
-      "min": 2,
-      "max": 5,
-      "step": 1,
-      "default": 3,
-      "info": "Rows are created automatically based on how many images you add."
-    },
-    {
-      "type": "select",
-      "id": "images_per_row_mobile",
-      "label": "Images per row (mobile)",
-      "options": [
-        { "value": "1", "label": "1" },
-        { "value": "2", "label": "2" }
-      ],
-      "default": "1"
+      "type": "paragraph",
+      "content": "All images sit in a single row. The row divides itself evenly between however many images you add (up to 5)."
     },
     {
       "type": "select",
@@ -410,10 +422,22 @@
       "label": "Image shape",
       "options": [
         { "value": "portrait", "label": "Portrait (4:5)" },
+        { "value": "tall", "label": "Tall (3:4)" },
         { "value": "square", "label": "Square (1:1)" },
         { "value": "landscape", "label": "Landscape (16:10)" }
       ],
       "default": "portrait"
+    },
+    {
+      "type": "select",
+      "id": "mobile_layout",
+      "label": "Mobile layout",
+      "options": [
+        { "value": "scroll", "label": "Swipeable row" },
+        { "value": "stack", "label": "Stacked" }
+      ],
+      "default": "scroll",
+      "info": "Swipeable keeps the single-row design on phones."
     },
     {
       "type": "range",
@@ -495,6 +519,7 @@
     {
       "name": "TSTN Gallery",
       "blocks": [
+        { "type": "image" },
         { "type": "image" },
         { "type": "image" },
         { "type": "image" }
