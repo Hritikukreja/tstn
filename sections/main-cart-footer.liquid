@@ -3,7 +3,18 @@
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 {{ 'component-discounts.css' | asset_url | stylesheet_tag }}
 
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 {%- style -%}
+  @font-face {
+    font-family: 'Danger Neue Free Regular';
+    src: url('{{ 'DangerNeueFree-Regular.woff2' | asset_url }}') format('woff2'),
+         url('https://fonts.cdnfonts.com/s/107588/DangerNeueFree-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
@@ -15,10 +26,273 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* ============================================================
+     TSTN CART FOOTER — scoped, self-contained styling
+     ============================================================ */
+  #shopify-section-{{ section.id }} {
+    --tstn-bg: #0a0a0a;
+    --tstn-surface: #141414;
+    --tstn-surface-2: #1b1b1b;
+    --tstn-accent: #ff6a1a;
+    --tstn-border: rgba(255, 255, 255, 0.08);
+    --tstn-text: #f5f5f5;
+    --tstn-muted: #9a9a9a;
+  }
+
+  #shopify-section-{{ section.id }} #main-cart-footer {
+    background: var(--tstn-bg);
+    color: var(--tstn-text);
+    font-family: 'Rajdhani', sans-serif;
+  }
+
+  #shopify-section-{{ section.id }} #main-cart-footer.is-empty {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .page-width {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding-left: clamp(16px, 4vw, 56px);
+    padding-right: clamp(16px, 4vw, 56px);
+  }
+
+  #shopify-section-{{ section.id }} .cart__footer {
+    border-top: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: clamp(24px, 4vw, 48px);
+  }
+
+  #shopify-section-{{ section.id }} .cart__footer > * {
+    width: auto;
+  }
+
+  /* ---------- Order note ---------- */
+  #shopify-section-{{ section.id }} .cart__note {
+    flex: 1 1 420px;
+    max-width: 560px;
+    min-width: 0;
+    top: 0;
+  }
+
+  #shopify-section-{{ section.id }} .cart__note label {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--tstn-muted);
+    margin-bottom: 10px;
+    position: static;
+    display: inline-block;
+  }
+
+  #shopify-section-{{ section.id }} .cart__note .text-area {
+    background: var(--tstn-surface);
+    border: 1px solid var(--tstn-border);
+    border-radius: 14px;
+    color: var(--tstn-text);
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 14px 16px;
+    min-height: 110px;
+    transition: border-color 0.25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .cart__note .text-area::placeholder {
+    color: var(--tstn-muted);
+    opacity: 0.7;
+  }
+
+  #shopify-section-{{ section.id }} .cart__note .text-area:focus,
+  #shopify-section-{{ section.id }} .cart__note .text-area:focus-visible {
+    border-color: var(--tstn-accent);
+    outline: none;
+    box-shadow: none;
+  }
+
+  #shopify-section-{{ section.id }} .cart__note .field__input::after,
+  #shopify-section-{{ section.id }} .cart__note.field::after,
+  #shopify-section-{{ section.id }} .cart__note.field::before {
+    display: none;
+  }
+
+  /* ---------- Summary card ---------- */
+  #shopify-section-{{ section.id }} .cart__blocks {
+    background: var(--tstn-surface);
+    border: 1px solid var(--tstn-border);
+    border-radius: 18px;
+    padding: clamp(22px, 3vw, 32px);
+    width: 100%;
+    max-width: 420px;
+    margin-left: auto;
+  }
+
+  /* ---------- Cart-level discounts ---------- */
+  #shopify-section-{{ section.id }} .discounts__discount {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--tstn-accent);
+    background: rgba(255, 106, 26, 0.1);
+    border: 1px solid rgba(255, 106, 26, 0.3);
+    border-radius: 999px;
+    padding: 4px 12px;
+    width: fit-content;
+    margin-bottom: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .discounts__discount svg path {
+    fill: var(--tstn-accent);
+  }
+
+  /* ---------- Totals ---------- */
+  #shopify-section-{{ section.id }} .totals {
+    justify-content: space-between;
+    align-items: baseline;
+    border-top: 1px solid var(--tstn-border);
+    padding-top: 18px;
+  }
+
+  #shopify-section-{{ section.id }} .totals__total {
+    font-family: 'Danger Neue Free Regular', 'Rajdhani', sans-serif;
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--tstn-text);
+    margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .totals__total-value {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: clamp(1.5rem, 3vw, 1.9rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--tstn-accent);
+    margin: 0;
+  }
+
+  /* ---------- Tax note ---------- */
+  #shopify-section-{{ section.id }} .tax-note {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--tstn-muted);
+    margin-top: 12px;
+    margin-bottom: 0;
+    text-align: left;
+    display: block;
+  }
+
+  #shopify-section-{{ section.id }} .tax-note a {
+    color: var(--tstn-accent);
+    font-weight: 700;
+    text-underline-offset: 3px;
+  }
+
+  /* ---------- Checkout button ---------- */
+  #shopify-section-{{ section.id }} .cart__ctas {
+    margin-top: 22px;
+  }
+
+  #shopify-section-{{ section.id }} .cart__checkout-button {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #0a0a0a;
+    background: var(--tstn-accent);
+    border: 1px solid var(--tstn-accent);
+    border-radius: 999px;
+    padding: 18px 24px;
+    width: 100%;
+    max-width: 100%;
+    min-height: 0;
+    box-shadow: none;
+    cursor: pointer;
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  #shopify-section-{{ section.id }} .cart__checkout-button::after,
+  #shopify-section-{{ section.id }} .cart__checkout-button::before {
+    display: none;
+  }
+
+  #shopify-section-{{ section.id }} .cart__checkout-button:hover:not([disabled]) {
+    background: #ff7d38;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 106, 26, 0.25);
+  }
+
+  #shopify-section-{{ section.id }} .cart__checkout-button[disabled] {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  /* ---------- Dynamic checkout buttons ---------- */
+  #shopify-section-{{ section.id }} .cart__dynamic-checkout-buttons {
+    margin-top: 14px;
+    max-width: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .cart__dynamic-checkout-buttons [data-shopify-buttoncontainer] > * {
+    border-radius: 999px;
+    overflow: hidden;
+  }
+
+  /* ---------- Errors ---------- */
+  #shopify-section-{{ section.id }} #cart-errors {
+    font-family: 'Rajdhani', sans-serif;
+    font-weight: 600;
+    color: #ff5a5a;
+    margin-top: 12px;
+  }
+
+  /* ---------- Focus visibility ---------- */
+  #shopify-section-{{ section.id }} a:focus-visible,
+  #shopify-section-{{ section.id }} button:focus-visible,
+  #shopify-section-{{ section.id }} textarea:focus-visible {
+    outline: 2px solid var(--tstn-accent);
+    outline-offset: 2px;
+    box-shadow: none;
+  }
+
+  /* ---------- Mobile refinements ---------- */
+  @media screen and (max-width: 749px) {
+    #shopify-section-{{ section.id }} .cart__footer {
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .cart__note {
+      max-width: 100%;
+      flex: 1 1 auto;
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .cart__blocks {
+      max-width: 100%;
+      margin-left: 0;
+      border-radius: 14px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #shopify-section-{{ section.id }} * {
+      transition: none !important;
+    }
+  }
 {%- endstyle -%}
 
 <div
-  class="gradient color-{{ section.settings.color_scheme }}{% if cart == empty %} is-empty{% endif %}"
+  class="{% if cart == empty %}is-empty{% endif %}"
   id="main-cart-footer"
   data-id="{{ section.id }}"
 >
@@ -147,7 +421,7 @@
     {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"
-    },    
+    },
     {
       "type": "range",
       "id": "padding_top",
