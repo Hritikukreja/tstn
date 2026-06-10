@@ -273,11 +273,20 @@
     align-items: center;
     justify-content: center;
     opacity: 0;
+    pointer-events: none;
     transition: opacity 0.22s ease;
+  }
+
+  /* CRITICAL: author display:flex overrides the UA [hidden] rule —
+     without this, the closed lightbox sits invisibly over the whole
+     page at z-index 9999 and blocks every click */
+  .tstn-gallery-lightbox[hidden] {
+    display: none;
   }
 
   .tstn-gallery-lightbox.is-visible {
     opacity: 1;
+    pointer-events: auto;
   }
 
   .tstn-gallery-lightbox__backdrop {
