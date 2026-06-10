@@ -5,6 +5,9 @@
 
   Video behaviour matches other TSTN sections:
   cover/poster image + play button -> autoplay modal lightbox.
+
+  Buy Now button: smooth-scrolls to the TSTN Product Banner section
+  on the same page (falls back to Button URL if no banner is found).
 {% endcomment %}
 
 {%- liquid
@@ -28,6 +31,8 @@
   assign badge_font_weight = section.settings.badge_font_weight
   assign subheading_color = section.settings.subheading_color
   assign custom_price     = section.settings.custom_price
+  assign video_min_height = section.settings.video_min_height | default: 560
+  assign scroll_target    = section.settings.scroll_target_selector | default: '.section-tstn-product-banner'
 -%}
 
 {%- comment -%} ── Build a single video URL + extract YouTube ID for thumbnail fallback ── {%- endcomment -%}
@@ -57,6 +62,7 @@
     padding-bottom: {{ section_padding_bottom }}px;
     --vb-video-split: {{ video_split }}%;
     --vb-panel-split: calc({{ panel_split }}% - var(--vb-gap));
+    --vb-video-min-height: {{ video_min_height }}px;
     --vb-badge-text-color: {{ badge_color }};
     --vb-badge-icon-color: {{ badge_icon_color }};
     --vb-badge-font-size: {{ badge_font_size }}px;
@@ -166,8 +172,10 @@
           {%- if show_btn -%}
           <div class="vb-btn-wrap">
             <a
-              href="{{ btn_url }}"
+              href="{{ btn_url | default: '#' }}"
               class="vb-btn"
+              data-vb-scroll-btn
+              data-scroll-target="{{ scroll_target | escape }}"
               {%- if btn_url == blank -%} aria-disabled="true" {%- endif -%}
             >
               <span class="vb-btn-label">{{ btn_label }}</span>
@@ -302,7 +310,7 @@
     position: relative;
     width: 100%;
     height: 100%;
-    min-height: 460px;
+    min-height: var(--vb-video-min-height, 560px);
     background: #000;
     overflow: hidden;
   }
@@ -545,7 +553,7 @@
 
   /* ── Heading – Danger Neue ── */
   .vb-heading {
-    font-family: 'Danger Neue', 'Impact', sans-serif;
+    font-family: 'Danger Neue Free Regular', 'Danger Neue', 'Impact', sans-serif;
     font-weight: 400; /* Danger Neue Regular */
     font-size: clamp(22px, 2.4vw, 34px);
     line-height: 1.1;
@@ -742,7 +750,7 @@
   .vb-richtext h2,
   .vb-richtext h3,
   .vb-richtext h4 {
-    font-family: 'Danger Neue', 'Impact', sans-serif;
+    font-family: 'Danger Neue Free Regular', 'Danger Neue', 'Impact', sans-serif;
     font-weight: 400;
     letter-spacing: 0.04em;
     text-transform: uppercase;
@@ -773,7 +781,7 @@
     }
 
     .vb-video-frame {
-      min-height: 56vw;
+      min-height: 64vw;
     }
 
     .vb-buy-panel {
@@ -793,7 +801,61 @@
     var sectionId = '{{ section.id }}';
     var section   = document.getElementById('video-buy-' + sectionId);
     if (!section) return;
+    if (section.dataset.tstnVbBound === 'true') return;
+    section.dataset.tstnVbBound = 'true';
 
+    /* ───────────────────────────────────────────
+       BUY NOW → smooth-scroll to TSTN Product Banner
+    ─────────────────────────────────────────── */
+    var scrollBtn = section.querySelector('[data-vb-scroll-btn]');
+
+    function findBannerTarget() {
+      // 1. Custom selector from section settings
+      var customSel = scrollBtn ? scrollBtn.getAttribute('data-scroll-target') : '';
+      var selectors = [];
+      if (customSel) selectors.push(customSel);
+
+      // 2. Known fallbacks for the TSTN Product Banner section
+      selectors.push(
+        '.section-tstn-product-banner',
+        '.tstn-product-banner',
+        '[data-tstn-product-banner]',
+        '.shopify-section[id*="tstn_product_banner"]',
+        '.shopify-section[id*="tstn-product-banner"]'
+      );
+
+      for (var i = 0; i < selectors.length; i++) {
+        try {
+          var el = document.querySelector(selectors[i]);
+          if (el) return el;
+        } catch (err) { /* ignore invalid selector */ }
+      }
+      return null;
+    }
+
+    function getHeaderOffset() {
+      var header = document.querySelector('.shopify-section-header-sticky, .section-header, sticky-header, .header-wrapper');
+      if (header && getComputedStyle(header).position !== 'static') {
+        return header.getBoundingClientRect().height;
+      }
+      return 0;
+    }
+
+    if (scrollBtn) {
+      scrollBtn.addEventListener('click', function (e) {
+        var target = findBannerTarget();
+        if (target) {
+          e.preventDefault();
+          var top = target.getBoundingClientRect().top + window.pageYOffset - getHeaderOffset() - 12;
+          window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+        }
+        // No banner on this page -> fall through to the href (Button URL / product URL)
+      });
+    }
+
+    /* ───────────────────────────────────────────
+       VIDEO MODAL
+    ─────────────────────────────────────────── */
     var modal = section.querySelector('#vb-modal-' + sectionId);
     if (!modal) return;
 
@@ -966,8 +1028,15 @@
     {
       "type": "url",
       "id": "button_url",
-      "label": "Button URL",
-      "info": "Overrides the product URL if set."
+      "label": "Button URL (fallback)",
+      "info": "Only used if no Product Banner section is found on the page. Otherwise the button scrolls to the banner."
+    },
+    {
+      "type": "text",
+      "id": "scroll_target_selector",
+      "label": "Scroll target CSS selector",
+      "default": ".section-tstn-product-banner",
+      "info": "CSS selector of the section the Buy Now button scrolls to. Default targets the TSTN Product Banner."
     },
     {
       "type": "checkbox",
@@ -1060,6 +1129,16 @@
       "step": 5,
       "default": 70,
       "info": "The buy panel takes the remaining width."
+    },
+    {
+      "type": "range",
+      "id": "video_min_height",
+      "label": "Video height (px)",
+      "min": 400,
+      "max": 800,
+      "step": 20,
+      "default": 560,
+      "info": "Minimum height of the video/placeholder area on desktop."
     },
     {
       "type": "range",
