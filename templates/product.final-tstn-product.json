@@ -282,12 +282,6 @@
         "title": ""
       }
     },
-    "1767174510346020cc": {
-      "type": "apps",
-      "settings": {
-        "include_margins": true
-      }
-    },
     "related-products": {
       "type": "related-products",
       "disabled": true,
@@ -308,72 +302,6 @@
         "show_rating": false,
         "padding_top": 100,
         "padding_bottom": 100
-      }
-    },
-    "trust_badges_qazgFn": {
-      "type": "trust-badges",
-      "blocks": {
-        "badge_y3n9Wm": {
-          "type": "badge",
-          "settings": {
-            "icon_preset": "rewards",
-            "title": "TSTN CLUB REWARDS",
-            "description": "Earn points on every order. Unlock exclusive gear and perks.",
-            "link_label": "LEARN MORE",
-            "link": ""
-          }
-        },
-        "badge_bDDMNV": {
-          "type": "badge",
-          "settings": {
-            "icon_preset": "financing",
-            "title": "Easy Financing",
-            "description": "Flexible payments. More adventures. Pay over time with Shop Pay.",
-            "link_label": "LEARN MORE",
-            "link": ""
-          }
-        },
-        "badge_rtJtQm": {
-          "type": "badge",
-          "settings": {
-            "icon_preset": "tested",
-            "title": "TESTED & TRUSTED",
-            "description": "We run it, break it in, and only keep what works.",
-            "link_label": "LEARN MORE",
-            "link": ""
-          }
-        },
-        "badge_BGFXDy": {
-          "type": "badge",
-          "settings": {
-            "icon_preset": "shipping",
-            "title": "FAST SHIPPING",
-            "description": "Ships quick from our warehouse. Free shipping on orders $99+.",
-            "link_label": "LEARN MORE",
-            "link": ""
-          }
-        },
-        "badge_PxrAEr": {
-          "type": "badge",
-          "settings": {
-            "icon_preset": "returns",
-            "title": "EASY RETURNS",
-            "description": "60-day returns on most items. No hassle. No stress.",
-            "link_label": "LEARN MORE",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "badge_y3n9Wm",
-        "badge_bDDMNV",
-        "badge_rtJtQm",
-        "badge_BGFXDy",
-        "badge_PxrAEr"
-      ],
-      "name": "Trust Badges",
-      "settings": {
-        "accent_color": "#ff6a1a"
       }
     },
     "newbodyhtml_ig34hh": {
@@ -452,75 +380,6 @@
         "color_scheme": "scheme-5330df68-7ce6-41b9-9bf9-37d268b32221",
         "padding_top": 80,
         "padding_bottom": 80
-      }
-    },
-    "product_showcase_dczdxa": {
-      "type": "product-showcase",
-      "blocks": {
-        "product_card_eKcKR8": {
-          "type": "product_card",
-          "settings": {
-            "product": "bluetti-elite-30-v2",
-            "custom_image": "shopify://shop_images/Bluetti_2.png",
-            "title_override": "",
-            "description": "<p>Powers multiple devices with 4 AC outlets, 2x 100W USB-C, and more. Offers fast charging (0-80% in ~50 min), 6,000+ cycles, quiet operation, and UPS backup. Ideal for camping, van life.</p>",
-            "custom_url": "",
-            "card_title_color": "#f8f8f8",
-            "card_desc_color": "#b8922a"
-          }
-        },
-        "product_card_Mth6Je": {
-          "type": "product_card",
-          "settings": {
-            "product": "epic-crow-molle",
-            "custom_image": "shopify://shop_images/Crow_Molle_2.png",
-            "title_override": "TRUST THE GEAR WITH EPIC MOLLE",
-            "description": "<p>It mounts tightly under the roof for maximum vertical clearance, made from lightweight aerospace-grade aluminum with a durable satin black powder coat. Features a smart deviated </p>",
-            "custom_url": "",
-            "card_title_color": "#f8f8f8",
-            "card_desc_color": "#f56300"
-          }
-        },
-        "product_card_PzG9m7": {
-          "type": "product_card",
-          "settings": {
-            "product": "thule-hullavator-pro-kayak-rack-modula-racks",
-            "custom_image": "shopify://shop_images/join_crew_mobile.png",
-            "title_override": "Thule Hullavator Pro",
-            "description": "<p>A premium lift-assist kayak carrier that makes solo loading easy. Gas-assist struts lower the cradle up to 3 feet to waist height and reduce up to 40 lbs of the kayak’s weight.</p>",
-            "custom_url": "",
-            "card_title_color": "#f8f8f8",
-            "card_desc_color": ""
-          }
-        }
-      },
-      "block_order": [
-        "product_card_eKcKR8",
-        "product_card_Mth6Je",
-        "product_card_PzG9m7"
-      ],
-      "custom_css": [
-        "p {color: white;}"
-      ],
-      "name": "Product showcase",
-      "settings": {
-        "kicker": "Used & Tested",
-        "heading": "Shaun’s Gear Picks",
-        "cta_label": "Shop all Gears",
-        "cta_url": "",
-        "bg_color": "#121212",
-        "card_bg_color": "#121212",
-        "card_border_color": "#1f1f1f",
-        "card_border_hover_color": "#c9a84c",
-        "kicker_color": "#f56300",
-        "heading_color": "#f8f8f8",
-        "cta_color": "#2997ff",
-        "caption_color": "#f8f8f8",
-        "caption_name_color": "#f5f5f7",
-        "image_aspect_ratio": "3 / 4",
-        "image_fit": "cover",
-        "padding_top": 32,
-        "padding_bottom": 32
       }
     },
     "tstn_product_banner_xWi4bj": {
@@ -693,6 +552,75 @@
         "accent_color": "#ff6a1a"
       }
     },
+    "product_showcase_dczdxa": {
+      "type": "product-showcase",
+      "blocks": {
+        "product_card_eKcKR8": {
+          "type": "product_card",
+          "settings": {
+            "product": "bluetti-elite-30-v2",
+            "custom_image": "shopify://shop_images/Bluetti_2.png",
+            "title_override": "",
+            "description": "<p>Powers multiple devices with 4 AC outlets, 2x 100W USB-C, and more. Offers fast charging (0-80% in ~50 min), 6,000+ cycles, quiet operation, and UPS backup. Ideal for camping, van life.</p>",
+            "custom_url": "",
+            "card_title_color": "#f8f8f8",
+            "card_desc_color": "#b8922a"
+          }
+        },
+        "product_card_Mth6Je": {
+          "type": "product_card",
+          "settings": {
+            "product": "epic-crow-molle",
+            "custom_image": "shopify://shop_images/Crow_Molle_2.png",
+            "title_override": "TRUST THE GEAR WITH EPIC MOLLE",
+            "description": "<p>It mounts tightly under the roof for maximum vertical clearance, made from lightweight aerospace-grade aluminum with a durable satin black powder coat. Features a smart deviated </p>",
+            "custom_url": "",
+            "card_title_color": "#f8f8f8",
+            "card_desc_color": "#f56300"
+          }
+        },
+        "product_card_PzG9m7": {
+          "type": "product_card",
+          "settings": {
+            "product": "thule-hullavator-pro-kayak-rack-modula-racks",
+            "custom_image": "shopify://shop_images/join_crew_mobile.png",
+            "title_override": "Thule Hullavator Pro",
+            "description": "<p>A premium lift-assist kayak carrier that makes solo loading easy. Gas-assist struts lower the cradle up to 3 feet to waist height and reduce up to 40 lbs of the kayak’s weight.</p>",
+            "custom_url": "",
+            "card_title_color": "#f8f8f8",
+            "card_desc_color": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_card_eKcKR8",
+        "product_card_Mth6Je",
+        "product_card_PzG9m7"
+      ],
+      "custom_css": [
+        "p {color: white;}"
+      ],
+      "name": "Product showcase",
+      "settings": {
+        "kicker": "Used & Tested",
+        "heading": "Shaun’s Gear Picks",
+        "cta_label": "Shop all Gears",
+        "cta_url": "",
+        "bg_color": "#121212",
+        "card_bg_color": "#121212",
+        "card_border_color": "#1f1f1f",
+        "card_border_hover_color": "#c9a84c",
+        "kicker_color": "#f56300",
+        "heading_color": "#f8f8f8",
+        "cta_color": "#2997ff",
+        "caption_color": "#f8f8f8",
+        "caption_name_color": "#f5f5f7",
+        "image_aspect_ratio": "3 / 4",
+        "image_fit": "cover",
+        "padding_top": 32,
+        "padding_bottom": 32
+      }
+    },
     "feature_cards_casosuel_YkhJH3": {
       "type": "feature-cards-casosuel",
       "blocks": {
@@ -780,12 +708,10 @@
     "video_buy_section_fh7rn3",
     "feature_gallery_T3DUzd",
     "product_faq_h3Cdgd",
-    "1767174510346020cc",
     "related-products",
-    "trust_badges_qazgFn",
-    "newbodyhtml_ig34hh",
     "feature_gallery_xpJVXd",
     "tstn_product_banner_xWi4bj",
+    "newbodyhtml_ig34hh",
     "trust_badges_m7PPdc",
     "product_showcase_dczdxa",
     "feature_cards_casosuel_YkhJH3"
