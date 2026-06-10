@@ -124,6 +124,72 @@
         "padding_bottom": 48
       }
     },
+    "trust_badges_cLyjN8": {
+      "type": "trust-badges",
+      "blocks": {
+        "badge_gFwX8k": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "rewards",
+            "title": "TSTN CLUB REWARDS",
+            "description": "Earn points on every order. Unlock exclusive gear and perks.",
+            "link_label": "LEARN MORE",
+            "link": "shopify://pages/tstn-club-1"
+          }
+        },
+        "badge_w8AKfy": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "financing",
+            "title": "Easy Financing",
+            "description": "Flexible payments. More adventures. Pay over time with Shop Pay.",
+            "link_label": "LEARN MORE",
+            "link": "shopify://pages/financing-policy"
+          }
+        },
+        "badge_8aacTR": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "tested",
+            "title": "TESTED & TRUSTED",
+            "description": "We run it, break it in, and only keep what works.",
+            "link_label": "LEARN MORE",
+            "link": ""
+          }
+        },
+        "badge_3bCK77": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "shipping",
+            "title": "FAST SHIPPING",
+            "description": "Ships quick from our warehouse. Free shipping on orders $99+.",
+            "link_label": "LEARN MORE",
+            "link": "shopify://pages/shipping-policy"
+          }
+        },
+        "badge_Kjm4bX": {
+          "type": "badge",
+          "settings": {
+            "icon_preset": "returns",
+            "title": "EASY RETURNS",
+            "description": "60-day returns on most items. No hassle. No stress.",
+            "link_label": "LEARN MORE",
+            "link": "shopify://pages/returns-amp-refund-policy"
+          }
+        }
+      },
+      "block_order": [
+        "badge_gFwX8k",
+        "badge_w8AKfy",
+        "badge_8aacTR",
+        "badge_3bCK77",
+        "badge_Kjm4bX"
+      ],
+      "name": "Trust Badges",
+      "settings": {
+        "accent_color": "#ff6a1a"
+      }
+    },
     "main": {
       "type": "main-product",
       "blocks": {
@@ -480,6 +546,7 @@
   "order": [
     "product_banner_XPWEW8",
     "tstn_product_banner_HTPx8E",
+    "trust_badges_cLyjN8",
     "main",
     "pro_hero_ye7RgN",
     "video_buy_section_fh7rn3",
