@@ -160,21 +160,21 @@
           "type": "trust_badge",
           "settings": {
             "icon": "✓",
-            "text": "Easy Financing"
+            "text": "{{ section.settings.product.metafields.custom.primary_feature_gallery_title_1.value }}"
           }
         },
         "trust_badge_rj9Jji": {
           "type": "trust_badge",
           "settings": {
             "icon": "✓",
-            "text": "Free shipping"
+            "text": "{{ section.settings.product.metafields.custom.primary_feature_gallery_title_2.value }}"
           }
         },
         "trust_badge_ENiQfA": {
           "type": "trust_badge",
           "settings": {
-            "icon": "↩",
-            "text": "30-day returns"
+            "icon": "✓",
+            "text": "{{ section.settings.product.metafields.custom.primary_feature_gallery_title_3.value }}"
           }
         }
       },
@@ -302,25 +302,6 @@
         "show_rating": false,
         "padding_top": 100,
         "padding_bottom": 100
-      }
-    },
-    "newbodyhtml_ig34hh": {
-      "type": "newbodyhtml",
-      "name": "TSTN Description",
-      "settings": {
-        "heading": "Product Details",
-        "open_by_default": false,
-        "heading_size": 34,
-        "bg_color": "#0a0a0a",
-        "card_color": "#141414",
-        "accent_color": "#ff6a1a",
-        "heading_color": "#ffffff",
-        "text_color": "#cccccc",
-        "border_color": "#262626",
-        "max_width": 1400,
-        "border_radius": 12,
-        "padding_top": 40,
-        "padding_bottom": 40
       }
     },
     "feature_gallery_xpJVXd": {
@@ -484,6 +465,25 @@
         "accent_color": "#ff6a1a",
         "padding_top": 24,
         "padding_bottom": 48
+      }
+    },
+    "newbodyhtml_ig34hh": {
+      "type": "newbodyhtml",
+      "name": "TSTN Description",
+      "settings": {
+        "heading": "Product Details",
+        "open_by_default": false,
+        "heading_size": 34,
+        "bg_color": "#0a0a0a",
+        "card_color": "#141414",
+        "accent_color": "#ff6a1a",
+        "heading_color": "#ffffff",
+        "text_color": "#cccccc",
+        "border_color": "#262626",
+        "max_width": 1400,
+        "border_radius": 12,
+        "padding_top": 40,
+        "padding_bottom": 40
       }
     },
     "trust_badges_m7PPdc": {
