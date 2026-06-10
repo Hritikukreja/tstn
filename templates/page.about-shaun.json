@@ -193,6 +193,13 @@
             "name": "MoparInsiders"
           }
         },
+        "logo_UPEjj6": {
+          "type": "logo",
+          "name": "onX Offroad",
+          "settings": {
+            "name": "onX Offroad"
+          }
+        },
         "logo_RqktUD": {
           "type": "logo",
           "name": "Hooniverse",
@@ -206,6 +213,7 @@
         "logo_WMhFwN",
         "logo_ykt3Mk",
         "logo_XUFH9b",
+        "logo_UPEjj6",
         "logo_RqktUD"
       ],
       "name": "About Shaun • Press",
