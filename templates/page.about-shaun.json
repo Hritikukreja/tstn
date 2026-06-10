@@ -231,6 +231,7 @@
       "type": "about-shaun-quote",
       "name": "About Shaun • Quote",
       "settings": {
+        "image": "shopify://shop_images/EP._42.jpg",
         "quote": "The best stories are earned out there — one road, one lesson, one mile at a time.",
         "signature_text": "Shaun Walford",
         "bg_color": "#0a0a0a",
@@ -277,6 +278,7 @@
         "card_8mRwRF",
         "card_8qXiJb"
       ],
+      "disabled": true,
       "name": "About Shaun • Links",
       "settings": {
         "heading": "KEEP UP WITH THE JOURNEY",
