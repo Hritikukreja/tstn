@@ -338,12 +338,24 @@
             "link_label": "",
             "link": "shopify://products/tstn-hat-1"
           }
+        },
+        "feature_QamhxU": {
+          "type": "feature",
+          "settings": {
+            "media_type": "image",
+            "show_controls": false,
+            "title": "Feature title",
+            "description": "<p>Describe this feature in one or two lines.</p>",
+            "link_label": "Learn more",
+            "link": ""
+          }
         }
       },
       "block_order": [
         "feature_JYJrya",
         "feature_rqfT7D",
-        "feature_LxVcpf"
+        "feature_LxVcpf",
+        "feature_QamhxU"
       ],
       "name": "Feature gallery",
       "settings": {
