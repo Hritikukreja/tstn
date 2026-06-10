@@ -1,0 +1,202 @@
+{%- comment -%}
+==========================================================================
+TSTN — ABOUT SHAUN PAGE
+SECTION 1 of 8: HERO  (section type: about-shaun-hero)
+Eyebrow + headline + intro + signature + CTA, with Shaun image bleeding right.
+==========================================================================
+{%- endcomment -%}
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Dancing+Script:wght@600&display=swap');
+  @font-face {
+    font-family: 'Danger Neue Free Regular';
+    src: url('https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Danger_Neue_Regular.ttf') format('truetype');
+    font-weight: normal; font-style: normal; font-display: swap;
+  }
+
+  #shopify-section-{{ section.id }}{
+    --tstn-bg: {{ section.settings.bg_color }};
+    --tstn-accent: {{ section.settings.accent_color }};
+    --tstn-text: {{ section.settings.text_color }};
+    --tstn-muted: {{ section.settings.muted_color }};
+    --tstn-pad-x: clamp(28px, 4vw, 64px);
+    --tstn-maxw: 1600px;
+    --tstn-eyebrow: {{ section.settings.eyebrow_size }}px;
+    --tstn-head: clamp({{ section.settings.heading_size_min }}px, 6.4vw, {{ section.settings.heading_size_max }}px);
+    --tstn-body: {{ section.settings.body_size }}px;
+  }
+
+  #shopify-section-{{ section.id }} .ash-hero{
+    background: var(--tstn-bg);
+    color: var(--tstn-text);
+    font-family: 'Rajdhani', sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+  #shopify-section-{{ section.id }} .ash-hero__inner{
+    max-width: var(--tstn-maxw);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    min-height: clamp(560px, 72vh, 820px);
+  }
+  #shopify-section-{{ section.id }} .ash-hero__copy{
+    padding: clamp(56px, 7vw, 110px) clamp(20px, 3vw, 40px) clamp(56px, 7vw, 110px) var(--tstn-pad-x);
+    position: relative;
+    z-index: 3;
+    max-width: 720px;
+  }
+  #shopify-section-{{ section.id }} .ash-eyebrow{
+    display: inline-flex; align-items: center; gap: 16px;
+    color: var(--tstn-accent);
+    font-size: var(--tstn-eyebrow);
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    margin-bottom: 26px;
+  }
+  #shopify-section-{{ section.id }} .ash-eyebrow::after{
+    content: ""; width: 46px; height: 2px; background: var(--tstn-accent);
+  }
+  #shopify-section-{{ section.id }} .ash-hero__head{
+    font-family: 'Danger Neue Free Regular', sans-serif;
+    font-size: var(--tstn-head);
+    line-height: 0.96;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    margin: 0 0 26px;
+  }
+  #shopify-section-{{ section.id }} .ash-hero__body{
+    font-size: var(--tstn-body);
+    line-height: 1.55;
+    color: var(--tstn-muted);
+    max-width: 480px;
+    margin: 0 0 30px;
+  }
+  #shopify-section-{{ section.id }} .ash-hero__body p{ margin: 0 0 12px; }
+  #shopify-section-{{ section.id }} .ash-sign{
+    margin-bottom: 4px; max-height: 64px; width: auto; display: block;
+  }
+  #shopify-section-{{ section.id }} .ash-sign-text{
+    font-family: 'Dancing Script', cursive;
+    color: var(--tstn-accent);
+    font-size: clamp(30px, 4vw, 42px);
+    line-height: 1; margin-bottom: 6px;
+  }
+  #shopify-section-{{ section.id }} .ash-role{
+    font-size: 13px; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--tstn-text); opacity: .85;
+    margin-bottom: 34px;
+  }
+  #shopify-section-{{ section.id }} .ash-btn{
+    display: inline-flex; align-items: center; gap: 14px;
+    padding: 16px 30px;
+    border: 1px solid rgba(255,255,255,.28);
+    color: var(--tstn-text);
+    font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+    text-decoration: none; background: transparent;
+    transition: all .25s ease;
+  }
+  #shopify-section-{{ section.id }} .ash-btn:hover{
+    border-color: var(--tstn-accent); background: var(--tstn-accent); color: #0a0a0a;
+  }
+  #shopify-section-{{ section.id }} .ash-btn svg{ width: 18px; height: 18px; }
+
+  #shopify-section-{{ section.id }} .ash-hero__media{
+    position: relative; align-self: stretch; min-height: 100%;
+  }
+  #shopify-section-{{ section.id }} .ash-hero__media img{
+    width: 100%; height: 100%; object-fit: cover; display: block;
+  }
+  #shopify-section-{{ section.id }} .ash-hero__media::before{
+    content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: linear-gradient(90deg, var(--tstn-bg) 0%, rgba(10,10,10,.35) 22%, rgba(10,10,10,0) 48%);
+  }
+  #shopify-section-{{ section.id }} .ash-hero__media.is-empty{
+    background: #1a1a1a;
+  }
+
+  @media (max-width: 990px){
+    #shopify-section-{{ section.id }} .ash-hero__inner{ grid-template-columns: 1fr; }
+    #shopify-section-{{ section.id }} .ash-hero__media{ order: -1; min-height: 360px; }
+    #shopify-section-{{ section.id }} .ash-hero__media::before{
+      background: linear-gradient(0deg, var(--tstn-bg) 2%, rgba(10,10,10,0) 55%);
+    }
+    #shopify-section-{{ section.id }} .ash-hero__copy{ padding-top: clamp(28px, 5vw, 48px); }
+  }
+</style>
+
+<div class="ash-hero">
+  <div class="ash-hero__inner">
+    <div class="ash-hero__copy">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="ash-eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h1 class="ash-hero__head">{{ section.settings.heading }}</h1>
+      {%- endif -%}
+      {%- if section.settings.body != blank -%}
+        <div class="ash-hero__body">{{ section.settings.body }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.signature_image != blank -%}
+        <img class="ash-sign" src="{{ section.settings.signature_image | image_url: width: 480 }}" alt="" loading="lazy">
+      {%- elsif section.settings.signature_text != blank -%}
+        <div class="ash-sign-text">{{ section.settings.signature_text }}</div>
+      {%- endif -%}
+      {%- if section.settings.role != blank -%}
+        <div class="ash-role">{{ section.settings.role }}</div>
+      {%- endif -%}
+
+      {%- if section.settings.button_label != blank -%}
+        <a class="ash-btn" href="{{ section.settings.button_link | default: '#' }}">
+          {{ section.settings.button_label }}
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+        </a>
+      {%- endif -%}
+    </div>
+
+    <div class="ash-hero__media{% unless section.settings.hero_image %} is-empty{% endunless %}">
+      {%- if section.settings.hero_image != blank -%}
+        <img src="{{ section.settings.hero_image | image_url: width: 1600 }}"
+             alt="{{ section.settings.hero_image.alt | escape }}"
+             width="{{ section.settings.hero_image.width }}"
+             height="{{ section.settings.hero_image.height }}">
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "About Shaun • Hero",
+  "tag": "section",
+  "class": "section-ash-hero",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "ABOUT SHAUN" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "BUILT ON EXPERIENCE. SHARED FOR THE ROAD." },
+    { "type": "richtext", "id": "body", "label": "Intro paragraph", "default": "<p>I'm Shaun Walford, founder of TSTN, overlander, and creator. Everything we share comes from real-world lessons — years on the road, plenty of mistakes, and what actually works when it matters.</p>" },
+    { "type": "image_picker", "id": "signature_image", "label": "Signature image (optional)" },
+    { "type": "text", "id": "signature_text", "label": "Signature text (fallback)", "default": "Shaun Walford" },
+    { "type": "text", "id": "role", "label": "Role line", "default": "FOUNDER, TSTN" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "EXPLORE CLUBHOUSE" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+    { "type": "image_picker", "id": "hero_image", "label": "Hero image (Shaun)" },
+
+    { "type": "header", "content": "Typography" },
+    { "type": "range", "id": "eyebrow_size", "label": "Eyebrow size (px)", "min": 10, "max": 18, "step": 1, "default": 13 },
+    { "type": "range", "id": "heading_size_min", "label": "Heading min size (px)", "min": 28, "max": 64, "step": 1, "default": 40 },
+    { "type": "range", "id": "heading_size_max", "label": "Heading max size (px)", "min": 48, "max": 110, "step": 1, "default": 78 },
+    { "type": "range", "id": "body_size", "label": "Body size (px)", "min": 14, "max": 22, "step": 1, "default": 17 },
+
+    { "type": "header", "content": "Colours" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#0a0a0a" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#ff6a1a" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#ffffff" },
+    { "type": "color", "id": "muted_color", "label": "Muted text", "default": "#b3b3b3" }
+  ],
+  "presets": [{ "name": "About Shaun • Hero" }]
+}
+{% endschema %}
