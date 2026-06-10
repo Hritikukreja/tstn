@@ -11,13 +11,277 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "about_shaun_hero_9KmjPg": {
+      "type": "about-shaun-hero",
+      "name": "About Shaun • Hero",
+      "settings": {
+        "eyebrow": "ABOUT SHAUN",
+        "heading": "BUILT ON EXPERIENCE. SHARED FOR THE ROAD.",
+        "body": "<p>I'm Shaun Walford, founder of TSTN, overlander, and creator. Everything we share comes from real-world lessons — years on the road, plenty of mistakes, and what actually works when it matters.</p>",
+        "signature_text": "Shaun Walford",
+        "role": "FOUNDER, TSTN",
+        "button_label": "EXPLORE CLUBHOUSE",
+        "button_link": "",
+        "hero_image": "shopify://shop_images/Still_2026-05-19_164522_1.105.1.jpg",
+        "eyebrow_size": 13,
+        "heading_size_min": 40,
+        "heading_size_max": 78,
+        "body_size": 17,
+        "bg_color": "#0a0a0a",
+        "accent_color": "#ff6a1a",
+        "text_color": "#ffffff",
+        "muted_color": "#b3b3b3"
+      }
+    },
+    "about_shaun_stats_y7hhhT": {
+      "type": "about-shaun-stats",
+      "blocks": {
+        "stat_xHDEg7": {
+          "type": "stat",
+          "settings": {
+            "icon": "pin",
+            "number": "210,000+",
+            "label": "KM TRAVELLED",
+            "sub": "Across 4 continents"
+          }
+        },
+        "stat_bB6pjB": {
+          "type": "stat",
+          "settings": {
+            "icon": "mountain",
+            "number": "48+",
+            "label": "TRIPS TAKEN",
+            "sub": "Remote backcountry expeditions"
+          }
+        },
+        "stat_VK8eYM": {
+          "type": "stat",
+          "settings": {
+            "icon": "flame",
+            "number": "6+",
+            "label": "YEARS ON THE ROAD",
+            "sub": "Full-time overlanding and exploring"
+          }
+        },
+        "stat_GYPrEt": {
+          "type": "stat",
+          "settings": {
+            "icon": "video",
+            "number": "500+",
+            "label": "VIDEOS SHARED",
+            "sub": "Real experiences. Zero fluff."
+          }
+        }
+      },
+      "block_order": [
+        "stat_xHDEg7",
+        "stat_bB6pjB",
+        "stat_VK8eYM",
+        "stat_GYPrEt"
+      ],
+      "name": "About Shaun • Stats",
+      "settings": {
+        "bg_color": "#0a0a0a",
+        "card_color": "#141414",
+        "accent_color": "#ff6a1a",
+        "text_color": "#ffffff",
+        "muted_color": "#9a9a9a"
+      }
+    },
+    "about_shaun_story_hhz4Bm": {
+      "type": "about-shaun-story",
+      "name": "About Shaun • Story",
+      "settings": {
+        "heading": "THE ROAD THAT SHAPED TSTN",
+        "body": "<p>I started as a tradesman — hands-on work, problem solving, and getting the job done. Overlanding pulled me in, and I never looked back. Out there, things break, plans change, and the only way forward is to adapt.</p><p>That's where TSTN was born — from learning by doing and a drive to share the gear, knowledge, and lessons that actually make a difference on the road.</p>",
+        "video_thumb": "shopify://shop_images/Still_2026-05-19_164522_1.160.1.jpg",
+        "video_url": "",
+        "caption": "The road teaches you what spec sheets can't. Experience is the best teacher.",
+        "bg_color": "#0a0a0a",
+        "card_color": "#141414",
+        "accent_color": "#ff6a1a",
+        "text_color": "#ffffff",
+        "muted_color": "#a5a5a5"
+      }
+    },
+    "about_shaun_values_cQYBqB": {
+      "type": "about-shaun-values",
+      "blocks": {
+        "value_by4nfh": {
+          "type": "value",
+          "settings": {
+            "icon": "shield",
+            "title": "REAL-WORLD TESTING",
+            "text": "We test gear in the real world, not just in the garage."
+          }
+        },
+        "value_8cNVLt": {
+          "type": "value",
+          "settings": {
+            "icon": "check",
+            "title": "NO-FLUFF RECOMMENDATIONS",
+            "text": "Straight talk and honest reviews. No hype, no sponsorship bias."
+          }
+        },
+        "value_4zb9Md": {
+          "type": "value",
+          "settings": {
+            "icon": "people",
+            "title": "COMMUNITY FIRST",
+            "text": "TSTN is built for the community, by the community."
+          }
+        },
+        "value_BezLCm": {
+          "type": "value",
+          "settings": {
+            "icon": "mountain",
+            "title": "ADVENTURE WITH PURPOSE",
+            "text": "We take only what we need and leave every place better."
+          }
+        }
+      },
+      "block_order": [
+        "value_by4nfh",
+        "value_8cNVLt",
+        "value_4zb9Md",
+        "value_BezLCm"
+      ],
+      "name": "About Shaun • Values",
+      "settings": {
+        "heading": "WHAT SHAUN STANDS FOR",
+        "bg_color": "#0a0a0a",
+        "card_color": "#141414",
+        "accent_color": "#ff6a1a",
+        "text_color": "#ffffff",
+        "muted_color": "#9a9a9a"
+      }
+    },
+    "about_shaun_press_GB6rQc": {
+      "type": "about-shaun-press",
+      "blocks": {
+        "logo_HRTdFF": {
+          "type": "logo",
+          "settings": {
+            "name": "4X4 AUSTRALIA"
+          }
+        },
+        "logo_WMhFwN": {
+          "type": "logo",
+          "settings": {
+            "name": "THE ADVENTURIST"
+          }
+        },
+        "logo_ykt3Mk": {
+          "type": "logo",
+          "settings": {
+            "name": "OVERLAND JOURNAL"
+          }
+        },
+        "logo_XUFH9b": {
+          "type": "logo",
+          "settings": {
+            "name": "UNSEALED 4X4"
+          }
+        },
+        "logo_RqktUD": {
+          "type": "logo",
+          "settings": {
+            "name": "DRIVE"
+          }
+        }
+      },
+      "block_order": [
+        "logo_HRTdFF",
+        "logo_WMhFwN",
+        "logo_ykt3Mk",
+        "logo_XUFH9b",
+        "logo_RqktUD"
+      ],
+      "name": "About Shaun • Press",
+      "settings": {
+        "label": "AS SEEN IN",
+        "logo_height": 38,
+        "bg_color": "#0a0a0a",
+        "card_color": "#141414",
+        "accent_color": "#ff6a1a",
+        "text_color": "#ffffff"
+      }
+    },
+    "about_shaun_quote_7WEgnM": {
+      "type": "about-shaun-quote",
+      "name": "About Shaun • Quote",
+      "settings": {
+        "quote": "The best stories are earned out there — one road, one lesson, one mile at a time.",
+        "signature_text": "Shaun Walford",
+        "bg_color": "#0a0a0a",
+        "accent_color": "#ff6a1a",
+        "text_color": "#ffffff"
+      }
+    },
+    "about_shaun_links_gVcM9g": {
+      "type": "about-shaun-links",
+      "blocks": {
+        "card_4LrFfX": {
+          "type": "card",
+          "settings": {
+            "show_play": false,
+            "title": "EXPLORE GEAR",
+            "text": "Tested gear for real-world adventure.",
+            "cta": "SHOP NOW",
+            "link": ""
+          }
+        },
+        "card_8mRwRF": {
+          "type": "card",
+          "settings": {
+            "show_play": false,
+            "title": "LEARN IN CLUBHOUSE",
+            "text": "Go deeper with exclusive courses and guides.",
+            "cta": "JOIN CLUBHOUSE",
+            "link": ""
+          }
+        },
+        "card_8qXiJb": {
+          "type": "card",
+          "settings": {
+            "show_play": true,
+            "title": "WATCH THE LATEST",
+            "text": "New adventures and gear videos uploaded weekly.",
+            "cta": "WATCH NOW",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_4LrFfX",
+        "card_8mRwRF",
+        "card_8qXiJb"
+      ],
+      "name": "About Shaun • Links",
+      "settings": {
+        "heading": "KEEP UP WITH THE JOURNEY",
+        "bg_color": "#0a0a0a",
+        "card_color": "#141414",
+        "accent_color": "#ff6a1a",
+        "text_color": "#ffffff",
+        "muted_color": "#9a9a9a"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "about_shaun_hero_9KmjPg",
+    "about_shaun_stats_y7hhhT",
+    "about_shaun_story_hhz4Bm",
+    "about_shaun_values_cQYBqB",
+    "about_shaun_press_GB6rQc",
+    "about_shaun_quote_7WEgnM",
+    "about_shaun_links_gVcM9g"
   ]
 }
