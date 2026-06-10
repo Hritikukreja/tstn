@@ -19,6 +19,7 @@
         "subtext": "",
         "show_mark": true,
         "mark_image": "shopify://shop_images/TSTN_Bomber_Jacket.png",
+        "mark_opacity": 100,
         "bg_color": "#000000",
         "text_size": 44,
         "text_size_mobile": 24,
