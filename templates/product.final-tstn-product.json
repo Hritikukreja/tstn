@@ -274,7 +274,7 @@
         "media_aspect_ratio": "4 / 5",
         "color_scheme": "scheme-5330df68-7ce6-41b9-9bf9-37d268b32221",
         "padding_top": 60,
-        "padding_bottom": 80
+        "padding_bottom": 60
       }
     },
     "product_faq_h3Cdgd": {
@@ -361,8 +361,8 @@
         "show_content": true,
         "media_aspect_ratio": "4 / 5",
         "color_scheme": "scheme-5330df68-7ce6-41b9-9bf9-37d268b32221",
-        "padding_top": 80,
-        "padding_bottom": 80
+        "padding_top": 52,
+        "padding_bottom": 52
       }
     },
     "custom_image_banner_U3pdMJ": {
