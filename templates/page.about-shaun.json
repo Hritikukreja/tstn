@@ -55,7 +55,7 @@
           "type": "stat",
           "settings": {
             "icon": "mountain",
-            "number": "48+",
+            "number": "98+",
             "label": "TRIPS TAKEN",
             "sub": "Remote backcountry expeditions"
           }
@@ -64,7 +64,7 @@
           "type": "stat",
           "settings": {
             "icon": "flame",
-            "number": "6+",
+            "number": "8+",
             "label": "YEARS ON THE ROAD",
             "sub": "Full-time overlanding and exploring"
           }
@@ -73,7 +73,7 @@
           "type": "stat",
           "settings": {
             "icon": "video",
-            "number": "500+",
+            "number": "360+",
             "label": "VIDEOS SHARED",
             "sub": "Real experiences. Zero fluff."
           }
