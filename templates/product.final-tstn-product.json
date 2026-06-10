@@ -515,7 +515,7 @@
             "title": "TSTN CLUB REWARDS",
             "description": "Earn points on every order. Unlock exclusive gear and perks.",
             "link_label": "LEARN MORE",
-            "link": ""
+            "link": "shopify://pages/tstn-club-1"
           }
         },
         "badge_iiKqFL": {
@@ -525,7 +525,7 @@
             "title": "Easy Financing",
             "description": "Flexible payments. More adventures. Pay over time with Shop Pay.",
             "link_label": "LEARN MORE",
-            "link": ""
+            "link": "shopify://pages/financing-policy"
           }
         },
         "badge_ef4HGT": {
