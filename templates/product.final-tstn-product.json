@@ -194,7 +194,7 @@
         "video_poster": "{{ section.settings.product.featured_image }}",
         "show_video_controls": false,
         "heading": "{{ section.settings.product.title }}",
-        "subheading": "{{ product.description }}",
+        "subheading": "",
         "subheading_color": "#ffffff",
         "product": "{{ product }}",
         "custom_price": "{{ product.metafields.custom.emi_text.value }}",
