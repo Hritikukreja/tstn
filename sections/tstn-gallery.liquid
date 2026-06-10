@@ -135,6 +135,16 @@
   }
 
   {% case section.settings.aspect_ratio %}
+    {% when 'adaptive' %}
+  /* Justified row: natural ratios, equal height, proportional widths */
+  #shopify-section-{{ sid }} .tstn-gallery__row {
+    display: flex;
+    align-items: stretch;
+  }
+  #shopify-section-{{ sid }} .tstn-gallery__item {
+    aspect-ratio: var(--tstn-ratio, 1);
+    flex: var(--tstn-ratio, 1) 1 0%;
+  }
     {% when 'square' %}
   #shopify-section-{{ sid }} .tstn-gallery__item { aspect-ratio: 1 / 1; }
     {% when 'portrait' %}
@@ -268,17 +278,35 @@
       display: none;
     }
 
+    {% if section.settings.aspect_ratio == 'adaptive' %}
+    /* Equal-height strip: each image's width follows its own ratio */
+    #shopify-section-{{ sid }} .tstn-gallery__item {
+      flex: 0 0 auto;
+      height: min(96vw, 420px);
+      max-width: 86vw;
+      scroll-snap-align: center;
+    }
+    {% else %}
     #shopify-section-{{ sid }} .tstn-gallery__item {
       flex: 0 0 78vw;
       max-width: 420px;
       scroll-snap-align: center;
     }
+    {% endif %}
     {% else %}
     /* Stacked: one image per row */
     #shopify-section-{{ sid }} .tstn-gallery__row {
       grid-template-columns: 1fr;
+      flex-direction: column;
       gap: 12px;
     }
+
+    {% if section.settings.aspect_ratio == 'adaptive' %}
+    #shopify-section-{{ sid }} .tstn-gallery__item {
+      flex: 0 0 auto;
+      width: 100%;
+    }
+    {% endif %}
     {% endif %}
 
     /* Captions visible by default on touch — hover doesn't exist */
@@ -324,17 +352,22 @@
             if block.settings.link != blank
               assign has_link = true
             endif
+            assign img_ratio = 1.0
+            if block.settings.image != blank
+              assign img_ratio = block.settings.image.aspect_ratio | round: 4
+            endif
           -%}
 
           {%- if has_link -%}
             <a
               href="{{ block.settings.link }}"
               class="tstn-gallery__item"
+              style="--tstn-ratio: {{ img_ratio }};"
               {{ block.shopify_attributes }}
               {%- if caption_check != blank %} aria-label="{{ caption_check | escape }}"{% endif -%}
             >
           {%- else -%}
-            <div class="tstn-gallery__item" {{ block.shopify_attributes }}>
+            <div class="tstn-gallery__item" style="--tstn-ratio: {{ img_ratio }};" {{ block.shopify_attributes }}>
           {%- endif -%}
 
             {%- if block.settings.image != blank -%}
@@ -421,12 +454,14 @@
       "id": "aspect_ratio",
       "label": "Image shape",
       "options": [
+        { "value": "adaptive", "label": "Adapt to each image" },
         { "value": "portrait", "label": "Portrait (4:5)" },
         { "value": "tall", "label": "Tall (3:4)" },
         { "value": "square", "label": "Square (1:1)" },
         { "value": "landscape", "label": "Landscape (16:10)" }
       ],
-      "default": "portrait"
+      "default": "adaptive",
+      "info": "Adapt keeps each image's natural proportions — the row stays one height and widths adjust automatically."
     },
     {
       "type": "select",
