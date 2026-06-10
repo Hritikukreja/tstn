@@ -17,8 +17,57 @@
         "padding_bottom": 28
       }
     },
+    "image_with_text_Q9JBVk": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_PHHRT3": {
+          "type": "heading",
+          "settings": {
+            "heading": "Image with text",
+            "heading_size": "h1"
+          }
+        },
+        "text_tXE8Ut": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "text_style": "body"
+          }
+        },
+        "button_KMHwxa": {
+          "type": "button",
+          "settings": {
+            "button_label": "Button label",
+            "button_link": "",
+            "button_style_secondary": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_PHHRT3",
+        "text_tXE8Ut",
+        "button_KMHwxa"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/Still_2026-05-19_164522_1.105.1.jpg",
+        "height": "adapt",
+        "desktop_image_width": "medium",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "about_shaun_hero_9KmjPg": {
       "type": "about-shaun-hero",
+      "disabled": true,
       "name": "About Shaun • Hero",
       "settings": {
         "eyebrow": "ABOUT TSTN",
@@ -153,6 +202,7 @@
         "value_4zb9Md",
         "value_BezLCm"
       ],
+      "disabled": true,
       "name": "About Shaun • Values",
       "settings": {
         "heading": "WHAT SHAUN STANDS FOR",
@@ -217,6 +267,7 @@
         "logo_UPEjj6",
         "logo_RqktUD"
       ],
+      "disabled": true,
       "name": "About Shaun • Press",
       "settings": {
         "label": "AS SEEN IN",
@@ -229,6 +280,7 @@
     },
     "about_shaun_quote_7WEgnM": {
       "type": "about-shaun-quote",
+      "disabled": true,
       "name": "About Shaun • Quote",
       "settings": {
         "image": "shopify://shop_images/EP._42.jpg",
@@ -292,6 +344,7 @@
   },
   "order": [
     "main",
+    "image_with_text_Q9JBVk",
     "about_shaun_hero_9KmjPg",
     "about_shaun_stats_y7hhhT",
     "about_shaun_story_hhz4Bm",
