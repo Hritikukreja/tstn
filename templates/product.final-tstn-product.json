@@ -367,36 +367,6 @@
         "padding_bottom": 52
       }
     },
-    "tstn_gallery_ccXAnh": {
-      "type": "tstn-gallery",
-      "blocks": {
-        "image_nMwPhq": {
-          "type": "image",
-          "settings": {
-            "image": "{{ product.metafields.custom.image_banner.value }}",
-            "caption": "{{ product.metafields.custom.vendor_image_title_1.value }}",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "image_nMwPhq"
-      ],
-      "name": "TSTN Gallery",
-      "settings": {
-        "eyebrow": "",
-        "heading": "",
-        "subheading": "",
-        "heading_alignment": "left",
-        "aspect_ratio": "adaptive",
-        "mobile_layout": "scroll",
-        "grid_gap": 16,
-        "corner_radius": 14,
-        "background_color": "#0a0a0a",
-        "padding_top": 80,
-        "padding_bottom": 80
-      }
-    },
     "tstn_product_banner_xWi4bj": {
       "type": "tstn-product-banner",
       "blocks": {
@@ -744,7 +714,6 @@
     "product_faq_h3Cdgd",
     "related-products",
     "feature_gallery_xpJVXd",
-    "tstn_gallery_ccXAnh",
     "tstn_product_banner_xWi4bj",
     "newbodyhtml_ig34hh",
     "trust_badges_m7PPdc",
