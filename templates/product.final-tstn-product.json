@@ -371,8 +371,8 @@
         "image_nMwPhq": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Skycamp_4.0_Diagrams_-_Desktop_2850x_c60fef6f-2f62-4c09-94d2-1ed238ef94d4.webp",
-            "caption": "",
+            "image": "{{ product.metafields.custom.image_banner.value }}",
+            "caption": "{{ product.metafields.custom.vendor_image_title_1.value }}",
             "link": ""
           }
         }
