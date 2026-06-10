@@ -373,7 +373,7 @@
         "image_DVHPgw": {
           "type": "image",
           "settings": {
-            "image": "{{ product.metafields.custom.hero_image.value }}",
+            "image": "{{ product.metafields.custom.image_banner.value }}",
             "caption": "{{ product.metafields.custom.vendor_image_title_1.value }}",
             "link": ""
           }
