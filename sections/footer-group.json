@@ -11,15 +11,55 @@
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
-    "tstn_journey_cta_ftnkhG": {
-      "type": "tstn-journey-cta",
-      "name": "TSTN Journey CTA",
+    "tstn_community_features_QrPt3k": {
+      "type": "tstn-community-features",
+      "blocks": {
+        "feature_hTq77E": {
+          "type": "feature",
+          "disabled": true,
+          "settings": {
+            "icon": "chat",
+            "title": "Real Conversations",
+            "text": "Connect and grow with like-minded people."
+          }
+        },
+        "feature_dThk8e": {
+          "type": "feature",
+          "disabled": true,
+          "settings": {
+            "icon": "heart",
+            "title": "Challenges & Events",
+            "text": "Participate in fun challenges and exclusive events."
+          }
+        },
+        "feature_HFNyGb": {
+          "type": "feature",
+          "disabled": true,
+          "settings": {
+            "icon": "star",
+            "title": "Support & Motivation",
+            "text": "Get support, share wins, and stay accountable."
+          }
+        },
+        "feature_pWG7AC": {
+          "type": "feature",
+          "disabled": true,
+          "settings": {
+            "icon": "users",
+            "title": "Grow Together",
+            "text": "We rise by lifting each other."
+          }
+        }
+      },
+      "block_order": [
+        "feature_hTq77E",
+        "feature_dThk8e",
+        "feature_HFNyGb",
+        "feature_pWG7AC"
+      ],
+      "name": "TSTN Community Features",
       "settings": {
-        "heading": "TAG @TSTN.CLUB TO GET FEATURED",
-        "sub": "Join thousands of members already growing with TSTN Club.",
-        "cta_text": "",
-        "cta_link": "",
-        "script_text": "Stronger Together"
+        "heading": "TAG @TSTN.CLUB TO GET FEATURED AND EARN 500 POINTS IF YOUR PICTURE GET SELECTED"
       }
     },
     "1781085814a676ff05": {
@@ -138,7 +178,7 @@
     }
   },
   "order": [
-    "tstn_journey_cta_ftnkhG",
+    "tstn_community_features_QrPt3k",
     "1781085814a676ff05",
     "product_logo_image_U3zYtB",
     "footer",
