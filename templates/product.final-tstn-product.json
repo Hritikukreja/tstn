@@ -265,9 +265,9 @@
       ],
       "name": "Feature gallery",
       "settings": {
-        "kicker": "",
-        "heading": "",
-        "text": "",
+        "kicker": "WHAT TO KNOW",
+        "heading": "FEATURES THAT MATTER",
+        "text": "<p>Explore the practical details, build quality, and thoughtful design choices behind this product.</p>",
         "columns_desktop": "3",
         "card_alignment": "left",
         "show_content": true,
