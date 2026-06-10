@@ -118,7 +118,7 @@
       ],
       "name": "TSTN Featured Videos",
       "settings": {
-        "heading": "",
+        "heading": "THE CLUBHOUSE",
         "subtitle": "Real stories, gear insights, and hard-earned lessons from the road.",
         "explore_text": "Explore Clubhouse",
         "explore_link": "",
@@ -658,6 +658,57 @@
         "powered_by_text": "POWERED BY THE TSTN COMMUNITY"
       }
     },
+    "tstn_community_features_CgHfHH": {
+      "type": "tstn-community-features",
+      "blocks": {
+        "feature_mUeeh8": {
+          "type": "feature",
+          "settings": {
+            "icon": "chat",
+            "title": "Real Conversations",
+            "text": "Connect and grow with like-minded people."
+          }
+        },
+        "feature_yCUmeA": {
+          "type": "feature",
+          "settings": {
+            "icon": "heart",
+            "title": "Challenges & Events",
+            "text": "Participate in fun challenges and exclusive events."
+          }
+        },
+        "feature_3i6E4G": {
+          "type": "feature",
+          "settings": {
+            "icon": "star",
+            "title": "Support & Motivation",
+            "text": "Get support, share wins, and stay accountable."
+          }
+        },
+        "feature_wcqHcm": {
+          "type": "feature",
+          "settings": {
+            "icon": "users",
+            "title": "Grow Together",
+            "text": "We rise by lifting each other."
+          }
+        }
+      },
+      "block_order": [
+        "feature_mUeeh8",
+        "feature_yCUmeA",
+        "feature_3i6E4G",
+        "feature_wcqHcm"
+      ],
+      "custom_css": [
+        "h2,h3 {color: white;}",
+        "p {color: #ffffff; font-weight: 550;}"
+      ],
+      "name": "TSTN Community Features",
+      "settings": {
+        "heading": "More Than Content. It's a Community."
+      }
+    },
     "tstn_blog_testimonial_CGmbDD": {
       "type": "tstn-blog-testimonial",
       "blocks": {
@@ -744,57 +795,6 @@
         "gate_title": "Unlock Exclusive Content & Perks",
         "gate_cta_text": "Join TSTN Club",
         "gate_cta_link": ""
-      }
-    },
-    "tstn_community_features_CgHfHH": {
-      "type": "tstn-community-features",
-      "blocks": {
-        "feature_mUeeh8": {
-          "type": "feature",
-          "settings": {
-            "icon": "chat",
-            "title": "Real Conversations",
-            "text": "Connect and grow with like-minded people."
-          }
-        },
-        "feature_yCUmeA": {
-          "type": "feature",
-          "settings": {
-            "icon": "heart",
-            "title": "Challenges & Events",
-            "text": "Participate in fun challenges and exclusive events."
-          }
-        },
-        "feature_3i6E4G": {
-          "type": "feature",
-          "settings": {
-            "icon": "star",
-            "title": "Support & Motivation",
-            "text": "Get support, share wins, and stay accountable."
-          }
-        },
-        "feature_wcqHcm": {
-          "type": "feature",
-          "settings": {
-            "icon": "users",
-            "title": "Grow Together",
-            "text": "We rise by lifting each other."
-          }
-        }
-      },
-      "block_order": [
-        "feature_mUeeh8",
-        "feature_yCUmeA",
-        "feature_3i6E4G",
-        "feature_wcqHcm"
-      ],
-      "custom_css": [
-        "h2,h3 {color: white;}",
-        "p {color: #ffffff; font-weight: 550;}"
-      ],
-      "name": "TSTN Community Features",
-      "settings": {
-        "heading": "More Than Content. It's a Community."
       }
     },
     "tstn_journey_cta_adCRhC": {
