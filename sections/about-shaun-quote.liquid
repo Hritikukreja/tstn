@@ -1,0 +1,99 @@
+{%- comment -%}
+==========================================================================
+TSTN — ABOUT SHAUN PAGE
+SECTION 7 of 8: QUOTE  (section type: about-shaun-quote)
+Full-bleed portrait banner with large pull quote + signature.
+==========================================================================
+{%- endcomment -%}
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Dancing+Script:wght@600&display=swap');
+  @font-face {
+    font-family: 'Danger Neue Free Regular';
+    src: url('https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Danger_Neue_Regular.ttf') format('truetype');
+    font-weight: normal; font-style: normal; font-display: swap;
+  }
+  #shopify-section-{{ section.id }}{
+    --tstn-bg: {{ section.settings.bg_color }};
+    --tstn-accent: {{ section.settings.accent_color }};
+    --tstn-text: {{ section.settings.text_color }};
+    --tstn-pad-x: clamp(28px, 4vw, 64px);
+    --tstn-maxw: 1600px;
+  }
+  #shopify-section-{{ section.id }} .ash-quote{
+    background: var(--tstn-bg); font-family: 'Rajdhani', sans-serif;
+    padding: clamp(28px, 4vw, 56px) var(--tstn-pad-x);
+  }
+  #shopify-section-{{ section.id }} .ash-quote__wrap{ max-width: var(--tstn-maxw); margin: 0 auto; }
+  #shopify-section-{{ section.id }} .ash-quote__banner{
+    position: relative; border-radius: 12px; overflow: hidden;
+    min-height: clamp(280px, 34vw, 440px); display: flex; align-items: center;
+    background: #161616;
+  }
+  #shopify-section-{{ section.id }} .ash-quote__bg{ position: absolute; inset: 0; }
+  #shopify-section-{{ section.id }} .ash-quote__bg img{ width: 100%; height: 100%; object-fit: cover; object-position: left center; display: block; }
+  #shopify-section-{{ section.id }} .ash-quote__bg::after{
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(90deg, rgba(10,10,10,.55) 0%, rgba(10,10,10,.45) 40%, rgba(10,10,10,.78) 100%);
+  }
+  #shopify-section-{{ section.id }} .ash-quote__content{
+    position: relative; z-index: 2; color: var(--tstn-text);
+    margin-left: auto; width: clamp(300px, 64%, 820px);
+    padding: clamp(28px, 4vw, 56px) clamp(28px, 5vw, 70px);
+  }
+  #shopify-section-{{ section.id }} .ash-quote__mark{
+    font-family: 'Danger Neue Free Regular', sans-serif;
+    color: var(--tstn-accent); font-size: clamp(48px, 6vw, 80px); line-height: .6; display: block; margin-bottom: 8px;
+  }
+  #shopify-section-{{ section.id }} .ash-quote__text{
+    font-size: clamp(22px, 2.6vw, 36px); line-height: 1.25; font-weight: 600; margin: 0 0 18px;
+  }
+  #shopify-section-{{ section.id }} .ash-quote__sign-img{ max-height: 56px; width: auto; display: block; }
+  #shopify-section-{{ section.id }} .ash-quote__sign{
+    font-family: 'Dancing Script', cursive; color: var(--tstn-accent); font-size: clamp(26px, 3vw, 36px); line-height: 1;
+  }
+  @media (max-width: 749px){
+    #shopify-section-{{ section.id }} .ash-quote__content{ width: 100%; }
+    #shopify-section-{{ section.id }} .ash-quote__bg img{ object-position: 30% center; }
+  }
+</style>
+
+<div class="ash-quote">
+  <div class="ash-quote__wrap">
+    <div class="ash-quote__banner">
+      <div class="ash-quote__bg">
+        {%- if section.settings.image != blank -%}
+          <img src="{{ section.settings.image | image_url: width: 1800 }}" alt="{{ section.settings.image.alt | escape }}" loading="lazy">
+        {%- endif -%}
+      </div>
+      <div class="ash-quote__content">
+        <span class="ash-quote__mark">&ldquo;</span>
+        {%- if section.settings.quote != blank -%}<p class="ash-quote__text">{{ section.settings.quote }}</p>{%- endif -%}
+        {%- if section.settings.signature_image != blank -%}
+          <img class="ash-quote__sign-img" src="{{ section.settings.signature_image | image_url: width: 420 }}" alt="" loading="lazy">
+        {%- elsif section.settings.signature_text != blank -%}
+          <div class="ash-quote__sign">{{ section.settings.signature_text }}</div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "About Shaun • Quote",
+  "tag": "section",
+  "class": "section-ash-quote",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Background portrait" },
+    { "type": "inline_richtext", "id": "quote", "label": "Quote", "default": "The best stories are earned out there — one road, one lesson, one mile at a time." },
+    { "type": "image_picker", "id": "signature_image", "label": "Signature image (optional)" },
+    { "type": "text", "id": "signature_text", "label": "Signature text (fallback)", "default": "Shaun Walford" },
+    { "type": "header", "content": "Colours" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#0a0a0a" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#ff6a1a" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#ffffff" }
+  ],
+  "presets": [{ "name": "About Shaun • Quote" }]
+}
+{% endschema %}

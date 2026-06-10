@@ -1,0 +1,123 @@
+{%- comment -%}
+==========================================================================
+TSTN — ABOUT SHAUN PAGE
+SECTION 4 of 8: WHAT SHAUN STANDS FOR  (section type: about-shaun-values)
+Value cards: icon + title + text. Add 1 block per value.
+==========================================================================
+{%- endcomment -%}
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+  @font-face {
+    font-family: 'Danger Neue Free Regular';
+    src: url('https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Danger_Neue_Regular.ttf') format('truetype');
+    font-weight: normal; font-style: normal; font-display: swap;
+  }
+  #shopify-section-{{ section.id }}{
+    --tstn-bg: {{ section.settings.bg_color }};
+    --tstn-card: {{ section.settings.card_color }};
+    --tstn-accent: {{ section.settings.accent_color }};
+    --tstn-text: {{ section.settings.text_color }};
+    --tstn-muted: {{ section.settings.muted_color }};
+    --tstn-pad-x: clamp(28px, 4vw, 64px);
+    --tstn-maxw: 1600px;
+  }
+  #shopify-section-{{ section.id }} .ash-vals{
+    background: var(--tstn-bg); color: var(--tstn-text);
+    font-family: 'Rajdhani', sans-serif;
+    padding: clamp(40px, 5vw, 80px) var(--tstn-pad-x);
+  }
+  #shopify-section-{{ section.id }} .ash-vals__wrap{ max-width: var(--tstn-maxw); margin: 0 auto; }
+  #shopify-section-{{ section.id }} .ash-rule{ width: 46px; height: 3px; background: var(--tstn-accent); margin-bottom: 24px; }
+  #shopify-section-{{ section.id }} .ash-vals__head{
+    font-family: 'Danger Neue Free Regular', sans-serif;
+    font-size: clamp(26px, 3vw, 40px); line-height: 1; text-transform: uppercase; margin: 0 0 34px;
+  }
+  #shopify-section-{{ section.id }} .ash-vals__grid{
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(14px, 1.4vw, 22px);
+  }
+  #shopify-section-{{ section.id }} .ash-val{
+    background: var(--tstn-card); border: 1px solid rgba(255,255,255,.06);
+    border-radius: 10px; padding: clamp(22px, 2vw, 30px);
+  }
+  #shopify-section-{{ section.id }} .ash-val__icon{ color: var(--tstn-accent); width: 38px; height: 38px; margin-bottom: 18px; }
+  #shopify-section-{{ section.id }} .ash-val__icon svg{ width: 100%; height: 100%; }
+  #shopify-section-{{ section.id }} .ash-val__title{
+    font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px;
+  }
+  #shopify-section-{{ section.id }} .ash-val__text{ font-size: 14.5px; line-height: 1.5; color: var(--tstn-muted); }
+  @media (max-width: 990px){ #shopify-section-{{ section.id }} .ash-vals__grid{ grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px){ #shopify-section-{{ section.id }} .ash-vals__grid{ grid-template-columns: 1fr; } }
+</style>
+
+<div class="ash-vals">
+  <div class="ash-vals__wrap">
+    <div class="ash-rule"></div>
+    {%- if section.settings.heading != blank -%}<h2 class="ash-vals__head">{{ section.settings.heading }}</h2>{%- endif -%}
+    <div class="ash-vals__grid">
+      {%- for block in section.blocks -%}
+        <div class="ash-val" {{ block.shopify_attributes }}>
+          <div class="ash-val__icon">
+            {%- case block.settings.icon -%}
+              {%- when 'shield' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+              {%- when 'check' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>
+              {%- when 'people' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="9" cy="9" r="3"/><path d="M3 19c0-3 2.5-5 6-5s6 2 6 5"/><circle cx="17" cy="8" r="2.2"/><path d="M16 14c3 .2 5 2 5 5"/></svg>
+              {%- when 'mountain' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 19l6-10 4 6 2-3 6 7z"/></svg>
+              {%- when 'compass' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M15 9l-2 5-4 1 2-5z"/></svg>
+              {%- else -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/></svg>
+            {%- endcase -%}
+          </div>
+          {%- if block.settings.title != blank -%}<div class="ash-val__title">{{ block.settings.title }}</div>{%- endif -%}
+          {%- if block.settings.text != blank -%}<div class="ash-val__text">{{ block.settings.text }}</div>{%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "About Shaun • Values",
+  "tag": "section",
+  "class": "section-ash-values",
+  "max_blocks": 8,
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "WHAT SHAUN STANDS FOR" },
+    { "type": "header", "content": "Colours" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#0a0a0a" },
+    { "type": "color", "id": "card_color", "label": "Card", "default": "#141414" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#ff6a1a" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#ffffff" },
+    { "type": "color", "id": "muted_color", "label": "Muted text", "default": "#9a9a9a" }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Value",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "shield",
+          "options": [
+            { "value": "shield", "label": "Shield" },
+            { "value": "check", "label": "Check" },
+            { "value": "people", "label": "Community" },
+            { "value": "mountain", "label": "Mountain" },
+            { "value": "compass", "label": "Compass" }
+          ] },
+        { "type": "text", "id": "title", "label": "Title", "default": "REAL-WORLD TESTING" },
+        { "type": "textarea", "id": "text", "label": "Text", "default": "We test gear in the real world, not just in the garage." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Shaun • Values",
+      "blocks": [
+        { "type": "value", "settings": { "icon": "shield", "title": "REAL-WORLD TESTING", "text": "We test gear in the real world, not just in the garage." } },
+        { "type": "value", "settings": { "icon": "check", "title": "NO-FLUFF RECOMMENDATIONS", "text": "Straight talk and honest reviews. No hype, no sponsorship bias." } },
+        { "type": "value", "settings": { "icon": "people", "title": "COMMUNITY FIRST", "text": "TSTN is built for the community, by the community." } },
+        { "type": "value", "settings": { "icon": "mountain", "title": "ADVENTURE WITH PURPOSE", "text": "We take only what we need and leave every place better." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

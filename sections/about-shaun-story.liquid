@@ -1,0 +1,170 @@
+{%- comment -%}
+==========================================================================
+TSTN — ABOUT SHAUN PAGE
+SECTION 3 of 8: THE ROAD THAT SHAPED TSTN  (section type: about-shaun-story)
+Heading + copy on the left, video thumbnail with play (lightbox) on the right,
+plus a caption strip below the video. Uses the shared buildEmbed lightbox.
+==========================================================================
+{%- endcomment -%}
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+  @font-face {
+    font-family: 'Danger Neue Free Regular';
+    src: url('https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Danger_Neue_Regular.ttf') format('truetype');
+    font-weight: normal; font-style: normal; font-display: swap;
+  }
+  #shopify-section-{{ section.id }}{
+    --tstn-bg: {{ section.settings.bg_color }};
+    --tstn-card: {{ section.settings.card_color }};
+    --tstn-accent: {{ section.settings.accent_color }};
+    --tstn-text: {{ section.settings.text_color }};
+    --tstn-muted: {{ section.settings.muted_color }};
+    --tstn-pad-x: clamp(28px, 4vw, 64px);
+    --tstn-maxw: 1600px;
+  }
+  #shopify-section-{{ section.id }} .ash-story{
+    background: var(--tstn-bg); color: var(--tstn-text);
+    font-family: 'Rajdhani', sans-serif;
+    padding: clamp(48px, 6vw, 90px) var(--tstn-pad-x);
+  }
+  #shopify-section-{{ section.id }} .ash-story__wrap{ max-width: var(--tstn-maxw); margin: 0 auto; }
+  #shopify-section-{{ section.id }} .ash-rule{ width: 46px; height: 3px; background: var(--tstn-accent); margin-bottom: 26px; }
+  #shopify-section-{{ section.id }} .ash-story__grid{
+    display: grid; grid-template-columns: 0.85fr 1.15fr; gap: clamp(32px, 5vw, 80px); align-items: start;
+  }
+  #shopify-section-{{ section.id }} .ash-story__head{
+    font-family: 'Danger Neue Free Regular', sans-serif;
+    font-size: clamp(30px, 3.6vw, 48px); line-height: 1; text-transform: uppercase; margin: 0 0 24px;
+  }
+  #shopify-section-{{ section.id }} .ash-story__body{ font-size: 16px; line-height: 1.6; color: var(--tstn-muted); }
+  #shopify-section-{{ section.id }} .ash-story__body p{ margin: 0 0 16px; }
+
+  #shopify-section-{{ section.id }} .ash-video{
+    position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 12px; overflow: hidden;
+    cursor: pointer; background: #1a1a1a;
+  }
+  #shopify-section-{{ section.id }} .ash-video img{ width: 100%; height: 100%; object-fit: cover; display: block; }
+  #shopify-section-{{ section.id }} .ash-video__play{
+    position: absolute; inset: 0; margin: auto; width: 74px; height: 74px;
+    border-radius: 50%; background: rgba(0,0,0,.45); border: 2px solid rgba(255,255,255,.85);
+    display: grid; place-items: center; transition: transform .25s ease, background .25s ease;
+  }
+  #shopify-section-{{ section.id }} .ash-video:hover .ash-video__play{ transform: scale(1.06); background: var(--tstn-accent); border-color: var(--tstn-accent); }
+  #shopify-section-{{ section.id }} .ash-video__play svg{ width: 26px; height: 26px; fill: #fff; margin-left: 4px; }
+  #shopify-section-{{ section.id }} .ash-video:hover .ash-video__play svg{ fill: #0a0a0a; }
+
+  #shopify-section-{{ section.id }} .ash-caption{
+    margin-top: 18px; background: var(--tstn-card); border: 1px solid rgba(255,255,255,.06);
+    border-radius: 10px; padding: 18px 22px; display: flex; align-items: center; gap: 16px;
+  }
+  #shopify-section-{{ section.id }} .ash-caption__icon{ color: var(--tstn-accent); width: 30px; height: 30px; flex: 0 0 auto; }
+  #shopify-section-{{ section.id }} .ash-caption__icon svg{ width: 100%; height: 100%; }
+  #shopify-section-{{ section.id }} .ash-caption__text{ font-size: 15px; color: var(--tstn-muted); line-height: 1.45; }
+
+  /* lightbox */
+  #shopify-section-{{ section.id }} .ash-lb{
+    position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,.9);
+    display: none; align-items: center; justify-content: center; padding: 4vw;
+  }
+  #shopify-section-{{ section.id }} .ash-lb.is-open{ display: flex; }
+  #shopify-section-{{ section.id }} .ash-lb__inner{ position: relative; width: min(1100px, 100%); aspect-ratio: 16/9; }
+  #shopify-section-{{ section.id }} .ash-lb__inner iframe,
+  #shopify-section-{{ section.id }} .ash-lb__inner video{ width: 100%; height: 100%; border: 0; border-radius: 8px; }
+  #shopify-section-{{ section.id }} .ash-lb__close{
+    position: absolute; top: -46px; right: 0; background: none; border: 0; color: #fff;
+    font-size: 30px; cursor: pointer; line-height: 1;
+  }
+  @media (max-width: 990px){
+    #shopify-section-{{ section.id }} .ash-story__grid{ grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="ash-story">
+  <div class="ash-story__wrap">
+    <div class="ash-rule"></div>
+    <div class="ash-story__grid">
+      <div>
+        {%- if section.settings.heading != blank -%}<h2 class="ash-story__head">{{ section.settings.heading }}</h2>{%- endif -%}
+        {%- if section.settings.body != blank -%}<div class="ash-story__body">{{ section.settings.body }}</div>{%- endif -%}
+      </div>
+
+      <div>
+        <div class="ash-video" data-video="{{ section.settings.video_url }}">
+          {%- if section.settings.video_thumb != blank -%}
+            <img src="{{ section.settings.video_thumb | image_url: width: 1200 }}" alt="{{ section.settings.video_thumb.alt | escape }}" loading="lazy">
+          {%- endif -%}
+          <span class="ash-video__play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+        </div>
+        {%- if section.settings.caption != blank -%}
+          <div class="ash-caption">
+            <span class="ash-caption__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 19l6-10 4 6 2-3 6 7z"/></svg></span>
+            <span class="ash-caption__text">{{ section.settings.caption }}</span>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="ash-lb" data-lb>
+    <div class="ash-lb__inner">
+      <button class="ash-lb__close" data-lb-close aria-label="Close">&times;</button>
+      <div data-lb-frame></div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var root = document.getElementById('shopify-section-{{ section.id }}');
+  if(!root || root.dataset.storyBound) return;
+  root.dataset.storyBound = '1';
+
+  function buildEmbed(url){
+    if(!url) return '';
+    var yt = url.match(/(?:youtube\.com\/.*[?&]v=|youtu\.be\/|youtube\.com\/embed\/|youtube\.com\/shorts\/)([\w-]{11})/);
+    if(yt) return '<iframe src="https://www.youtube.com/embed/'+yt[1]+'?autoplay=1&rel=0" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>';
+    var vm = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+    if(vm) return '<iframe src="https://player.vimeo.com/video/'+vm[1]+'?autoplay=1" allow="autoplay; fullscreen" allowfullscreen></iframe>';
+    if(/\.(mp4|webm|ogg)(\?|$)/i.test(url)) return '<video src="'+url+'" controls autoplay playsinline></video>';
+    return '<iframe src="'+url+'" allowfullscreen></iframe>';
+  }
+
+  var lb = root.querySelector('[data-lb]');
+  var frame = root.querySelector('[data-lb-frame]');
+
+  function open(url){ frame.innerHTML = buildEmbed(url); lb.classList.add('is-open'); document.body.style.overflow='hidden'; }
+  function close(){ frame.innerHTML=''; lb.classList.remove('is-open'); document.body.style.overflow=''; }
+
+  root.querySelectorAll('.ash-video').forEach(function(v){
+    v.addEventListener('click', function(){ open(v.getAttribute('data-video')); });
+  });
+  root.querySelector('[data-lb-close]').addEventListener('click', close);
+  lb.addEventListener('click', function(e){ if(e.target === lb) close(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') close(); });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "About Shaun • Story",
+  "tag": "section",
+  "class": "section-ash-story",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "THE ROAD THAT SHAPED TSTN" },
+    { "type": "richtext", "id": "body", "label": "Body", "default": "<p>I started as a tradesman — hands-on work, problem solving, and getting the job done. Overlanding pulled me in, and I never looked back. Out there, things break, plans change, and the only way forward is to adapt.</p><p>That's where TSTN was born — from learning by doing and a drive to share the gear, knowledge, and lessons that actually make a difference on the road.</p>" },
+    { "type": "header", "content": "Video" },
+    { "type": "image_picker", "id": "video_thumb", "label": "Video thumbnail" },
+    { "type": "text", "id": "video_url", "label": "Video URL (YouTube / Vimeo / MP4)" },
+    { "type": "text", "id": "caption", "label": "Caption strip", "default": "The road teaches you what spec sheets can't. Experience is the best teacher." },
+    { "type": "header", "content": "Colours" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#0a0a0a" },
+    { "type": "color", "id": "card_color", "label": "Card", "default": "#141414" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#ff6a1a" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#ffffff" },
+    { "type": "color", "id": "muted_color", "label": "Muted text", "default": "#a5a5a5" }
+  ],
+  "presets": [{ "name": "About Shaun • Story" }]
+}
+{% endschema %}
