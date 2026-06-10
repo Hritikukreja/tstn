@@ -212,8 +212,8 @@
         "badge_icon_color": "#ffffff",
         "badge_font_size": 18,
         "badge_font_weight": "700",
-        "video_split": 65,
-        "max_width": 1520,
+        "video_split": 70,
+        "max_width": 1600,
         "padding_top": 52,
         "padding_bottom": 52
       }
@@ -274,7 +274,7 @@
         "media_aspect_ratio": "4 / 5",
         "color_scheme": "scheme-5330df68-7ce6-41b9-9bf9-37d268b32221",
         "padding_top": 52,
-        "padding_bottom": 60
+        "padding_bottom": 52
       }
     },
     "product_faq_h3Cdgd": {
