@@ -297,6 +297,7 @@
         "card_4LrFfX": {
           "type": "card",
           "settings": {
+            "icon": "backpack",
             "show_play": false,
             "title": "EXPLORE GEAR",
             "text": "Tested gear for real-world adventure.",
@@ -307,6 +308,7 @@
         "card_8mRwRF": {
           "type": "card",
           "settings": {
+            "icon": "compass",
             "show_play": false,
             "title": "LEARN IN CLUBHOUSE",
             "text": "Go deeper with exclusive content and guides.",
@@ -317,6 +319,7 @@
         "card_8qXiJb": {
           "type": "card",
           "settings": {
+            "icon": "youtube",
             "show_play": true,
             "title": "WATCH THE LATEST",
             "text": "New adventures and gear videos uploaded weekly.",
@@ -338,7 +341,8 @@
         "card_color": "#141414",
         "accent_color": "#ff6a1a",
         "text_color": "#ffffff",
-        "muted_color": "#9a9a9a"
+        "muted_color": "#9a9a9a",
+        "subheading": "Follow the stories, gear, and real-world lessons behind every TSTN adventure."
       }
     }
   },
