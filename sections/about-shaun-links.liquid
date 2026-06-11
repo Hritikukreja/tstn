@@ -1,0 +1,200 @@
+{%- comment -%}
+==========================================================================
+TSTN — ABOUT SHAUN PAGE
+SECTION 8 of 8: KEEP EXPLORING  (section type: about-shaun-links)
+Centred heading + intro, then large image cards: icon, title, description,
+CTA. Add 1 block per card.
+==========================================================================
+{%- endcomment -%}
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&display=swap');
+  @font-face {
+    font-family: 'Danger Neue Free Regular';
+    src: url('https://cdn.shopify.com/s/files/1/0686/9486/8103/files/Danger_Neue_Regular.ttf') format('truetype');
+    font-weight: normal; font-style: normal; font-display: swap;
+  }
+  #shopify-section-{{ section.id }}{
+    --tstn-bg: {{ section.settings.bg_color }};
+    --tstn-card: {{ section.settings.card_color }};
+    --tstn-accent: {{ section.settings.accent_color }};
+    --tstn-text: {{ section.settings.text_color }};
+    --tstn-muted: {{ section.settings.muted_color }};
+    --tstn-pad-x: clamp(28px, 4vw, 64px);
+    --tstn-maxw: 1500px;
+  }
+  #shopify-section-{{ section.id }} .ke{
+    background: var(--tstn-bg); color: var(--tstn-text);
+    font-family: 'Rajdhani', sans-serif;
+    padding: clamp(46px, 6vw, 90px) var(--tstn-pad-x);
+  }
+  #shopify-section-{{ section.id }} .ke__wrap{ max-width: var(--tstn-maxw); margin: 0 auto; }
+
+  /* heading */
+  #shopify-section-{{ section.id }} .ke__top{ text-align: center; max-width: 760px; margin: 0 auto clamp(34px, 4vw, 58px); }
+  #shopify-section-{{ section.id }} .ke__h2{
+    font-family: 'Danger Neue Free Regular', sans-serif;
+    font-size: clamp(30px, 4vw, 54px); line-height: 1; text-transform: uppercase; margin: 0 0 18px;
+  }
+  #shopify-section-{{ section.id }} .ke__h2::after{
+    content: ""; display: block; width: 54px; height: 3px; background: var(--tstn-accent); margin: 16px auto 0;
+  }
+  #shopify-section-{{ section.id }} .ke__sub{ font-size: clamp(15px, 1.4vw, 18px); color: var(--tstn-muted); line-height: 1.5; }
+
+  /* grid */
+  #shopify-section-{{ section.id }} .ke__grid{
+    display: grid; grid-template-columns: repeat({{ section.blocks.size }}, 1fr); gap: clamp(16px, 1.6vw, 28px);
+  }
+
+  /* card */
+  #shopify-section-{{ section.id }} .ke-card{
+    position: relative; display: flex; flex-direction: column;
+    background: var(--tstn-card);
+    background-image: repeating-radial-gradient(circle at 28% 14%, rgba(255,255,255,.018) 0 1px, transparent 1px 26px);
+    border: 1px solid rgba(255,255,255,.08); border-radius: 14px;
+    padding: clamp(22px, 2vw, 30px);
+    text-decoration: none; color: var(--tstn-text);
+    transition: border-color .25s ease, transform .25s ease;
+  }
+  #shopify-section-{{ section.id }} .ke-card:hover{ border-color: rgba(255,106,26,.45); transform: translateY(-3px); }
+
+  #shopify-section-{{ section.id }} .ke-card__head{ display: flex; align-items: flex-start; gap: 18px; margin-bottom: 18px; }
+  #shopify-section-{{ section.id }} .ke-card__icon{
+    flex: 0 0 auto; width: 58px; height: 58px; border-radius: 12px;
+    border: 1px solid rgba(255,106,26,.4); background: rgba(255,106,26,.06);
+    display: grid; place-items: center; color: var(--tstn-accent);
+  }
+  #shopify-section-{{ section.id }} .ke-card__icon svg{ width: 28px; height: 28px; }
+  #shopify-section-{{ section.id }} .ke-card__title{
+    font-family: 'Danger Neue Free Regular', sans-serif;
+    font-size: clamp(22px, 1.9vw, 30px); line-height: .98; text-transform: uppercase; margin: 2px 0 0;
+  }
+  #shopify-section-{{ section.id }} .ke-card__title::after{
+    content: ""; display: block; width: 40px; height: 3px; background: var(--tstn-accent); margin-top: 12px;
+  }
+  #shopify-section-{{ section.id }} .ke-card__title p{ margin: 0; }
+
+  #shopify-section-{{ section.id }} .ke-card__desc{ font-size: 15px; line-height: 1.5; color: var(--tstn-muted); }
+
+  #shopify-section-{{ section.id }} .ke-card__media{
+    flex: 1 1 auto; min-height: 240px; margin-top: 20px;
+    border-radius: 10px; overflow: hidden; background: #1d1d1d; position: relative;
+  }
+  #shopify-section-{{ section.id }} .ke-card__media img{ width: 100%; height: 100%; object-fit: cover; display: block; }
+  #shopify-section-{{ section.id }} .ke-card__play{
+    position: absolute; inset: 0; margin: auto; width: 58px; height: 58px; border-radius: 50%;
+    background: rgba(0,0,0,.45); border: 2px solid rgba(255,255,255,.85); display: grid; place-items: center;
+  }
+  #shopify-section-{{ section.id }} .ke-card__play svg{ width: 22px; height: 22px; fill: #fff; margin-left: 3px; }
+  #shopify-section-{{ section.id }} .ke-card:hover .ke-card__play{ background: var(--tstn-accent); border-color: var(--tstn-accent); }
+  #shopify-section-{{ section.id }} .ke-card:hover .ke-card__play svg{ fill: #0a0a0a; }
+
+  #shopify-section-{{ section.id }} .ke-card__cta{
+    margin-top: 20px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.08);
+    display: inline-flex; align-items: center; gap: 10px; color: var(--tstn-accent);
+    font-size: 13px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  #shopify-section-{{ section.id }} .ke-card__cta svg{ width: 16px; height: 16px; transition: transform .2s ease; }
+  #shopify-section-{{ section.id }} .ke-card:hover .ke-card__cta svg{ transform: translateX(5px); }
+
+  @media (max-width: 990px){ #shopify-section-{{ section.id }} .ke__grid{ grid-template-columns: 1fr; } }
+</style>
+
+<div class="ke">
+  <div class="ke__wrap">
+    <div class="ke__top">
+      {%- if section.settings.heading != blank -%}<h2 class="ke__h2">{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.subheading != blank -%}<p class="ke__sub">{{ section.settings.subheading }}</p>{%- endif -%}
+    </div>
+
+    <div class="ke__grid">
+      {%- for block in section.blocks -%}
+        <a class="ke-card" href="{{ block.settings.link | default: '#' }}" {{ block.shopify_attributes }}>
+          <div class="ke-card__head">
+            <span class="ke-card__icon">
+              {%- case block.settings.icon -%}
+                {%- when 'compass' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2.2 4.8-4.8 2.2 2.2-4.8z" stroke-linejoin="round"/></svg>
+                {%- when 'backpack' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M7 9a5 5 0 0 1 10 0v9a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2z"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0"/><path d="M7 13.5h10"/><path d="M10 13.5v3h4v-3"/></svg>
+                {%- when 'youtube' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="12" rx="3.5"/><path d="M11 9.5l4 2.5-4 2.5z" fill="currentColor" stroke="none"/></svg>
+                {%- when 'play' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l5 3.5-5 3.5z" fill="currentColor" stroke="none"/></svg>
+                {%- when 'shield' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg>
+                {%- when 'mountain' -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 19l6-10 4 6 2-3 6 7z"/></svg>
+                {%- else -%}<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M15.5 8.5l-2.2 4.8-4.8 2.2 2.2-4.8z" stroke-linejoin="round"/></svg>
+              {%- endcase -%}
+            </span>
+            {%- if block.settings.title != blank -%}<h3 class="ke-card__title">{{ block.settings.title }}</h3>{%- endif -%}
+          </div>
+
+          {%- if block.settings.text != blank -%}<div class="ke-card__desc">{{ block.settings.text }}</div>{%- endif -%}
+
+          <div class="ke-card__media">
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 800 }}" alt="{{ block.settings.image.alt | escape }}" loading="lazy">
+            {%- endif -%}
+            {%- if block.settings.show_play -%}
+              <span class="ke-card__play"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            {%- endif -%}
+          </div>
+
+          {%- if block.settings.cta != blank -%}
+            <span class="ke-card__cta">{{ block.settings.cta }}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h15M13 6l6 6-6 6"/></svg>
+            </span>
+          {%- endif -%}
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "About Shaun • Explore",
+  "tag": "section",
+  "class": "section-ash-links",
+  "max_blocks": 4,
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Heading", "default": "KEEP EXPLORING" },
+    { "type": "text", "id": "subheading", "label": "Sub-heading", "default": "Follow the stories, gear, and real-world lessons behind every TSTN adventure." },
+    { "type": "header", "content": "Colours" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#0a0a0a" },
+    { "type": "color", "id": "card_color", "label": "Card", "default": "#141414" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#ff6a1a" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#ffffff" },
+    { "type": "color", "id": "muted_color", "label": "Muted text", "default": "#9a9a9a" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "compass",
+          "options": [
+            { "value": "compass", "label": "Compass" },
+            { "value": "backpack", "label": "Backpack" },
+            { "value": "youtube", "label": "YouTube" },
+            { "value": "play", "label": "Play" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "mountain", "label": "Mountain" }
+          ] },
+        { "type": "inline_richtext", "id": "title", "label": "Title", "default": "DISCOVER CLUBHOUSE" },
+        { "type": "textarea", "id": "text", "label": "Description", "default": "Complete guides, real conversations, and practical knowledge from the road." },
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "checkbox", "id": "show_play", "label": "Show play badge on image", "default": false },
+        { "type": "text", "id": "cta", "label": "CTA label", "default": "ENTER CLUBHOUSE" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Shaun • Explore",
+      "blocks": [
+        { "type": "card", "settings": { "icon": "compass", "title": "DISCOVER CLUBHOUSE", "text": "Complete guides, real conversations, and practical knowledge from the road.", "cta": "ENTER CLUBHOUSE", "show_play": false } },
+        { "type": "card", "settings": { "icon": "backpack", "title": "GEAR I USE", "text": "Real-world tested gear I personally use, trust, and take into the backcountry.", "cta": "VIEW THE GEAR", "show_play": false } },
+        { "type": "card", "settings": { "icon": "youtube", "title": "WATCH ON YOUTUBE", "text": "Follow the expeditions, builds, breakdowns, and moments from the trail.", "cta": "WATCH NOW", "show_play": true } }
+      ]
+    }
+  ]
+}
+{% endschema %}
