@@ -48,6 +48,7 @@
         "text_tXE8Ut",
         "button_KMHwxa"
       ],
+      "disabled": true,
       "name": "t:sections.image-with-text.presets.name",
       "settings": {
         "image": "shopify://shop_images/Still_2026-05-19_164522_1.105.1.jpg",
@@ -67,7 +68,6 @@
     },
     "about_shaun_hero_9KmjPg": {
       "type": "about-shaun-hero",
-      "disabled": true,
       "name": "About Shaun • Hero",
       "settings": {
         "eyebrow": "ABOUT TSTN",
