@@ -234,7 +234,7 @@
             "image": "shopify://shop_images/05637e5d-f96e-48b2-8495-7e885bd73f68.jpg",
             "show_play": false,
             "cta": "JOIN CLUBHOUSE",
-            "link": ""
+            "link": "shopify://pages/club"
           }
         },
         "card_8qXiJb": {
@@ -246,7 +246,7 @@
             "image": "shopify://shop_images/WhatsApp_Image_2026-06-11_at_2.13.57_PM.jpg",
             "show_play": false,
             "cta": "WATCH NOW",
-            "link": ""
+            "link": "https://www.youtube.com/@TheStoryTillNow"
           }
         }
       },
