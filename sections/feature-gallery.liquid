@@ -16,6 +16,17 @@
 <link rel="preconnect" href="https://fonts.cdnfonts.com" crossorigin>
 <link href="https://fonts.cdnfonts.com/css/danger-neue" rel="stylesheet">
 
+<style>
+  @font-face {
+    font-family: 'Danger Neue Free Regular';
+    src: url('{{ 'DangerNeueFree-Regular.woff2' | asset_url }}') format('woff2'),
+         url('https://fonts.cdnfonts.com/s/107588/DangerNeueFree-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+</style>
+
 <section id="{{ section_id }}" class="feature-gallery color-{{ section.settings.color_scheme }} gradient">
   <div class="page-width">
     <div class="feature-gallery__header">
@@ -38,8 +49,23 @@
             continue
           endif
           assign img_sizes = '(min-width: 990px) calc(100vw / ' | append: section.settings.columns_desktop | append: '), 100vw'
+
+          # ── Link routing logic ──
+          # If a link label exists, the text link inside the content area is used.
+          # If the label is blank but a link is set, the link wraps the media instead.
+          assign link_on_image = false
+          if block.settings.link != blank and block.settings.link_label == blank
+            assign link_on_image = true
+          endif
         -%}
         <article class="feature-gallery__card feature-gallery__card--align-{{ section.settings.card_alignment }}" {{ block.shopify_attributes }}>
+          {% if link_on_image %}
+            <a
+              href="{{ block.settings.link }}"
+              class="feature-gallery__media-link"
+              aria-label="{{ block.settings.title | default: block.settings.image.alt | default: 'View more' | escape }}"
+            >
+          {% endif %}
           <div class="feature-gallery__media-wrap">
             {% if block.settings.media_type == 'video' and block.settings.video != blank %}
               {{
@@ -65,6 +91,9 @@
               }}
             {% endif %}
           </div>
+          {% if link_on_image %}
+            </a>
+          {% endif %}
 
           {% if section.settings.show_content %}
             <div class="feature-gallery__content">
@@ -86,10 +115,10 @@
 </section>
 
 <style>
-  /* ── Danger Neue applied to all headings site-wide within this section ── */
+  /* ── Danger Neue Free Regular applied to all headings within this section ── */
   #{{ section_id }} h2,
   #{{ section_id }} h3 {
-    font-family: 'Danger Neue', sans-serif;
+    font-family: 'Danger Neue Free Regular', 'Danger Neue', sans-serif;
   }
 
   /* ── Section: fluid vertical rhythm ── */
@@ -189,6 +218,19 @@
     box-shadow: 0 1.2rem 3.6rem rgba(0, 0, 0, 0.45);
   }
 
+  /* ── Media link (when the image itself is the link) ── */
+  #{{ section_id }} .feature-gallery__media-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  #{{ section_id }} .feature-gallery__media-link:focus-visible {
+    outline: 0.2rem solid rgba(var(--color-foreground), 0.6);
+    outline-offset: 0.2rem;
+  }
+
   /* ── Media wrapper ── */
   #{{ section_id }} .feature-gallery__media-wrap {
     position: relative;
@@ -206,7 +248,8 @@
     transition: transform 0.45s ease;
   }
 
-  #{{ section_id }} .feature-gallery__card:hover .feature-gallery__media {
+  #{{ section_id }} .feature-gallery__card:hover .feature-gallery__media,
+  #{{ section_id }} .feature-gallery__media-link:hover .feature-gallery__media {
     transform: scale(1.04);
   }
 
@@ -384,7 +427,7 @@
           "type": "text",
           "id": "link_label",
           "label": "Link label",
-          "default": "Learn more"
+          "info": "Leave blank to make the image itself the link"
         },
         {
           "type": "url",
