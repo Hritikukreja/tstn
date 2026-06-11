@@ -350,6 +350,7 @@
         "custom_price": "$45.79/mo. for 24 mo.*",
         "button_label": "Buy Now",
         "button_url": "shopify://products/thule-hullavator-pro-kayak-rack-modula-racks",
+        "scroll_target_selector": ".section-tstn-product-banner",
         "show_buy_button": true,
         "richtext": "",
         "bg_color": "#121212",
@@ -361,6 +362,7 @@
         "badge_font_size": 16,
         "badge_font_weight": "700",
         "video_split": 70,
+        "video_min_height": 560,
         "max_width": 1520,
         "padding_top": 32,
         "padding_bottom": 32
@@ -377,7 +379,7 @@
             "show_controls": false,
             "title": "",
             "description": "",
-            "link_label": "",
+            "link_label": "Shop Hoodies",
             "link": "shopify://products/tstn-hoodie"
           }
         },
