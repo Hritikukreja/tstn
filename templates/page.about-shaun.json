@@ -17,55 +17,6 @@
         "padding_bottom": 28
       }
     },
-    "image_with_text_Q9JBVk": {
-      "type": "image-with-text",
-      "blocks": {
-        "heading_PHHRT3": {
-          "type": "heading",
-          "settings": {
-            "heading": "Image with text",
-            "heading_size": "h1"
-          }
-        },
-        "text_tXE8Ut": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-            "text_style": "body"
-          }
-        },
-        "button_KMHwxa": {
-          "type": "button",
-          "settings": {
-            "button_label": "Button label",
-            "button_link": "",
-            "button_style_secondary": false
-          }
-        }
-      },
-      "block_order": [
-        "heading_PHHRT3",
-        "text_tXE8Ut",
-        "button_KMHwxa"
-      ],
-      "disabled": true,
-      "name": "t:sections.image-with-text.presets.name",
-      "settings": {
-        "image": "shopify://shop_images/Still_2026-05-19_164522_1.105.1.jpg",
-        "height": "adapt",
-        "desktop_image_width": "medium",
-        "layout": "image_first",
-        "image_behavior": "none",
-        "content_layout": "no-overlap",
-        "desktop_content_position": "top",
-        "desktop_content_alignment": "left",
-        "mobile_content_alignment": "left",
-        "section_color_scheme": "",
-        "color_scheme": "",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
     "about_shaun_hero_9KmjPg": {
       "type": "about-shaun-hero",
       "name": "About Shaun • Hero",
@@ -143,23 +94,6 @@
         "muted_color": "#9a9a9a"
       }
     },
-    "about_shaun_story_hhz4Bm": {
-      "type": "about-shaun-story",
-      "disabled": true,
-      "name": "About Shaun • Story",
-      "settings": {
-        "heading": "THE ROAD THAT SHAPED TSTN",
-        "body": "",
-        "video_thumb": "shopify://shop_images/Still_2026-05-19_164522_1.160.1.jpg",
-        "video_url": "",
-        "caption": "The road teaches you what spec sheets can't. Experience is the best teacher.",
-        "bg_color": "#0a0a0a",
-        "card_color": "#141414",
-        "accent_color": "#ff6a1a",
-        "text_color": "#ffffff",
-        "muted_color": "#a5a5a5"
-      }
-    },
     "about_shaun_values_cQYBqB": {
       "type": "about-shaun-values",
       "blocks": {
@@ -202,7 +136,6 @@
         "value_4zb9Md",
         "value_BezLCm"
       ],
-      "disabled": true,
       "name": "About Shaun • Values",
       "settings": {
         "heading": "WHAT SHAUN STANDS FOR",
@@ -267,7 +200,6 @@
         "logo_UPEjj6",
         "logo_RqktUD"
       ],
-      "disabled": true,
       "name": "About Shaun • Press",
       "settings": {
         "label": "AS SEEN IN",
@@ -276,6 +208,62 @@
         "card_color": "#141414",
         "accent_color": "#ff6a1a",
         "text_color": "#ffffff"
+      }
+    },
+    "about_shaun_links_gVcM9g": {
+      "type": "about-shaun-links",
+      "blocks": {
+        "card_4LrFfX": {
+          "type": "card",
+          "settings": {
+            "icon": "backpack",
+            "title": "EXPLORE GEAR",
+            "text": "Tested gear for real-world adventure.",
+            "image": "shopify://shop_images/ChatGPT_Image_May_28_2026_03_09_12_PM_3.png",
+            "show_play": false,
+            "cta": "SHOP NOW",
+            "link": ""
+          }
+        },
+        "card_8mRwRF": {
+          "type": "card",
+          "settings": {
+            "icon": "compass",
+            "title": "LEARN IN CLUBHOUSE",
+            "text": "Go deeper with exclusive content and guides.",
+            "image": "shopify://shop_images/05637e5d-f96e-48b2-8495-7e885bd73f68.jpg",
+            "show_play": false,
+            "cta": "JOIN CLUBHOUSE",
+            "link": ""
+          }
+        },
+        "card_8qXiJb": {
+          "type": "card",
+          "settings": {
+            "icon": "youtube",
+            "title": "WATCH THE LATEST",
+            "text": "New adventures and gear videos uploaded weekly.",
+            "image": "shopify://shop_images/WhatsApp_Image_2026-06-11_at_2.13.57_PM.jpg",
+            "show_play": false,
+            "cta": "WATCH NOW",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_4LrFfX",
+        "card_8mRwRF",
+        "card_8qXiJb"
+      ],
+      "name": "About Shaun • Links",
+      "settings": {
+        "heading": "KEEP UP WITH THE JOURNEY",
+        "subheading": "Follow the stories, gear, and real-world lessons behind every TSTN adventure.",
+        "bg_color": "#0a0a0a",
+        "card_color": "#141414",
+        "accent_color": "#ff6a1a",
+        "text_color": "#ffffff",
+        "muted_color": "#9a9a9a"
       }
     },
     "about_shaun_quote_7WEgnM": {
@@ -291,70 +279,32 @@
         "text_color": "#ffffff"
       }
     },
-    "about_shaun_links_gVcM9g": {
-      "type": "about-shaun-links",
-      "blocks": {
-        "card_4LrFfX": {
-          "type": "card",
-          "settings": {
-            "icon": "backpack",
-            "show_play": false,
-            "title": "EXPLORE GEAR",
-            "text": "Tested gear for real-world adventure.",
-            "cta": "SHOP NOW",
-            "link": ""
-          }
-        },
-        "card_8mRwRF": {
-          "type": "card",
-          "settings": {
-            "icon": "compass",
-            "show_play": false,
-            "title": "LEARN IN CLUBHOUSE",
-            "text": "Go deeper with exclusive content and guides.",
-            "cta": "JOIN CLUBHOUSE",
-            "link": ""
-          }
-        },
-        "card_8qXiJb": {
-          "type": "card",
-          "settings": {
-            "icon": "youtube",
-            "show_play": true,
-            "title": "WATCH THE LATEST",
-            "text": "New adventures and gear videos uploaded weekly.",
-            "cta": "WATCH NOW",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "card_4LrFfX",
-        "card_8mRwRF",
-        "card_8qXiJb"
-      ],
+    "about_shaun_story_hhz4Bm": {
+      "type": "about-shaun-story",
       "disabled": true,
-      "name": "About Shaun • Links",
+      "name": "About Shaun • Story",
       "settings": {
-        "heading": "KEEP UP WITH THE JOURNEY",
+        "heading": "THE ROAD THAT SHAPED TSTN",
+        "body": "",
+        "video_thumb": "shopify://shop_images/Still_2026-05-19_164522_1.160.1.jpg",
+        "video_url": "",
+        "caption": "The road teaches you what spec sheets can't. Experience is the best teacher.",
         "bg_color": "#0a0a0a",
         "card_color": "#141414",
         "accent_color": "#ff6a1a",
         "text_color": "#ffffff",
-        "muted_color": "#9a9a9a",
-        "subheading": "Follow the stories, gear, and real-world lessons behind every TSTN adventure."
+        "muted_color": "#a5a5a5"
       }
     }
   },
   "order": [
     "main",
-    "image_with_text_Q9JBVk",
     "about_shaun_hero_9KmjPg",
     "about_shaun_stats_y7hhhT",
-    "about_shaun_story_hhz4Bm",
     "about_shaun_values_cQYBqB",
     "about_shaun_press_GB6rQc",
+    "about_shaun_links_gVcM9g",
     "about_shaun_quote_7WEgnM",
-    "about_shaun_links_gVcM9g"
+    "about_shaun_story_hhz4Bm"
   ]
 }
